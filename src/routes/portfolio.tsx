@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { allProjects } from "@/data/projects";
 
 const HERO_IMAGE =

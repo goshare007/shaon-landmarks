@@ -19,7 +19,7 @@ export function FeaturedProjects() {
 
 	return (
 		<section className="bg-white py-20 md:py-28">
-			<div className="mx-auto max-w-[1440px] px-4 md:px-16">
+			<div className="mx-auto max-w-360 px-4 md:px-16">
 				<motion.div
 					className="mb-12 flex items-end justify-between"
 					variants={sectionVariants}
@@ -38,7 +38,7 @@ export function FeaturedProjects() {
 						</h2>
 					</div>
 					<motion.a
-						href="#"
+						href="/projects"
 						className="hidden shrink-0 rounded-sm border border-outline-variant px-5 py-2.5 text-[11px] font-medium tracking-[0.1em] text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary md:inline-block uppercase"
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
@@ -111,7 +111,7 @@ export function FeaturedProjects() {
 								/>
 							</motion.div>
 							<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
-							<div className="absolute inset-0 border-[0px] transition-all duration-500 group-hover:border-[16px] border-white/5" />
+							<div className="absolute inset-0 border-[0px] transition-all duration-500 group-hover:border-16 border-white/5" />
 							<motion.div
 								className="absolute bottom-0 left-0 right-0 p-6"
 								initial={{ y: 16, opacity: 0 }}
