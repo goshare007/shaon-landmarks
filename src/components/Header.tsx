@@ -1,13 +1,18 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Image } from "@unpic/react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { Menu } from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
+import logo from "@/assets/logo.png";
+
+import { Button } from "@/components/ui/button";
 import {
-	AnimatePresence,
-	motion,
-	useMotionValueEvent,
-	useScroll,
-} from "framer-motion";
-import { useEffect, useState } from "react";
-import logoUrl from "@/assets/logo.png";
+	Sheet,
+	SheetContent,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
 	{ to: "/portfolio", label: "Portfolio" },
@@ -17,18 +22,11 @@ const navLinks = [
 	{ to: "/contact", label: "Contact" },
 ] as const;
 
+type NavLink = (typeof navLinks)[number];
+
 const headerVariants = {
 	top: { height: 80 },
 	scrolled: { height: 64 },
-};
-
-const linkVariants = {
-	hover: { color: "#eebd8e" },
-};
-
-const underlineVariants = {
-	rest: { width: "0%" },
-	hover: { width: "100%" },
 };
 
 const shineVariants = {
@@ -36,108 +34,180 @@ const shineVariants = {
 	hover: { x: "200%" },
 };
 
+// ─── Desktop nav with sliding indicator ──────────────────────────────────────
+
+function DesktopNav({ pathname }: { pathname: string }) {
+	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const [hoverStyle, setHoverStyle] = useState<React.CSSProperties>({});
+	const [activeStyle, setActiveStyle] = useState<React.CSSProperties>({});
+	const prevActiveIndexRef = useRef<number | null>(null);
+	const isFirstRender = useRef(true);
+	const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
+	const activeIndex = navLinks.findIndex((link) =>
+		pathname.startsWith(link.to),
+	);
+
+	// Hover pill
+	useLayoutEffect(() => {
+		if (hoveredIndex === null) return;
+		const el = tabRefs.current[hoveredIndex];
+		if (!el) return;
+		setHoverStyle({ left: el.offsetLeft, width: el.offsetWidth });
+	}, [hoveredIndex]);
+
+	// Sliding active underline
+	useLayoutEffect(() => {
+		const current = activeIndex >= 0 ? activeIndex : null;
+		if (current === null) {
+			setActiveStyle({ opacity: 0 });
+			prevActiveIndexRef.current = null;
+			return;
+		}
+		const el = tabRefs.current[current];
+		if (!el) return;
+
+		const { offsetLeft, offsetWidth } = el;
+
+		if (isFirstRender.current) {
+			isFirstRender.current = false;
+			prevActiveIndexRef.current = current;
+			setActiveStyle({
+				transform: `translateX(${offsetLeft}px)`,
+				width: offsetWidth,
+				opacity: 1,
+			});
+			return;
+		}
+
+		const prev = prevActiveIndexRef.current;
+		if (prev !== null && prev !== current) {
+			const prevEl = tabRefs.current[prev];
+			if (prevEl) {
+				setActiveStyle({
+					transform: `translateX(${prevEl.offsetLeft}px)`,
+					width: offsetWidth,
+					opacity: 1,
+					transition: "none",
+				});
+				requestAnimationFrame(() => {
+					setActiveStyle({
+						transform: `translateX(${offsetLeft}px)`,
+						width: offsetWidth,
+						opacity: 1,
+						transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+					});
+				});
+			}
+		} else {
+			setActiveStyle({
+				transform: `translateX(${offsetLeft}px)`,
+				width: offsetWidth,
+				opacity: 1,
+			});
+		}
+
+		prevActiveIndexRef.current = current;
+	}, [activeIndex]);
+
+	return (
+		<div className="relative hidden md:flex">
+			{/* Hover pill */}
+			<div
+				className="pointer-events-none absolute inset-y-0 rounded-full bg-secondary-fixed-dim/50 transition-all duration-300 ease-out"
+				style={{ ...hoverStyle, opacity: hoveredIndex !== null ? 1 : 0 }}
+			/>
+
+			{/* Sliding active underline */}
+			<div
+				className="absolute -bottom-1 h-px rounded-full bg-secondary-fixed-dim"
+				style={activeStyle}
+			/>
+
+			{/* Links */}
+			<div className="relative flex items-center gap-1">
+				{navLinks.map((link, index) => (
+					<Link
+						key={link.to}
+						to={link.to}
+						ref={(el) => {
+							tabRefs.current[index] = el;
+						}}
+						onMouseEnter={() => setHoveredIndex(index)}
+						onMouseLeave={() => setHoveredIndex(null)}
+						className={cn(
+							"relative rounded-full px-3 py-2 text-xs font-medium tracking-widest uppercase no-underline transition-colors duration-300",
+							"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2",
+							index === activeIndex
+								? "text-secondary-fixed-dim"
+								: "text-on-tertiary/70 hover:text-on-tertiary",
+						)}
+					>
+						{link.label}
+					</Link>
+				))}
+			</div>
+		</div>
+	);
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+
 export default function Header() {
 	const { scrollY } = useScroll();
 	const [scrolled, setScrolled] = useState(false);
-	const [mobileOpen, setMobileOpen] = useState(false);
-	const { pathname } = useLocation();
+	const [sheetOpen, setSheetOpen] = useState(false);
+	const pathname = useRouterState({ select: (s) => s.location.pathname });
 
 	useMotionValueEvent(scrollY, "change", (latest) => {
 		setScrolled(latest > 20);
 	});
 
-	// Close mobile menu on route change
-	// biome-ignore lint/correctness/useExhaustiveDependencies: closes menu on route change
-	useEffect(() => {
-		setMobileOpen(false);
-	}, [pathname]);
-
-	// Lock body scroll when mobile menu is open
-	useEffect(() => {
-		if (mobileOpen) {
-			document.body.style.overflow = "hidden";
-		} else {
-			document.body.style.overflow = "";
-		}
-		return () => {
-			document.body.style.overflow = "";
-		};
-	}, [mobileOpen]);
-
-	const isActive = (to: string) => pathname === to;
+	const isActive = (link: NavLink) => pathname.startsWith(link.to);
 
 	return (
-		<>
-			<motion.header
-				className={`fixed top-0 z-50 w-full bg-tertiary/95 backdrop-blur-md transition-[border-color] duration-300 ${
-					scrolled ? "border-b border-outline-variant/30" : ""
-				}`}
-				initial="top"
-				animate={scrolled ? "scrolled" : "top"}
-				variants={headerVariants}
-				transition={{ duration: 0.3, ease: "easeInOut" }}
+		<motion.header
+			className={cn(
+				"fixed top-0 z-50 w-full bg-tertiary/95 backdrop-blur-md transition-[border-color] duration-300",
+				scrolled && "border-b border-outline-variant/30",
+			)}
+			initial="top"
+			animate={scrolled ? "scrolled" : "top"}
+			variants={headerVariants}
+			transition={{ duration: 0.3, ease: "easeInOut" }}
+		>
+			<nav
+				aria-label="Main navigation"
+				className="mx-auto flex h-full w-full max-w-360 items-center justify-between px-4 md:px-16"
 			>
-				<nav
-					aria-label="Main navigation"
-					className="mx-auto flex h-full max-w-360 items-center justify-between px-4 md:px-16"
+				{/* Logo */}
+				<Link
+					to="/"
+					className="flex items-center md:gap-3 tracking-wide md:tracking-widest  text-on-tertiary no-underline uppercase"
 				>
-					{/* Logo */}
-					<motion.div whileHover="hover" variants={linkVariants}>
-						<Link
-							to="/"
-							className="flex items-center gap-3 font-serif tracking-[0.15em] text-on-tertiary no-underline uppercase"
-						>
-							<Image
-								src={logoUrl}
-								alt="Shaon Landmarks"
-								className="h-10 w-auto brightness-0 invert-[1]"
-								width={40}
-								height={40}
-								priority
-							/>
-							<span className="hidden font-extrabold text-secondary-fixed-dim sm:inline">
-								Shaon Landmarks
-							</span>
-						</Link>
-					</motion.div>
+					<Image
+						priority
+						layout="fullWidth"
+						src={logo}
+						alt="Logo"
+						className="h-12 w-auto mb-2 invert"
+					/>
 
-					{/* Desktop navigation */}
-					<div className="hidden items-center gap-10 md:flex">
-						{navLinks.map((link) => {
-							const active = isActive(link.to);
-							return (
-								<motion.div
-									key={link.to}
-									initial="rest"
-									whileHover="hover"
-									variants={linkVariants}
-								>
-									<Link
-										to={link.to}
-										className={`relative text-xs font-medium tracking-widest text-on-tertiary no-underline uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 ${
-											active ? "text-secondary-fixed-dim" : ""
-										}`}
-									>
-										{link.label}
-										<motion.div
-											className="absolute -bottom-1 left-0 h-px bg-secondary-fixed-dim"
-											variants={underlineVariants}
-											transition={{ duration: 0.3 }}
-										/>
-									</Link>
-								</motion.div>
-							);
-						})}
-					</div>
+					<span className=" font-extrabold text-secondary-fixed-dim sm:inline">
+						Shaon Landmarks
+					</span>
+				</Link>
 
-					{/* Right side: CTA + Mobile toggle */}
-					<div className="flex items-center gap-4">
-						<motion.a
-							href="#inquiry"
-							className="relative overflow-hidden rounded bg-secondary px-5 py-2.5 text-xs font-medium tracking-widest text-on-secondary no-underline uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
-							whileHover="hover"
-							initial="rest"
-						>
+				{/* Desktop navigation */}
+				<DesktopNav pathname={pathname} />
+
+				{/* Right side: CTA + Mobile toggle */}
+				<div className="flex items-center gap-2 md:gap-4">
+					<Button
+						asChild
+						className="relative hidden overflow-hidden rounded bg-secondary px-5 py-2.5 text-xs font-medium tracking-widest text-on-secondary uppercase sm:inline-flex"
+					>
+						<motion.a href="#inquiry" whileHover="hover" initial="rest">
 							<motion.div
 								className="absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/20 to-transparent"
 								variants={shineVariants}
@@ -145,121 +215,75 @@ export default function Header() {
 							/>
 							<span className="relative z-10">Inquiry</span>
 						</motion.a>
+					</Button>
 
-						<button
-							type="button"
-							onClick={() => setMobileOpen(true)}
-							className="flex h-8 w-8 items-center justify-center text-on-tertiary md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
-							aria-label="Open menu"
-							aria-expanded={mobileOpen}
-							aria-controls="mobile-menu"
-						>
-							<svg
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								strokeWidth="1.5"
-								className="h-5 w-5"
+					<Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+						<SheetTrigger asChild>
+							<Button
+								variant="ghost"
+								size="icon"
+								className="text-on-tertiary hover:bg-on-tertiary/10 md:hidden"
 							>
-								<title>Open menu</title>
-								<path d="M3 6h18M3 12h18M3 18h18" />
-							</svg>
-						</button>
-					</div>
-				</nav>
-			</motion.header>
+								<Menu className="h-6 w-6" />
+							</Button>
+						</SheetTrigger>
 
-			{/* Mobile menu drawer */}
-			<AnimatePresence>
-				{mobileOpen && (
-					<>
-						<motion.div
-							key="mobile-overlay"
-							className="fixed inset-0 z-40 bg-tertiary/60 md:hidden"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.3 }}
-							onClick={() => setMobileOpen(false)}
-							aria-hidden="true"
-						/>
-
-						<motion.aside
-							id="mobile-menu"
-							role="dialog"
-							aria-modal="true"
-							aria-label="Mobile navigation"
-							className="fixed inset-y-0 right-0 z-50 flex w-full max-w-sm flex-col bg-tertiary px-6 py-6 md:hidden"
-							initial={{ x: "100%" }}
-							animate={{ x: 0 }}
-							exit={{ x: "100%" }}
-							transition={{ duration: 0.3, ease: [0.25, 0.1, 0.15, 1] }}
+						<SheetContent
+							side="right"
+							className="flex w-full max-w-sm flex-col bg-tertiary px-6 py-6"
 						>
-							<div className="flex justify-end">
-								<button
-									type="button"
-									onClick={() => setMobileOpen(false)}
-									className="flex h-8 w-8 items-center justify-center text-on-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
-									aria-label="Close menu"
-								>
-									<svg
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="1.5"
-										className="h-5 w-5"
-									>
-										<title>Close menu</title>
-										<path d="M6 6l12 12M18 6L6 18" />
-									</svg>
-								</button>
-							</div>
+							<SheetTitle className="text-sm font-medium text-on-tertiary-variant">
+								Menu
+							</SheetTitle>
 
 							<nav
-								className="mt-12 flex flex-col gap-8"
+								className="flex flex-col gap-4 mt-8"
 								aria-label="Mobile navigation"
 							>
-								{navLinks.map((link) => {
-									const active = isActive(link.to);
-									return (
-										<motion.div
-											key={link.to}
-											initial="rest"
-											whileHover="hover"
-											variants={linkVariants}
+								{navLinks.map((link, index) => (
+									<motion.div
+										key={link.to}
+										initial={{ opacity: 0, x: 20 }}
+										animate={{ opacity: 1, x: 0 }}
+										transition={{ delay: index * 0.05 }}
+									>
+										<Button
+											variant="ghost"
+											asChild
+											className={cn(
+												"w-full justify-start rounded-lg px-4 py-3 text-base font-medium tracking-wide uppercase",
+												isActive(link)
+													? "bg-secondary/20 text-secondary-fixed-dim hover:bg-secondary/30"
+													: "text-on-tertiary hover:bg-on-tertiary/5",
+											)}
 										>
-											<Link
-												to={link.to}
-												className={`relative text-xl font-serif tracking-wider text-on-tertiary no-underline uppercase ${
-													active ? "text-secondary-fixed-dim" : ""
-												}`}
-											>
+											<Link to={link.to} onClick={() => setSheetOpen(false)}>
 												{link.label}
 											</Link>
-										</motion.div>
-									);
-								})}
+										</Button>
+									</motion.div>
+								))}
 							</nav>
 
-							<div className="mt-auto">
-								<motion.a
-									href="#inquiry"
-									className="relative flex w-full items-center justify-center overflow-hidden rounded bg-secondary px-5 py-3 text-xs font-medium tracking-widest text-on-secondary no-underline uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
-									whileHover="hover"
-									initial="rest"
+							<div className="mt-auto pt-6">
+								<Button
+									asChild
+									className="relative w-full overflow-hidden rounded-lg bg-secondary text-sm font-medium tracking-widest text-on-secondary uppercase"
 								>
-									<motion.div
-										className="absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/20 to-transparent"
-										variants={shineVariants}
-										transition={{ duration: 0.6 }}
-									/>
-									<span className="relative z-10">Inquiry</span>
-								</motion.a>
+									<motion.a href="#inquiry" whileHover="hover" initial="rest">
+										<motion.div
+											className="absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/20 to-transparent"
+											variants={shineVariants}
+											transition={{ duration: 0.6 }}
+										/>
+										<span className="relative z-10">Start Inquiry</span>
+									</motion.a>
+								</Button>
 							</div>
-						</motion.aside>
-					</>
-				)}
-			</AnimatePresence>
-		</>
+						</SheetContent>
+					</Sheet>
+				</div>
+			</nav>
+		</motion.header>
 	);
 }
