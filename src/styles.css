@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap");
+@import "tailwindcss";
+
+@custom-variant data-open {
+  &:where([data-state="open"]),
+  &:where([data-open]:not([data-open="false"])) { @slot; }
+}
+@custom-variant data-closed {
+  &:where([data-state="closed"]),
+  &:where([data-closed]:not([data-closed="false"])) { @slot; }
+}
+@custom-variant data-checked {
+  &:where([data-state="checked"]),
+  &:where([data-checked]:not([data-checked="false"])) { @slot; }
+}
+@custom-variant data-unchecked {
+  &:where([data-state="unchecked"]),
+  &:where([data-unchecked]:not([data-unchecked="false"])) { @slot; }
+}
+@custom-variant data-selected {
+  &:where([data-selected="true"]) { @slot; }
+}
+@custom-variant data-disabled {
+  &:where([data-disabled="true"]),
+  &:where([data-disabled]:not([data-disabled="false"])) { @slot; }
+}
+@custom-variant data-active {
+  &:where([data-state="active"]),
+  &:where([data-active]:not([data-active="false"])) { @slot; }
+}
+
+@theme inline {
+  --font-serif: "Libre Caslon Text", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-tertiary: #000000;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-fixed-variant: #454747;
+
+  --color-secondary: #7c5730;
+  --color-secondary-fixed-dim: #eebd8e;
+  --color-on-secondary: #ffffff;
+
+  --color-surface: #f9f9f9;
+  --color-surface-container-low: #f3f3f3;
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #444748;
+
+  --color-outline: #747878;
+  --color-outline-variant: #c4c7c7;
+
+  --color-primary: #000000;
+  --color-on-primary: #ffffff;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+
+@layer base {
+  * {
+    border-color: #e2e2e2;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+  }
+}
+
+@utility container {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
