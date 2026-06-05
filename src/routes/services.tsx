@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { Image } from "@unpic/react";
 
 const HERO_IMG =
 	"https://lh3.googleusercontent.com/aida-public/AB6AXuD8VhIwFdw_AitjDcBL7nYzqJdDSGu1jOyChWYR2dGnD9xzWap-q7H7x8GvqABtFg52gfJqpv2QZNCaOiuZ6TdF0qwcANbaqnGoiMo6t5-fdxA5DOkp_6KsgIReOCMovejWZyDIgaUfndKj3zyNYQXKwSqhAvK5mqhooV73d7DpTqxLoQDp2aWpCfFjVOfUXy3taTmA0M-7kfnvZ3edfOr15Twgri1IbCh3rDOOTHboTebsLJk-odurg0qH-acEvczwqka-NKZBnyE";
@@ -55,6 +56,23 @@ const steps = [
 
 export const Route = createFileRoute("/services")({
 	component: Services,
+	head: () => ({
+		meta: [
+			{ title: "Our Services — Shaon Landmarks & Housing" },
+			{
+				name: "description",
+				content:
+					"Shaon Landmarks offers land development, architectural design, construction management, and interior design services across Bangladesh.",
+			},
+			{ property: "og:title", content: "Our Services — Shaon Landmarks & Housing" },
+			{
+				property: "og:description",
+				content:
+					"From land acquisition to interior elegance — comprehensive real estate services with architectural integrity.",
+			},
+			{ name: "twitter:card", content: "summary_large_image" },
+		],
+	}),
 });
 
 function Services() {
@@ -63,7 +81,7 @@ function Services() {
 			{/* Hero */}
 			<section className="relative overflow-hidden bg-surface py-24 md:py-32">
 				<div className="mx-auto max-w-[1440px] px-4 md:px-16">
-					<div className="grid items-center gap-gutter md:grid-cols-12">
+					<div className="grid items-center gap-6 md:grid-cols-12">
 						<motion.div
 							className="md:col-span-7"
 							initial={{ opacity: 0, x: -40 }}
@@ -96,17 +114,12 @@ function Services() {
 								elegance, Shaon Landmarks delivers architectural integrity
 								through a multidisciplinary approach.
 							</motion.p>
-							<motion.button
-								type="button"
-								className="rounded-sm bg-primary px-8 py-4 text-[11px] font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90"
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.7, delay: 0.6 }}
-								whileHover={{ scale: 1.02 }}
-								whileTap={{ scale: 0.98 }}
+							<Link
+								to="/portfolio"
+								className="inline-block rounded-sm bg-primary px-8 py-4 text-[11px] font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90"
 							>
 								View Our Portfolio
-							</motion.button>
+							</Link>
 						</motion.div>
 
 						<motion.div
@@ -116,10 +129,8 @@ function Services() {
 							transition={{ duration: 1, delay: 0.2 }}
 						>
 							<div className="aspect-[4/5] overflow-hidden bg-surface-container">
-								<motion.img
-									src={HERO_IMG}
-									alt=""
-									className="h-full w-full object-cover"
+								<motion.div
+									className="h-full w-full"
 									animate={{ scale: [1, 1.08] }}
 									transition={{
 										duration: 20,
@@ -127,7 +138,14 @@ function Services() {
 										repeatType: "reverse",
 										ease: "easeInOut",
 									}}
-								/>
+								>
+									<Image
+										src={HERO_IMG}
+										alt=""
+										layout="fullWidth"
+										className="h-full w-full object-cover"
+									/>
+								</motion.div>
 							</div>
 							<motion.div
 								className="absolute -bottom-6 -left-6 hidden bg-secondary p-8 md:block"
@@ -188,20 +206,21 @@ function Services() {
 											masterpieces.
 										</p>
 									</div>
-									<button
-										type="button"
-										className="flex items-center gap-2 text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase transition-all group-hover:gap-4"
+									<Link
+										to="/contact"
+										className="flex items-center gap-2 text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase no-underline transition-all group-hover:gap-4"
 									>
 										Explore Strategies
 										<span className="material-symbols-outlined text-base">
 											arrow_forward
 										</span>
-									</button>
+									</Link>
 								</div>
 								<motion.div className="aspect-square md:w-1/2 md:aspect-auto">
-									<img
+									<Image
 										src={LAND_IMG}
 										alt=""
+										layout="fullWidth"
 										className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
 									/>
 								</motion.div>
@@ -215,9 +234,10 @@ function Services() {
 						>
 							<div className="flex h-full flex-col">
 								<div className="aspect-video">
-									<img
+									<Image
 										src={ARCH_IMG}
 										alt=""
+										layout="fullWidth"
 										className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
 									/>
 								</div>
@@ -229,8 +249,8 @@ function Services() {
 										Architectural Design
 									</h3>
 									<p className="text-sm leading-relaxed text-on-surface-variant">
-										Functional aesthetics that define modern living. Our
-										designs balance structural rhythm with human-centric flow.
+										Functional aesthetics that define modern living. Our designs
+										balance structural rhythm with human-centric flow.
 									</p>
 								</div>
 							</div>
@@ -243,9 +263,10 @@ function Services() {
 						>
 							<div className="flex h-full flex-col">
 								<div className="aspect-video">
-									<img
+									<Image
 										src={CONST_IMG}
 										alt=""
+										layout="fullWidth"
 										className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
 									/>
 								</div>
@@ -281,24 +302,24 @@ function Services() {
 										<p className="mb-6 text-sm leading-relaxed text-on-surface-variant md:text-base">
 											Bespoke luxury for living spaces that reflect your
 											identity. We combine the warmth of Metallic Bronze with
-											Onyx sophisticated finishes to create a gallery-like
-											home.
+											Onyx sophisticated finishes to create a gallery-like home.
 										</p>
 									</div>
-									<button
-										type="button"
-										className="flex items-center gap-2 text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase transition-all group-hover:gap-4"
+									<Link
+										to="/contact"
+										className="flex items-center gap-2 text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase no-underline transition-all group-hover:gap-4"
 									>
 										View Interior Gallery
 										<span className="material-symbols-outlined text-base">
 											arrow_forward
 										</span>
-									</button>
+									</Link>
 								</div>
 								<motion.div className="aspect-square md:w-1/2 md:aspect-auto">
-									<img
+									<Image
 										src={INTERIOR_IMG}
 										alt=""
+										layout="fullWidth"
 										className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
 									/>
 								</motion.div>
@@ -322,8 +343,8 @@ function Services() {
 							The Shaon Standard
 						</h2>
 						<p className="mx-auto max-w-2xl text-sm leading-relaxed text-on-tertiary-container md:text-base">
-							A systematic approach to perfection. We guide every project through
-							a rigorous four-phase lifecycle.
+							A systematic approach to perfection. We guide every project
+							through a rigorous four-phase lifecycle.
 						</p>
 					</motion.div>
 
@@ -397,22 +418,18 @@ function Services() {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-80px" }}
 					>
-						<motion.button
-							type="button"
-							className="rounded-sm bg-primary px-10 py-5 text-[11px] font-medium tracking-[0.15em] text-on-primary uppercase transition-all"
-							whileHover={{ scale: 1.02 }}
-							whileTap={{ scale: 0.98 }}
+						<Link
+							to="/contact"
+							className="inline-block rounded-sm bg-primary px-10 py-5 text-[11px] font-medium tracking-[0.15em] text-on-primary uppercase transition-all hover:opacity-90"
 						>
 							Partner with Us
-						</motion.button>
-						<motion.button
-							type="button"
-							className="rounded-sm border-2 border-primary px-10 py-5 text-[11px] font-medium tracking-[0.15em] text-primary uppercase transition-all"
-							whileHover={{ scale: 1.02, backgroundColor: "#000000", color: "#ffffff" }}
-							whileTap={{ scale: 0.98 }}
+						</Link>
+						<Link
+							to="/contact"
+							className="inline-block rounded-sm border-2 border-primary px-10 py-5 text-[11px] font-medium tracking-[0.15em] text-primary uppercase transition-all hover:bg-primary hover:text-on-primary"
 						>
 							Consult our Experts
-						</motion.button>
+						</Link>
 					</motion.div>
 				</div>
 			</section>

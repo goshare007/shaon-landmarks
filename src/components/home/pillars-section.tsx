@@ -27,7 +27,7 @@ const cardVariants = {
 export function PillarsSection() {
 	return (
 		<section className="bg-surface-container-low py-20 md:py-28">
-			<div className="mx-auto max-w-[1440px] px-4 md:px-16">
+			<div className="mx-auto max-w-360 px-4 md:px-16">
 				<motion.div
 					className="grid gap-12 md:grid-cols-3"
 					variants={containerVariants}

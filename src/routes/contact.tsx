@@ -1,5 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import type { ContactFormData } from "#/lib/forms";
+import { submitContactForm } from "#/lib/forms";
+import { WHATSAPP_NUMBER, WHATSAPP_MSG } from "#/lib/constants";
 
 const HERO_IMG =
 	"https://lh3.googleusercontent.com/aida-public/AB6AXuD2RKTUXYncXCLHcNoZz4NHI_3QZmn0D6bRhwnLUWyZqmh9sSL6jQQT-RIIXE2OCUQ116CoieRiTwzBV8hidCiMneBlBW0qcQnq-gjOpN-BZ5vTBOxLTf5xfQfT9gOf_-QLDrYL78_wDowLEb2UKCkO2zsoA-zXD9KfELvVhgDIp82zcq3usrlruaiwmjys3SVClUi15Nmkgv8rRNc-89ouZCaguV7b21tSemr4IxH-nnUKNRYkQOvwzi51QxRndTFZoPp_xxVdWu4";
@@ -25,10 +29,60 @@ const stagger = {
 };
 
 export const Route = createFileRoute("/contact")({
+	head: () => ({
+		meta: [
+			{ title: "Contact Us — Shaon Landmarks & Housing" },
+			{
+				name: "description",
+				content:
+					"Get in touch with Shaon Landmarks & Housing. Schedule a consultation or visit our offices in Gulshan, Dhaka or Agrabad, Chattogram.",
+			},
+			{ property: "og:title", content: "Contact Us — Shaon Landmarks & Housing" },
+			{
+				property: "og:description",
+				content:
+					"Reach out to our team for premium real estate consultations and project inquiries.",
+			},
+			{ name: "twitter:card", content: "summary_large_image" },
+		],
+	}),
+
 	component: Contact,
 });
 
 function Contact() {
+	const [formState, setFormState] = useState<{
+		status: "idle" | "submitting" | "success" | "error";
+		message: string;
+	}>({ status: "idle", message: "" });
+
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		setFormState({ status: "submitting", message: "" });
+
+		const formData = new FormData(e.currentTarget);
+		const data: ContactFormData = {
+			name: (formData.get("name") as string) || "",
+			email: (formData.get("email") as string) || "",
+			interest: (formData.get("interest") as string) || "",
+			message: (formData.get("vision") as string) || "",
+		};
+
+		try {
+			const result = await submitContactForm({ data });
+			if (result.success) {
+				setFormState({ status: "success", message: result.message });
+				e.currentTarget.reset();
+			}
+		} catch (err) {
+			const errorMessage =
+				err instanceof Error
+					? err.message
+					: "Something went wrong. Please try again.";
+			setFormState({ status: "error", message: errorMessage });
+		}
+	}
+
 	return (
 		<main>
 			{/* Hero */}
@@ -39,9 +93,10 @@ function Contact() {
 					animate={{ scale: 1 }}
 					transition={{ duration: 1.5, ease: "easeOut" }}
 				>
-					<img
+					<Image
 						src={HERO_IMG}
 						alt=""
+						layout="fullWidth"
 						className="h-full w-full object-cover brightness-50"
 					/>
 				</motion.div>
@@ -78,7 +133,7 @@ function Contact() {
 
 			{/* Consultation Form */}
 			<section className="mx-auto mb-32 mt-20 max-w-[1440px] px-4 md:px-16">
-				<div className="grid gap-gutter md:grid-cols-12">
+				<div className="grid gap-6 md:grid-cols-12">
 					<motion.div
 						className="mb-12 md:col-span-5 md:mb-0"
 						variants={fadeUp}
@@ -95,10 +150,7 @@ function Contact() {
 							within 24 business hours to arrange an initial dialogue.
 						</p>
 						<div className="space-y-8">
-							<motion.div
-								className="flex items-start gap-4"
-								variants={fadeUp}
-							>
+							<motion.div className="flex items-start gap-4" variants={fadeUp}>
 								<span className="material-symbols-outlined text-secondary">
 									verified
 								</span>
@@ -111,10 +163,7 @@ function Contact() {
 									</p>
 								</div>
 							</motion.div>
-							<motion.div
-								className="flex items-start gap-4"
-								variants={fadeUp}
-							>
+							<motion.div className="flex items-start gap-4" variants={fadeUp}>
 								<span className="material-symbols-outlined text-secondary">
 									calendar_today
 								</span>
@@ -137,21 +186,20 @@ function Contact() {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-80px" }}
 					>
-						<form
-							className="space-y-8"
-							onSubmit={(e) => e.preventDefault()}
-						>
+						<form className="space-y-8" onSubmit={handleSubmit}>
 							<div className="grid gap-8 md:grid-cols-2">
 								<div className="group space-y-2">
 									<label
 										htmlFor="name"
 										className="block text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase transition-colors group-focus-within:text-secondary"
 									>
-										Full Name
+										Full Name *
 									</label>
 									<input
 										id="name"
+										name="name"
 										type="text"
+										required
 										placeholder="Enter your name"
 										className="w-full border-0 border-b border-on-surface bg-transparent py-3 text-sm outline-none transition-colors focus:border-secondary"
 									/>
@@ -161,11 +209,13 @@ function Contact() {
 										htmlFor="email"
 										className="block text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase transition-colors group-focus-within:text-secondary"
 									>
-										Email Address
+										Email Address *
 									</label>
 									<input
 										id="email"
+										name="email"
 										type="email"
+										required
 										placeholder="email@address.com"
 										className="w-full border-0 border-b border-on-surface bg-transparent py-3 text-sm outline-none transition-colors focus:border-secondary"
 									/>
@@ -180,6 +230,7 @@ function Contact() {
 								</label>
 								<select
 									id="interest"
+									name="interest"
 									className="w-full appearance-none border-0 border-b border-on-surface bg-transparent py-3 text-sm outline-none transition-colors focus:border-secondary"
 								>
 									<option>Residential Development</option>
@@ -197,18 +248,37 @@ function Contact() {
 								</label>
 								<textarea
 									id="vision"
+									name="vision"
 									rows={4}
 									placeholder="Describe the scale and intent of your project..."
 									className="w-full resize-none border border-on-surface bg-transparent p-4 text-sm outline-none transition-colors focus:border-secondary"
 								/>
 							</div>
+
+							{formState.message && (
+								<motion.div
+									initial={{ opacity: 0, y: -10 }}
+									animate={{ opacity: 1, y: 0 }}
+									className={`rounded-sm p-4 text-sm ${
+										formState.status === "success"
+											? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+											: "bg-red-50 text-red-800 border border-red-200"
+									}`}
+								>
+									{formState.message}
+								</motion.div>
+							)}
+
 							<motion.button
 								type="submit"
-								className="w-full bg-primary px-12 py-5 text-[11px] font-medium tracking-[0.15em] text-on-primary uppercase transition-all duration-300 hover:bg-secondary hover:text-on-primary"
+								disabled={formState.status === "submitting"}
+								className="w-full bg-primary px-12 py-5 text-[11px] font-medium tracking-[0.15em] text-on-primary uppercase transition-all duration-300 hover:bg-secondary hover:text-on-primary disabled:opacity-50"
 								whileHover={{ scale: 1.01 }}
 								whileTap={{ scale: 0.98 }}
 							>
-								Submit Request
+								{formState.status === "submitting"
+									? "Submitting..."
+									: "Submit Request"}
 							</motion.button>
 						</form>
 					</motion.div>
@@ -258,9 +328,10 @@ function Contact() {
 								variants={fadeUp}
 							>
 								<motion.div className="h-[400px] overflow-hidden border border-outline-variant bg-surface-dim">
-									<img
+									<Image
 										src={office.img}
 										alt={office.title}
+										layout="fullWidth"
 										className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
 									/>
 								</motion.div>
@@ -268,9 +339,7 @@ function Contact() {
 									<span className="mb-2 block text-[11px] font-medium tracking-[0.15em] text-secondary uppercase">
 										{office.tag}
 									</span>
-									<h3 className="mb-4 text-2xl font-serif">
-										{office.title}
-									</h3>
+									<h3 className="mb-4 text-2xl font-serif">{office.title}</h3>
 									<p className="max-w-sm text-sm leading-relaxed text-on-surface-variant">
 										{office.address}
 										<br />
@@ -312,7 +381,7 @@ function Contact() {
 							WhatsApp channel.
 						</p>
 						<motion.a
-							href="https://wa.me/8801234567890"
+							href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="inline-flex items-center gap-4 border border-secondary px-12 py-5 text-[11px] font-medium tracking-[0.15em] text-secondary uppercase transition-all duration-500 hover:bg-secondary hover:text-on-primary"

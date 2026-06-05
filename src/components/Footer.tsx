@@ -1,4 +1,8 @@
+import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { Image } from "@unpic/react";
+import { useState } from "react";
+import { submitNewsletterSignup } from "#/lib/forms";
 import logoUrl from "@/assets/logo.png";
 
 const year = new Date().getFullYear();
@@ -12,23 +16,60 @@ const colVariants = {
 	}),
 };
 
-const footerLinks = [
+interface FooterLink {
+	label: string;
+	to: string;
+}
+
+const footerLinks: { title: string; items: FooterLink[] }[] = [
 	{
 		title: "Company",
-		items: ["About Us", "Our Portfolio", "Sustainability", "Careers"],
+		items: [
+			{ label: "About Us", to: "/about" },
+			{ label: "Our Portfolio", to: "/portfolio" },
+			{ label: "Sustainability", to: "/sustainability" },
+			{ label: "Careers", to: "/career" },
+		],
 	},
 	{
 		title: "Legal",
 		items: [
-			"RAJUK Certified",
-			"REHAB Member",
-			"Legal Disclosures",
-			"Privacy Policy",
+			{ label: "RAJUK Certified", to: "/about" },
+			{ label: "REHAB Member", to: "/about" },
+			{ label: "Legal Disclosures", to: "/legal" },
+			{ label: "Privacy Policy", to: "/privacy" },
 		],
 	},
 ];
 
 export default function Footer() {
+	const [newsletterState, setNewsletterState] = useState<{
+		status: "idle" | "submitting" | "success" | "error";
+		message: string;
+	}>({ status: "idle", message: "" });
+
+	async function handleNewsletterSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		setNewsletterState({ status: "submitting", message: "" });
+
+		const formData = new FormData(e.currentTarget);
+		const email = (formData.get("newsletter-email") as string) || "";
+
+		try {
+			const result = await submitNewsletterSignup({ data: { email } });
+			if (result.success) {
+				setNewsletterState({ status: "success", message: result.message });
+				e.currentTarget.reset();
+			}
+		} catch (err) {
+			const errorMessage =
+				err instanceof Error
+					? err.message
+					: "Something went wrong. Please try again.";
+			setNewsletterState({ status: "error", message: errorMessage });
+		}
+	}
+
 	return (
 		<footer className="bg-tertiary px-4 pb-6 pt-16">
 			<div className="mx-auto max-w-[1440px]">
@@ -41,13 +82,21 @@ export default function Footer() {
 						whileInView="visible"
 						viewport={{ once: true, margin: "-60px" }}
 					>
-						<motion.img
-							src={logoUrl}
-							alt="Shaon Landmarks"
-							className="h-10 w-auto brightness-0 invert"
-							whileHover={{ scale: 1.05 }}
-							transition={{ duration: 0.3 }}
-						/>
+						<Link to="/">
+							<motion.div
+								whileHover={{ scale: 1.05 }}
+								transition={{ duration: 0.3 }}
+							>
+								<Image
+									src={logoUrl}
+									alt="Shaon Landmarks"
+									layout="constrained"
+									width={144}
+									height={36}
+									className="h-10 w-auto brightness-0 invert"
+								/>
+							</motion.div>
+						</Link>
 						<p className="text-[13px] leading-relaxed text-[#9a9c9c]">
 							Redefining the skyline through structural precision and unwavering
 							aesthetic integrity since 2008.
@@ -69,16 +118,16 @@ export default function Footer() {
 							<ul className="space-y-3">
 								{col.items.map((item) => (
 									<motion.li
-										key={item}
+										key={item.label}
 										whileHover={{ x: 4 }}
 										transition={{ duration: 0.2 }}
 									>
-										<a
-											href="#"
+										<Link
+											to={item.to}
 											className="text-[13px] text-[#9a9c9c] no-underline transition-colors hover:text-on-tertiary"
 										>
-											{item}
-										</a>
+											{item.label}
+										</Link>
 									</motion.li>
 								))}
 							</ul>
@@ -101,16 +150,20 @@ export default function Footer() {
 						</p>
 						<form
 							className="flex border-b border-[#9a9c9c] pb-1"
-							onSubmit={(e) => e.preventDefault()}
+							onSubmit={handleNewsletterSubmit}
 						>
 							<input
+								id="newsletter-email"
+								name="newsletter-email"
 								type="email"
+								required
 								placeholder="Your email"
 								className="min-w-0 flex-1 border-0 bg-transparent px-0 py-2 text-[12px] text-on-tertiary outline-none placeholder:text-[#9a9c9c]"
 							/>
 							<motion.button
 								type="submit"
-								className="flex items-center justify-center text-on-tertiary"
+								disabled={newsletterState.status === "submitting"}
+								className="flex items-center justify-center text-on-tertiary disabled:opacity-50"
 								whileHover={{ x: 4, color: "#eebd8e" }}
 								transition={{ duration: 0.2 }}
 							>
@@ -125,6 +178,19 @@ export default function Footer() {
 								</svg>
 							</motion.button>
 						</form>
+						{newsletterState.message && (
+							<motion.p
+								initial={{ opacity: 0, y: -5 }}
+								animate={{ opacity: 1, y: 0 }}
+								className={`mt-2 text-[11px] ${
+									newsletterState.status === "success"
+										? "text-emerald-400"
+										: "text-red-400"
+								}`}
+							>
+								{newsletterState.message}
+							</motion.p>
+						)}
 					</motion.div>
 				</div>
 
@@ -141,9 +207,11 @@ export default function Footer() {
 					</p>
 					<div className="flex gap-5">
 						<motion.a
-							href="#"
+							href="https://facebook.com"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="text-[#9a9c9c] transition-colors hover:text-on-tertiary"
-							aria-label="Leaderboard"
+							aria-label="Facebook"
 							whileHover={{ scale: 1.2, color: "#eebd8e" }}
 							whileTap={{ scale: 0.9 }}
 						>
@@ -152,9 +220,11 @@ export default function Footer() {
 							</svg>
 						</motion.a>
 						<motion.a
-							href="#"
+							href="https://instagram.com"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="text-[#9a9c9c] transition-colors hover:text-on-tertiary"
-							aria-label="Camera"
+							aria-label="Instagram"
 							whileHover={{ scale: 1.2, color: "#eebd8e" }}
 							whileTap={{ scale: 0.9 }}
 						>
@@ -163,9 +233,11 @@ export default function Footer() {
 							</svg>
 						</motion.a>
 						<motion.a
-							href="#"
+							href="https://linkedin.com"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="text-[#9a9c9c] transition-colors hover:text-on-tertiary"
-							aria-label="Link"
+							aria-label="LinkedIn"
 							whileHover={{ scale: 1.2, color: "#eebd8e" }}
 							whileTap={{ scale: 0.9 }}
 						>

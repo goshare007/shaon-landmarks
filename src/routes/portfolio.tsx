@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { allProjects } from "@/data/projects";
@@ -18,6 +18,23 @@ const statusColors: Record<string, string> = {
 
 export const Route = createFileRoute("/portfolio")({
 	component: Portfolio,
+	head: () => ({
+		meta: [
+			{ title: "Our Portfolio — Shaon Landmarks & Housing" },
+			{
+				name: "description",
+				content:
+					"Explore Shaon Landmarks' portfolio of premium residential and commercial projects across Dhaka and Chattogram.",
+			},
+			{ property: "og:title", content: "Our Portfolio — Shaon Landmarks & Housing" },
+			{
+				property: "og:description",
+				content:
+					"Discover iconic landmark developments that define architectural excellence in Bangladesh.",
+			},
+			{ name: "twitter:card", content: "summary_large_image" },
+		],
+	}),
 });
 
 function Portfolio() {
@@ -105,51 +122,57 @@ function Portfolio() {
 						layout
 					>
 						{filtered.map((project, i) => (
-							<motion.div
+							<Link
 								key={project.id}
-								layout
-								initial={{ opacity: 0, y: 30 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								viewport={{ once: true, margin: "-60px" }}
-								transition={{ duration: 0.5, delay: i * 0.08 }}
-								className="group relative min-h-[22rem] cursor-pointer overflow-hidden rounded-sm"
+								to="/projects/$slug"
+								params={{ slug: project.slug }}
+								className="block"
 							>
 								<motion.div
-									className="absolute inset-0 bg-cover bg-center"
-									style={{ backgroundImage: `url(${project.image})` }}
-									whileHover={{ scale: 1.08 }}
-									transition={{ duration: 0.6 }}
-								/>
-								<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-								<div className="absolute right-3 top-3">
-									<span
-										className={`rounded-sm border px-2.5 py-1 text-[10px] font-medium tracking-[0.1em] uppercase ${statusColors[project.status]}`}
-									>
-										{project.status}
-									</span>
-								</div>
-								<div className="absolute bottom-0 left-0 right-0 p-6">
-									<h3 className="text-lg font-serif text-white">
-										{project.title}
-									</h3>
-									<p className="mt-1 text-sm text-white/60">
-										{project.location}
-									</p>
-									<p className="mt-0.5 text-[11px] text-white/40">
-										{project.date}
-									</p>
+									layout
+									initial={{ opacity: 0, y: 30 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									viewport={{ once: true, margin: "-60px" }}
+									transition={{ duration: 0.5, delay: i * 0.08 }}
+									className="group relative min-h-[22rem] cursor-pointer overflow-hidden rounded-sm"
+								>
 									<motion.div
-										className="mt-3 flex items-center gap-1 text-[11px] font-medium tracking-[0.1em] text-secondary uppercase"
-										initial={{ opacity: 0, x: -10 }}
-										whileHover={{ opacity: 1, x: 0 }}
-									>
-										View Landmark
-										<span className="material-symbols-outlined text-sm">
-											arrow_right_alt
+										className="absolute inset-0 bg-cover bg-center"
+										style={{ backgroundImage: `url(${project.image})` }}
+										whileHover={{ scale: 1.08 }}
+										transition={{ duration: 0.6 }}
+									/>
+									<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+									<div className="absolute right-3 top-3">
+										<span
+											className={`rounded-sm border px-2.5 py-1 text-[10px] font-medium tracking-[0.1em] uppercase ${statusColors[project.status]}`}
+										>
+											{project.status}
 										</span>
-									</motion.div>
-								</div>
-							</motion.div>
+									</div>
+									<div className="absolute bottom-0 left-0 right-0 p-6">
+										<h3 className="text-lg font-serif text-white">
+											{project.title}
+										</h3>
+										<p className="mt-1 text-sm text-white/60">
+											{project.location}
+										</p>
+										<p className="mt-0.5 text-[11px] text-white/40">
+											{project.date}
+										</p>
+										<motion.div
+											className="mt-3 flex items-center gap-1 text-[11px] font-medium tracking-[0.1em] text-secondary uppercase"
+											initial={{ opacity: 0, x: -10 }}
+											whileHover={{ opacity: 1, x: 0 }}
+										>
+											View Landmark
+											<span className="material-symbols-outlined text-sm">
+												arrow_right_alt
+											</span>
+										</motion.div>
+									</div>
+								</motion.div>
+							</Link>
 						))}
 					</motion.div>
 
@@ -160,17 +183,9 @@ function Portfolio() {
 						viewport={{ once: true }}
 						transition={{ duration: 0.5 }}
 					>
-						<p className="mb-4 text-[13px] text-on-surface-variant">
+						<p className="text-[13px] text-on-surface-variant">
 							Viewing {filtered.length} of {allProjects.length} projects
 						</p>
-						<motion.button
-							type="button"
-							className="rounded-sm border border-outline-variant px-6 py-3 text-[11px] font-medium tracking-[0.1em] text-on-surface transition-colors hover:border-secondary hover:text-secondary uppercase"
-							whileHover={{ scale: 1.02 }}
-							whileTap={{ scale: 0.98 }}
-						>
-							Load More Landmarks
-						</motion.button>
 					</motion.div>
 				</div>
 			</section>

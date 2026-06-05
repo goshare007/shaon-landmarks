@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
+import type { ContactFormData } from "#/lib/forms";
+import { submitContactForm } from "#/lib/forms";
 
 const leftVariants = {
 	hidden: { opacity: 0, x: -40 },
@@ -19,6 +22,38 @@ const rightVariants = {
 };
 
 export function CtaSection() {
+	const [formState, setFormState] = useState<{
+		status: "idle" | "submitting" | "success" | "error";
+		message: string;
+	}>({ status: "idle", message: "" });
+
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		setFormState({ status: "submitting", message: "" });
+
+		const formData = new FormData(e.currentTarget);
+		const data: ContactFormData = {
+			name: (formData.get("name") as string) || "",
+			email: (formData.get("email") as string) || "",
+			interest: (formData.get("interest") as string) || "",
+			message: "Request consultation via CTA section",
+		};
+
+		try {
+			const result = await submitContactForm({ data });
+			if (result.success) {
+				setFormState({ status: "success", message: result.message });
+				e.currentTarget.reset();
+			}
+		} catch (err) {
+			const errorMessage =
+				err instanceof Error
+					? err.message
+					: "Something went wrong. Please try again.";
+			setFormState({ status: "error", message: errorMessage });
+		}
+	}
+
 	return (
 		<section className="bg-surface py-20 md:py-28">
 			<div className="mx-auto max-w-[1440px] px-4 md:px-16">
@@ -63,21 +98,23 @@ export function CtaSection() {
 						<h3 className="mb-6 text-[11px] font-medium tracking-[0.1em] text-on-surface-variant uppercase">
 							Exclusive Portfolio Access
 						</h3>
-						<form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+						<form className="space-y-6" onSubmit={handleSubmit}>
 							<motion.div
 								className="group"
 								whileFocus={{ scale: 1.01 }}
 								transition={{ duration: 0.2 }}
 							>
 								<label
-									htmlFor="name"
+									htmlFor="cta-name"
 									className="mb-1 block text-[11px] font-medium tracking-[0.05em] text-on-surface-variant uppercase transition-colors group-focus-within:text-secondary"
 								>
-									Full Name
+									Full Name *
 								</label>
 								<input
-									id="name"
+									id="cta-name"
+									name="name"
 									type="text"
+									required
 									placeholder="Your full name"
 									className="w-full border-0 border-b border-outline-variant bg-transparent px-0 pb-2 pt-1 text-[13px] text-on-surface outline-none transition-colors focus:border-secondary"
 								/>
@@ -91,11 +128,13 @@ export function CtaSection() {
 									htmlFor="cta-email"
 									className="mb-1 block text-[11px] font-medium tracking-[0.05em] text-on-surface-variant uppercase transition-colors group-focus-within:text-secondary"
 								>
-									Email Address
+									Email Address *
 								</label>
 								<input
 									id="cta-email"
+									name="email"
 									type="email"
+									required
 									placeholder="your@email.com"
 									className="w-full border-0 border-b border-outline-variant bg-transparent px-0 pb-2 pt-1 text-[13px] text-on-surface outline-none transition-colors focus:border-secondary"
 								/>
@@ -106,13 +145,14 @@ export function CtaSection() {
 								transition={{ duration: 0.2 }}
 							>
 								<label
-									htmlFor="interest"
+									htmlFor="cta-interest"
 									className="mb-1 block text-[11px] font-medium tracking-[0.05em] text-on-surface-variant uppercase transition-colors group-focus-within:text-secondary"
 								>
 									Interest Area
 								</label>
 								<select
-									id="interest"
+									id="cta-interest"
+									name="interest"
 									className="w-full border-0 border-b border-outline-variant bg-transparent px-0 pb-2 pt-1 text-[13px] text-on-surface-variant outline-none transition-colors focus:border-secondary"
 								>
 									<option>Residential Penthouses</option>
@@ -120,36 +160,34 @@ export function CtaSection() {
 									<option>Investment Opportunities</option>
 								</select>
 							</motion.div>
+							{formState.message && (
+								<motion.div
+									initial={{ opacity: 0, y: -10 }}
+									animate={{ opacity: 1, y: 0 }}
+									className={`rounded-sm p-3 text-xs ${
+										formState.status === "success"
+											? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+											: "bg-red-50 text-red-800 border border-red-200"
+									}`}
+								>
+									{formState.message}
+								</motion.div>
+							)}
+
 							<motion.button
 								type="submit"
-								className="w-full rounded-sm bg-primary py-3 text-[11px] font-medium tracking-[0.1em] text-on-primary transition-colors hover:bg-secondary uppercase"
+								disabled={formState.status === "submitting"}
+								className="w-full rounded-sm bg-primary py-3 text-[11px] font-medium tracking-[0.1em] text-on-primary transition-colors hover:bg-secondary uppercase disabled:opacity-50"
 								whileHover={{ scale: 1.02 }}
 								whileTap={{ scale: 0.98 }}
 							>
-								Request Consultation
+								{formState.status === "submitting"
+									? "Submitting..."
+									: "Request Consultation"}
 							</motion.button>
 						</form>
 					</motion.div>
 				</div>
-
-				<motion.div
-					className="mt-16 overflow-hidden rounded-sm"
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-80px" }}
-					transition={{ duration: 0.8, delay: 0.4 }}
-				>
-					<div className="flex h-64 items-center justify-center bg-surface-container-low md:h-80">
-						<div className="text-center">
-							<span className="material-symbols-outlined block text-4xl text-secondary">
-								map
-							</span>
-							<p className="mt-2 text-[11px] font-medium tracking-[0.1em] text-on-surface-variant uppercase">
-								Gulshan Avenue, Dhaka — Prime Landmark Locations
-							</p>
-						</div>
-					</div>
-				</motion.div>
 			</div>
 		</section>
 	);

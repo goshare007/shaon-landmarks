@@ -1,11 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 
 const HERO_IMAGE =
-	"https://lh3.googleusercontent.com/aida-public/AB6AXuC8BwoMYbrQ28fJaSOuEe1WTlrkDlfMA88vVpBY222NhODQicFYS6DyGBlOgd_PHVThWexPgv-GSa-3s56VDpc4_HW0fILv1rZnccogPrmXSkveZGIB1RF1XBne-SRb9paH9a-dvj7u3pLQUCctm5cJ33NuwaC5uWF1S3sONXSBQDu2UKWhvwJu_tRq4_WPChZGm8BTzRN_glRyQlioVMe3G5t4x6qj0CRdiL_Oj33_cEeqQQnR9pYOmMiKt-1-5-ShIjIjgoZEE9U";
-
-const PROJ_IMAGE_1 =
-	"https://lh3.googleusercontent.com/aida-public/AB6AXuCPgx4ZZVXEQeU7To_9RxhQoQtr9PSe2DRVJqvwFU-iwdE8vMYAW9fG4TqcCqMQTQOWmS1Wqc0w1mtP7-Ro2BCDMGkUY4p4AkClwDtLZWDGhoqDMguVyCFinp8_e6z64wfcRH5LUkuJLmjb9t_NzWoQJkF7jzJytWNrE0LgrkIOO3vVYq4g2wM4OWEZ4Kj1L7d_dnT9UHFJJvhbyw8pLD6TM7sWS_KzQgTl6jNniNHccfnFH1VDvgXz7x0zwWUA4nlwNaKGrudhdss";
+	"https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80";
 
 const pillars = [
 	{
@@ -36,6 +33,23 @@ const stats = [
 
 export const Route = createFileRoute("/sustainability")({
 	component: Sustainability,
+	head: () => ({
+		meta: [
+			{ title: "Sustainability — Shaon Landmarks & Housing" },
+			{
+				name: "description",
+				content:
+					"Shaon Landmarks is committed to sustainable architecture — eco-friendly materials, green spaces, and energy-efficient building practices in Bangladesh.",
+			},
+			{ property: "og:title", content: "Sustainability — Shaon Landmarks & Housing" },
+			{
+				property: "og:description",
+				content:
+					"Discover our commitment to green building, sustainable materials, and energy-efficient design.",
+			},
+			{ name: "twitter:card", content: "summary_large_image" },
+		],
+	}),
 });
 
 function Sustainability() {
@@ -220,14 +234,17 @@ function Sustainability() {
 							Discover how Shaon Landmarks can bring sustainable luxury to your
 							next development.
 						</p>
-						<motion.a
-							href="/contact"
-							className="mt-8 inline-block rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-[0.1em] text-on-secondary no-underline uppercase"
+						<motion.div
 							whileHover={{ scale: 1.02 }}
 							whileTap={{ scale: 0.98 }}
 						>
-							Get in Touch
-						</motion.a>
+							<Link
+								to="/contact"
+								className="inline-block rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-[0.1em] text-on-secondary no-underline uppercase"
+							>
+								Get in Touch
+							</Link>
+						</motion.div>
 					</motion.div>
 				</div>
 			</section>

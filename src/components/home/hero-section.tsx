@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import { Image } from "@unpic/react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 
@@ -156,11 +158,9 @@ export function HeroSection() {
 						className="flex justify-between items-end mt-4 md:mt-0"
 					>
 						<div className="flex flex-col gap-4">
-							<motion.a
-								href="/portfolio"
-								className="relative overflow-hidden inline-flex items-center gap-4 bg-secondary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-[10px] font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit"
-								whileHover={{ backgroundColor: "#8f6438" }}
-								transition={{ duration: 0.2 }}
+							<Link
+								to="/portfolio"
+								className="relative overflow-hidden inline-flex items-center gap-4 bg-secondary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-[10px] font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200"
 							>
 								<motion.div
 									className="absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/20 to-transparent"
@@ -179,7 +179,7 @@ export function HeroSection() {
 								>
 									<path d="M2 8h12M9 3l5 5-5 5" />
 								</svg>
-							</motion.a>
+							</Link>
 						</div>
 
 						{/* Scroll indicator hidden on mobile to avoid layout crowding */}
@@ -213,15 +213,20 @@ export function HeroSection() {
 				onMouseLeave={handleMouseLeave}
 				className="relative h-[45vh] md:h-full overflow-hidden order-1 md:order-2"
 			>
-				<motion.img
-					src={HERO_IMAGE}
-					alt="Architectural landmark"
-					className="w-full h-full object-cover object-center will-change-transform scale-[1.15]"
+				<motion.div
+					className="w-full h-full will-change-transform scale-[1.15]"
 					style={{ x: imageX, y: imageY }}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ duration: 1.2, delay: 0.2 }}
-				/>
+				>
+					<Image
+						src={HERO_IMAGE}
+						alt="Architectural landmark"
+						layout="fullWidth"
+						className="h-full w-full object-cover object-center"
+					/>
+				</motion.div>
 
 				<div className="absolute inset-0 bg-linear-to-r from-black/40 to-transparent pointer-events-none" />
 				<div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent pointer-events-none" />

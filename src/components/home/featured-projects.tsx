@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import { Image } from "@unpic/react";
 import { motion } from "framer-motion";
 import { allProjects } from "@/data/projects";
 
@@ -37,21 +39,25 @@ export function FeaturedProjects() {
 							redefined for modern living.
 						</h2>
 					</div>
-					<motion.a
-						href="/projects"
-						className="hidden shrink-0 rounded-sm border border-outline-variant px-5 py-2.5 text-[11px] font-medium tracking-[0.1em] text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary md:inline-block uppercase"
+					<motion.div
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
+						className="hidden md:inline-block"
 					>
-						View All Projects
-					</motion.a>
+						<Link
+							to="/portfolio"
+							className="inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-[11px] font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase"
+						>
+							View All Projects
+						</Link>
+					</motion.div>
 				</motion.div>
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-12">
 					{/* The Obsidian — col-span-7 */}
 					<motion.div
 						key={main.id}
-						className="group relative col-span-7 h-[400px] cursor-pointer overflow-hidden rounded-sm md:h-[800px]"
+						className="group relative col-span-7 h-100 cursor-pointer overflow-hidden rounded-sm md:h-200"
 						initial={{ opacity: 0, y: 40 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, margin: "-80px" }}
@@ -62,14 +68,15 @@ export function FeaturedProjects() {
 							whileHover={{ scale: 1.1 }}
 							transition={{ duration: 0.7 }}
 						>
-							<img
+							<Image
 								src={main.image}
 								alt={main.title}
+								layout="fullWidth"
 								className="h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100"
 							/>
 						</motion.div>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
-						<div className="absolute inset-0 border-[0px] transition-all duration-500 group-hover:border-[16px] border-white/5" />
+						<div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
+						<div className="absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5" />
 						<motion.div
 							className="absolute bottom-0 left-0 right-0 p-8"
 							initial={{ y: 16, opacity: 0 }}
@@ -93,7 +100,7 @@ export function FeaturedProjects() {
 						{/* Bronze Heights */}
 						<motion.div
 							key={rightTop.id}
-							className="group relative h-[384px] cursor-pointer overflow-hidden rounded-sm"
+							className="group relative h-96 cursor-pointer overflow-hidden rounded-sm"
 							initial={{ opacity: 0, y: 40 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true, margin: "-80px" }}
@@ -104,14 +111,15 @@ export function FeaturedProjects() {
 								whileHover={{ scale: 1.1 }}
 								transition={{ duration: 0.7 }}
 							>
-								<img
+								<Image
 									src={rightTop.image}
 									alt={rightTop.title}
+									layout="fullWidth"
 									className="h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100"
 								/>
 							</motion.div>
-							<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
-							<div className="absolute inset-0 border-[0px] transition-all duration-500 group-hover:border-16 border-white/5" />
+							<div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
+							<div className="absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5" />
 							<motion.div
 								className="absolute bottom-0 left-0 right-0 p-6"
 								initial={{ y: 16, opacity: 0 }}
@@ -130,7 +138,7 @@ export function FeaturedProjects() {
 						{/* The Marble Collection — text card */}
 						<motion.div
 							key={rightBottom.id}
-							className="flex h-[384px] flex-col justify-center rounded-sm bg-surface-container-low p-8"
+							className="flex h-96 flex-col justify-center rounded-sm bg-surface-container-low p-8"
 							initial={{ opacity: 0, y: 40 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true, margin: "-80px" }}
@@ -145,21 +153,24 @@ export function FeaturedProjects() {
 							<p className="mt-2 text-sm text-on-surface-variant">
 								{rightBottom.description}
 							</p>
-							<motion.button
-								type="button"
-								className="mt-4 inline-block self-start rounded-sm border border-outline-variant px-5 py-2 text-[10px] font-medium tracking-[0.1em] text-on-surface transition-colors hover:border-secondary hover:text-secondary uppercase"
+							<motion.div
 								whileHover={{ scale: 1.02 }}
 								whileTap={{ scale: 0.98 }}
 							>
-								Notify Me
-							</motion.button>
+								<Link
+									to="/contact"
+									className="mt-4 inline-block self-start rounded-sm border border-outline-variant px-5 py-2 text-[10px] font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase"
+								>
+									Notify Me
+								</Link>
+							</motion.div>
 						</motion.div>
 					</div>
 
 					{/* Azure Waterfront — col-span-6 */}
 					<motion.div
 						key={secondaryLeft.id}
-						className="group relative col-span-6 h-[450px] cursor-pointer overflow-hidden rounded-sm"
+						className="group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm"
 						initial={{ opacity: 0, y: 40 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, margin: "-80px" }}
@@ -170,14 +181,15 @@ export function FeaturedProjects() {
 							whileHover={{ scale: 1.1 }}
 							transition={{ duration: 0.7 }}
 						>
-							<img
+							<Image
 								src={secondaryLeft.image}
 								alt={secondaryLeft.title}
+								layout="fullWidth"
 								className="h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100"
 							/>
 						</motion.div>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
-						<div className="absolute inset-0 border-[0px] transition-all duration-500 group-hover:border-[16px] border-white/5" />
+						<div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
+						<div className="absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5" />
 						<motion.div
 							className="absolute bottom-0 left-0 right-0 p-8"
 							initial={{ y: 16, opacity: 0 }}
@@ -199,7 +211,7 @@ export function FeaturedProjects() {
 					{/* The Skyline Plaza — col-span-6 */}
 					<motion.div
 						key={secondaryRight.id}
-						className="group relative col-span-6 h-[450px] cursor-pointer overflow-hidden rounded-sm"
+						className="group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm"
 						initial={{ opacity: 0, y: 40 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, margin: "-80px" }}
@@ -210,14 +222,15 @@ export function FeaturedProjects() {
 							whileHover={{ scale: 1.1 }}
 							transition={{ duration: 0.7 }}
 						>
-							<img
+							<Image
 								src={secondaryRight.image}
 								alt={secondaryRight.title}
+								layout="fullWidth"
 								className="h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100"
 							/>
 						</motion.div>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
-						<div className="absolute inset-0 border-[0px] transition-all duration-500 group-hover:border-[16px] border-white/5" />
+						<div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40" />
+						<div className="absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5" />
 						<motion.div
 							className="absolute bottom-0 left-0 right-0 p-8"
 							initial={{ y: 16, opacity: 0 }}
@@ -237,14 +250,18 @@ export function FeaturedProjects() {
 					</motion.div>
 				</div>
 
-				<motion.a
-					href="#"
-					className="mt-6 inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-[11px] font-medium tracking-[0.1em] text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary md:hidden uppercase"
+				<motion.div
 					whileHover={{ scale: 1.02 }}
 					whileTap={{ scale: 0.98 }}
+					className="mt-6 md:hidden"
 				>
-					View All Projects
-				</motion.a>
+					<Link
+						to="/portfolio"
+						className="inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-[11px] font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase"
+					>
+						View All Projects
+					</Link>
+				</motion.div>
 			</div>
 		</section>
 	);

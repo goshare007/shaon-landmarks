@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { Image } from "@unpic/react";
 
 const HERO_IMAGE =
 	"https://lh3.googleusercontent.com/aida-public/AB6AXuC1by6RAWVsQKe49FKBhRbZ6xXOtXjESdfk3BXOMJH3TVmFdxB_WRL31SdMTWNxwq-7zj6NNVxwztFQOfOw4-4V3AqrxgvJiUhJ59MMymK2QlNJOP5SOdVhrBfB2Fe-flwBJadckPmXe3yOWUgnL27o6WcPaupiCf30NFdzkAg5DjJYtoC6k0xJO9Ff03-N4kF_z1_FnDZaCR3sFDSOuEbgwrFQCopfgHj7WkaFpbYOX88Kxf3LHNtqITNh8vtXSMmjvKrpILU_wU4";
@@ -26,6 +27,23 @@ const stagger = {
 
 export const Route = createFileRoute("/about")({
 	component: About,
+	head: () => ({
+		meta: [
+			{ title: "About Us — Shaon Landmarks & Housing" },
+			{
+				name: "description",
+				content:
+					"Learn about Shaon Landmarks & Housing's legacy of architectural integrity, visionary leadership, and certified excellence in Bangladesh real estate.",
+			},
+			{ property: "og:title", content: "About Us — Shaon Landmarks & Housing" },
+			{
+				property: "og:description",
+				content:
+					"Discover our story of trust, innovation, and premium real estate development across Bangladesh.",
+			},
+			{ name: "twitter:card", content: "summary_large_image" },
+		],
+	}),
 });
 
 function About() {
@@ -85,10 +103,8 @@ function About() {
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{ duration: 1, delay: 0.2 }}
 					>
-						<motion.img
-							src={HERO_IMAGE}
-							alt=""
-							className="h-full w-full object-cover"
+						<motion.div
+							className="h-full w-full"
 							animate={{ scale: [1, 1.08] }}
 							transition={{
 								duration: 20,
@@ -96,7 +112,14 @@ function About() {
 								repeatType: "reverse",
 								ease: "easeInOut",
 							}}
-						/>
+						>
+							<Image
+								src={HERO_IMAGE}
+								alt=""
+								layout="fullWidth"
+								className="h-full w-full object-cover"
+							/>
+						</motion.div>
 						<div className="absolute inset-0 hidden bg-gradient-to-r from-tertiary/60 to-transparent md:block" />
 					</motion.div>
 				</div>
@@ -105,7 +128,7 @@ function About() {
 			{/* Our Story */}
 			<section className="bg-surface py-24">
 				<div className="mx-auto max-w-[1440px] px-4 md:px-16">
-					<div className="grid gap-gutter md:grid-cols-12">
+					<div className="grid gap-6 md:grid-cols-12">
 						<motion.div
 							className="mb-12 md:col-span-4 md:mb-0"
 							variants={fadeUp}
@@ -178,16 +201,15 @@ function About() {
 								involving the country's finest architects and engineers to
 								ensure that "Shaon Landmarks" remains synonymous with prestige.
 							</motion.p>
-							<motion.button
-								type="button"
+							<Link
+								to="/portfolio"
 								className="mt-8 flex items-center gap-2 text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase transition-colors hover:text-secondary group"
-								variants={fadeUp}
 							>
 								View Our Portfolio
 								<span className="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">
 									arrow_forward
 								</span>
-							</motion.button>
+							</Link>
 						</motion.div>
 					</div>
 				</div>
@@ -300,9 +322,10 @@ function About() {
 								className="relative mb-8 overflow-hidden grayscale transition-all duration-700 hover:grayscale-0"
 								whileHover={{ scale: 1.02 }}
 							>
-								<img
+								<Image
 									src={LEADER_1}
 									alt="Engr. Mahfuzur Rahman"
+									layout="fullWidth"
 									className="aspect-[4/5] w-full object-cover"
 								/>
 							</motion.div>
@@ -326,15 +349,14 @@ function About() {
 								className="relative mb-8 overflow-hidden grayscale transition-all duration-700 hover:grayscale-0"
 								whileHover={{ scale: 1.02 }}
 							>
-								<img
+								<Image
 									src={LEADER_2}
 									alt="Md. Shaon Ahmed"
+									layout="fullWidth"
 									className="aspect-[4/5] w-full object-cover"
 								/>
 							</motion.div>
-							<h4 className="mb-1 text-2xl font-serif">
-								Md. Shaon Ahmed
-							</h4>
+							<h4 className="mb-1 text-2xl font-serif">Md. Shaon Ahmed</h4>
 							<p className="mb-4 text-[11px] font-medium tracking-[0.15em] text-secondary uppercase">
 								Managing Director
 							</p>

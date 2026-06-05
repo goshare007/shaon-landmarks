@@ -6,21 +6,21 @@ const sustainabilityData = [
 		description:
 			"Sourcing eco-friendly materials that minimize environmental impact without compromising luxury.",
 		image:
-			"https://lh3.googleusercontent.com/aida-public/AB6AXuC8BwoMYbrQ28fJaSOuEe1WTlrkDlfMA88vVpBY222NhODQicFYS6DyGBlOgd_PHVThWexPgv-GSa-3s56VDpc4_HW0fILv1rZnccogPrmXSkveZGIB1RF1XBne-SRb9paH9a-dvj7u3pLQUCctm5cJ33NuwaC5uWF1S3sONXSBQDu2UKWhvwJu_tRq4_WPChZGm8BTzRN_glRyQlioVMe3G5t4x6qj0CRdiL_Oj33_cEeqQQnR9pYOmMiKt-1-5-ShIjIjgoZEE9U",
+			"https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=800&q=80",
 	},
 	{
 		title: "Green Spaces",
 		description:
 			"Integrating lush landscapes and vertical gardens into every development for healthier urban living.",
 		image:
-			"https://lh3.googleusercontent.com/aida-public/AB6AXuDH0UUTwjdUCB4t4iubpCsXTtABjLNyo_5lY7WBisXBpFWKK0aGOq7qMJHgsaaUgxsGpES7LZ_T_hkCxyUglZows8EroJJshqhCbsDpxE3OgWSOqFXJGDX_EhaqlikVhKKXXE6awesI88VafUzN4DyoJUip4nc2P05--xRhWfnafehhcR9FoDcZv1Q2aeD3WbuQ-jVRs4OJFnXqCUvpm24L-Vh6oqW2jbgbeL_fpHiqgRdG2xHF3rGMRgwXWioSCs9ACZd2l__88FM",
+			"https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
 	},
 	{
 		title: "Energy Efficiency",
 		description:
 			"Smart building systems engineered to reduce energy consumption while maximizing comfort and air quality.",
 		image:
-			"https://lh3.googleusercontent.com/aida-public/AB6AXuC8BwoMYbrQ28fJaSOuEe1WTlrkDlfMA88vVpBY222NhODQicFYS6DyGBlOgd_PHVThWexPgv-GSa-3s56VDpc4_HW0fILv1rZnccogPrmXSkveZGIB1RF1XBne-SRb9paH9a-dvj7u3pLQUCctm5cJ33NuwaC5uWF1S3sONXSBQDu2UKWhvwJu_tRq4_WPChZGm8BTzRN_glRyQlioVMe3G5t4x6qj0CRdiL_Oj33_cEeqQQnR9pYOmMiKt-1-5-ShIjIjgoZEE9U",
+			"https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80",
 	},
 ];
 
@@ -36,7 +36,7 @@ const cardVariants = {
 export function SustainabilitySection() {
 	return (
 		<section className="bg-surface py-20 md:py-28">
-			<div className="mx-auto max-w-[1440px] px-4 md:px-16">
+			<div className="mx-auto max-w-360 px-4 md:px-16">
 				<motion.div
 					className="mb-12 max-w-2xl"
 					initial={{ opacity: 0, y: 30 }}
@@ -56,7 +56,7 @@ export function SustainabilitySection() {
 					{sustainabilityData.map((item, i) => (
 						<motion.div
 							key={item.title}
-							className="group relative min-h-[22rem] cursor-pointer overflow-hidden rounded-sm"
+							className="group relative min-h-88 cursor-pointer overflow-hidden rounded-sm"
 							custom={i}
 							variants={cardVariants}
 							initial="hidden"
@@ -69,7 +69,7 @@ export function SustainabilitySection() {
 								whileHover={{ scale: 1.1 }}
 								transition={{ duration: 0.7 }}
 							/>
-							<div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+							<div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
 							<div className="absolute bottom-0 left-0 right-0 p-6">
 								<h3 className="text-lg font-serif text-white">{item.title}</h3>
 								<motion.p
