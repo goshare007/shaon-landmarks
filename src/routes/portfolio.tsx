@@ -1,10 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import img from '@/assets/images/projects/the-obsidian.webp';
 import { allProjects } from '@/data/projects';
-
-const HERO_IMAGE =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDH0UUTwjdUCB4t4iubpCsXTtABjLNyo_5lY7WBisXBpFWKK0aGOq7qMJHgsaaUgxsGpES7LZ_T_hkCxyUglZows8EroJJshqhCbsDpxE3OgWSOqFXJGDX_EhaqlikVhKKXXE6awesI88VafUzN4DyoJUip4nc2P05--xRhWfnafehhcR9FoDcZv1Q2aeD3WbuQ-jVRs4OJFnXqCUvpm24L-Vh6oqW2jbgbeL_fpHiqgRdG2xHF3rGMRgwXWioSCs9ACZd2l__88FM';
 
 type Filter = 'All' | 'Ongoing' | 'Upcoming' | 'Completed';
 
@@ -50,10 +48,10 @@ function Portfolio() {
 
   return (
     <main>
-      <section className='relative h-[50vh] min-h-96 overflow-hidden bg-tertiary'>
+      <section className='relative h-[50vh] min-h-120 overflow-hidden bg-tertiary'>
         <motion.div
           className='absolute inset-0 bg-cover bg-center will-change-transform'
-          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          style={{ backgroundImage: `url(${img})` }}
           animate={{ scale: [1, 1.1] }}
           transition={{
             duration: 20,

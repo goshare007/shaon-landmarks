@@ -1,3 +1,9 @@
+import azureWaterfront from '@/assets/images/projects/azure-waterfront.webp';
+import bronzeHeights from '@/assets/images/projects/bronze-heights.webp';
+import theMarbleCollection from '@/assets/images/projects/the-marble-collection.webp';
+import theObsidian from '@/assets/images/projects/the-obsidian.webp';
+import theSkylinePlaza from '@/assets/images/projects/the-skyline-plaza.webp';
+
 export interface ProjectSpecs {
   totalArea: string;
   units: string;
@@ -52,21 +58,6 @@ export interface Project {
   detail?: ProjectDetail;
 }
 
-const PROJ_IMAGE_1 =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuCPgx4ZZVXEQeU7To_9RxhQoQtr9PSe2DRVJqvwFU-iwdE8vMYAW9fG4TqcCqMQTQOWmS1Wqc0w1mtP7-Ro2BCDMGkUY4p4AkClwDtLZWDGhoqDMguVyCFinp8_e6z64wfcRH5LUkuJLmjb9t_NzWoQJkF7jzJytWNrE0LgrkIOO3vVYq4g2wM4OWEZ4Kj1L7d_dnT9UHFJJvhbyw8pLD6TM7Sws_KzQgTl6jNniNHccfnFH1VDvgXz7x0zwWUA4nlwNaKGrudhdss';
-
-const PROJ_IMAGE_2 =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDH0UUTwjdUCB4t4iubpCsXTtABjLNyo_5lY7WBisXBpFWKK0aGOq7qMJHgsaaUgxsGpES7LZ_T_hkCxyUglZows8EroJJshqhCbsDpxE3OgWSOqFXJGDX_EhaqlikVhKKXXE6awesI88VafUzN4DyoJUip4nc2P05--xRhWfnafehhcR9FoDcZv1Q2aeD3WbuQ-jVRs4OJFnXqCUvpm24L-Vh6oqW2jbgbeL_fpHiqgRdG2xHF3rGMRgwXWioSCs9ACZd2l__88FM';
-
-const PROJ_IMAGE_3 =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuC8BwoMYbrQ28fJaSOuEe1WTlrkDlfMA88vVpBY222NhODQicFYS6DyGBlOgd_PHVThWexPgv-GSa-3s56VDpc4_HW0fILv1rZnccogPrmXSkveZGIB1RF1XBne-SRb9paH9a-dvj7u3pLQUCctm5cJ33NuwaC5uWF1S3sONXSBQDu2UKWhvwJu_tRq4_WPChZGm8BTzRN_glRyQlioVMe3G5t4x6qj0CRdiL_Oj33_cEeqQQnR9pYOmMiKt-1-5-ShIjIjgoZEE9U';
-
-const PROJ_IMAGE_4 =
-  'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&q=80';
-
-const PROJ_IMAGE_5 =
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80';
-
 const GALLERY_IMG_1 =
   'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80';
 
@@ -107,7 +98,7 @@ export const allProjects: Project[] = [
     status: 'Completed',
     location: 'Gulshan, Dhaka',
     date: 'Handed Over: Oct 2023',
-    image: PROJ_IMAGE_1,
+    image: theObsidian,
     detail: {
       specs: {
         totalArea: '0.8 Acres',
@@ -115,7 +106,7 @@ export const allProjects: Project[] = [
         floorCount: 'G + 18 Levels',
         completion: 'Oct 2023',
       },
-      heroImage: PROJ_IMAGE_1,
+      heroImage: theObsidian,
       vision: {
         title: 'A Masterclass in',
         italicPart: 'Dark Elegance',
@@ -123,9 +114,9 @@ export const allProjects: Project[] = [
           'The Obsidian represents a bold departure from conventional residential design. Every surface, texture, and shadow has been meticulously considered to create an environment that is both dramatic and serene.',
           'The interplay of dark stone finishes with strategic natural light sources creates a living experience that evolves throughout the day — a true sanctuary in the heart of Gulshan.',
         ],
-        image: PROJ_IMAGE_2,
+        image: bronzeHeights,
       },
-      gallery: [PROJ_IMAGE_1, GALLERY_IMG_1, GALLERY_IMG_2],
+      gallery: [theObsidian, GALLERY_IMG_1, GALLERY_IMG_2],
       amenities: [
         {
           icon: 'dark_mode',
@@ -189,7 +180,7 @@ export const allProjects: Project[] = [
     status: 'Ongoing',
     location: 'Nasirabad, Chattogram',
     date: 'Est: Dec 2025',
-    image: PROJ_IMAGE_2,
+    image: bronzeHeights,
     detail: {
       specs: {
         totalArea: '0.5 Acres',
@@ -197,7 +188,7 @@ export const allProjects: Project[] = [
         floorCount: 'G + 15 Levels',
         completion: 'Q4 2025',
       },
-      heroImage: PROJ_IMAGE_2,
+      heroImage: bronzeHeights,
       vision: {
         title: 'Living Above the',
         italicPart: 'City Lights',
@@ -207,7 +198,7 @@ export const allProjects: Project[] = [
         ],
         image: LANDMARK_VISION,
       },
-      gallery: [PROJ_IMAGE_2, GALLERY_IMG_3, GALLERY_IMG_4],
+      gallery: [bronzeHeights, GALLERY_IMG_3, GALLERY_IMG_4],
       amenities: [
         {
           icon: 'deck',
@@ -271,7 +262,7 @@ export const allProjects: Project[] = [
     status: 'Upcoming',
     location: 'Purbachal, Dhaka',
     date: 'Launch: Q2 2024',
-    image: PROJ_IMAGE_5,
+    image: azureWaterfront,
   },
   {
     id: '4',
@@ -283,7 +274,7 @@ export const allProjects: Project[] = [
     status: 'Ongoing',
     location: 'Gulshan, Dhaka',
     date: 'Est: Dec 2025',
-    image: PROJ_IMAGE_3,
+    image: theMarbleCollection,
     detail: {
       specs: {
         totalArea: '1.5 Acres',
@@ -291,7 +282,7 @@ export const allProjects: Project[] = [
         floorCount: 'G + 20 Levels',
         completion: 'Q4 2025',
       },
-      heroImage: PROJ_IMAGE_3,
+      heroImage: theMarbleCollection,
       vision: {
         title: 'Where Water Meets',
         italicPart: 'Architecture',
@@ -301,7 +292,7 @@ export const allProjects: Project[] = [
         ],
         image: LANDMARK_VISION,
       },
-      gallery: [PROJ_IMAGE_3, GALLERY_IMG_1, GALLERY_IMG_3],
+      gallery: [theMarbleCollection, GALLERY_IMG_1, GALLERY_IMG_3],
       amenities: [
         {
           icon: 'pool',
@@ -365,7 +356,7 @@ export const allProjects: Project[] = [
     status: 'Upcoming',
     location: 'Banani, Dhaka',
     date: 'Launch: Q3 2024',
-    image: PROJ_IMAGE_4,
+    image: theSkylinePlaza,
   },
   {
     id: '6',

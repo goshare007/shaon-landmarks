@@ -10,7 +10,7 @@ const fadeUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] },
+    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] } as const,
   },
 };
 
@@ -75,7 +75,7 @@ function Career() {
   return (
     <main>
       {/* Hero */}
-      <section className='relative h-[50vh] min-h-[24rem] overflow-hidden bg-tertiary'>
+      <section className='relative h-[50vh] min-h-96 overflow-hidden bg-tertiary'>
         <motion.div
           className='absolute inset-0 bg-cover bg-center will-change-transform'
           style={{ backgroundImage: `url(${HERO_IMAGE})` }}
@@ -87,10 +87,10 @@ function Career() {
             ease: 'easeInOut',
           }}
         />
-        <div className='absolute inset-0 bg-gradient-to-b from-black/50 to-black/70' />
+        <div className='absolute inset-0 bg-linear-to-b from-black/50 to-black/70' />
         <div className='relative z-10 flex h-full items-center'>
           <motion.div
-            className='mx-auto w-full max-w-[1440px] px-4 md:px-16'
+            className='mx-auto w-full max-w-360 px-4 md:px-16'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
@@ -111,7 +111,7 @@ function Career() {
 
       {/* Why Join Us */}
       <section className='bg-surface py-20 md:py-28'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <div className='grid items-center gap-12 md:grid-cols-2'>
             <motion.div
               variants={fadeUp}
@@ -139,7 +139,7 @@ function Career() {
                   'Culture of innovation and continuous learning',
                 ].map((item) => (
                   <div key={item} className='flex items-start gap-3'>
-                    <span className='mt-0.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-secondary' />
+                    <span className='mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-secondary' />
                     <span className='text-sm text-on-surface-variant'>
                       {item}
                     </span>
@@ -148,7 +148,7 @@ function Career() {
               </div>
             </motion.div>
             <motion.div
-              className='aspect-[4/3] overflow-hidden border border-outline-variant bg-surface-container-low'
+              className='aspect-4/3 overflow-hidden border border-outline-variant bg-surface-container-low'
               initial={{ opacity: 0, scale: 1.03 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-80px' }}
@@ -167,7 +167,7 @@ function Career() {
 
       {/* Open Positions */}
       <section className='bg-surface-container-low py-20 md:py-28'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <motion.div
             className='mb-16'
             variants={fadeUp}
@@ -197,7 +197,7 @@ function Career() {
                 transition={{ duration: 0.3 }}
               >
                 <div className='mb-4 flex items-center gap-3'>
-                  <span className='rounded-sm border border-secondary bg-secondary/10 px-2.5 py-1 text-[10px] font-medium tracking-[0.1em] text-secondary uppercase'>
+                  <span className='rounded-sm border border-secondary bg-secondary/10 px-2.5 py-1 text-[10px] font-medium tracking-widest text-secondary uppercase'>
                     {position.type}
                   </span>
                   <span className='text-[11px] font-medium text-on-surface-variant'>
@@ -212,7 +212,7 @@ function Career() {
                 </p>
                 <Link
                   to='/contact'
-                  className='inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.1em] text-secondary uppercase transition-colors hover:gap-4'
+                  className='inline-flex items-center gap-2 text-[11px] font-medium tracking-widest text-secondary uppercase transition-colors hover:gap-4'
                 >
                   Apply Now
                   <span className='material-symbols-outlined text-base'>
@@ -227,7 +227,7 @@ function Career() {
 
       {/* CTA */}
       <section className='bg-tertiary py-20 md:py-28'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <motion.div
             className='mx-auto max-w-2xl text-center'
             variants={fadeUp}
@@ -245,7 +245,7 @@ function Career() {
             </p>
             <Link
               to='/contact'
-              className='mt-8 inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-[0.1em] text-on-secondary no-underline uppercase transition-all hover:opacity-90'
+              className='mt-8 inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-widest text-on-secondary no-underline uppercase transition-all hover:opacity-90'
             >
               Get in Touch
               <span className='material-symbols-outlined text-base'>

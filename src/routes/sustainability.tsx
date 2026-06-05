@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
-
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80';
+import Sustinbility from '@/assets/images/sustainability/sustainability.webp';
 
 const pillars = [
   {
@@ -58,10 +56,10 @@ export const Route = createFileRoute('/sustainability')({
 function Sustainability() {
   return (
     <main>
-      <section className='relative h-[50vh] min-h-[24rem] overflow-hidden bg-tertiary'>
+      <section className='relative h-[50vh] min-h-120 overflow-hidden bg-tertiary'>
         <motion.div
           className='absolute inset-0 bg-cover bg-center will-change-transform'
-          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+          style={{ backgroundImage: `url(${Sustinbility})` }}
           animate={{ scale: [1, 1.1] }}
           transition={{
             duration: 20,

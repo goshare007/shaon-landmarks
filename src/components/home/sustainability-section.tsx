@@ -1,26 +1,26 @@
 import { motion } from 'framer-motion';
+import energyEfficiency from '@/assets/images/sustainability/energy-efficiency.webp';
+import greenSpaces from '@/assets/images/sustainability/green-spaces.jpg';
+import sustainableMaterials from '@/assets/images/sustainability/sustainable-materials.jpg';
 
 const sustainabilityData = [
   {
     title: 'Sustainable Materials',
     description:
       'Sourcing eco-friendly materials that minimize environmental impact without compromising luxury.',
-    image:
-      'https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=800&q=80',
+    image: sustainableMaterials,
   },
   {
     title: 'Green Spaces',
     description:
       'Integrating lush landscapes and vertical gardens into every development for healthier urban living.',
-    image:
-      'https://cdn.pixabay.com/photo/2018/04/23/16/25/architecture-3344789_1280.jpg',
+    image: greenSpaces,
   },
   {
     title: 'Energy Efficiency',
     description:
       'Smart building systems engineered to reduce energy consumption while maximizing comfort and air quality.',
-    image:
-      'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80',
+    image: energyEfficiency,
   },
 ];
 
