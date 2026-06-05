@@ -1,9 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { motion } from 'framer-motion';
-
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80';
+import HERO_IMAGE from '@/assets/images/career/hero.webp';
+import CAREER_TEAM from '@/assets/images/career/team.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -155,7 +154,7 @@ function Career() {
               transition={{ duration: 0.8, delay: 0.15 }}
             >
               <Image
-                src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80'
+                src={CAREER_TEAM}
                 alt='Team collaboration'
                 layout='fullWidth'
                 className='h-full w-full object-cover'

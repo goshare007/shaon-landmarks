@@ -1,15 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { motion } from 'framer-motion';
-
-const HERO_IMAGE =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuC1by6RAWVsQKe49FKBhRbZ6xXOtXjESdfk3BXOMJH3TVmFdxB_WRL31SdMTWNxwq-7zj6NNVxwztFQOfOw4-4V3AqrxgvJiUhJ59MMymK2QlNJOP5SOdVhrBfB2Fe-flwBJadckPmXe3yOWUgnL27o6WcPaupiCf30NFdzkAg5DjJYtoC6k0xJO9Ff03-N4kF_z1_FnDZaCR3sFDSOuEbgwrFQCopfgHj7WkaFpbYOX88Kxf3LHNtqITNh8vtXSMmjvKrpILU_wU4';
-
-const LEADER_1 =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDH_-fpnioZ2NHZNZlej5BfLqR5sTJE2roWroZ4OQ1knYHnLt1SvNzANdzIXVLLWQ6LdpJ4qpuPaC0ZfRpldtYk8IijCmZfUyphmpBO_lU0enioVMnXw94IlbuLEuX7OGe50gMcr6UwB9E-hJIvFgQMLEx1-4fz6guxrkwDipi23v1hBn0nP-ejwDkJNP6ot4CDaRAt4PTmUkO9srSHkS4wJ2FZ-TjtRwBPzZFmu0mD48ulnp7gmg4ZMCpZInkj7up6Q6syoTgsrTQ';
-
-const LEADER_2 =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDw0E9RfXjsT99vOnUFm6v-S8l9GEfLdsvqs2E-SlcI6pfqUGifhCedRTqokX6CZ7L1ACrDkYwm_5tq-aUOimYi6A8rdpgzuwN4fTdp71lc4-lvQBmj7IWSKWTiOiy2-DNEsjnEZQuXLufoXXiVjTmL8awJAxx27mqUW-Hm29Gv5dKi-YUqZt_zIDMVEx2hc3PckP5pC36qzKrk6ZqaxX-ZlnvYpUW7YfzBKFZVUGwen7JYylGZ0Sfo0yM75BYSLWc5bvU5JrKqQA8';
+import HERO_IMAGE from '@/assets/images/about/hero.webp';
+import LEADER_1 from '@/assets/images/about/leader-1.webp';
+import LEADER_2 from '@/assets/images/about/leader-2.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

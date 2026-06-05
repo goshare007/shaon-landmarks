@@ -1,7 +1,7 @@
-export const SITE_URL = 'https://shaonlandmarks.com';
+import DEFAULT_OG_IMAGE_SRC from '@/assets/images/seo/default-og.webp';
 
-export const DEFAULT_OG_IMAGE =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuC8BwoMYbrQ28fJaSOuEe1WTlrkDlfMA88vVpBY222NhODQicFYS6DyGBlOgd_PHVThWexPgv-GSa-3s56VDpc4_HW0fILv1rZnccogPrmXSkveZGIB1RF1XBne-SRb9paH9a-dvj7u3pLQUCctm5cJ33NuwaC5uWF1S3sONXSBQDu2UKWhvwJu_tRq4_WPChZGm8BTzRN_glRyQlioVMe3G5t4x6qj0CRdiL_Oj33_cEeqQQnR9pYOmMiKt-1-5-ShIjIjgoZEE9U';
+export const SITE_URL = 'https://shaonlandmarks.com';
+export const DEFAULT_OG_IMAGE = DEFAULT_OG_IMAGE_SRC;
 
 export const ORGANIZATION_JSON_LD = {
   '@context': 'https://schema.org',

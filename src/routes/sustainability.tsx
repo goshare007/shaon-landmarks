@@ -68,10 +68,10 @@ function Sustainability() {
             ease: 'easeInOut',
           }}
         />
-        <div className='absolute inset-0 bg-gradient-to-b from-black/50 to-black/70' />
+        <div className='absolute inset-0 bg-linear-to-b from-black/50 to-black/70' />
         <div className='relative z-10 flex h-full items-center'>
           <motion.div
-            className='mx-auto w-full max-w-[1440px] px-4 md:px-16'
+            className='mx-auto w-full max-w-360 px-4 md:px-16'
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
@@ -91,7 +91,7 @@ function Sustainability() {
       </section>
 
       <section className='bg-surface py-20 md:py-28'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <div className='grid items-center gap-12 md:grid-cols-2'>
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -125,7 +125,7 @@ function Sustainability() {
                   <div className='text-3xl font-serif text-secondary sm:text-4xl'>
                     {s.value}
                   </div>
-                  <div className='mt-1 text-[10px] font-medium tracking-[0.1em] text-on-surface-variant uppercase'>
+                  <div className='mt-1 text-[10px] font-medium tracking-widest text-on-surface-variant uppercase'>
                     {s.label}
                   </div>
                 </div>
@@ -136,7 +136,7 @@ function Sustainability() {
       </section>
 
       <section className='bg-surface-container-low py-20 md:py-28'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <motion.div
             className='mb-12 text-center'
             initial={{ opacity: 0, y: 30 }}
@@ -178,7 +178,7 @@ function Sustainability() {
       </section>
 
       <section className='bg-surface py-20 md:py-28'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <motion.div
             className='mx-auto max-w-2xl text-center'
             initial={{ opacity: 0, y: 30 }}
@@ -210,7 +210,7 @@ function Sustainability() {
                 transition={{ duration: 0.4 }}
                 whileHover={{ scale: 1.04 }}
               >
-                <span className='text-[11px] font-medium tracking-[0.1em] text-on-surface uppercase'>
+                <span className='text-[11px] font-medium tracking-widest text-on-surface uppercase'>
                   {cert}
                 </span>
               </motion.div>
@@ -220,7 +220,7 @@ function Sustainability() {
       </section>
 
       <section className='bg-tertiary py-20 md:py-28'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <motion.div
             className='mx-auto max-w-2xl text-center'
             initial={{ opacity: 0, y: 30 }}
@@ -238,7 +238,7 @@ function Sustainability() {
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to='/contact'
-                className='inline-block rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-[0.1em] text-on-secondary no-underline uppercase'
+                className='inline-block rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-widest text-on-secondary no-underline uppercase'
               >
                 Get in Touch
               </Link>

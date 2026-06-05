@@ -1,21 +1,11 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { motion } from 'framer-motion';
-
-const HERO_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuD8VhIwFdw_AitjDcBL7nYzqJdDSGu1jOyChWYR2dGnD9xzWap-q7H7x8GvqABtFg52gfJqpv2QZNCaOiuZ6TdF0qwcANbaqnGoiMo6t5-fdxA5DOkp_6KsgIReOCMovejWZyDIgaUfndKj3zyNYQXKwSqhAvK5mqhooV73d7DpTqxLoQDp2aWpCfFjVOfUXy3taTmA0M-7kfnvZ3edfOr15Twgri1IbCh3rDOOTHboTebsLJk-odurg0qH-acEvczwqka-NKZBnyE';
-
-const LAND_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAKm4jWog09__8tpuqm-OardMncouDfSeN_fpd4fyLxczuh56bGfb5nZF5oVpGa7Hu8NqmHBVpPM_i55nEJSkf2BZvAPoj3RPBZpojQtdSDfmzvea3TRWs5B53ap6pyQ5THXBFlEOg2d8EQT91kG4RlNO0vzB5DO5b_QPAd0Ab72tJah0ljfTOG-NqmJl4NJ4NRpB0N-E7f037BEFHWhpiM6EoYicPZRGaQPpcZKoGVH1Bxl7twyQ75Us_d_mYt9tc5X90wffWCYW0';
-
-const ARCH_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDOIjI-1CNHkplgME_m7SEAwD8LUSMWsMGFeLkn3Zdoz8UYnyqrvASNn39F78zQVM0ZuywQVInVk7v6abO2ieAAO11V_L_qAQioNZUBq1dMMX9lLIR9e45ZQHLfcI1sHWi9GluX0zy3pMw8hvnK-El3rVvET2LrN3mHyK8AOzEodnz05lfSZzLE7GA_6LgOl14s7aNmPvWO-wQTtNZz8UjQl7IXUxrc5N-zVDavRDrVSOLoUE6lZIdfkuBpLaM_QwGO2pYXgG_zo8Q';
-
-const CONST_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDlC-W3dNHTL_VfLjBooMOnx1FZ4NYUaKf-S8knWX3EqQ2LD5zylIHCO2t9mwYNnEW-FVk0L4zDte_YodXqpJ-RTw6rInkwkkc3zGvUixf1_ueJMN0h52vZpONZbpDbn1MrIuBSp3Uw0ssPVyQA6ydyHp4ZalK9lM3ABR_u-z6V3o6heNy-r9raWdZYQGMBSlIvDHaWoC2VW282CsIliAlZADQlilbOyVvDShGWwBFUvRIQk2vf9z2_thfC6JGl3m3YbvnQf9E1GVA';
-
-const INTERIOR_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDK07qQGUfRRSUIDdRMNVvX4Z0Wz2ErrKTZJdN6y3xcyScMIvPPeeK-kBrHXXJWaNKgp_17EHhoyNan1JbLdtgP09zKt5r7br-8Gdj4ii8cosL-ZFymYaWA2L4NHIk1h8eGuE_opEdKTBzisf5wuSEwIgnj6SgV26UkC9WGA6MgYLUY7KwznL7eIfh0w9Z2FaMrPPjQmWUzLoblmRwM-x8TTJP70BWoRaPfHwaE4x5c5rkNz7QrAyxfkq38wqqG3niQWN4ZlSiMDkE';
+import ARCH_IMG from '@/assets/images/services/architecture.webp';
+import CONST_IMG from '@/assets/images/services/construction.webp';
+import HERO_IMG from '@/assets/images/services/hero.webp';
+import INTERIOR_IMG from '@/assets/images/services/interior.webp';
+import LAND_IMG from '@/assets/images/services/land-development.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

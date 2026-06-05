@@ -16,15 +16,9 @@ import { Textarea } from '#/components/ui/textarea';
 import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '#/lib/constants';
 import type { ContactFormData } from '#/lib/forms';
 import { submitContactForm } from '#/lib/forms';
-
-const HERO_IMG =
-  'https://cdn.pixabay.com/photo/2022/10/26/18/19/architecture-7549184_1280.jpg';
-
-const DHAKA_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAedIzGFGgmb3HmjxuTzP3x-qs9NYsehNJi35WsYxM-REEGQEJ1JlTPea4e_-P30k0sU_aoJJYSuom1hR5V3GRwX4XUOWILM6SFGgg-EsUPRxhxWGMocpm4-h76p4o_QGPwL9YQDwTRJJwXWxO5yhyaxhpMCKCMRHVN7mQj_PApj-2uXINYZ2SCuxT3TAR8EgK-mzMRa7Faoim6Qbv6i-GkNPV23DA61gxRiyqHy4jjwM-6STxo_MtvibLju5KQJtYufJZ874slEB0';
-
-const CTG_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAowZ9RJgdHu_0CWr4h-Z4tGg-HulM-u-uaZlakLrNgd3ZRPRf3RoZJuH2IvyBYxUBv9boH4ahrIkjEpHKde8Rm5gAFgWf0HDaPbfXzrsnXaJ2DtP3NcCMFMm06MOBYxxHnp_be39jtxXFDdqq4hco4Ci5onNBolADHr0Z4zuZj6476CS338Qb23HzxM04h9Rnz8s3q5Mk12ijDtYMC3Nz6uaRid5NRblWU7ilHSWdpRRZ8aHrp-9N289mgWMXiASAX6d73tV-P5dM';
+import CTG_IMG from '@/assets/images/contact/ctg-office.webp';
+import DHAKA_IMG from '@/assets/images/contact/dhaka-office.webp';
+import HERO_IMG from '@/assets/images/contact/hero.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
