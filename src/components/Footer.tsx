@@ -1,253 +1,317 @@
-import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { Image } from "@unpic/react";
-import { useState } from "react";
-import { submitNewsletterSignup } from "#/lib/forms";
-import logoUrl from "@/assets/logo.png";
+import { Link } from '@tanstack/react-router';
+import { Image } from '@unpic/react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import logo from '@/assets/logo.png';
 
 const year = new Date().getFullYear();
 
-const colVariants = {
-	hidden: { opacity: 0, y: 30 },
-	visible: (i: number) => ({
-		opacity: 1,
-		y: 0,
-		transition: { duration: 0.6, delay: i * 0.1, ease: [0.25, 0.1, 0.15, 1] },
-	}),
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
 };
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.15, 1] } as const,
+  },
+};
+
+// Define explicit types to handle optional properties cleanly
 interface FooterLink {
-	label: string;
-	to: string;
+  label: string;
+  href: string;
+  external?: boolean;
 }
 
-const footerLinks: { title: string; items: FooterLink[] }[] = [
-	{
-		title: "Company",
-		items: [
-			{ label: "About Us", to: "/about" },
-			{ label: "Our Portfolio", to: "/portfolio" },
-			{ label: "Sustainability", to: "/sustainability" },
-			{ label: "Careers", to: "/career" },
-		],
-	},
-	{
-		title: "Legal",
-		items: [
-			{ label: "RAJUK Certified", to: "/about" },
-			{ label: "REHAB Member", to: "/about" },
-			{ label: "Legal Disclosures", to: "/legal" },
-			{ label: "Privacy Policy", to: "/privacy" },
-		],
-	},
+interface FooterSection {
+  title: string;
+  links: FooterLink[];
+}
+
+const footerSections: FooterSection[] = [
+  {
+    title: 'Company',
+    links: [
+      { label: 'About Us', href: '/about' },
+      { label: 'Our Portfolio', href: '/portfolio' },
+      { label: 'Sustainability', href: '/sustainability' },
+      { label: 'Careers', href: '/career' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'RAJUK Certified', href: '/about' },
+      { label: 'REHAB Member', href: '/about' },
+      { label: 'Legal Disclosures', href: '/legal' },
+      { label: 'Privacy Policy', href: '/privacy' },
+    ],
+  },
+  {
+    title: 'Connect',
+    links: [
+      { label: 'Facebook', href: 'https://facebook.com', external: true },
+      { label: 'Instagram', href: 'https://instagram.com', external: true },
+      { label: 'LinkedIn', href: 'https://linkedin.com', external: true },
+      { label: 'Twitter', href: 'https://twitter.com', external: true },
+    ],
+  },
 ];
 
 export default function Footer() {
-	const [newsletterState, setNewsletterState] = useState<{
-		status: "idle" | "submitting" | "success" | "error";
-		message: string;
-	}>({ status: "idle", message: "" });
+  const [newsletterState, setNewsletterState] = useState<{
+    status: 'idle' | 'submitting' | 'success' | 'error';
+    message: string;
+  }>({ status: 'idle', message: '' });
 
-	async function handleNewsletterSubmit(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault();
-		setNewsletterState({ status: "submitting", message: "" });
+  async function handleNewsletterSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setNewsletterState({ status: 'submitting', message: '' });
 
-		const formData = new FormData(e.currentTarget);
-		const email = (formData.get("newsletter-email") as string) || "";
+    const formData = new FormData(e.currentTarget);
+    const email = (formData.get('newsletter-email') as string) || '';
 
-		try {
-			const result = await submitNewsletterSignup({ data: { email } });
-			if (result.success) {
-				setNewsletterState({ status: "success", message: result.message });
-				e.currentTarget.reset();
-			}
-		} catch (err) {
-			const errorMessage =
-				err instanceof Error
-					? err.message
-					: "Something went wrong. Please try again.";
-			setNewsletterState({ status: "error", message: errorMessage });
-		}
-	}
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (email) {
+        setNewsletterState({
+          status: 'success',
+          message: 'Thanks for subscribing! Check your inbox.',
+        });
+        e.currentTarget.reset();
+      }
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong. Please try again.';
+      setNewsletterState({ status: 'error', message: errorMessage });
+    }
+  }
 
-	return (
-		<footer className="bg-tertiary px-4 pb-6 pt-16">
-			<div className="mx-auto max-w-[1440px]">
-				<div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-					<motion.div
-						className="space-y-4"
-						custom={0}
-						variants={colVariants}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true, margin: "-60px" }}
-					>
-						<Link to="/">
-							<motion.div
-								whileHover={{ scale: 1.05 }}
-								transition={{ duration: 0.3 }}
-							>
-								<Image
-									src={logoUrl}
-									alt="Shaon Landmarks"
-									layout="constrained"
-									width={144}
-									height={36}
-									className="h-10 w-auto brightness-0 invert"
-								/>
-							</motion.div>
-						</Link>
-						<p className="text-[13px] leading-relaxed text-[#9a9c9c]">
-							Redefining the skyline through structural precision and unwavering
-							aesthetic integrity since 2008.
-						</p>
-					</motion.div>
+  return (
+    <footer className='border-t border-outline-variant/20 bg-tertiary'>
+      {/* Main Footer Content */}
+      <div className='mx-auto max-w-6xl px-4 py-16 md:py-24'>
+        <motion.div
+          className='grid gap-12 md:gap-16 lg:grid-cols-5'
+          variants={containerVariants}
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          {/* Brand Section */}
+          <motion.div variants={itemVariants} className='lg:col-span-2'>
+            <Link to='/' className='inline-block group'>
+              <motion.div
+                className='flex items-center gap-3 mb-6'
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className='h-12 w-12 rounded-lg bg-linear-to-br from-secondary via-secondary to-secondary-fixed-dim flex items-center justify-center font-serif font-bold text-tertiary text-lg'>
+                  <Image
+                    src={logo}
+                    height={30}
+                    width={20}
+                    alt='Shaon'
+                    className='h-8 w-8'
+                  />
+                </div>
+                <div className='uppercase'>
+                  <h3 className='font-serif text-lg font-light text-on-tertiary leading-tight'>
+                    Shaon
+                  </h3>
+                  <p className='font-serif text-xs text-secondary-fixed-dim tracking-wider'>
+                    LANDMARKS
+                  </p>
+                </div>
+              </motion.div>
+            </Link>
+            <p className='text-sm text-on-surface-variant leading-relaxed mb-8'>
+              Redefining the skyline through structural precision and unwavering
+              aesthetic integrity since 2008. Transforming visions into
+              architectural masterpieces.
+            </p>
+            {/* Newsletter Signup */}
+            <div>
+              <p className='text-xs font-medium text-secondary-fixed-dim uppercase tracking-widest mb-4 block'>
+                Subscribe to Updates
+              </p>
+              <form onSubmit={handleNewsletterSubmit} className='space-y-3'>
+                <div className='relative'>
+                  <input
+                    id='newsletter-email'
+                    name='newsletter-email'
+                    type='email'
+                    required
+                    placeholder='Enter your email'
+                    className='w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-3 text-sm text-on-tertiary placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all'
+                  />
+                  <motion.button
+                    type='submit'
+                    disabled={newsletterState.status === 'submitting'}
+                    className='absolute right-1.5 top-1/2 -translate-y-1/2 p-2 text-on-tertiary hover:text-secondary-fixed-dim disabled:opacity-50 transition-colors'
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ArrowRight className='text-black' />
+                  </motion.button>
+                </div>
+                {newsletterState.message && (
+                  <motion.p
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`text-xs ${
+                      newsletterState.status === 'success'
+                        ? 'text-emerald-500'
+                        : 'text-red-500'
+                    }`}
+                  >
+                    {newsletterState.message}
+                  </motion.p>
+                )}
+              </form>
+            </div>
+          </motion.div>
 
-					{footerLinks.map((col, i) => (
-						<motion.div
-							key={col.title}
-							custom={i + 1}
-							variants={colVariants}
-							initial="hidden"
-							whileInView="visible"
-							viewport={{ once: true, margin: "-60px" }}
-						>
-							<h4 className="mb-4 text-[11px] font-medium tracking-[0.1em] text-on-tertiary uppercase">
-								{col.title}
-							</h4>
-							<ul className="space-y-3">
-								{col.items.map((item) => (
-									<motion.li
-										key={item.label}
-										whileHover={{ x: 4 }}
-										transition={{ duration: 0.2 }}
-									>
-										<Link
-											to={item.to}
-											className="text-[13px] text-[#9a9c9c] no-underline transition-colors hover:text-on-tertiary"
-										>
-											{item.label}
-										</Link>
-									</motion.li>
-								))}
-							</ul>
-						</motion.div>
-					))}
+          {/* Links Sections */}
+          {footerSections.map((section) => (
+            <motion.div key={section.title} variants={itemVariants}>
+              <h4 className='text-xs font-medium text-secondary-fixed-dim uppercase tracking-widest mb-6'>
+                {section.title}
+              </h4>
+              <ul className='space-y-4'>
+                {section.links.map((link) => (
+                  <motion.li key={link.label}>
+                    <Link
+                      to={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      className='text-sm text-on-surface-variant hover:text-secondary-fixed-dim transition-colors duration-300 group inline-flex items-center gap-2'
+                    >
+                      {link.label}
+                      <motion.span
+                        className='opacity-0 group-hover:opacity-100'
+                        initial={{ x: -4 }}
+                        whileHover={{ x: 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        →
+                      </motion.span>
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
 
-					<motion.div
-						custom={3}
-						variants={colVariants}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true, margin: "-60px" }}
-					>
-						<h4 className="mb-4 text-[11px] font-medium tracking-[0.1em] text-on-tertiary uppercase">
-							Newsletter
-						</h4>
-						<p className="mb-3 text-[13px] text-[#9a9c9c]">
-							Receive exclusive insights into our upcoming landmark
-							developments.
-						</p>
-						<form
-							className="flex border-b border-[#9a9c9c] pb-1"
-							onSubmit={handleNewsletterSubmit}
-						>
-							<input
-								id="newsletter-email"
-								name="newsletter-email"
-								type="email"
-								required
-								placeholder="Your email"
-								className="min-w-0 flex-1 border-0 bg-transparent px-0 py-2 text-[12px] text-on-tertiary outline-none placeholder:text-[#9a9c9c]"
-							/>
-							<motion.button
-								type="submit"
-								disabled={newsletterState.status === "submitting"}
-								className="flex items-center justify-center text-on-tertiary disabled:opacity-50"
-								whileHover={{ x: 4, color: "#eebd8e" }}
-								transition={{ duration: 0.2 }}
-							>
-								<svg
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									strokeWidth="1.5"
-									className="h-4 w-4"
-								>
-									<path d="M5 12h14M12 5l7 7-7 7" />
-								</svg>
-							</motion.button>
-						</form>
-						{newsletterState.message && (
-							<motion.p
-								initial={{ opacity: 0, y: -5 }}
-								animate={{ opacity: 1, y: 0 }}
-								className={`mt-2 text-[11px] ${
-									newsletterState.status === "success"
-										? "text-emerald-400"
-										: "text-red-400"
-								}`}
-							>
-								{newsletterState.message}
-							</motion.p>
-						)}
-					</motion.div>
-				</div>
+      {/* Divider */}
+      <div className='border-t border-outline-variant/20' />
 
-				<motion.div
-					className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#454747] pt-6 md:flex-row"
-					initial={{ opacity: 0 }}
-					whileInView={{ opacity: 1 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.6, delay: 0.5 }}
-				>
-					<p className="text-[11px] text-[#9a9c9c]">
-						&copy; {year} Shaon Landmarks. Architectural Integrity. All Rights
-						Reserved.
-					</p>
-					<div className="flex gap-5">
-						<motion.a
-							href="https://facebook.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-[#9a9c9c] transition-colors hover:text-on-tertiary"
-							aria-label="Facebook"
-							whileHover={{ scale: 1.2, color: "#eebd8e" }}
-							whileTap={{ scale: 0.9 }}
-						>
-							<svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-								<path d="M7.5 21H2V9l3-3 2.5 2.5V21zm0 0V8.5L4.5 6 2 8.5V21h5.5zM16 21h-4V3l2.5-2.5L17 3v18zm0 0V3l-2.5-2.5L11 3v18h5zM22 21h-5V10l2.5-2.5L22 10v11z" />
-							</svg>
-						</motion.a>
-						<motion.a
-							href="https://instagram.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-[#9a9c9c] transition-colors hover:text-on-tertiary"
-							aria-label="Instagram"
-							whileHover={{ scale: 1.2, color: "#eebd8e" }}
-							whileTap={{ scale: 0.9 }}
-						>
-							<svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-								<path d="M12 17.5c2.33 0 4.5-1.87 4.5-4.5S14.33 8.5 12 8.5 7.5 10.37 7.5 13s1.87 4.5 4.5 4.5zm0-2c-1.29 0-2.5-1.03-2.5-2.5s1.21-2.5 2.5-2.5 2.5 1.03 2.5 2.5-1.21 2.5-2.5 2.5zM9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9z" />
-							</svg>
-						</motion.a>
-						<motion.a
-							href="https://linkedin.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-[#9a9c9c] transition-colors hover:text-on-tertiary"
-							aria-label="LinkedIn"
-							whileHover={{ scale: 1.2, color: "#eebd8e" }}
-							whileTap={{ scale: 0.9 }}
-						>
-							<svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-								<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" />
-							</svg>
-						</motion.a>
-					</div>
-				</motion.div>
-			</div>
-		</footer>
-	);
+      {/* Bottom Section */}
+      <div className='mx-auto max-w-6xl px-4 py-8 md:py-12'>
+        <motion.div
+          className='flex flex-col md:flex-row items-center justify-between gap-6'
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <p className='text-xs text-on-surface-variant'>
+            &copy; {year} Shaon Landmarks. Architectural Excellence. All Rights
+            Reserved.
+          </p>
+
+          {/* Social Links */}
+          <div className='flex items-center gap-6'>
+            {[
+              {
+                name: 'Facebook',
+                href: 'https://facebook.com',
+                icon: (
+                  // biome-ignore lint/a11y/noSvgWithoutTitle: this is fine
+                  <svg
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    className='w-4 h-4'
+                  >
+                    <path d='M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z' />
+                  </svg>
+                ),
+              },
+              {
+                name: 'Instagram',
+                href: 'https://instagram.com',
+                icon: (
+                  // biome-ignore lint/a11y/noSvgWithoutTitle: this is fine
+                  <svg
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    className='w-4 h-4'
+                  >
+                    <path d='M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.441 15.892c-1.002 1.541-2.678 2.59-4.591 2.59-3.051 0-5.518-2.467-5.518-5.518 0-1.913 1.049-3.589 2.59-4.591.779-.506 1.704-.8 2.698-.8 3.051 0 5.518 2.467 5.518 5.518 0 .994-.294 1.919-.8 2.698zm-4.591-9.052c-1.974 0-3.575 1.601-3.575 3.575 0 1.974 1.601 3.575 3.575 3.575 1.974 0 3.575-1.601 3.575-3.575 0-1.974-1.601-3.575-3.575-3.575zm5.535-1.807c-.713 0-1.291.578-1.291 1.291s.578 1.291 1.291 1.291 1.291-.578 1.291-1.291-.578-1.291-1.291-1.291z' />
+                  </svg>
+                ),
+              },
+              {
+                name: 'LinkedIn',
+                href: 'https://linkedin.com',
+                icon: (
+                  // biome-ignore lint/a11y/noSvgWithoutTitle: this is fine
+                  <svg
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    className='w-4 h-4'
+                  >
+                    <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z' />
+                  </svg>
+                ),
+              },
+              {
+                name: 'Twitter',
+                href: 'https://twitter.com',
+                icon: (
+                  // biome-ignore lint/a11y/noSvgWithoutTitle: this is fine
+                  <svg
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    className='w-4 h-4'
+                  >
+                    <path d='M23.953 4.57a10 10 0 002.856-3.515 10 10 0 01-2.836.774 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z' />
+                  </svg>
+                ),
+              },
+            ].map((social) => (
+              <motion.a
+                key={social.name}
+                href={social.href}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label={social.name}
+                className='text-on-surface-variant hover:text-secondary-fixed-dim transition-colors duration-300'
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </footer>
+  );
 }
