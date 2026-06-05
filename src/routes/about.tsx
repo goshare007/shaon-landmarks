@@ -5,39 +5,17 @@ import HERO_IMAGE from '@/assets/images/about/hero.webp';
 import LEADER_1 from '@/assets/images/about/leader-1.webp';
 import LEADER_2 from '@/assets/images/about/leader-2.webp';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] } as const,
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
+import { fadeUp, staggerShort as stagger } from '@/lib/animations';
+import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/about')({
   component: About,
-  head: () => ({
-    meta: [
-      { title: 'About Us — Shaon Landmarks & Housing' },
-      {
-        name: 'description',
-        content:
-          "Learn about Shaon Landmarks & Housing's legacy of architectural integrity, visionary leadership, and certified excellence in Bangladesh real estate.",
-      },
-      { property: 'og:title', content: 'About Us — Shaon Landmarks & Housing' },
-      {
-        property: 'og:description',
-        content:
-          'Discover our story of trust, innovation, and premium real estate development across Bangladesh.',
-      },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () =>
+    generateMeta({
+      title: 'About Us',
+      description:
+        "Learn about Shaon Landmarks & Housing's legacy of architectural integrity, visionary leadership, and certified excellence in Bangladesh real estate.",
+    }),
 });
 
 function About() {
@@ -53,7 +31,7 @@ function About() {
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
           >
             <motion.span
-              className='mb-4 text-[11px] font-medium tracking-[0.2em] text-secondary-fixed-dim uppercase'
+              className='mb-4 text-label font-medium tracking-[0.2em] text-secondary-fixed-dim uppercase'
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
@@ -61,7 +39,7 @@ function About() {
               Established Excellence
             </motion.span>
             <motion.h1
-              className='text-[40px] leading-[1.1] font-serif md:text-6xl lg:text-7xl tracking-[-0.02em]'
+              className='heading-hero'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
@@ -166,7 +144,7 @@ function About() {
                   >
                     15+
                   </motion.span>
-                  <span className='text-[11px] font-medium tracking-widest text-on-surface-variant uppercase'>
+                  <span className='text-label font-medium tracking-widest text-on-surface-variant uppercase'>
                     Years of Expertise
                   </span>
                 </div>
@@ -180,7 +158,7 @@ function About() {
                   >
                     40+
                   </motion.span>
-                  <span className='text-[11px] font-medium tracking-widest text-on-surface-variant uppercase'>
+                  <span className='text-label font-medium tracking-widest text-on-surface-variant uppercase'>
                     Completed Projects
                   </span>
                 </div>
@@ -197,7 +175,7 @@ function About() {
               </motion.p>
               <Link
                 to='/portfolio'
-                className='mt-8 flex items-center gap-2 text-[11px] font-medium tracking-widest text-on-surface uppercase transition-colors hover:text-secondary group'
+                className='mt-8 flex items-center gap-2 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:text-secondary group'
               >
                 View Our Portfolio
                 <span className='material-symbols-outlined text-base transition-transform group-hover:translate-x-1'>
@@ -234,7 +212,7 @@ function About() {
                   uncompromising build quality.
                 </p>
               </div>
-              <ul className='space-y-4 text-[11px] font-medium tracking-widest text-on-surface uppercase'>
+              <ul className='space-y-4 text-label font-medium tracking-widest text-on-surface uppercase'>
                 {[
                   '100% Timely Handover',
                   'Premium Raw Materials',
@@ -295,7 +273,7 @@ function About() {
             whileInView='visible'
             viewport={{ once: true, margin: '-80px' }}
           >
-            <span className='mb-4 block text-[11px] font-medium tracking-[0.2em] text-secondary uppercase'>
+            <span className='mb-4 block text-label font-medium tracking-[0.2em] text-secondary uppercase'>
               The Board
             </span>
             <h2 className='text-4xl leading-[1.2] font-serif md:text-5xl'>
@@ -326,7 +304,7 @@ function About() {
               <h4 className='mb-1 text-2xl font-serif'>
                 Engr. Mahfuzur Rahman
               </h4>
-              <p className='mb-4 text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <p className='mb-4 text-label font-medium tracking-[0.15em] text-secondary uppercase'>
                 Chairman
               </p>
               <div className='mb-6 h-px w-full bg-outline' />
@@ -351,7 +329,7 @@ function About() {
                 />
               </motion.div>
               <h4 className='mb-1 text-2xl font-serif'>Md. Shaon Ahmed</h4>
-              <p className='mb-4 text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <p className='mb-4 text-label font-medium tracking-[0.15em] text-secondary uppercase'>
                 Managing Director
               </p>
               <div className='mb-6 h-px w-full bg-outline' />
@@ -402,7 +380,7 @@ function About() {
                       {cert.icon}
                     </span>
                   </div>
-                  <span className='text-[11px] font-medium tracking-widest text-on-surface uppercase'>
+                  <span className='text-label font-medium tracking-widest text-on-surface uppercase'>
                     {cert.label}
                   </span>
                 </motion.div>

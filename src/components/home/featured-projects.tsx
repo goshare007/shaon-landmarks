@@ -19,6 +19,10 @@ export function FeaturedProjects() {
   const secondaryLeft = allProjects[3];
   const secondaryRight = allProjects[4];
 
+  if (!main || !rightTop || !rightBottom || !secondaryLeft || !secondaryRight) {
+    return null;
+  }
+
   return (
     <section className='bg-white py-20 md:py-28'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
@@ -30,7 +34,7 @@ export function FeaturedProjects() {
           viewport={{ once: true, margin: '-80px' }}
         >
           <div>
-            <span className='text-[11px] font-medium tracking-[0.15em] text-on-surface-variant uppercase'>
+            <span className='text-label font-medium tracking-[0.15em] text-on-surface-variant uppercase'>
               Iconic Developments
             </span>
             <h2 className='mt-3 text-3xl leading-tight text-on-surface font-serif sm:text-4xl'>
@@ -46,7 +50,7 @@ export function FeaturedProjects() {
           >
             <Link
               to='/portfolio'
-              className='inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-[11px] font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
+              className='inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-label font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
             >
               View All Projects
             </Link>
@@ -57,7 +61,7 @@ export function FeaturedProjects() {
           {/* The Obsidian — col-span-7 */}
           <motion.div
             key={main.id}
-            className='group relative col-span-7 h-100 cursor-pointer overflow-hidden rounded-sm md:h-200'
+            className='group relative col-span-7 h-[25rem] cursor-pointer overflow-hidden rounded-sm md:h-[50rem]'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -72,7 +76,7 @@ export function FeaturedProjects() {
                 src={main.image}
                 alt={main.title}
                 layout='fullWidth'
-                className='h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100'
+                className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
               />
             </motion.div>
             <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
@@ -83,7 +87,7 @@ export function FeaturedProjects() {
               whileHover={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4 }}
             >
-              <span className='text-[10px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
                 {main.tagline}
               </span>
               <h3 className='mt-1 text-3xl font-serif text-white'>
@@ -115,7 +119,7 @@ export function FeaturedProjects() {
                   src={rightTop.image}
                   alt={rightTop.title}
                   layout='fullWidth'
-                  className='h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100'
+                  className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
                 />
               </motion.div>
               <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
@@ -126,7 +130,7 @@ export function FeaturedProjects() {
                 whileHover={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.4 }}
               >
-                <span className='text-[10px] font-medium tracking-[0.15em] text-secondary uppercase'>
+                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
                   {rightTop.tagline}
                 </span>
                 <h3 className='mt-1 text-2xl font-serif text-white'>
@@ -144,7 +148,7 @@ export function FeaturedProjects() {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <span className='text-[10px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
                 {rightBottom.tagline}
               </span>
               <h3 className='mt-1 text-2xl font-serif text-on-surface'>
@@ -159,7 +163,7 @@ export function FeaturedProjects() {
               >
                 <Link
                   to='/contact'
-                  className='mt-4 inline-block self-start rounded-sm border border-outline-variant px-5 py-2 text-[10px] font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
+                  className='mt-4 inline-block self-start rounded-sm border border-outline-variant px-5 py-2 text-caption font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
                 >
                   Notify Me
                 </Link>
@@ -170,7 +174,7 @@ export function FeaturedProjects() {
           {/* Azure Waterfront — col-span-6 */}
           <motion.div
             key={secondaryLeft.id}
-            className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
+            className='group relative col-span-6 h-[28.125rem] cursor-pointer overflow-hidden rounded-sm'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -185,7 +189,7 @@ export function FeaturedProjects() {
                 src={secondaryLeft.image}
                 alt={secondaryLeft.title}
                 layout='fullWidth'
-                className='h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100'
+                className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
               />
             </motion.div>
             <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
@@ -196,7 +200,7 @@ export function FeaturedProjects() {
               whileHover={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4 }}
             >
-              <span className='text-[10px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
                 {secondaryLeft.tagline}
               </span>
               <h3 className='mt-1 text-2xl font-serif text-white'>
@@ -211,7 +215,7 @@ export function FeaturedProjects() {
           {/* The Skyline Plaza — col-span-6 */}
           <motion.div
             key={secondaryRight.id}
-            className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
+            className='group relative col-span-6 h-[28.125rem] cursor-pointer overflow-hidden rounded-sm'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -237,7 +241,7 @@ export function FeaturedProjects() {
               whileHover={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4 }}
             >
-              <span className='text-[10px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
                 {secondaryRight.tagline}
               </span>
               <h3 className='mt-1 text-2xl font-serif text-white'>
@@ -257,7 +261,7 @@ export function FeaturedProjects() {
         >
           <Link
             to='/portfolio'
-            className='inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-[11px] font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
+            className='inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-label font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
           >
             View All Projects
           </Link>

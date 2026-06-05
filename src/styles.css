@@ -9,7 +9,7 @@
   --color-on-tertiary: #ffffff;
   --color-on-tertiary-fixed-variant: #454747;
 
-  --color-secondary: #7c5730;
+  --color-secondary: #a67c52;
   --color-secondary-fixed-dim: #eebd8e;
   --color-on-secondary: #ffffff;
 
@@ -26,13 +26,22 @@
 
   --color-white: #ffffff;
   --color-black: #000000;
+
+  --text-label: 0.6875rem;
+  --text-caption: 0.625rem;
+  --text-body-sm: 0.8125rem;
+
+  --radius-sm: 0.25rem;
+  --radius: 0.25rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.25rem;
+
+  --ease-architectural: cubic-bezier(0.25, 0.1, 0.15, 1);
+  --duration-base: 0.7s;
+  --duration-slow: 1.2s;
 }
 
 @layer base {
-  * {
-    border-color: #e2e2e2;
-  }
-
   body {
     background-color: var(--color-surface);
     color: var(--color-on-surface);
@@ -46,6 +55,21 @@
   h4 {
     font-family: var(--font-serif);
     font-weight: 400;
+  }
+}
+
+@utility heading-hero {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+
+  @media (width >= 48rem) {
+    font-size: 3.75rem;
+  }
+
+  @media (width >= 64rem) {
+    font-size: 4.5rem;
   }
 }
 

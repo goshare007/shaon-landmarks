@@ -94,7 +94,7 @@ export const allProjects: Project[] = [
           'The Obsidian represents a bold departure from conventional residential design. Every surface, texture, and shadow has been meticulously considered to create an environment that is both dramatic and serene.',
           'The interplay of dark stone finishes with strategic natural light sources creates a living experience that evolves throughout the day — a true sanctuary in the heart of Gulshan.',
         ],
-        image: bronzeHeights,
+        image: theObsidian,
       },
       gallery: [theObsidian, galleryImg1, galleryImg2],
       amenities: [
@@ -242,7 +242,7 @@ export const allProjects: Project[] = [
     status: 'Upcoming',
     location: 'Purbachal, Dhaka',
     date: 'Launch: Q2 2024',
-    image: azureWaterfront,
+    image: theMarbleCollection,
   },
   {
     id: '4',
@@ -254,7 +254,7 @@ export const allProjects: Project[] = [
     status: 'Ongoing',
     location: 'Gulshan, Dhaka',
     date: 'Est: Dec 2025',
-    image: theMarbleCollection,
+    image: azureWaterfront,
     detail: {
       specs: {
         totalArea: '1.5 Acres',

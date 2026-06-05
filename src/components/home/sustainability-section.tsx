@@ -48,7 +48,7 @@ export function SustainabilitySection() {
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
         >
-          <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+          <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
             Sustainability & Innovation
           </span>
           <h2 className='mt-3 text-3xl leading-tight text-on-surface font-serif sm:text-4xl'>
@@ -79,8 +79,8 @@ export function SustainabilitySection() {
                 <motion.p
                   className='mt-2 text-sm text-white/70'
                   initial={{ opacity: 0, y: 10 }}
-                  whileHover={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
                 >
                   {item.description}
                 </motion.p>

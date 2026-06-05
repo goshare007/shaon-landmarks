@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import HERO_IMAGE from '@/assets/images/home/hero-bg.webp';
+import { HERO_CONTENT } from '@/data/home';
 
 const stagger = {
   hidden: { opacity: 1 },
@@ -30,14 +30,9 @@ const slideUp = {
   },
 };
 
-const STATS = [
-  { num: '48', label: 'Projects' },
-  { num: '16', label: 'Years' },
-  { num: '3.2M', label: 'Sq. Feet' },
-];
-
 export function HeroSection() {
   const rightPanelRef = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
 
   // Mouse positions for the parallax effect
   const x = useMotionValue(0);
@@ -51,16 +46,23 @@ export function HeroSection() {
   const imageX = useTransform(smoothX, [-0.5, 0.5], ['-3%', '3%']);
   const imageY = useTransform(smoothY, [-0.5, 0.5], ['-3%', '3%']);
 
+  // Cache rect to avoid forced layout on every mousemove
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!rightPanelRef.current) return;
-    const { width, height, left, top } =
-      rightPanelRef.current.getBoundingClientRect();
+    const rect =
+      rectRef.current ?? rightPanelRef.current.getBoundingClientRect();
 
-    const mouseX = (e.clientX - left) / width - 0.5;
-    const mouseY = (e.clientY - top) / height - 0.5;
+    const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+    const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
 
     x.set(mouseX);
     y.set(mouseY);
+  };
+
+  const handleMouseEnter = () => {
+    if (rightPanelRef.current) {
+      rectRef.current = rightPanelRef.current.getBoundingClientRect();
+    }
   };
 
   const handleMouseLeave = () => {
@@ -92,15 +94,15 @@ export function HeroSection() {
               className='flex items-center gap-4 mb-6 md:mb-9'
             >
               <div className='w-10 h-px bg-secondary' />
-              <span className='text-[9px] md:text-[10px] font-medium tracking-[0.2em] uppercase text-secondary-fixed-dim'>
-                Est. 2008 — Dhaka, Bangladesh
+              <span className='text-caption md:text-caption font-medium tracking-[0.2em] uppercase text-secondary-fixed-dim'>
+                {HERO_CONTENT.eyebrow}
               </span>
             </motion.div>
 
             {/* Headline */}
-            <h1 className='font-serif text-[clamp(36px,6vw,68px)] font-normal leading-[1.1] md:leading-[1.05] tracking-[-0.02em] text-white overflow-hidden'>
+            <h1 className='heading-hero text-white overflow-hidden'>
               <motion.span className='block' variants={slideUp}>
-                Architecting
+                {HERO_CONTENT.headline.first}
               </motion.span>
               <motion.span
                 className='block italic'
@@ -110,7 +112,7 @@ export function HeroSection() {
                 }}
                 variants={slideUp}
               >
-                Tomorrow
+                {HERO_CONTENT.headline.second}
               </motion.span>
             </h1>
 
@@ -121,8 +123,7 @@ export function HeroSection() {
             >
               <div className='w-0.5 min-h-14 bg-secondary shrink-0 mt-0.5' />
               <p className='text-xs md:text-sm leading-relaxed text-white/50 max-w-xs font-light'>
-                Defining the skyline with unyielding integrity and sophisticated
-                design. Crafting the future of high-end real estate.
+                {HERO_CONTENT.descriptor}
               </p>
             </motion.div>
 
@@ -131,7 +132,7 @@ export function HeroSection() {
               variants={fadeUp}
               className='flex flex-wrap items-center gap-6 md:gap-8 mt-8 md:mt-11'
             >
-              {STATS.map((stat, i) => (
+              {HERO_CONTENT.stats.map((stat, i) => (
                 <div
                   key={stat.label}
                   className='flex items-center gap-6 md:gap-8'
@@ -141,7 +142,7 @@ export function HeroSection() {
                     <span className='font-serif text-[22px] md:text-[26px] text-white leading-none'>
                       {stat.num}
                     </span>
-                    <span className='text-[8px] md:text-[9px] tracking-[0.18em] uppercase text-white/35 font-medium'>
+                    <span className='text-[8px] md:text-caption tracking-[0.18em] uppercase text-white/35 font-medium'>
                       {stat.label}
                     </span>
                   </div>
@@ -158,7 +159,7 @@ export function HeroSection() {
             <div className='flex flex-col gap-4'>
               <Link
                 to='/portfolio'
-                className='relative overflow-hidden inline-flex items-center gap-4 bg-secondary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-[10px] font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200'
+                className='relative overflow-hidden inline-flex items-center gap-4 bg-secondary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-caption font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200'
               >
                 <motion.div
                   className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/20 to-transparent'
@@ -183,7 +184,7 @@ export function HeroSection() {
             {/* Scroll indicator hidden on mobile to avoid layout crowding */}
             <div className='hidden md:flex flex-col items-center gap-2'>
               <span
-                className='text-[9px] tracking-[0.2em] uppercase text-white/25'
+                className='text-caption tracking-[0.2em] uppercase text-white/25'
                 style={{ writingMode: 'vertical-rl' }}
               >
                 Scroll
@@ -208,6 +209,7 @@ export function HeroSection() {
       <div
         ref={rightPanelRef}
         onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className='relative h-[45vh] md:h-full overflow-hidden order-1 md:order-2'
       >
@@ -219,7 +221,7 @@ export function HeroSection() {
           transition={{ duration: 1.2, delay: 0.2 }}
         >
           <Image
-            src={HERO_IMAGE}
+            src={HERO_CONTENT.image}
             alt='Architectural landmark'
             layout='fullWidth'
             className='h-full w-full object-cover object-center'
@@ -248,8 +250,8 @@ export function HeroSection() {
               animate={{ opacity: [1, 0.4, 1], scale: [1, 0.8, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
-            <span className='text-[10px] tracking-[0.12em] uppercase text-white/70 font-medium'>
-              Dhaka Central — Tower IV
+            <span className='text-caption tracking-[0.12em] uppercase text-white/70 font-medium'>
+              {HERO_CONTENT.location}
             </span>
           </div>
         </motion.div>
@@ -262,10 +264,10 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 1.6 }}
         >
           <span
-            className='text-[10px] font-medium tracking-[0.2em] text-white/50 uppercase'
+            className='text-caption font-medium tracking-[0.2em] text-white/50 uppercase'
             style={{ writingMode: 'vertical-rl' }}
           >
-            2025
+            {new Date().getFullYear()}
           </span>
           <div className='w-px h-12 bg-linear-to-b from-secondary to-transparent' />
         </motion.div>

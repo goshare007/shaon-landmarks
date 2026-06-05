@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
-import Sustinbility from '@/assets/images/sustainability/sustainability.webp';
+import SustainabilityImg from '@/assets/images/sustainability/sustainability.webp';
+import { generateMeta } from '@/lib/seo';
 
 const pillars = [
   {
@@ -31,26 +32,12 @@ const stats = [
 
 export const Route = createFileRoute('/sustainability')({
   component: Sustainability,
-  head: () => ({
-    meta: [
-      { title: 'Sustainability — Shaon Landmarks & Housing' },
-      {
-        name: 'description',
-        content:
-          'Shaon Landmarks is committed to sustainable architecture — eco-friendly materials, green spaces, and energy-efficient building practices in Bangladesh.',
-      },
-      {
-        property: 'og:title',
-        content: 'Sustainability — Shaon Landmarks & Housing',
-      },
-      {
-        property: 'og:description',
-        content:
-          'Discover our commitment to green building, sustainable materials, and energy-efficient design.',
-      },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () =>
+    generateMeta({
+      title: 'Sustainability',
+      description:
+        'Shaon Landmarks is committed to sustainable architecture — eco-friendly materials, green spaces, and energy-efficient building practices in Bangladesh.',
+    }),
 });
 
 function Sustainability() {
@@ -59,7 +46,7 @@ function Sustainability() {
       <section className='relative h-[50vh] min-h-120 overflow-hidden bg-tertiary'>
         <motion.div
           className='absolute inset-0 bg-cover bg-center will-change-transform'
-          style={{ backgroundImage: `url(${Sustinbility})` }}
+          style={{ backgroundImage: `url(${SustainabilityImg})` }}
           animate={{ scale: [1, 1.1] }}
           transition={{
             duration: 20,
@@ -76,10 +63,10 @@ function Sustainability() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
           >
-            <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+            <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
               Building Responsibly
             </span>
-            <h1 className='mt-3 text-5xl leading-[1.05] tracking-[-0.02em] text-on-tertiary font-serif sm:text-6xl md:text-7xl'>
+            <h1 className='heading-hero mt-3 text-on-tertiary'>
               Sustainability
             </h1>
             <p className='mt-4 max-w-xl text-base leading-relaxed text-[#d6d8d8]'>
@@ -99,7 +86,7 @@ function Sustainability() {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7 }}
             >
-              <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
                 Our Philosophy
               </span>
               <h2 className='mt-3 text-3xl font-serif text-on-surface sm:text-4xl'>
@@ -125,7 +112,7 @@ function Sustainability() {
                   <div className='text-3xl font-serif text-secondary sm:text-4xl'>
                     {s.value}
                   </div>
-                  <div className='mt-1 text-[10px] font-medium tracking-widest text-on-surface-variant uppercase'>
+                  <div className='mt-1 text-caption font-medium tracking-widest text-on-surface-variant uppercase'>
                     {s.label}
                   </div>
                 </div>
@@ -144,7 +131,7 @@ function Sustainability() {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.6 }}
           >
-            <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+            <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
               Our Initiatives
             </span>
             <h2 className='mt-3 text-3xl font-serif text-on-surface sm:text-4xl'>
@@ -210,7 +197,7 @@ function Sustainability() {
                 transition={{ duration: 0.4 }}
                 whileHover={{ scale: 1.04 }}
               >
-                <span className='text-[11px] font-medium tracking-widest text-on-surface uppercase'>
+                <span className='text-label font-medium tracking-widest text-on-surface uppercase'>
                   {cert}
                 </span>
               </motion.div>
@@ -238,7 +225,7 @@ function Sustainability() {
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link
                 to='/contact'
-                className='inline-block rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-widest text-on-secondary no-underline uppercase'
+                className='inline-block rounded-sm bg-secondary px-8 py-3.5 text-label font-medium tracking-widest text-on-secondary no-underline uppercase'
               >
                 Get in Touch
               </Link>

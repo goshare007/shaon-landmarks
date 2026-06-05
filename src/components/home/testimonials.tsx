@@ -11,14 +11,7 @@ import {
 } from '@/components/ui/carousel';
 import { testimonials } from '@/data/testimonials';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] as const },
-  },
-};
+import { fadeUp } from '@/lib/animations';
 
 export function TestimonialSection() {
   const [api, setApi] = useState<CarouselApi>();
@@ -45,7 +38,7 @@ export function TestimonialSection() {
 
   return (
     <section className='relative bg-tertiary py-20 md:py-28'>
-      <div className='mx-auto  px-4'>
+      <div className='mx-auto max-w-360 px-4'>
         <motion.div
           className='mb-16 text-center'
           variants={fadeUp}
@@ -53,7 +46,7 @@ export function TestimonialSection() {
           whileInView='visible'
           viewport={{ once: true, margin: '-80px' }}
         >
-          <span className='mb-4 block font-sans text-[11px] font-medium tracking-[0.2em] text-secondary uppercase'>
+          <span className='mb-4 block font-sans text-label font-medium tracking-[0.2em] text-secondary uppercase'>
             What Our Clients Say
           </span>
           <h2 className='font-serif text-4xl text-on-tertiary md:text-5xl'>
@@ -68,7 +61,8 @@ export function TestimonialSection() {
             loop: true,
           }}
           plugins={[autoplayPlugin]}
-          className='mx-auto'
+          className='mx-auto max-w-360'
+          aria-live='polite'
         >
           <CarouselContent>
             {testimonials.map((t, i) => (
@@ -95,10 +89,10 @@ export function TestimonialSection() {
                   <div className='mb-6 h-px w-12 bg-secondary' />
 
                   <footer>
-                    <strong className='block font-sans text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+                    <strong className='block font-sans text-label font-medium tracking-[0.15em] text-secondary uppercase'>
                       {t.name}
                     </strong>
-                    <p className='mt-1.5 font-sans text-[12px] text-on-tertiary/50'>
+                    <p className='mt-1.5 font-sans text-sm text-on-tertiary/50'>
                       {t.role}
                     </p>
                   </footer>

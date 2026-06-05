@@ -4,19 +4,8 @@ import { motion } from 'framer-motion';
 import HERO_IMAGE from '@/assets/images/career/hero.webp';
 import CAREER_TEAM from '@/assets/images/career/team.webp';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] } as const,
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
+import { fadeUp, staggerShort as stagger } from '@/lib/animations';
+import { generateMeta } from '@/lib/seo';
 
 const openPositions = [
   {
@@ -51,23 +40,12 @@ const openPositions = [
 
 export const Route = createFileRoute('/career')({
   component: Career,
-  head: () => ({
-    meta: [
-      { title: 'Careers — Shaon Landmarks & Housing' },
-      {
-        name: 'description',
-        content:
-          'Join Shaon Landmarks & Housing. Explore career opportunities in architecture, project management, interior design, and more.',
-      },
-      { property: 'og:title', content: 'Careers — Shaon Landmarks & Housing' },
-      {
-        property: 'og:description',
-        content:
-          'Build your future with Shaon Landmarks. We are looking for talent committed to architectural integrity.',
-      },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () =>
+    generateMeta({
+      title: 'Careers',
+      description:
+        'Join Shaon Landmarks & Housing. Explore career opportunities in architecture, project management, interior design, and more.',
+    }),
 });
 
 function Career() {
@@ -94,12 +72,13 @@ function Career() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
           >
-            <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+            <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
               Join the Team
             </span>
-            <h1 className='mt-3 text-5xl leading-[1.05] tracking-[-0.02em] text-on-tertiary font-serif sm:text-6xl md:text-7xl'>
-              Careers
+            <h1 className='heading-hero mt-3 text-on-tertiary'>
+              Building Careers
             </h1>
+
             <p className='mt-4 max-w-xl text-base leading-relaxed text-[#d6d8d8]'>
               Build your future with Shaon Landmarks. We are always looking for
               talent that shares our commitment to architectural integrity.
@@ -118,7 +97,7 @@ function Career() {
               whileInView='visible'
               viewport={{ once: true, margin: '-80px' }}
             >
-              <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
                 Why Shaon Landmarks
               </span>
               <h2 className='mt-3 text-3xl leading-tight font-serif text-on-surface sm:text-4xl'>
@@ -196,10 +175,10 @@ function Career() {
                 transition={{ duration: 0.3 }}
               >
                 <div className='mb-4 flex items-center gap-3'>
-                  <span className='rounded-sm border border-secondary bg-secondary/10 px-2.5 py-1 text-[10px] font-medium tracking-widest text-secondary uppercase'>
+                  <span className='rounded-sm border border-secondary bg-secondary/10 px-2.5 py-1 text-caption font-medium tracking-widest text-secondary uppercase'>
                     {position.type}
                   </span>
-                  <span className='text-[11px] font-medium text-on-surface-variant'>
+                  <span className='text-label font-medium text-on-surface-variant'>
                     {position.location}
                   </span>
                 </div>
@@ -211,7 +190,7 @@ function Career() {
                 </p>
                 <Link
                   to='/contact'
-                  className='inline-flex items-center gap-2 text-[11px] font-medium tracking-widest text-secondary uppercase transition-colors hover:gap-4'
+                  className='inline-flex items-center gap-2 text-label font-medium tracking-widest text-secondary uppercase transition-colors hover:gap-4'
                 >
                   Apply Now
                   <span className='material-symbols-outlined text-base'>
@@ -244,7 +223,7 @@ function Career() {
             </p>
             <Link
               to='/contact'
-              className='mt-8 inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-widest text-on-secondary no-underline uppercase transition-all hover:opacity-90'
+              className='mt-8 inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-label font-medium tracking-widest text-on-secondary no-underline uppercase transition-all hover:opacity-90'
             >
               Get in Touch
               <span className='material-symbols-outlined text-base'>

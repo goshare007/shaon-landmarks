@@ -1,11 +1,5 @@
 import { motion } from 'framer-motion';
-
-const stats = [
-  { value: '15+', label: 'Years of Excellence' },
-  { value: '25+', label: 'Landmark Projects' },
-  { value: '500+', label: 'Families Served' },
-  { value: 'RAJUK', label: 'Certified Developer' },
-];
+import { TRUST_STATS as stats } from '@/data/home';
 
 const statVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -38,7 +32,7 @@ export function TrustStats() {
               <div className='text-4xl font-serif text-secondary sm:text-5xl'>
                 {stat.value}
               </div>
-              <div className='mt-2 text-[11px] font-medium tracking-widest text-on-surface-variant uppercase'>
+              <div className='mt-2 text-label font-medium tracking-widest text-on-surface-variant uppercase'>
                 {stat.label}
               </div>
             </motion.div>

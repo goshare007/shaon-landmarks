@@ -1,12 +1,6 @@
 import { motion } from 'framer-motion';
 import { pillars } from '@/data/pillars';
 
-const iconMap: Record<string, string> = {
-  shield: 'shield',
-  architecture: 'architecture',
-  history_edu: 'history_edu',
-};
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -44,7 +38,7 @@ export function PillarsSection() {
             >
               <span className='inline-flex items-center justify-center text-2xl text-secondary'>
                 <span className='material-symbols-outlined text-3xl'>
-                  {iconMap[pillar.icon] || pillar.icon}
+                  {pillar.icon}
                 </span>
               </span>
               <h3 className='mb-3 mt-4 text-lg font-serif text-on-surface'>

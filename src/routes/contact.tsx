@@ -20,41 +20,16 @@ import CTG_IMG from '@/assets/images/contact/ctg-office.webp';
 import DHAKA_IMG from '@/assets/images/contact/dhaka-office.webp';
 import HERO_IMG from '@/assets/images/contact/hero.webp';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] as const },
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-};
+import { fadeUp, stagger } from '@/lib/animations';
+import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/contact')({
-  head: () => ({
-    meta: [
-      { title: 'Contact Us — Shaon Landmarks & Housing' },
-      {
-        name: 'description',
-        content:
-          'Get in touch with Shaon Landmarks & Housing. Schedule a consultation or visit our offices in Gulshan, Dhaka or Agrabad, Chattogram.',
-      },
-      {
-        property: 'og:title',
-        content: 'Contact Us — Shaon Landmarks & Housing',
-      },
-      {
-        property: 'og:description',
-        content:
-          'Reach out to our team for premium real estate consultations and project inquiries.',
-      },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () =>
+    generateMeta({
+      title: 'Contact Us',
+      description:
+        'Get in touch with Shaon Landmarks & Housing. Schedule a consultation or visit our offices in Gulshan, Dhaka or Agrabad, Chattogram.',
+    }),
 
   component: Contact,
 });
@@ -113,7 +88,7 @@ function Contact() {
         </motion.div>
         <div className='relative z-10 max-w-4xl px-4 text-center md:px-16'>
           <motion.span
-            className='mb-6 block text-[11px] font-medium tracking-[0.4em] text-secondary-fixed-dim uppercase'
+            className='mb-6 block text-label font-medium tracking-[0.4em] text-secondary-fixed-dim uppercase'
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -121,7 +96,7 @@ function Contact() {
             Personalized Service
           </motion.span>
           <motion.h1
-            className='mb-8 text-[40px] leading-[1.1] tracking-[-0.02em] text-on-tertiary font-serif md:text-6xl lg:text-7xl'
+            className='heading-hero mb-8 text-on-tertiary'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
@@ -166,7 +141,7 @@ function Contact() {
                   verified
                 </span>
                 <div>
-                  <h4 className='text-[11px] font-medium tracking-widest text-on-surface uppercase'>
+                  <h4 className='text-label font-medium tracking-widest text-on-surface uppercase'>
                     Privacy Guaranteed
                   </h4>
                   <p className='text-sm text-on-surface-variant'>
@@ -179,7 +154,7 @@ function Contact() {
                   calendar_today
                 </span>
                 <div>
-                  <h4 className='text-[11px] font-medium tracking-widest text-on-surface uppercase'>
+                  <h4 className='text-label font-medium tracking-widest text-on-surface uppercase'>
                     Priority Scheduling
                   </h4>
                   <p className='text-sm text-on-surface-variant'>
@@ -202,7 +177,7 @@ function Contact() {
                 <div className='group space-y-2'>
                   <Label
                     htmlFor='name'
-                    className='text-[11px] font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
+                    className='text-label font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
                   >
                     Full Name *
                   </Label>
@@ -218,7 +193,7 @@ function Contact() {
                 <div className='group space-y-2'>
                   <Label
                     htmlFor='email'
-                    className='text-[11px] font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
+                    className='text-label font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
                   >
                     Email Address *
                   </Label>
@@ -236,7 +211,7 @@ function Contact() {
               <div className='group space-y-2'>
                 <Label
                   htmlFor='interest'
-                  className='text-[11px] font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
+                  className='text-label font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
                 >
                   Project Interest
                 </Label>
@@ -271,7 +246,7 @@ function Contact() {
               <div className='group space-y-2'>
                 <Label
                   htmlFor='vision'
-                  className='text-[11px] font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
+                  className='text-label font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
                 >
                   Your Vision
                 </Label>
@@ -301,7 +276,7 @@ function Contact() {
               <Button
                 asChild
                 disabled={formState.status === 'submitting'}
-                className='w-full rounded-none bg-primary px-12 py-5 text-[11px] font-medium tracking-[0.15em] text-on-primary uppercase transition-all duration-300 hover:bg-secondary hover:text-on-primary disabled:opacity-50'
+                className='w-full rounded-none bg-primary px-12 py-5 text-label font-medium tracking-[0.15em] text-on-primary uppercase transition-all duration-300 hover:bg-secondary hover:text-on-primary disabled:opacity-50'
               >
                 <motion.button
                   type='submit'
@@ -369,7 +344,7 @@ function Contact() {
                   />
                 </motion.div>
                 <div>
-                  <span className='mb-2 block text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+                  <span className='mb-2 block text-label font-medium tracking-[0.15em] text-secondary uppercase'>
                     {office.tag}
                   </span>
                   <h3 className='mb-4 text-2xl font-serif'>{office.title}</h3>
@@ -417,7 +392,7 @@ function Contact() {
               href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-flex items-center gap-4 border border-secondary px-12 py-5 text-[11px] font-medium tracking-[0.15em] text-secondary uppercase transition-all duration-500 hover:bg-secondary hover:text-on-primary'
+              className='inline-flex items-center gap-4 border border-secondary px-12 py-5 text-label font-medium tracking-[0.15em] text-secondary uppercase transition-all duration-500 hover:bg-secondary hover:text-on-primary'
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

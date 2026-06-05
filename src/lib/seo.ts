@@ -32,3 +32,39 @@ export const ORGANIZATION_JSON_LD = {
   ],
   foundingDate: '2008',
 };
+
+interface SeoProps {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+export function generateMeta({
+  title: pageTitle,
+  description: pageDescription,
+  image,
+  type = 'website',
+}: SeoProps) {
+  const title = pageTitle
+    ? `${pageTitle} — Shaon Landmarks & Housing`
+    : 'Shaon Landmarks — Architectural Integrity | Premium Real Estate Bangladesh';
+  const description =
+    pageDescription ??
+    'Shaon Landmarks & Housing redefines Bangladesh real estate with architectural integrity, timely handover, and premium quality construction. Explore iconic developments.';
+
+  return {
+    meta: [
+      { title },
+      { name: 'description', content: description },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:image', content: image ?? DEFAULT_OG_IMAGE },
+      { property: 'og:type', content: type },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: description },
+      { name: 'twitter:image', content: image ?? DEFAULT_OG_IMAGE },
+    ],
+  };
+}

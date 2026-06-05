@@ -1,13 +1,6 @@
 import { Link, useLocation } from '@tanstack/react-router';
+import { navItems } from '#/data/navigation';
 import { cn } from '@/lib/utils';
-
-const navItems = [
-  { label: 'Home', href: '/' as const },
-  { label: 'Portfolio', href: '/portfolio' as const },
-  { label: 'Services', href: '/services' as const },
-  { label: 'About', href: '/about' as const },
-  { label: 'Contact', href: '/contact' as const },
-] as const;
 
 export default function DesktopNav() {
   const { pathname } = useLocation();
@@ -26,7 +19,7 @@ export default function DesktopNav() {
               <Link
                 to={item.href}
                 className={cn(
-                  'relative inline-flex items-center gap-1.5 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.12em] transition-colors duration-200',
+                  'relative inline-flex items-center gap-1.5 px-4 py-2 text-label font-medium uppercase tracking-[0.12em] transition-colors duration-200',
                   isActive
                     ? 'text-primary'
                     : 'text-on-surface-variant hover:text-primary',

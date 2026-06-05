@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: this is fine */
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { motion } from 'framer-motion';
@@ -7,6 +6,7 @@ import type {
   ProjectDetail as ProjectDetailData,
 } from '@/data/projects';
 import { allProjects } from '@/data/projects';
+import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/projects/$slug')({
   loader: ({ params }) => {
@@ -38,27 +38,31 @@ export const Route = createFileRoute('/projects/$slug')({
       </section>
     </main>
   ),
+  errorComponent: ({ error }) => (
+    <main className='flex min-h-[60vh] items-center justify-center bg-surface'>
+      <div className='text-center'>
+        <h1 className='text-4xl font-serif text-on-surface'>Project Error</h1>
+        <p className='mt-4 text-on-surface-variant'>
+          {error instanceof Error
+            ? error.message
+            : 'Failed to load project details.'}
+        </p>
+        <Link
+          to='/portfolio'
+          className='mt-8 inline-block rounded-sm border border-outline-variant px-6 py-3 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:border-secondary hover:text-secondary'
+        >
+          Back to Portfolio
+        </Link>
+      </div>
+    </main>
+  ),
   head: ({ loaderData }) => {
     const project = loaderData?.project ?? null;
-    const title = project
-      ? `${project.title} — Shaon Landmarks & Housing`
-      : 'Project Details — Shaon Landmarks & Housing';
-    const description =
-      project?.description ??
-      'Explore this premium Shaon Landmarks development.';
-    const ogImage = project?.image ?? undefined;
-    return {
-      meta: [
-        { title },
-        { name: 'description', content: description },
-        { property: 'og:title', content: title },
-        { property: 'og:description', content: description },
-        ...(ogImage
-          ? [{ property: 'og:image' as const, content: ogImage }]
-          : []),
-        { name: 'twitter:card', content: 'summary_large_image' },
-      ],
-    };
+    return generateMeta({
+      title: project?.title ?? 'Project Details',
+      description: project?.description,
+      image: project?.image,
+    });
   },
   notFoundComponent: ProjectNotFound,
 });
@@ -71,7 +75,7 @@ function ProjectNotFound() {
         <p className='mt-4 text-on-surface-variant'>Project not found</p>
         <Link
           to='/portfolio'
-          className='mt-8 inline-block rounded-sm border border-outline-variant px-6 py-3 text-[11px] font-medium tracking-widest text-on-surface uppercase transition-colors hover:border-secondary hover:text-secondary'
+          className='mt-8 inline-block rounded-sm border border-outline-variant px-6 py-3 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:border-secondary hover:text-secondary'
         >
           Back to Portfolio
         </Link>
@@ -89,7 +93,7 @@ function ProjectDetail() {
     return <SimpleProjectView project={project} />;
   }
 
-  return <FullProjectView project={project} />;
+  return <FullProjectView project={project} detail={project.detail} />;
 }
 
 function SimpleProjectView({ project }: { project: Project }) {
@@ -111,7 +115,7 @@ function SimpleProjectView({ project }: { project: Project }) {
         <div className='relative z-10 flex h-full items-end pb-20'>
           <div className='mx-auto w-full max-w-360 px-4 md:px-16'>
             <motion.h1
-              className='text-5xl leading-[1.05] font-serif text-white md:text-7xl tracking-[-0.02em]'
+              className='heading-hero text-white'
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
@@ -134,19 +138,19 @@ function SimpleProjectView({ project }: { project: Project }) {
         <div className='mx-auto max-w-360 px-4 md:px-16'>
           <div className='grid gap-8 md:grid-cols-3'>
             <div>
-              <p className='text-[11px] font-medium tracking-widest text-secondary uppercase'>
+              <p className='text-label font-medium tracking-widest text-secondary uppercase'>
                 Status
               </p>
               <p className='mt-1 text-lg font-serif'>{project.status}</p>
             </div>
             <div>
-              <p className='text-[11px] font-medium tracking-widest text-secondary uppercase'>
+              <p className='text-label font-medium tracking-widest text-secondary uppercase'>
                 Location
               </p>
               <p className='mt-1 text-lg font-serif'>{project.location}</p>
             </div>
             <div>
-              <p className='text-[11px] font-medium tracking-widest text-secondary uppercase'>
+              <p className='text-label font-medium tracking-widest text-secondary uppercase'>
                 {project.date.includes(':') ? 'Timeline' : 'Launch'}
               </p>
               <p className='mt-1 text-lg font-serif'>{project.date}</p>
@@ -155,7 +159,7 @@ function SimpleProjectView({ project }: { project: Project }) {
           <div className='mt-12'>
             <Link
               to='/portfolio'
-              className='inline-flex items-center gap-2 text-[11px] font-medium tracking-widest text-on-surface uppercase transition-colors hover:text-secondary'
+              className='inline-flex items-center gap-2 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:text-secondary'
             >
               <span className='material-symbols-outlined text-base'>
                 arrow_back
@@ -169,30 +173,39 @@ function SimpleProjectView({ project }: { project: Project }) {
   );
 }
 
-function FullProjectView({ project }: { project: Project }) {
-  const d = project.detail!;
-
+function FullProjectView({
+  project,
+  detail,
+}: {
+  project: Project;
+  detail: ProjectDetailData;
+}) {
   return (
     <main>
-      <HeroSection project={project} />
-      <SpecsSection specs={d.specs} />
-      <VisionSection vision={d.vision} />
-      <GallerySection images={d.gallery} />
-      <AmenitiesSection amenities={d.amenities} />
-      <LocationSection location={d.location} />
+      <HeroSection project={project} detail={detail} />
+      <SpecsSection specs={detail.specs} />
+      <VisionSection vision={detail.vision} />
+      <GallerySection images={detail.gallery} projectTitle={project.title} />
+      <AmenitiesSection amenities={detail.amenities} />
+      <LocationSection location={detail.location} />
       <CtaSection />
     </main>
   );
 }
 
-function HeroSection({ project }: { project: Project }) {
-  const d = project.detail!;
+function HeroSection({
+  project,
+  detail,
+}: {
+  project: Project;
+  detail: ProjectDetailData;
+}) {
   return (
     <section className='relative h-230.25 overflow-hidden'>
       <div className='absolute inset-0 z-10 bg-primary/40' />
       <motion.div
         className='absolute inset-0 bg-cover bg-center'
-        style={{ backgroundImage: `url(${d.heroImage})` }}
+        style={{ backgroundImage: `url(${detail.heroImage})` }}
         animate={{ scale: [1, 1.08] }}
         transition={{
           duration: 20,
@@ -208,16 +221,16 @@ function HeroSection({ project }: { project: Project }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <span className='bg-secondary px-4 py-1 text-[11px] font-medium tracking-[0.2em] text-on-secondary uppercase'>
+          <span className='bg-secondary px-4 py-1 text-label font-medium tracking-[0.2em] text-on-secondary uppercase'>
             {project.status}
           </span>
           <div className='h-px w-24 bg-secondary' />
-          <span className='text-[11px] font-medium tracking-[0.2em] text-white/80 uppercase'>
+          <span className='text-label font-medium tracking-[0.2em] text-white/80 uppercase'>
             {project.location}
           </span>
         </motion.div>
         <motion.h1
-          className='max-w-3xl text-[40px] leading-none font-serif text-white md:text-5xl lg:text-7xl'
+          className='heading-hero max-w-3xl text-white'
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.15, 1] }}
@@ -255,7 +268,7 @@ function SpecsSection({ specs }: { specs: ProjectDetailData['specs'] }) {
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <p className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+              <p className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
                 {item.label}
               </p>
               <p className='mt-2 text-xl font-serif text-primary md:text-2xl'>
@@ -312,7 +325,13 @@ function VisionSection({ vision }: { vision: ProjectDetailData['vision'] }) {
   );
 }
 
-function GallerySection({ images }: { images: string[] }) {
+function GallerySection({
+  images,
+  projectTitle,
+}: {
+  images: string[];
+  projectTitle: string;
+}) {
   const [img1, img2, img3] = images;
 
   return (
@@ -328,7 +347,7 @@ function GallerySection({ images }: { images: string[] }) {
           <h2 className='text-2xl font-serif text-primary md:text-3xl'>
             Immersive Spaces
           </h2>
-          <p className='cursor-pointer border-b border-secondary pb-1 text-[11px] font-medium tracking-[0.15em] text-secondary uppercase transition-opacity hover:opacity-70'>
+          <p className='cursor-pointer border-b border-secondary pb-1 text-label font-medium tracking-[0.15em] text-secondary uppercase transition-opacity hover:opacity-70'>
             View Full Gallery
           </p>
         </motion.div>
@@ -342,7 +361,7 @@ function GallerySection({ images }: { images: string[] }) {
           >
             <Image
               src={img1}
-              alt=''
+              alt={`${projectTitle} gallery — main view`}
               layout='fullWidth'
               className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
             />
@@ -357,7 +376,7 @@ function GallerySection({ images }: { images: string[] }) {
             >
               <Image
                 src={img2}
-                alt=''
+                alt={`${projectTitle} gallery — view 2`}
                 layout='fullWidth'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
               />
@@ -373,7 +392,7 @@ function GallerySection({ images }: { images: string[] }) {
             >
               <Image
                 src={img3}
-                alt=''
+                alt={`${projectTitle} gallery — view 3`}
                 layout='fullWidth'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
               />
@@ -471,11 +490,11 @@ function LocationSection({
                     delay: Number(point.number) * 0.1,
                   }}
                 >
-                  <span className='text-[11px] font-medium tracking-widest text-secondary'>
+                  <span className='text-label font-medium tracking-widest text-secondary'>
                     {point.number}.
                   </span>
                   <div>
-                    <h4 className='mb-1 text-[11px] font-medium tracking-widest text-primary uppercase'>
+                    <h4 className='mb-1 text-label font-medium tracking-widest text-primary uppercase'>
                       {point.title}
                     </h4>
                     <p className='text-sm leading-relaxed text-on-surface-variant'>
@@ -535,13 +554,13 @@ function CtaSection() {
           <div className='flex flex-col gap-6 sm:flex-row'>
             <Link
               to='/contact'
-              className='bg-secondary px-12 py-4 text-[11px] font-medium tracking-[0.15em] text-on-secondary uppercase transition-all hover:opacity-90'
+              className='bg-secondary px-12 py-4 text-label font-medium tracking-[0.15em] text-on-secondary uppercase transition-all hover:opacity-90'
             >
               Schedule a Private Tour
             </Link>
             <Link
               to='/contact'
-              className='border border-on-primary-container px-12 py-4 text-[11px] font-medium tracking-[0.15em] text-on-primary uppercase no-underline transition-all hover:bg-on-primary hover:text-primary'
+              className='border border-on-primary-container px-12 py-4 text-label font-medium tracking-[0.15em] text-on-primary uppercase no-underline transition-all hover:bg-on-primary hover:text-primary'
             >
               Download Brochure
             </Link>

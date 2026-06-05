@@ -1,19 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] },
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
+import { fadeUp, staggerShort as stagger } from '@/lib/animations';
+import { generateMeta } from '@/lib/seo';
 
 const policySections = [
   {
@@ -50,26 +39,12 @@ const policySections = [
 
 export const Route = createFileRoute('/privacy')({
   component: Privacy,
-  head: () => ({
-    meta: [
-      { title: 'Privacy Policy — Shaon Landmarks & Housing' },
-      {
-        name: 'description',
-        content:
-          "Shaon Landmarks & Housing's privacy policy — how we collect, use, and protect your personal information.",
-      },
-      {
-        property: 'og:title',
-        content: 'Privacy Policy — Shaon Landmarks & Housing',
-      },
-      {
-        property: 'og:description',
-        content:
-          'Learn how Shaon Landmarks protects your personal data and respects your privacy.',
-      },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () =>
+    generateMeta({
+      title: 'Privacy Policy',
+      description:
+        "Shaon Landmarks & Housing's privacy policy — how we collect, use, and protect your personal information.",
+    }),
 });
 
 function Privacy() {
@@ -83,18 +58,19 @@ function Privacy() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
           >
-            <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+            <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
               Legal
             </span>
-            <h1 className='mt-3 text-4xl leading-[1.1] tracking-[-0.02em] text-on-tertiary font-serif sm:text-5xl md:text-6xl'>
+            <h1 className='heading-hero mt-3 text-on-tertiary'>
               Privacy Policy
             </h1>
+
             <p className='mt-4 max-w-xl text-base leading-relaxed text-[#9a9c9c]'>
               Your privacy matters to us. This policy outlines how Shaon
               Landmarks & Housing collects, uses, and protects your personal
               information.
             </p>
-            <p className='mt-2 text-[11px] font-medium tracking-[0.1em] text-on-surface-variant uppercase'>
+            <p className='mt-2 text-label font-medium tracking-[0.1em] text-on-surface-variant uppercase'>
               Last updated: June 2025
             </p>
           </motion.div>
@@ -118,7 +94,7 @@ function Privacy() {
                 variants={fadeUp}
               >
                 <div className='mb-4 flex items-start gap-4'>
-                  <span className='text-[11px] font-medium tracking-[0.1em] text-secondary'>
+                  <span className='text-label font-medium tracking-[0.1em] text-secondary'>
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div className='flex-1'>
@@ -159,7 +135,7 @@ function Privacy() {
             </p>
             <Link
               to='/contact'
-              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-[11px] font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90'
+              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-label font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90'
             >
               Contact Us
               <span className='material-symbols-outlined text-base'>

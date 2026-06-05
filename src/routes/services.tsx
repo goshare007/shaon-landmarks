@@ -6,20 +6,8 @@ import CONST_IMG from '@/assets/images/services/construction.webp';
 import HERO_IMG from '@/assets/images/services/hero.webp';
 import INTERIOR_IMG from '@/assets/images/services/interior.webp';
 import LAND_IMG from '@/assets/images/services/land-development.webp';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] } as const,
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-};
+import { fadeUp, stagger } from '@/lib/animations';
+import { generateMeta } from '@/lib/seo';
 
 const steps = [
   {
@@ -46,26 +34,12 @@ const steps = [
 
 export const Route = createFileRoute('/services')({
   component: Services,
-  head: () => ({
-    meta: [
-      { title: 'Our Services — Shaon Landmarks & Housing' },
-      {
-        name: 'description',
-        content:
-          'Shaon Landmarks offers land development, architectural design, construction management, and interior design services across Bangladesh.',
-      },
-      {
-        property: 'og:title',
-        content: 'Our Services — Shaon Landmarks & Housing',
-      },
-      {
-        property: 'og:description',
-        content:
-          'From land acquisition to interior elegance — comprehensive real estate services with architectural integrity.',
-      },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () =>
+    generateMeta({
+      title: 'Our Services',
+      description:
+        'Shaon Landmarks offers land development, architectural design, construction management, and interior design services across Bangladesh.',
+    }),
 });
 
 function Services() {
@@ -82,7 +56,7 @@ function Services() {
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
             >
               <motion.span
-                className='mb-6 block text-[11px] font-medium tracking-[0.2em] text-secondary uppercase'
+                className='mb-6 block text-label font-medium tracking-[0.2em] text-secondary uppercase'
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
@@ -90,7 +64,7 @@ function Services() {
                 Our Expertise
               </motion.span>
               <motion.h1
-                className='mb-8 text-[40px] leading-[1.1] tracking-[-0.02em] text-primary font-serif md:text-6xl lg:text-7xl'
+                className='heading-hero mb-8 text-primary'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
@@ -109,7 +83,7 @@ function Services() {
               </motion.p>
               <Link
                 to='/portfolio'
-                className='inline-block rounded-sm bg-primary px-8 py-4 text-[11px] font-medium tracking-widest text-on-primary uppercase transition-all hover:opacity-90'
+                className='inline-block rounded-sm bg-primary px-8 py-4 text-label font-medium tracking-widest text-on-primary uppercase transition-all hover:opacity-90'
               >
                 View Our Portfolio
               </Link>
@@ -134,7 +108,7 @@ function Services() {
                 >
                   <Image
                     src={HERO_IMG}
-                    alt=''
+                    alt='Shaon Landmark services overview'
                     layout='fullWidth'
                     className='h-full w-full object-cover'
                   />
@@ -201,7 +175,7 @@ function Services() {
                   </div>
                   <Link
                     to='/contact'
-                    className='flex items-center gap-2 text-[11px] font-medium tracking-widest text-on-surface uppercase no-underline transition-all group-hover:gap-4'
+                    className='flex items-center gap-2 text-label font-medium tracking-widest text-on-surface uppercase no-underline transition-all group-hover:gap-4'
                   >
                     Explore Strategies
                     <span className='material-symbols-outlined text-base'>
@@ -212,7 +186,7 @@ function Services() {
                 <motion.div className='aspect-square md:w-1/2 md:aspect-auto'>
                   <Image
                     src={LAND_IMG}
-                    alt=''
+                    alt='Land development project overview'
                     layout='fullWidth'
                     className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                   />
@@ -229,7 +203,7 @@ function Services() {
                 <div className='aspect-video'>
                   <Image
                     src={ARCH_IMG}
-                    alt=''
+                    alt='Architectural design rendering'
                     layout='fullWidth'
                     className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                   />
@@ -258,7 +232,7 @@ function Services() {
                 <div className='aspect-video'>
                   <Image
                     src={CONST_IMG}
-                    alt=''
+                    alt='Construction management site'
                     layout='fullWidth'
                     className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                   />
@@ -300,7 +274,7 @@ function Services() {
                   </div>
                   <Link
                     to='/contact'
-                    className='flex items-center gap-2 text-[11px] font-medium tracking-widest text-on-surface uppercase no-underline transition-all group-hover:gap-4'
+                    className='flex items-center gap-2 text-label font-medium tracking-widest text-on-surface uppercase no-underline transition-all group-hover:gap-4'
                   >
                     View Interior Gallery
                     <span className='material-symbols-outlined text-base'>
@@ -311,7 +285,7 @@ function Services() {
                 <motion.div className='aspect-square md:w-1/2 md:aspect-auto'>
                   <Image
                     src={INTERIOR_IMG}
-                    alt=''
+                    alt='Interior design showcase'
                     layout='fullWidth'
                     className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                   />
@@ -413,13 +387,13 @@ function Services() {
           >
             <Link
               to='/contact'
-              className='inline-block rounded-sm bg-primary px-10 py-5 text-[11px] font-medium tracking-[0.15em] text-on-primary uppercase transition-all hover:opacity-90'
+              className='inline-block rounded-sm bg-primary px-10 py-5 text-label font-medium tracking-[0.15em] text-on-primary uppercase transition-all hover:opacity-90'
             >
               Partner with Us
             </Link>
             <Link
               to='/contact'
-              className='inline-block rounded-sm border-2 border-primary px-10 py-5 text-[11px] font-medium tracking-[0.15em] text-primary uppercase transition-all hover:bg-primary hover:text-on-primary'
+              className='inline-block rounded-sm border-2 border-primary px-10 py-5 text-label font-medium tracking-[0.15em] text-primary uppercase transition-all hover:bg-primary hover:text-on-primary'
             >
               Consult our Experts
             </Link>

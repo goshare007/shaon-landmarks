@@ -1,19 +1,34 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { navItems } from '#/data/navigation';
 import { cn } from '@/lib/utils';
-
-const navItems = [
-  { label: 'Home', href: '/' as const },
-  { label: 'Portfolio', href: '/portfolio' as const },
-  { label: 'Services', href: '/services' as const },
-  { label: 'About', href: '/about' as const },
-  { label: 'Contact', href: '/contact' as const },
-] as const;
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const navRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (!open) {
+      document.body.style.overflow = '';
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', handleEscape);
+
+    navRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [open]);
 
   return (
     <>
@@ -57,7 +72,7 @@ export default function MobileMenu() {
             className='fixed inset-0 z-40 flex items-center justify-center bg-surface px-4'
           >
             <nav>
-              <ul className='space-y-6 text-center'>
+              <ul ref={navRef} className='space-y-6 text-center'>
                 {navItems.map((item, i) => {
                   const isActive =
                     item.href === '/'
@@ -79,7 +94,7 @@ export default function MobileMenu() {
                         to={item.href}
                         onClick={() => setOpen(false)}
                         className={cn(
-                          'inline-block text-[28px] font-serif tracking-tight transition-colors duration-200',
+                          'inline-block text-[28px] font-serif tracking-tight transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-secondary',
                           isActive
                             ? 'text-primary'
                             : 'text-on-surface-variant hover:text-primary',

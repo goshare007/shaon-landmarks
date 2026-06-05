@@ -1,19 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.15, 1] },
-  },
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
+import { fadeUp, staggerShort as stagger } from '@/lib/animations';
+import { generateMeta } from '@/lib/seo';
 
 const disclosureSections = [
   {
@@ -45,26 +34,12 @@ const disclosureSections = [
 
 export const Route = createFileRoute('/legal')({
   component: Legal,
-  head: () => ({
-    meta: [
-      { title: 'Legal Disclosures — Shaon Landmarks & Housing' },
-      {
-        name: 'description',
-        content:
-          'RAJUK certified, REHAB member — Shaon Landmarks operates with full regulatory compliance and transparency in Bangladesh real estate.',
-      },
-      {
-        property: 'og:title',
-        content: 'Legal Disclosures — Shaon Landmarks & Housing',
-      },
-      {
-        property: 'og:description',
-        content:
-          'View our certifications, memberships, terms of use, and legal information.',
-      },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-  }),
+  head: () =>
+    generateMeta({
+      title: 'Legal Disclosures',
+      description:
+        'RAJUK certified, REHAB member — Shaon Landmarks operates with full regulatory compliance and transparency in Bangladesh real estate.',
+    }),
 });
 
 function Legal() {
@@ -78,12 +53,13 @@ function Legal() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.15, 1] }}
           >
-            <span className='text-[11px] font-medium tracking-[0.15em] text-secondary uppercase'>
+            <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
               Compliance & Transparency
             </span>
-            <h1 className='mt-3 text-4xl leading-[1.1] tracking-[-0.02em] text-on-tertiary font-serif sm:text-5xl md:text-6xl'>
-              Legal Disclosures
+            <h1 className='heading-hero mt-3 text-on-tertiary'>
+              Legal Information
             </h1>
+
             <p className='mt-4 max-w-xl text-base leading-relaxed text-[#9a9c9c]'>
               Shaon Landmarks & Housing operates with full regulatory compliance
               and transparency. Below are our certifications, memberships, and
@@ -162,7 +138,7 @@ function Legal() {
             </p>
             <Link
               to='/contact'
-              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-[11px] font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90'
+              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-label font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90'
             >
               Contact Compliance
               <span className='material-symbols-outlined text-base'>

@@ -62,20 +62,20 @@ export const Route = createRootRoute({
           <div className='mt-10 flex items-center justify-center gap-4'>
             <Link
               to='/'
-              className='inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-[11px] font-medium tracking-widest text-on-secondary uppercase transition-all hover:opacity-90'
+              className='inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-label font-medium tracking-widest text-on-secondary uppercase transition-all hover:opacity-90'
             >
               Back to Home
             </Link>
             <Link
               to='/portfolio'
-              className='inline-flex items-center gap-2 rounded-sm border border-outline-variant px-8 py-3.5 text-[11px] font-medium tracking-widest text-on-surface uppercase transition-all hover:border-secondary hover:text-secondary'
+              className='inline-flex items-center gap-2 rounded-sm border border-outline-variant px-8 py-3.5 text-label font-medium tracking-widest text-on-surface uppercase transition-all hover:border-secondary hover:text-secondary'
             >
               View Portfolio
             </Link>
           </div>
           {suggestions.length > 0 && (
             <div className='mt-16'>
-              <p className='mb-6 text-[11px] font-medium tracking-widest text-on-surface-variant uppercase'>
+              <p className='mb-6 text-label font-medium tracking-widest text-on-surface-variant uppercase'>
                 Explore Our Projects
               </p>
               <div className='flex flex-wrap justify-center gap-4'>
@@ -86,7 +86,7 @@ export const Route = createRootRoute({
                     params={{ slug: p.slug }}
                     className='group rounded-sm border border-outline-variant px-6 py-4 text-left transition-all hover:border-secondary hover:bg-secondary/5'
                   >
-                    <p className='text-[11px] font-medium tracking-widest text-secondary uppercase'>
+                    <p className='text-label font-medium tracking-widest text-secondary uppercase'>
                       {p.title}
                     </p>
                     <p className='mt-1 text-xs text-on-surface-variant line-clamp-1'>
@@ -117,13 +117,13 @@ export const Route = createRootRoute({
           <button
             type='button'
             onClick={() => reset()}
-            className='rounded-sm bg-secondary px-6 py-3 text-[11px] font-medium tracking-widest text-on-secondary uppercase transition-all hover:opacity-90'
+            className='rounded-sm bg-secondary px-6 py-3 text-label font-medium tracking-widest text-on-secondary uppercase transition-all hover:opacity-90'
           >
             Try Again
           </button>
           <Link
             to='/'
-            className='rounded-sm border border-outline-variant px-6 py-3 text-[11px] font-medium tracking-widest text-on-surface uppercase transition-all hover:border-secondary hover:text-secondary'
+            className='rounded-sm border border-outline-variant px-6 py-3 text-label font-medium tracking-widest text-on-surface uppercase transition-all hover:border-secondary hover:text-secondary'
           >
             Go Home
           </Link>
