@@ -1,6 +1,6 @@
 import DEFAULT_OG_IMAGE_SRC from '@/assets/images/seo/default-og.webp';
 
-export const SITE_URL = 'https://shaonlandmarks.com';
+export const SITE_URL = process.env.SITE_URL;
 export const DEFAULT_OG_IMAGE = DEFAULT_OG_IMAGE_SRC;
 
 export const ORGANIZATION_JSON_LD = {
