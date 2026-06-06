@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import HERO_IMAGE from '@/assets/images/projects/the-obsidian.webp';
 import { CtaSection } from '@/components/home/cta-section';
 import { FeaturedProjects } from '@/components/home/featured-projects';
 import { HeroSection } from '@/components/home/hero-section';
@@ -10,7 +11,13 @@ import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/')({
   component: Home,
-  head: () => generateMeta({}),
+  head: () => ({
+    ...generateMeta({
+      path: '/',
+      image: HERO_IMAGE,
+    }),
+    links: [{ rel: 'preload', as: 'image', href: HERO_IMAGE }],
+  }),
 });
 
 function Home() {

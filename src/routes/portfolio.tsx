@@ -17,12 +17,16 @@ const statusColors: Record<string, string> = {
 
 export const Route = createFileRoute('/portfolio')({
   component: Portfolio,
-  head: () =>
-    generateMeta({
+  head: () => ({
+    ...generateMeta({
+      path: '/portfolio',
       title: 'Our Portfolio',
       description:
         "Explore Shaon Landmarks' portfolio of premium residential and commercial projects across Dhaka and Chattogram.",
+      image: img,
     }),
+    links: [{ rel: 'preload', as: 'image', href: img }],
+  }),
 });
 
 function Portfolio() {

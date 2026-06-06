@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { motion } from 'motion/react';
 import SustainabilityImg from '@/assets/images/sustainability/sustainability.webp';
-import { generateMeta } from '@/lib/seo';
 
 const pillars = [
   {
@@ -30,14 +29,20 @@ const stats = [
   { value: 'Zero', label: 'Net Carbon Committed' },
 ];
 
+import { generateMeta } from '@/lib/seo';
+
 export const Route = createFileRoute('/sustainability')({
   component: Sustainability,
-  head: () =>
-    generateMeta({
+  head: () => ({
+    ...generateMeta({
+      path: '/sustainability',
       title: 'Sustainability',
       description:
         'Shaon Landmarks is committed to sustainable architecture — eco-friendly materials, green spaces, and energy-efficient building practices in Bangladesh.',
+      image: SustainabilityImg,
     }),
+    links: [{ rel: 'preload', as: 'image', href: SustainabilityImg }],
+  }),
 });
 
 function Sustainability() {

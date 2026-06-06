@@ -7,7 +7,6 @@ import HERO_IMG from '@/assets/images/services/hero.webp';
 import INTERIOR_IMG from '@/assets/images/services/interior.webp';
 import LAND_IMG from '@/assets/images/services/land-development.webp';
 import { fadeUp, stagger } from '@/lib/animations';
-import { generateMeta } from '@/lib/seo';
 
 const steps = [
   {
@@ -32,14 +31,20 @@ const steps = [
   },
 ];
 
+import { generateMeta } from '@/lib/seo';
+
 export const Route = createFileRoute('/services')({
   component: Services,
-  head: () =>
-    generateMeta({
+  head: () => ({
+    ...generateMeta({
+      path: '/services',
       title: 'Our Services',
       description:
         'Shaon Landmarks offers land development, architectural design, construction management, and interior design services across Bangladesh.',
+      image: HERO_IMG,
     }),
+    links: [{ rel: 'preload', as: 'image', href: HERO_IMG }],
+  }),
 });
 
 function Services() {

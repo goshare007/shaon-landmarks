@@ -41,6 +41,7 @@ export const Route = createFileRoute('/privacy')({
   component: Privacy,
   head: () =>
     generateMeta({
+      path: '/privacy',
       title: 'Privacy Policy',
       description:
         "Shaon Landmarks & Housing's privacy policy — how we collect, use, and protect your personal information.",

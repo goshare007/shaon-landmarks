@@ -36,6 +36,7 @@ export const Route = createFileRoute('/legal')({
   component: Legal,
   head: () =>
     generateMeta({
+      path: '/legal',
       title: 'Legal Disclosures',
       description:
         'RAJUK certified, REHAB member — Shaon Landmarks operates with full regulatory compliance and transparency in Bangladesh real estate.',

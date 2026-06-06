@@ -24,12 +24,16 @@ import { fadeUp, stagger } from '@/lib/animations';
 import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/contact')({
-  head: () =>
-    generateMeta({
+  head: () => ({
+    ...generateMeta({
+      path: '/contact',
       title: 'Contact Us',
       description:
         'Get in touch with Shaon Landmarks & Housing. Schedule a consultation or visit our offices in Gulshan, Dhaka or Agrabad, Chattogram.',
+      image: HERO_IMG,
     }),
+    links: [{ rel: 'preload', as: 'image', href: HERO_IMG }],
+  }),
 
   component: Contact,
 });

@@ -10,12 +10,16 @@ import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/about')({
   component: About,
-  head: () =>
-    generateMeta({
+  head: () => ({
+    ...generateMeta({
+      path: '/about',
       title: 'About Us',
       description:
         "Learn about Shaon Landmarks & Housing's legacy of architectural integrity, visionary leadership, and certified excellence in Bangladesh real estate.",
+      image: HERO_IMAGE,
     }),
+    links: [{ rel: 'preload', as: 'image', href: HERO_IMAGE }],
+  }),
 });
 
 function About() {

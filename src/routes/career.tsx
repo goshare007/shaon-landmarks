@@ -5,7 +5,6 @@ import HERO_IMAGE from '@/assets/images/career/hero.webp';
 import CAREER_TEAM from '@/assets/images/career/team.webp';
 
 import { fadeUp, staggerShort as stagger } from '@/lib/animations';
-import { generateMeta } from '@/lib/seo';
 
 const openPositions = [
   {
@@ -38,14 +37,20 @@ const openPositions = [
   },
 ];
 
+import { generateMeta } from '@/lib/seo';
+
 export const Route = createFileRoute('/career')({
   component: Career,
-  head: () =>
-    generateMeta({
+  head: () => ({
+    ...generateMeta({
+      path: '/career',
       title: 'Careers',
       description:
         'Join Shaon Landmarks & Housing. Explore career opportunities in architecture, project management, interior design, and more.',
+      image: HERO_IMAGE,
     }),
+    links: [{ rel: 'preload', as: 'image', href: HERO_IMAGE }],
+  }),
 });
 
 function Career() {

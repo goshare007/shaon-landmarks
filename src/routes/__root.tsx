@@ -16,6 +16,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'theme-color', content: '#1e1e1e' },
       {
         title:
           'Shaon Landmarks — Architectural Integrity | Premium Real Estate Bangladesh',
@@ -25,11 +26,7 @@ export const Route = createRootRoute({
         content:
           'Shaon Landmarks & Housing redefines Bangladesh real estate with architectural integrity, timely handover, and premium quality construction. Explore iconic developments.',
       },
-      { property: 'og:locale', content: 'en_BD' },
-      { property: 'og:site_name', content: 'Shaon Landmarks & Housing' },
       { property: 'og:image', content: DEFAULT_OG_IMAGE },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '630' },
       { property: 'og:type', content: 'website' },
     ],
     links: [
@@ -43,6 +40,19 @@ export const Route = createRootRoute({
         rel: 'preconnect',
         href: 'https://fonts.gstatic.com',
         crossOrigin: 'anonymous',
+      },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '192x192',
+        href: '/logo192.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '512x512',
+        href: '/logo512.png',
       },
     ],
   }),

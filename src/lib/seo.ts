@@ -1,7 +1,10 @@
 import DEFAULT_OG_IMAGE_SRC from '@/assets/images/seo/default-og.webp';
 
-export const SITE_URL = process.env.SITE_URL;
+export const SITE_URL =
+  process.env.SITE_URL ?? 'https://shaonlandmarks.vercel.app';
 export const DEFAULT_OG_IMAGE = DEFAULT_OG_IMAGE_SRC;
+export const DEFAULT_OG_IMAGE_ALT =
+  'Shaon Landmarks & Housing — Architectural Integrity';
 
 export const ORGANIZATION_JSON_LD = {
   '@context': 'https://schema.org',
@@ -37,14 +40,18 @@ interface SeoProps {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   type?: 'website' | 'article';
+  path?: string;
 }
 
 export function generateMeta({
   title: pageTitle,
   description: pageDescription,
   image,
+  imageAlt,
   type = 'website',
+  path,
 }: SeoProps) {
   const title = pageTitle
     ? `${pageTitle} — Shaon Landmarks & Housing`
@@ -52,19 +59,82 @@ export function generateMeta({
   const description =
     pageDescription ??
     'Shaon Landmarks & Housing redefines Bangladesh real estate with architectural integrity, timely handover, and premium quality construction. Explore iconic developments.';
+  const ogImage = image ?? DEFAULT_OG_IMAGE;
+  const ogImageAlt = imageAlt ?? pageDescription ?? DEFAULT_OG_IMAGE_ALT;
+  const url = path ? `${SITE_URL}${path}` : SITE_URL;
 
   return {
     meta: [
       { title },
       { name: 'description', content: description },
+      { property: 'og:locale', content: 'en_BD' },
+      { property: 'og:site_name', content: 'Shaon Landmarks & Housing' },
+      { property: 'og:url', content: url },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { property: 'og:image', content: image ?? DEFAULT_OG_IMAGE },
+      { property: 'og:image', content: ogImage },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:image:alt', content: ogImageAlt },
       { property: 'og:type', content: type },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },
-      { name: 'twitter:image', content: image ?? DEFAULT_OG_IMAGE },
+      { name: 'twitter:image', content: ogImage },
+      { name: 'twitter:image:alt', content: ogImageAlt },
     ],
+  };
+}
+
+// ── Structured Data Helpers ──────────────────────────────────────────
+
+export function ldScript(data: Record<string, unknown>): string {
+  return JSON.stringify({ '@context': 'https://schema.org', ...data });
+}
+
+export function productLd({
+  name,
+  description,
+  image,
+  url,
+  status,
+  location,
+  area,
+  units,
+}: {
+  name: string;
+  description: string;
+  image: string;
+  url: string;
+  status: string;
+  location: string;
+  area: string;
+  units: string;
+}) {
+  return {
+    '@type': 'Product',
+    name,
+    description,
+    image,
+    url,
+    category: 'Real Estate Development',
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: 'Status', value: status },
+      { '@type': 'PropertyValue', name: 'Location', value: location },
+      { '@type': 'PropertyValue', name: 'Total Area', value: area },
+      { '@type': 'PropertyValue', name: 'Number of Units', value: units },
+    ],
+  };
+}
+
+export function breadcrumbLd(items: { name: string; url: string }[]) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
   };
 }

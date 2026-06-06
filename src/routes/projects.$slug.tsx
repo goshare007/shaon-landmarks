@@ -6,7 +6,13 @@ import type {
   ProjectDetail as ProjectDetailData,
 } from '@/data/projects';
 import { allProjects } from '@/data/projects';
-import { generateMeta } from '@/lib/seo';
+import {
+  breadcrumbLd,
+  generateMeta,
+  ldScript,
+  productLd,
+  SITE_URL,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/projects/$slug')({
   loader: ({ params }) => {
@@ -56,13 +62,28 @@ export const Route = createFileRoute('/projects/$slug')({
       </div>
     </main>
   ),
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const project = loaderData?.project ?? null;
-    return generateMeta({
+    const meta = generateMeta({
+      path: `/projects/${params.slug}`,
       title: project?.title ?? 'Project Details',
       description: project?.description,
       image: project?.image,
     });
+    return {
+      meta: meta.meta,
+      links: [
+        ...(project?.image
+          ? [
+              {
+                rel: 'preload' as const,
+                as: 'image' as const,
+                href: project.image,
+              },
+            ]
+          : []),
+      ],
+    };
   },
   notFoundComponent: ProjectNotFound,
 });
@@ -89,11 +110,48 @@ function ProjectDetail() {
 
   if (!project) return <ProjectNotFound />;
 
-  if (!project.detail) {
-    return <SimpleProjectView project={project} />;
+  const specs = project.detail?.specs;
+
+  const ld: Record<string, unknown>[] = [
+    breadcrumbLd([
+      { name: 'Home', url: SITE_URL },
+      { name: 'Portfolio', url: `${SITE_URL}/portfolio` },
+      { name: project.title, url: `${SITE_URL}/projects/${project.slug}` },
+    ]),
+  ];
+
+  if (specs) {
+    ld.push(
+      productLd({
+        name: project.title,
+        description: project.description,
+        image: project.image,
+        url: `${SITE_URL}/projects/${project.slug}`,
+        status: project.status,
+        location: project.location,
+        area: specs.totalArea,
+        units: specs.units,
+      }),
+    );
   }
 
-  return <FullProjectView project={project} detail={project.detail} />;
+  return (
+    <>
+      {ld.map((data, i) => (
+        <script
+          key={(data['@type'] as string) ?? i}
+          type='application/ld+json'
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: seo data
+          dangerouslySetInnerHTML={{ __html: ldScript(data) }}
+        />
+      ))}
+      {!project.detail ? (
+        <SimpleProjectView project={project} />
+      ) : (
+        <FullProjectView project={project} detail={project.detail} />
+      )}
+    </>
+  );
 }
 
 function SimpleProjectView({ project }: { project: Project }) {
