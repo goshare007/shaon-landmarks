@@ -1,5 +1,5 @@
 import { Link, useLocation } from '@tanstack/react-router';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { navItems } from '#/data/navigation';
 import { cn } from '@/lib/utils';

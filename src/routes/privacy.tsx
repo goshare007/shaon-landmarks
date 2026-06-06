@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 import { fadeUp, staggerShort as stagger } from '@/lib/animations';
 import { generateMeta } from '@/lib/seo';
@@ -52,7 +52,7 @@ function Privacy() {
     <main>
       {/* Hero */}
       <section className='bg-tertiary py-24 md:py-32'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ function Privacy() {
               Landmarks & Housing collects, uses, and protects your personal
               information.
             </p>
-            <p className='mt-2 text-label font-medium tracking-[0.1em] text-on-surface-variant uppercase'>
+            <p className='mt-2 text-label font-medium tracking-widest text-on-surface-variant uppercase'>
               Last updated: June 2025
             </p>
           </motion.div>
@@ -79,7 +79,7 @@ function Privacy() {
 
       {/* Policy Content */}
       <section className='bg-surface py-20 md:py-28'>
-        <div className='mx-auto max-w-[900px] px-4 md:px-16'>
+        <div className='mx-auto max-w-225 px-4 md:px-16'>
           <motion.div
             className='prose prose-sm max-w-none'
             variants={stagger}
@@ -94,7 +94,7 @@ function Privacy() {
                 variants={fadeUp}
               >
                 <div className='mb-4 flex items-start gap-4'>
-                  <span className='text-label font-medium tracking-[0.1em] text-secondary'>
+                  <span className='text-label font-medium tracking-widest text-secondary'>
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <div className='flex-1'>
@@ -117,7 +117,7 @@ function Privacy() {
 
       {/* Contact */}
       <section className='bg-surface-container-low py-20'>
-        <div className='mx-auto max-w-[900px] px-4 md:px-16'>
+        <div className='mx-auto max-w-225 px-4 md:px-16'>
           <motion.div
             className='border border-outline-variant bg-white p-8 md:p-12'
             variants={fadeUp}
@@ -135,7 +135,7 @@ function Privacy() {
             </p>
             <Link
               to='/contact'
-              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-label font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90'
+              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-label font-medium tracking-widest text-on-primary uppercase transition-all hover:opacity-90'
             >
               Contact Us
               <span className='material-symbols-outlined text-base'>

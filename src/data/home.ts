@@ -1,4 +1,4 @@
-import HERO_IMAGE from '@/assets/images/home/hero-bg.webp';
+import HERO_IMAGE from '@/assets/images/projects/the-obsidian.webp';
 
 export const HERO_CONTENT = {
   eyebrow: 'Est. 2008 — Dhaka, Bangladesh',

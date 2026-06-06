@@ -48,7 +48,7 @@ export default function Header() {
           {/* Bronze CTA — "Enquire" button, hidden on smallest screens */}
           <Link
             to='/contact'
-            className='hidden sm:inline-flex items-center justify-center rounded bg-secondary px-5 py-2 text-label font-semibold uppercase tracking-widest text-on-secondary transition-opacity duration-200 hover:opacity-85'
+            className='hidden sm:inline-flex items-center justify-center rounded bg-secondary px-5 py-3 text-label font-bold uppercase tracking-widest text-on-secondary transition-opacity duration-200 hover:opacity-85'
           >
             Let's Talk
           </Link>

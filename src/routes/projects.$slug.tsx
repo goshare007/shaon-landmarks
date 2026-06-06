@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import type {
   Project,
   ProjectDetail as ProjectDetailData,

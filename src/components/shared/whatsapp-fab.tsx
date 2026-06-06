@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '#/lib/constants';
 
 const MotionA = motion.create('a');

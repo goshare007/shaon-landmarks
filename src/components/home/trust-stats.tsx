@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { TRUST_STATS as stats } from '@/data/home';
 
 const statVariants = {

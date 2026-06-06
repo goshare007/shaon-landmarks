@@ -1,5 +1,5 @@
 import Autoplay from 'embla-carousel-autoplay';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useEffect, useMemo, useState } from 'react';
 import type { CarouselApi } from '@/components/ui/carousel';
 import {

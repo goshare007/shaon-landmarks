@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { allProjects } from '@/data/projects';
 
 const sectionVariants = {
@@ -61,7 +61,7 @@ export function FeaturedProjects() {
           {/* The Obsidian — col-span-7 */}
           <motion.div
             key={main.id}
-            className='group relative col-span-7 h-[25rem] cursor-pointer overflow-hidden rounded-sm md:h-[50rem]'
+            className='group relative col-span-7 h-100 cursor-pointer overflow-hidden rounded-sm md:h-200'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -174,7 +174,7 @@ export function FeaturedProjects() {
           {/* Azure Waterfront — col-span-6 */}
           <motion.div
             key={secondaryLeft.id}
-            className='group relative col-span-6 h-[28.125rem] cursor-pointer overflow-hidden rounded-sm'
+            className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -215,7 +215,7 @@ export function FeaturedProjects() {
           {/* The Skyline Plaza — col-span-6 */}
           <motion.div
             key={secondaryRight.id}
-            className='group relative col-span-6 h-[28.125rem] cursor-pointer overflow-hidden rounded-sm'
+            className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 import { fadeUp, staggerShort as stagger } from '@/lib/animations';
 import { generateMeta } from '@/lib/seo';
@@ -47,7 +47,7 @@ function Legal() {
     <main>
       {/* Hero */}
       <section className='bg-tertiary py-24 md:py-32'>
-        <div className='mx-auto max-w-[1440px] px-4 md:px-16'>
+        <div className='mx-auto max-w-360 px-4 md:px-16'>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -71,7 +71,7 @@ function Legal() {
 
       {/* Disclosure Content */}
       <section className='bg-surface py-20 md:py-28'>
-        <div className='mx-auto max-w-[900px] px-4 md:px-16'>
+        <div className='mx-auto max-w-225 px-4 md:px-16'>
           <motion.div
             variants={stagger}
             initial='hidden'
@@ -85,7 +85,7 @@ function Legal() {
                 variants={fadeUp}
               >
                 <div className='mb-4 flex items-start gap-4'>
-                  <div className='flex h-10 w-10 flex-shrink-0 items-center justify-center border border-secondary bg-secondary/5'>
+                  <div className='flex h-10 w-10 shrink-0 items-center justify-center border border-secondary bg-secondary/5'>
                     <span className='material-symbols-outlined text-base text-secondary'>
                       {i === 0
                         ? 'verified'
@@ -118,7 +118,7 @@ function Legal() {
 
       {/* CTA */}
       <section className='bg-surface-container-low py-20'>
-        <div className='mx-auto max-w-[900px] px-4 md:px-16'>
+        <div className='mx-auto max-w-225 px-4 md:px-16'>
           <motion.div
             className='border border-outline-variant bg-white p-8 text-center md:p-12'
             variants={fadeUp}
@@ -138,7 +138,7 @@ function Legal() {
             </p>
             <Link
               to='/contact'
-              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-label font-medium tracking-[0.1em] text-on-primary uppercase transition-all hover:opacity-90'
+              className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-label font-medium tracking-widest text-on-primary uppercase transition-all hover:opacity-90'
             >
               Contact Compliance
               <span className='material-symbols-outlined text-base'>

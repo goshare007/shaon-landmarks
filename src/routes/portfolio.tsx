@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { LayoutGroup, motion } from 'framer-motion';
+import { LayoutGroup, motion } from 'motion/react';
 import { useState } from 'react';
 import img from '@/assets/images/projects/the-obsidian.webp';
 import { allProjects } from '@/data/projects';

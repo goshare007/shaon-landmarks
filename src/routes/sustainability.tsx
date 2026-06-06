@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import SustainabilityImg from '@/assets/images/sustainability/sustainability.webp';
 import { generateMeta } from '@/lib/seo';
 

@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { useRef } from 'react';
 import { HERO_CONTENT } from '@/data/home';
 

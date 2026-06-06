@@ -19,7 +19,7 @@ export default function DesktopNav() {
               <Link
                 to={item.href}
                 className={cn(
-                  'relative inline-flex items-center gap-1.5 px-4 py-2 text-label font-medium uppercase tracking-[0.12em] transition-colors duration-200',
+                  'relative inline-flex items-center gap-1.5 px-4 py-2  font-medium  tracking-[0.12em] transition-colors duration-200',
                   isActive
                     ? 'text-primary'
                     : 'text-on-surface-variant hover:text-primary',

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import ARCH_IMG from '@/assets/images/services/architecture.webp';
 import CONST_IMG from '@/assets/images/services/construction.webp';
 import HERO_IMG from '@/assets/images/services/hero.webp';

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import energyEfficiency from '@/assets/images/sustainability/energy-efficiency.webp';
 import greenSpaces from '@/assets/images/sustainability/green-spaces.jpg';
 import sustainableMaterials from '@/assets/images/sustainability/sustainable-materials.jpg';

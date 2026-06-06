@@ -14,33 +14,33 @@ import theMarbleCollection from '@/assets/images/projects/the-marble-collection.
 import theObsidian from '@/assets/images/projects/the-obsidian.webp';
 import theSkylinePlaza from '@/assets/images/projects/the-skyline-plaza.webp';
 
-export interface ProjectSpecs {
+interface ProjectSpecs {
   totalArea: string;
   units: string;
   floorCount: string;
   completion: string;
 }
 
-export interface VisionSection {
+interface VisionSection {
   title: string;
   italicPart?: string;
   paragraphs: string[];
   image: string;
 }
 
-export interface Amenity {
+interface Amenity {
   icon: string;
   title: string;
   description: string;
 }
 
-export interface LocationPoint {
+interface LocationPoint {
   number: string;
   title: string;
   description: string;
 }
 
-export interface LocationDetails {
+interface LocationDetails {
   description: string;
   points: LocationPoint[];
   mapImage: string;

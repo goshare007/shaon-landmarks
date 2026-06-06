@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 import { submitNewsletterSignup } from '#/lib/forms';
 import logo from '@/assets/logo.png';
@@ -163,7 +163,7 @@ export default function Footer() {
                     required
                     placeholder='Enter your email'
                     aria-describedby='newsletter-form-status'
-                    className='w-full bg-surface-container-low border border-outline-variant/30 rounded-lg px-4 py-3 text-sm text-on-tertiary placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all'
+                    className='w-full bg-surface-container-low border border-outline-variant/30 text-black rounded-lg px-4 py-3 text-sm  placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all'
                   />
                   <motion.button
                     type='submit'
