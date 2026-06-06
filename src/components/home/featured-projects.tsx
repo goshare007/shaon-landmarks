@@ -59,56 +59,18 @@ export function FeaturedProjects() {
 
         <div className='grid grid-cols-1 gap-4 md:grid-cols-12'>
           {/* The Obsidian — col-span-7 */}
-          <motion.div
-            key={main.id}
-            className='group relative col-span-7 h-100 cursor-pointer overflow-hidden rounded-sm md:h-200'
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+          <Link
+            to='/portfolio/$slug'
+            params={{ slug: main.slug }}
+            className='col-span-7'
           >
             <motion.div
-              className='absolute inset-0'
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.7 }}
-            >
-              <Image
-                src={main.image}
-                alt={main.title}
-                layout='fullWidth'
-                className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
-              />
-            </motion.div>
-            <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
-            <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
-            <motion.div
-              className='absolute bottom-0 left-0 right-0 p-8'
-              initial={{ y: 16, opacity: 0 }}
-              whileHover={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                {main.tagline}
-              </span>
-              <h3 className='mt-1 text-3xl font-serif text-white'>
-                {main.title}
-              </h3>
-              <p className='mt-2 max-w-md text-sm text-white/70'>
-                {main.description}
-              </p>
-            </motion.div>
-          </motion.div>
-
-          {/* Right column — col-span-5 */}
-          <div className='col-span-5 flex flex-col gap-4'>
-            {/* Bronze Heights */}
-            <motion.div
-              key={rightTop.id}
-              className='group relative h-96 cursor-pointer overflow-hidden rounded-sm'
+              key={main.id}
+              className='group relative h-100 cursor-pointer overflow-hidden rounded-sm md:h-200'
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
             >
               <motion.div
                 className='absolute inset-0'
@@ -116,8 +78,8 @@ export function FeaturedProjects() {
                 transition={{ duration: 0.7 }}
               >
                 <Image
-                  src={rightTop.image}
-                  alt={rightTop.title}
+                  src={main.image}
+                  alt={main.title}
                   layout='fullWidth'
                   className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
                 />
@@ -125,19 +87,69 @@ export function FeaturedProjects() {
               <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
               <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
               <motion.div
-                className='absolute bottom-0 left-0 right-0 p-6'
+                className='absolute bottom-0 left-0 right-0 p-8'
                 initial={{ y: 16, opacity: 0 }}
                 whileHover={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.4 }}
               >
                 <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                  {rightTop.tagline}
+                  {main.tagline}
                 </span>
-                <h3 className='mt-1 text-2xl font-serif text-white'>
-                  {rightTop.title}
+                <h3 className='mt-1 text-3xl font-serif text-white'>
+                  {main.title}
                 </h3>
+                <p className='mt-2 max-w-md text-sm text-white/70'>
+                  {main.description}
+                </p>
               </motion.div>
             </motion.div>
+          </Link>
+
+          {/* Right column — col-span-5 */}
+          <div className='col-span-5 flex flex-col gap-4'>
+            {/* Bronze Heights */}
+            <Link
+              to='/portfolio/$slug'
+              params={{ slug: rightTop.slug }}
+              className='block'
+            >
+              <motion.div
+                key={rightTop.id}
+                className='group relative h-96 cursor-pointer overflow-hidden rounded-sm'
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+              >
+                <motion.div
+                  className='absolute inset-0'
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.7 }}
+                >
+                  <Image
+                    src={rightTop.image}
+                    alt={rightTop.title}
+                    layout='fullWidth'
+                    className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
+                  />
+                </motion.div>
+                <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
+                <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
+                <motion.div
+                  className='absolute bottom-0 left-0 right-0 p-6'
+                  initial={{ y: 16, opacity: 0 }}
+                  whileHover={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
+                    {rightTop.tagline}
+                  </span>
+                  <h3 className='mt-1 text-2xl font-serif text-white'>
+                    {rightTop.title}
+                  </h3>
+                </motion.div>
+              </motion.div>
+            </Link>
 
             {/* The Marble Collection — text card */}
             <motion.div
@@ -148,15 +160,21 @@ export function FeaturedProjects() {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                {rightBottom.tagline}
-              </span>
-              <h3 className='mt-1 text-2xl font-serif text-on-surface'>
-                {rightBottom.title}
-              </h3>
-              <p className='mt-2 text-sm text-on-surface-variant'>
-                {rightBottom.description}
-              </p>
+              <Link
+                to='/portfolio/$slug'
+                params={{ slug: rightBottom.slug }}
+                className='no-underline'
+              >
+                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
+                  {rightBottom.tagline}
+                </span>
+                <h3 className='mt-1 text-2xl font-serif text-on-surface'>
+                  {rightBottom.title}
+                </h3>
+                <p className='mt-2 text-sm text-on-surface-variant'>
+                  {rightBottom.description}
+                </p>
+              </Link>
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -172,86 +190,98 @@ export function FeaturedProjects() {
           </div>
 
           {/* Azure Waterfront — col-span-6 */}
-          <motion.div
-            key={secondaryLeft.id}
-            className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, delay: 0.3 }}
+          <Link
+            to='/portfolio/$slug'
+            params={{ slug: secondaryLeft.slug }}
+            className='col-span-6'
           >
             <motion.div
-              className='absolute inset-0'
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.7 }}
+              key={secondaryLeft.id}
+              className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <Image
-                src={secondaryLeft.image}
-                alt={secondaryLeft.title}
-                layout='fullWidth'
-                className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
-              />
+              <motion.div
+                className='absolute inset-0'
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.7 }}
+              >
+                <Image
+                  src={secondaryLeft.image}
+                  alt={secondaryLeft.title}
+                  layout='fullWidth'
+                  className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
+                />
+              </motion.div>
+              <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
+              <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
+              <motion.div
+                className='absolute bottom-0 left-0 right-0 p-8'
+                initial={{ y: 16, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
+                  {secondaryLeft.tagline}
+                </span>
+                <h3 className='mt-1 text-2xl font-serif text-white'>
+                  {secondaryLeft.title}
+                </h3>
+                <p className='mt-2 max-w-md text-sm text-white/70'>
+                  {secondaryLeft.description}
+                </p>
+              </motion.div>
             </motion.div>
-            <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
-            <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
-            <motion.div
-              className='absolute bottom-0 left-0 right-0 p-8'
-              initial={{ y: 16, opacity: 0 }}
-              whileHover={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                {secondaryLeft.tagline}
-              </span>
-              <h3 className='mt-1 text-2xl font-serif text-white'>
-                {secondaryLeft.title}
-              </h3>
-              <p className='mt-2 max-w-md text-sm text-white/70'>
-                {secondaryLeft.description}
-              </p>
-            </motion.div>
-          </motion.div>
+          </Link>
 
           {/* The Skyline Plaza — col-span-6 */}
-          <motion.div
-            key={secondaryRight.id}
-            className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, delay: 0.3 }}
+          <Link
+            to='/portfolio/$slug'
+            params={{ slug: secondaryRight.slug }}
+            className='col-span-6'
           >
             <motion.div
-              className='absolute inset-0'
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.7 }}
+              key={secondaryRight.id}
+              className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <Image
-                src={secondaryRight.image}
-                alt={secondaryRight.title}
-                layout='fullWidth'
-                className='h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100'
-              />
+              <motion.div
+                className='absolute inset-0'
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.7 }}
+              >
+                <Image
+                  src={secondaryRight.image}
+                  alt={secondaryRight.title}
+                  layout='fullWidth'
+                  className='h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100'
+                />
+              </motion.div>
+              <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
+              <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
+              <motion.div
+                className='absolute bottom-0 left-0 right-0 p-8'
+                initial={{ y: 16, opacity: 0 }}
+                whileHover={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
+                  {secondaryRight.tagline}
+                </span>
+                <h3 className='mt-1 text-2xl font-serif text-white'>
+                  {secondaryRight.title}
+                </h3>
+                <p className='mt-2 max-w-md text-sm text-white/70'>
+                  {secondaryRight.description}
+                </p>
+              </motion.div>
             </motion.div>
-            <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
-            <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
-            <motion.div
-              className='absolute bottom-0 left-0 right-0 p-8'
-              initial={{ y: 16, opacity: 0 }}
-              whileHover={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                {secondaryRight.tagline}
-              </span>
-              <h3 className='mt-1 text-2xl font-serif text-white'>
-                {secondaryRight.title}
-              </h3>
-              <p className='mt-2 max-w-md text-sm text-white/70'>
-                {secondaryRight.description}
-              </p>
-            </motion.div>
-          </motion.div>
+          </Link>
         </div>
 
         <motion.div

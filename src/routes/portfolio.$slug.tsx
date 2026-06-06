@@ -6,15 +6,9 @@ import type {
   ProjectDetail as ProjectDetailData,
 } from '@/data/projects';
 import { allProjects } from '@/data/projects';
-import {
-  breadcrumbLd,
-  generateMeta,
-  ldScript,
-  productLd,
-  SITE_URL,
-} from '@/lib/seo';
+import { breadcrumbLd, generateMeta, productLd, SITE_URL } from '@/lib/seo';
 
-export const Route = createFileRoute('/projects/$slug')({
+export const Route = createFileRoute('/portfolio/$slug')({
   loader: ({ params }) => {
     const project = allProjects.find((p) => p.slug === params.slug);
     return { project: project ?? null };
@@ -65,13 +59,52 @@ export const Route = createFileRoute('/projects/$slug')({
   head: ({ loaderData, params }) => {
     const project = loaderData?.project ?? null;
     const meta = generateMeta({
-      path: `/projects/${params.slug}`,
+      path: `/portfolio/${params.slug}`,
       title: project?.title ?? 'Project Details',
       description: project?.description,
       image: project?.image,
     });
+
+    const ldMeta: Array<Record<string, unknown>> = [];
+
+    if (project) {
+      ldMeta.push({
+        'script:ld+json': {
+          '@context': 'https://schema.org',
+          ...breadcrumbLd([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Portfolio', url: `${SITE_URL}/portfolio` },
+            {
+              name: project.title,
+              url: `${SITE_URL}/portfolio/${project.slug}`,
+            },
+          ]),
+        },
+      });
+
+      const specs = project.detail?.specs;
+
+      if (specs) {
+        ldMeta.push({
+          'script:ld+json': {
+            '@context': 'https://schema.org',
+            ...productLd({
+              name: project.title,
+              description: project.description,
+              image: project.image,
+              url: `${SITE_URL}/portfolio/${project.slug}`,
+              status: project.status,
+              location: project.location,
+              area: specs.totalArea,
+              units: specs.units,
+            }),
+          },
+        });
+      }
+    }
+
     return {
-      meta: meta.meta,
+      meta: [...meta.meta, ...ldMeta],
       links: [
         ...(project?.image
           ? [
@@ -110,41 +143,8 @@ function ProjectDetail() {
 
   if (!project) return <ProjectNotFound />;
 
-  const specs = project.detail?.specs;
-
-  const ld: Record<string, unknown>[] = [
-    breadcrumbLd([
-      { name: 'Home', url: SITE_URL },
-      { name: 'Portfolio', url: `${SITE_URL}/portfolio` },
-      { name: project.title, url: `${SITE_URL}/projects/${project.slug}` },
-    ]),
-  ];
-
-  if (specs) {
-    ld.push(
-      productLd({
-        name: project.title,
-        description: project.description,
-        image: project.image,
-        url: `${SITE_URL}/projects/${project.slug}`,
-        status: project.status,
-        location: project.location,
-        area: specs.totalArea,
-        units: specs.units,
-      }),
-    );
-  }
-
   return (
     <>
-      {ld.map((data, i) => (
-        <script
-          key={(data['@type'] as string) ?? i}
-          type='application/ld+json'
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: seo data
-          dangerouslySetInnerHTML={{ __html: ldScript(data) }}
-        />
-      ))}
       {!project.detail ? (
         <SimpleProjectView project={project} />
       ) : (
@@ -246,7 +246,6 @@ function FullProjectView({
       <GallerySection images={detail.gallery} projectTitle={project.title} />
       <AmenitiesSection amenities={detail.amenities} />
       <LocationSection location={detail.location} />
-      <CtaSection />
     </main>
   );
 }
@@ -259,7 +258,7 @@ function HeroSection({
   detail: ProjectDetailData;
 }) {
   return (
-    <section className='relative h-230.25 overflow-hidden'>
+    <section className='relative h-170 overflow-hidden'>
       <div className='absolute inset-0 z-10 bg-primary/40' />
       <motion.div
         className='absolute inset-0 bg-cover bg-center'
@@ -585,45 +584,6 @@ function LocationSection({
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-function CtaSection() {
-  return (
-    <section className='bg-surface py-32'>
-      <div className='mx-auto max-w-360 px-4 md:px-16'>
-        <motion.div
-          className='flex flex-col items-center bg-primary-container p-12 text-center md:p-20'
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.15, 1] }}
-        >
-          <h2 className='mb-6 text-3xl font-serif text-on-primary md:text-4xl lg:text-5xl'>
-            Begin Your Legacy
-          </h2>
-          <p className='mb-12 max-w-xl text-base leading-relaxed text-on-primary-container md:text-lg'>
-            Private viewings are available strictly by appointment. Consult with
-            our relationship managers to discover the floor plan that suits your
-            aspirations.
-          </p>
-          <div className='flex flex-col gap-6 sm:flex-row'>
-            <Link
-              to='/contact'
-              className='bg-secondary px-12 py-4 text-label font-medium tracking-[0.15em] text-on-secondary uppercase transition-all hover:opacity-90'
-            >
-              Schedule a Private Tour
-            </Link>
-            <Link
-              to='/contact'
-              className='border border-on-primary-container px-12 py-4 text-label font-medium tracking-[0.15em] text-on-primary uppercase no-underline transition-all hover:bg-on-primary hover:text-primary'
-            >
-              Download Brochure
-            </Link>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

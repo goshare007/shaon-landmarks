@@ -28,6 +28,7 @@ export const Route = createRootRoute({
       },
       { property: 'og:image', content: DEFAULT_OG_IMAGE },
       { property: 'og:type', content: 'website' },
+      { 'script:ld+json': ORGANIZATION_JSON_LD },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
@@ -92,7 +93,7 @@ export const Route = createRootRoute({
                 {suggestions.map((p) => (
                   <Link
                     key={p.slug}
-                    to='/projects/$slug'
+                    to='/portfolio/$slug'
                     params={{ slug: p.slug }}
                     className='group rounded-sm border border-outline-variant px-6 py-4 text-left transition-all hover:border-secondary hover:bg-secondary/5'
                   >
@@ -148,13 +149,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang='en' suppressHydrationWarning>
       <head>
         <HeadContent />
-        <script
-          type='application/ld+json'
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: this is fine
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(ORGANIZATION_JSON_LD),
-          }}
-        />
       </head>
       <body className='min-h-dvh bg-surface text-on-surface antialiased'>
         <Header />

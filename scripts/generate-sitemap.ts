@@ -32,7 +32,7 @@ function url(loc: string, priority: string, changefreq: string): string {
 
 const urls = [
   ...staticPages.map((p) => url(p.path, p.priority, p.changefreq)),
-  ...projectSlugs.map((slug) => url(`/projects/${slug}`, '0.7', 'monthly')),
+  ...projectSlugs.map((slug) => url(`/portfolio/${slug}`, '0.7', 'monthly')),
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
