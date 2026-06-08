@@ -159,7 +159,7 @@ export function HeroSection() {
             <div className='flex flex-col gap-4'>
               <Link
                 to='/portfolio'
-                className='relative overflow-hidden inline-flex items-center gap-4 bg-secondary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-caption font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200'
+                className='relative overflow-hidden inline-flex items-center gap-4 bg-primary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-caption font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200'
               >
                 <motion.div
                   className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/20 to-transparent'

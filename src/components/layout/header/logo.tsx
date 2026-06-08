@@ -8,13 +8,13 @@ export default function Logo() {
       <div className='flex items-center gap-2.5'>
         <Image
           src={logoSrc}
-          alt=''
+          alt='logo'
           layout='constrained'
           width={144}
           height={36}
           className='h-6 w-auto md:h-8 mb-2 md:mb-3'
         />
-        <span className=' tracking-wide uppercase font-extrabold text-secondary md:text-xl leading-none'>
+        <span className=' tracking-wide uppercase font-extrabold text-black md:text-xl leading-none'>
           Shaon Landmarks
         </span>
       </div>

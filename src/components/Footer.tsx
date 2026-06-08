@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { useState } from 'react';
 import { submitNewsletterSignup } from '#/lib/forms';
 import logo from '@/assets/logo.png';
+import { Button } from './ui/button';
 
 const year = new Date().getFullYear();
 
@@ -105,6 +106,7 @@ export default function Footer() {
       setNewsletterState({ status: 'error', message: errorMessage });
     }
   }
+  const MotionButton = motion(Button);
 
   return (
     <footer className='border-t border-outline-variant/20 bg-tertiary'>
@@ -165,15 +167,16 @@ export default function Footer() {
                     aria-describedby='newsletter-form-status'
                     className='w-full bg-surface-container-low border border-outline-variant/30 text-black rounded-lg px-4 py-3 text-sm  placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all'
                   />
-                  <motion.button
+                  <MotionButton
                     type='submit'
                     disabled={newsletterState.status === 'submitting'}
+                    variant='ghost'
                     className='absolute right-1.5 top-1/2 -translate-y-1/2 p-2 text-on-tertiary hover:text-secondary-fixed-dim disabled:opacity-50 transition-colors'
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <ArrowRight className='text-black' />
-                  </motion.button>
+                  </MotionButton>
                 </div>
                 {newsletterState.message && (
                   <motion.p

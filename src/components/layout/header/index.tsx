@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
+import { Button } from '#/components/ui/button';
 import { cn } from '@/lib/utils';
 import DesktopNav from './desktop-nav';
 import Logo from './logo';
@@ -46,12 +47,11 @@ export default function Header() {
         {/* Right actions */}
         <div className='flex flex-none items-center justify-end gap-3'>
           {/* Bronze CTA — "Enquire" button, hidden on smallest screens */}
-          <Link
-            to='/contact'
-            className='hidden sm:inline-flex items-center justify-center rounded bg-secondary px-5 py-3 text-label font-bold uppercase tracking-widest text-on-secondary transition-opacity duration-200 hover:opacity-85'
-          >
-            Let's Talk
-          </Link>
+          <Button asChild className='hidden sm:inline-flex'>
+            <Link to='/contact' className='text-white'>
+              Let's Talk
+            </Link>
+          </Button>
 
           <MobileMenu />
         </div>
