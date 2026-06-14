@@ -3,6 +3,7 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { navItems } from '@/data/navigation';
+import { loadGsap } from '@/lib/gsap-loader';
 import { cn } from '@/lib/utils';
 
 export default function MobileMenu() {
@@ -11,6 +12,7 @@ export default function MobileMenu() {
   const { pathname } = useLocation();
   const overlayRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (open) {
@@ -26,7 +28,7 @@ export default function MobileMenu() {
 
     let killed = false;
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       if (killed || !overlayRef.current) return;
 
       if (open) {
@@ -67,12 +69,37 @@ export default function MobileMenu() {
       return;
     }
 
+    const previousActiveElement = document.activeElement as HTMLElement | null;
     document.body.style.overflow = 'hidden';
 
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const focusableElements =
+          navRef.current?.querySelectorAll<HTMLAnchorElement>('a');
+        if (!focusableElements || focusableElements.length === 0) return;
+
+        const first = focusableElements[0];
+        const last = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
-    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('keydown', handleKeyDown);
 
     const timer = window.setTimeout(() => {
       navRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
@@ -81,13 +108,15 @@ export default function MobileMenu() {
     return () => {
       window.clearTimeout(timer);
       document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', handleKeyDown);
+      previousActiveElement?.focus();
     };
   }, [open]);
 
   return (
     <>
       <button
+        ref={toggleRef}
         type='button'
         onClick={() => setOpen(!open)}
         className='relative z-50 flex h-8 w-8 items-center justify-center md:hidden'

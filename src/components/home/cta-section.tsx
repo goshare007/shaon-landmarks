@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { ContactFormData } from '@/lib/forms';
 import { submitContactForm } from '@/lib/forms';
+import { loadGsap } from '@/lib/gsap-loader';
 
 export function CtaSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -67,7 +68,7 @@ export function CtaSection() {
 
     const ctrls: (() => void)[] = [];
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       const el = sectionRef.current;
       if (!el) return;
 

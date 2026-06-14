@@ -69,8 +69,14 @@ function url(
   priority: string,
   changefreq: string,
   lm: string,
+  image?: string,
 ): string {
-  return `  <url>\n    <loc>${SITE_URL}${loc}</loc>\n    <lastmod>${lm}</lastmod>\n    <priority>${priority}</priority>\n    <changefreq>${changefreq}</changefreq>\n  </url>`;
+  let entry = `  <url>\n    <loc>${SITE_URL}${loc}</loc>\n    <lastmod>${lm}</lastmod>\n    <priority>${priority}</priority>\n    <changefreq>${changefreq}</changefreq>`;
+  if (image) {
+    entry += `\n    <image:image>\n      <image:loc>${SITE_URL}${image}</image:loc>\n    </image:image>`;
+  }
+  entry += `\n  </url>`;
+  return entry;
 }
 
 const dataMod = lastmod('../src/data/projects.ts');
@@ -79,11 +85,14 @@ const urls = [
     url(p.path, p.priority, p.changefreq, lastmod(p.file)),
   ),
   ...allProjects.map((project) =>
-    url(`/portfolio/${project.slug}`, '0.7', 'monthly', dataMod),
+    url(`/portfolio/${project.slug}`, '0.7', 'monthly', dataMod, project.image),
   ),
 ];
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+${urls.join('\n')}
+</urlset>\n`;
 
 writeFileSync('public/sitemap.xml', sitemap, 'utf-8');
 writeFileSync(

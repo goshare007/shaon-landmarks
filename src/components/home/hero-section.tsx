@@ -4,6 +4,7 @@ import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
 import { HERO_CONTENT } from '@/data/home';
+import { loadGsap } from '@/lib/gsap-loader';
 
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   id: i,
@@ -43,7 +44,7 @@ export function HeroSection() {
 
     const ctrls: (() => void)[] = [];
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       const headline = headlineRef.current;
       if (!headline) return;
 
@@ -145,27 +146,25 @@ export function HeroSection() {
       ctrls.push(() => tl.kill());
     });
 
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    loadGsap().then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-        const imgEl = imageRef.current;
-        const section = sectionRef.current;
-        if (!imgEl || !section) return;
+      const imgEl = imageRef.current;
+      const section = sectionRef.current;
+      if (!imgEl || !section) return;
 
-        const st = ScrollTrigger.create({
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.5,
-          onUpdate: (self) => {
-            const pct = self.progress;
-            gsap.set(imgEl, { y: `${pct * 10}%` });
-          },
-        });
-
-        ctrls.push(() => st.kill());
+      const st = ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.5,
+        onUpdate: (self) => {
+          const pct = self.progress;
+          gsap.set(imgEl, { y: `${pct * 10}%` });
+        },
       });
+
+      ctrls.push(() => st.kill());
     });
 
     return () => {

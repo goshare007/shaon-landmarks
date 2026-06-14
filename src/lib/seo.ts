@@ -8,10 +8,11 @@ export const DEFAULT_OG_IMAGE_ALT =
 
 export const ORGANIZATION_JSON_LD = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'RealEstateAgent',
   name: 'Shaon Landmarks & Housing',
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
+  image: DEFAULT_OG_IMAGE,
   description:
     'Premium real estate developer in Bangladesh with architectural integrity, timely handover, and premium quality construction.',
   address: {
@@ -32,8 +33,19 @@ export const ORGANIZATION_JSON_LD = {
     'Architecture',
     'Construction',
     'Interior Design',
+    'Property Management',
   ],
   foundingDate: '2008',
+  numberOfEmployees: {
+    '@type': 'QuantitativeValue',
+    minValue: 50,
+    maxValue: 200,
+  },
+  areaServed: [
+    { '@type': 'City', name: 'Dhaka' },
+    { '@type': 'City', name: 'Chattogram' },
+  ],
+  priceRange: '$$$',
 };
 
 interface SeoProps {
@@ -159,6 +171,20 @@ export function breadcrumbLd(items: { name: string; url: string }[]) {
       position: i + 1,
       name: item.name,
       item: item.url,
+    })),
+  };
+}
+
+export function faqLd(questions: { question: string; answer: string }[]) {
+  return {
+    '@type': 'FAQPage',
+    mainEntity: questions.map((q) => ({
+      '@type': 'Question',
+      name: q.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: q.answer,
+      },
     })),
   };
 }

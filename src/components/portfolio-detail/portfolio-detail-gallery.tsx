@@ -2,6 +2,7 @@
 
 import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
+import { loadGsap } from '@/lib/gsap-loader';
 
 export function PortfolioDetailGallery({
   images,
@@ -15,7 +16,6 @@ export function PortfolioDetailGallery({
 
   const [img1, img2, img3] = images;
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: doneRef guards single execution
   useEffect(() => {
     if (doneRef.current) return;
     doneRef.current = true;
@@ -24,63 +24,61 @@ export function PortfolioDetailGallery({
     const hasImg2 = images.length > 1;
     const hasImg3 = images.length > 2;
 
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    loadGsap().then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-        const section = sectionRef.current;
-        if (!section) return;
+      const section = sectionRef.current;
+      if (!section) return;
 
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-            defaults: { ease: 'power3.out' },
-          });
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          defaults: { ease: 'power3.out' },
+        });
 
+        tl.fromTo(
+          section.querySelector('[data-gallery-header]'),
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5 },
+        );
+
+        tl.fromTo(
+          section.querySelector('[data-gallery-main]'),
+          { opacity: 0, scale: 1.02 },
+          { opacity: 1, scale: 1, duration: 0.7 },
+          '-=0.3',
+        );
+
+        if (hasImg2) {
           tl.fromTo(
-            section.querySelector('[data-gallery-header]'),
+            section.querySelector('[data-gallery-2]'),
             { opacity: 0, y: 20 },
             { opacity: 1, y: 0, duration: 0.5 },
+            '-=0.4',
           );
+        }
 
+        if (hasImg3) {
           tl.fromTo(
-            section.querySelector('[data-gallery-main]'),
-            { opacity: 0, scale: 1.02 },
-            { opacity: 1, scale: 1, duration: 0.7 },
+            section.querySelector('[data-gallery-3]'),
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5 },
             '-=0.3',
           );
+        }
+      }, section);
 
-          if (hasImg2) {
-            tl.fromTo(
-              section.querySelector('[data-gallery-2]'),
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5 },
-              '-=0.4',
-            );
-          }
-
-          if (hasImg3) {
-            tl.fromTo(
-              section.querySelector('[data-gallery-3]'),
-              { opacity: 0, y: 20 },
-              { opacity: 1, y: 0, duration: 0.5 },
-              '-=0.3',
-            );
-          }
-        }, section);
-
-        ctrls.push(() => ctx.revert());
-      });
+      ctrls.push(() => ctx.revert());
     });
 
     return () => {
       for (const fn of ctrls) fn();
     };
-  }, []);
+  }, [images.length]);
 
   return (
     <section ref={sectionRef} className='bg-surface-container-low py-24'>

@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import logo from '@/assets/logo.png';
 import { submitNewsletterSignup } from '@/lib/forms';
+import { loadGsap } from '@/lib/gsap-loader';
 import { Button } from './ui/button';
 
 const year = new Date().getFullYear();
@@ -111,40 +112,38 @@ export default function Footer() {
 
     const ctrls: (() => void)[] = [];
 
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    loadGsap().then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-        const section = sectionRef.current;
-        if (!section) return;
+      const section = sectionRef.current;
+      if (!section) return;
 
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section.querySelector('[data-footer-grid]'),
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-            defaults: { ease: 'power3.out' },
-          });
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section.querySelector('[data-footer-grid]'),
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+          defaults: { ease: 'power3.out' },
+        });
 
-          tl.fromTo(
-            section.querySelectorAll('[data-footer-item]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
-            0.2,
-          );
+        tl.fromTo(
+          section.querySelectorAll('[data-footer-item]'),
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
+          0.2,
+        );
 
-          tl.fromTo(
-            section.querySelector('[data-footer-bottom]'),
-            { opacity: 0 },
-            { opacity: 1, duration: 0.6 },
-            '+=0.1',
-          );
-        }, section);
+        tl.fromTo(
+          section.querySelector('[data-footer-bottom]'),
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6 },
+          '+=0.1',
+        );
+      }, section);
 
-        ctrls.push(() => ctx.revert());
-      });
+      ctrls.push(() => ctx.revert());
     });
 
     return () => {

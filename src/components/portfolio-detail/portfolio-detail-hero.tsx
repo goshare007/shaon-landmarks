@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import type { Project, ProjectDetail } from '@/data/projects';
+import { loadGsap } from '@/lib/gsap-loader';
 
 export function PortfolioDetailHero({
   project,
@@ -19,7 +20,7 @@ export function PortfolioDetailHero({
 
     const ctrls: (() => void)[] = [];
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       const section = sectionRef.current;
       if (!section) return;
 

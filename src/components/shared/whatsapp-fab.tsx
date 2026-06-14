@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '@/lib/constants';
+import { loadGsap } from '@/lib/gsap-loader';
 
 export function WhatsAppFab() {
   const ref = useRef<HTMLAnchorElement>(null);
@@ -11,7 +12,7 @@ export function WhatsAppFab() {
     if (doneRef.current) return;
     doneRef.current = true;
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       if (!ref.current) return;
       gsap.fromTo(
         ref.current,

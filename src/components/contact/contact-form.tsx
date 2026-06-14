@@ -14,6 +14,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import type { ContactFormData } from '@/lib/forms';
 import { submitContactForm } from '@/lib/forms';
+import { loadGsap } from '@/lib/gsap-loader';
 
 export function ContactForm() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -42,6 +43,11 @@ export function ContactForm() {
         setFormState({ status: 'success', message: result.message });
         e.currentTarget.reset();
         setInterest('Residential Development');
+      } else {
+        setFormState({
+          status: 'error',
+          message: result.message || 'Submission failed.',
+        });
       }
     } catch (err) {
       const errorMessage =
@@ -58,53 +64,51 @@ export function ContactForm() {
 
     const ctrls: (() => void)[] = [];
 
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    loadGsap().then(({ gsap, ScrollTrigger }) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-        const section = sectionRef.current;
-        if (!section) return;
+      const section = sectionRef.current;
+      if (!section) return;
 
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-            defaults: { ease: 'power3.out' },
-          });
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          defaults: { ease: 'power3.out' },
+        });
 
-          tl.fromTo(
-            section.querySelector('[data-form-heading]'),
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.7 },
-          );
+        tl.fromTo(
+          section.querySelector('[data-form-heading]'),
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.7 },
+        );
 
-          tl.fromTo(
-            section.querySelector('[data-form-text]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5 },
-            '-=0.3',
-          );
+        tl.fromTo(
+          section.querySelector('[data-form-text]'),
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5 },
+          '-=0.3',
+        );
 
-          tl.fromTo(
-            section.querySelectorAll('[data-form-card]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-            '-=0.3',
-          );
+        tl.fromTo(
+          section.querySelectorAll('[data-form-card]'),
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
+          '-=0.3',
+        );
 
-          tl.fromTo(
-            section.querySelector('[data-form-wrapper]'),
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.7 },
-            '-=0.4',
-          );
-        }, section);
+        tl.fromTo(
+          section.querySelector('[data-form-wrapper]'),
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.7 },
+          '-=0.4',
+        );
+      }, section);
 
-        ctrls.push(() => ctx.revert());
-      });
+      ctrls.push(() => ctx.revert());
     });
 
     return () => {

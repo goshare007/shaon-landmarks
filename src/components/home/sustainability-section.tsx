@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import energyEfficiency from '@/assets/images/sustainability/energy-efficiency.webp';
-import greenSpaces from '@/assets/images/sustainability/green-spaces.jpg';
-import sustainableMaterials from '@/assets/images/sustainability/sustainable-materials.jpg';
+import greenSpaces from '@/assets/images/sustainability/green-spaces.webp';
+import sustainableMaterials from '@/assets/images/sustainability/sustainable-materials.webp';
 
 const sustainabilityData = [
   {
@@ -36,76 +36,72 @@ export function SustainabilitySection() {
 
     const ctrls: (() => void)[] = [];
 
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    loadGsap().then(({ gsap, ScrollTrigger }) => {
+      const section = sectionRef.current;
+      if (!section) return;
 
-        const section = sectionRef.current;
-        if (!section) return;
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
+      });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          defaults: { ease: 'power3.out' },
-        });
+      tl.fromTo(
+        section.querySelector('[data-sus-header]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+      );
+
+      const cards = section.querySelectorAll('[data-sus-card]');
+      cards.forEach((card, i) => {
+        const xFrom = i === 0 ? -40 : i === 2 ? 40 : 0;
 
         tl.fromTo(
-          section.querySelector('[data-sus-header]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.7 },
+          card,
+          { opacity: 0, y: 40, x: xFrom },
+          { opacity: 1, y: 0, x: 0, duration: 0.8 },
+          '-=0.4',
         );
 
-        const cards = section.querySelectorAll('[data-sus-card]');
-        cards.forEach((card, i) => {
-          const xFrom = i === 0 ? -40 : i === 2 ? 40 : 0;
-
+        const bg = card.querySelector('[data-sus-bg]');
+        if (bg) {
           tl.fromTo(
-            card,
-            { opacity: 0, y: 40, x: xFrom },
-            { opacity: 1, y: 0, x: 0, duration: 0.8 },
-            '-=0.4',
+            bg,
+            { scale: 1 },
+            {
+              scale: 1.05,
+              duration: 0.8,
+              ease: 'none',
+            },
+            '-=0.8',
           );
 
-          const bg = card.querySelector('[data-sus-bg]');
-          if (bg) {
-            tl.fromTo(
-              bg,
-              { scale: 1 },
-              {
-                scale: 1.05,
-                duration: 0.8,
-                ease: 'none',
-              },
-              '-=0.8',
-            );
-
-            const sc = ScrollTrigger.create({
-              trigger: card,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
-              onUpdate: (self) => {
-                const pct = self.progress;
-                gsap.set(bg, { y: `${pct * 8}%` });
-              },
-            });
-            ctrls.push(() => sc.kill());
-          }
-        });
-
-        const descriptions = section.querySelectorAll('[data-sus-text]');
-        tl.fromTo(
-          descriptions,
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 },
-          '-=0.3',
-        );
-
-        ctrls.push(() => tl.kill());
+          const sc = ScrollTrigger.create({
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+              const pct = self.progress;
+              gsap.set(bg, { y: `${pct * 8}%` });
+            },
+          });
+          ctrls.push(() => sc.kill());
+        }
       });
+
+      const descriptions = section.querySelectorAll('[data-sus-text]');
+      tl.fromTo(
+        descriptions,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 },
+        '-=0.3',
+      );
+
+      ctrls.push(() => tl.kill());
     });
 
     return () => {

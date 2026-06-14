@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>http://localhost:3000/</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -56,38 +56,56 @@
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/the-obsidian</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-obsidian.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/bronze-heights</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/bronze-heights.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/the-marble-collection</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-marble-collection.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/azure-waterfront</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/azure-waterfront.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/the-skyline-plaza</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-skyline-plaza.webp</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/the-landmark-residency</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
+    <image:image>
+      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/landmark-hero.webp</image:loc>
+    </image:image>
   </url>
 </urlset>

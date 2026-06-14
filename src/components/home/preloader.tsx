@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { loadGsap } from '@/lib/gsap-loader';
 
 export function Preloader() {
   const [show, setShow] = useState(true);
@@ -28,7 +29,7 @@ export function Preloader() {
     let killed = false;
     const cleanupRef: { current: (() => void) | null } = { current: null };
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       if (killed) return;
       const el = containerRef.current;
       if (!el) return;

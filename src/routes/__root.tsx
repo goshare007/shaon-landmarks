@@ -43,6 +43,10 @@ export const Route = createRootRoute({
         href: 'https://fonts.gstatic.com',
         crossOrigin: 'anonymous',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap',
+      },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       {
         rel: 'icon',
@@ -152,9 +156,17 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className='min-h-dvh bg-surface text-on-surface antialiased'>
+        <a
+          href='#main-content'
+          className='sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-[9999] focus:p-4 focus:bg-surface focus:text-on-surface focus:outline-2 focus:outline-secondary focus:text-sm focus:font-medium'
+        >
+          Skip to content
+        </a>
         <LenisScrollProvider>
           <Header />
-          {children}
+          <div id='main-content' tabIndex={-1}>
+            {children}
+          </div>
           <Footer />
           <WhatsAppFab />
         </LenisScrollProvider>
