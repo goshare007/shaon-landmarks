@@ -103,6 +103,8 @@ export function PortfolioDetailGallery({
               src={img1}
               alt={`${projectTitle} gallery — main view`}
               layout='fullWidth'
+              width={800}
+              height={800}
               className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
             />
           </div>
@@ -115,6 +117,9 @@ export function PortfolioDetailGallery({
                 src={img2}
                 alt={`${projectTitle} gallery — view 2`}
                 layout='fullWidth'
+                width={400}
+                height={400}
+                loading='lazy'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
               />
             </div>
@@ -128,6 +133,9 @@ export function PortfolioDetailGallery({
                 src={img3}
                 alt={`${projectTitle} gallery — view 3`}
                 layout='fullWidth'
+                width={400}
+                height={400}
+                loading='lazy'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
               />
             </div>

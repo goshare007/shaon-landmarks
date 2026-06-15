@@ -141,7 +141,20 @@ export function HeroSection() {
         });
       };
       gsap.ticker.add(updateParallax);
-      ctrls.push(() => gsap.ticker.remove(updateParallax));
+
+      const handleVisibility = () => {
+        if (document.hidden) {
+          gsap.ticker.remove(updateParallax);
+        } else {
+          gsap.ticker.add(updateParallax);
+        }
+      };
+      document.addEventListener('visibilitychange', handleVisibility);
+
+      ctrls.push(() => {
+        gsap.ticker.remove(updateParallax);
+        document.removeEventListener('visibilitychange', handleVisibility);
+      });
 
       ctrls.push(() => tl.kill());
     });
@@ -303,6 +316,8 @@ export function HeroSection() {
             src={HERO_CONTENT.image}
             alt='Architectural landmark'
             layout='fullWidth'
+            width={1440}
+            height={800}
             className='h-full w-full object-cover object-center'
           />
         </div>

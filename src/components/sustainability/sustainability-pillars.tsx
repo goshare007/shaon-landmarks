@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { DynamicIcon } from '@/lib/icon-map';
 
 const pillars = [
   {
@@ -94,12 +95,7 @@ export function SustainabilityPillars() {
               data-pillars-card
               className='rounded-sm bg-white p-8 transition-transform duration-300 hover:-translate-y-1'
             >
-              <span
-                className='material-symbols-outlined text-3xl text-secondary'
-                aria-hidden='true'
-              >
-                {p.icon}
-              </span>
+              <DynamicIcon name={p.icon} size={28} className='text-secondary' />
               <h3 className='mb-3 mt-4 text-lg font-serif text-on-surface'>
                 {p.title}
               </h3>

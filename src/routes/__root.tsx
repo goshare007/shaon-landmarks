@@ -4,10 +4,10 @@ import {
   Link,
   Scripts,
 } from '@tanstack/react-router';
+import { AlertCircle } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/layout/header';
 import { WhatsAppFab } from '@/components/shared/whatsapp-fab';
-import { allProjects } from '@/data/projects';
 import { DEFAULT_OG_IMAGE, ORGANIZATION_JSON_LD, SITE_URL } from '@/lib/seo';
 import { LenisScrollProvider } from '@/lib/smooth-scroll';
 import appCss from '@/styles.css?url';
@@ -45,7 +45,7 @@ export const Route = createRootRoute({
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Libre+Caslon+Text:ital@0;1&display=swap',
       },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
       {
@@ -63,66 +63,41 @@ export const Route = createRootRoute({
     ],
   }),
   shellComponent: RootDocument,
-  notFoundComponent: () => {
-    const suggestions = allProjects.filter((p) => p.detail).slice(0, 3);
-    return (
-      <main className='flex min-h-dvh items-center justify-center bg-surface px-4'>
-        <div className='mx-auto max-w-2xl py-20 text-center'>
-          <h1 className='text-8xl font-serif text-secondary'>404</h1>
-          <p className='mt-4 text-xl font-serif text-on-surface'>
-            Page Not Found
-          </p>
-          <p className='mt-2 text-sm text-on-surface-variant'>
-            The page you are looking for does not exist or has been moved.
-          </p>
-          <div className='mt-10 flex items-center justify-center gap-4'>
-            <Link
-              to='/'
-              className='inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-label font-medium tracking-widest text-on-secondary uppercase transition-all hover:opacity-90'
-            >
-              Back to Home
-            </Link>
-            <Link
-              to='/portfolio'
-              className='inline-flex items-center gap-2 rounded-sm border border-outline-variant px-8 py-3.5 text-label font-medium tracking-widest text-on-surface uppercase transition-all hover:border-secondary hover:text-secondary'
-            >
-              View Portfolio
-            </Link>
-          </div>
-          {suggestions.length > 0 && (
-            <div className='mt-16'>
-              <p className='mb-6 text-label font-medium tracking-widest text-on-surface-variant uppercase'>
-                Explore Our Projects
-              </p>
-              <div className='flex flex-wrap justify-center gap-4'>
-                {suggestions.map((p) => (
-                  <Link
-                    key={p.slug}
-                    to='/portfolio/$slug'
-                    params={{ slug: p.slug }}
-                    className='group rounded-sm border border-outline-variant px-6 py-4 text-left transition-all hover:border-secondary hover:bg-secondary/5'
-                  >
-                    <p className='text-label font-medium tracking-widest text-secondary uppercase'>
-                      {p.title}
-                    </p>
-                    <p className='mt-1 text-xs text-on-surface-variant line-clamp-1'>
-                      {p.description}
-                    </p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
+  notFoundComponent: () => (
+    <main className='flex min-h-dvh items-center justify-center bg-surface px-4'>
+      <div className='mx-auto max-w-2xl py-20 text-center'>
+        <h1 className='text-8xl font-serif text-secondary'>404</h1>
+        <p className='mt-4 text-xl font-serif text-on-surface'>
+          Page Not Found
+        </p>
+        <p className='mt-2 text-sm text-on-surface-variant'>
+          The page you are looking for does not exist or has been moved.
+        </p>
+        <div className='mt-10 flex items-center justify-center gap-4'>
+          <Link
+            to='/'
+            className='inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-label font-medium tracking-widest text-on-secondary uppercase transition-all hover:opacity-90'
+          >
+            Back to Home
+          </Link>
+          <Link
+            to='/portfolio'
+            className='inline-flex items-center gap-2 rounded-sm border border-outline-variant px-8 py-3.5 text-label font-medium tracking-widest text-on-surface uppercase transition-all hover:border-secondary hover:text-secondary'
+          >
+            View Portfolio
+          </Link>
         </div>
-      </main>
-    );
-  },
+      </div>
+    </main>
+  ),
   errorComponent: ({ reset }) => (
     <main className='flex min-h-dvh items-center justify-center bg-surface'>
       <div className='mx-auto max-w-md px-4 text-center'>
-        <span className='material-symbols-outlined mb-4 text-6xl text-secondary'>
-          error_outline
-        </span>
+        <AlertCircle
+          className='mb-4 text-secondary'
+          size={48}
+          aria-hidden='true'
+        />
         <h1 className='text-3xl font-serif text-on-surface'>
           Something Went Wrong
         </h1>

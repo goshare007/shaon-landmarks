@@ -7,157 +7,6 @@
 
 ---
 
-## 🔴 Critical Bugs
-
-### B1. `portfolio-hero.tsx` — Raw `import('gsap')` Instead of Shared Loader
-
-**File:** `src/components/portfolio-index/portfolio-hero.tsx` (line 16)
-
-Uses `import('gsap')` directly instead of `loadGsap()` from shared singleton loader. Every page visit creates a separate GSAP import chunk. Fix: import + use `loadGsap()`.
-
-```tsx
-// BUG
-import('gsap').then(({ gsap }) => { ... });
-
-// FIX
-import { loadGsap } from '@/lib/gsap-loader';
-loadGsap().then(({ gsap }) => { ... });
-```
-
-### B2. `cta-section.tsx` — Magnetic Button Raw GSAP Import
-
-**File:** `src/components/home/cta-section.tsx` (line 117)
-
-```tsx
-useEffect(() => {
-  if (!magneticPos.x && !magneticPos.y) return;
-  import('gsap').then(({ gsap }) => { ... }); // BUG: separate chunk
-}, [magneticPos]);
-```
-
-Every mouse move that triggers non-zero position creates a GSAP import. Should use `loadGsap()` from module-level or ref.
-
-### B3. `smooth-scroll.tsx` — Raw Dynamic GSAP Imports Defeat Singleton
-
-**File:** `src/lib/smooth-scroll.tsx` (line 27-29)
-
-```tsx
-const Lenis = (await import("lenis")).default;
-const { gsap } = await import("gsap");
-const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-```
-
-Uses raw dynamic imports for GSAP, completely bypassing `loadGsap()` shared loader. This means GSAP loads twice (once via `loadGsap()` in components, once here). Fix: use `loadGsap()` and import Lenis separately.
-
-### B4. `portfolio-hero.tsx` — CSS `backgroundImage` Instead of Optimized `<Image>` Component
-
-**File:** `src/components/portfolio-index/portfolio-hero.tsx` (line 53)
-
-```tsx
-style={{ backgroundImage: `url(${HERO_IMG})` }}
-```
-
-Uses CSS background-image instead of `<Image>` from `@unpic/react`. Loses:
-
-- Lazy loading (image always loads on mount)
-- Responsive image breakpoints
-- CLS optimization (no intrinsic dimensions)
-- WebP format enforcement
-- `loading="lazy"` / `fetchpriority="high"` control
-
-Same bug in:
-
-- `portfolio-detail-hero.tsx` (line 71)
-- `sustainability-section.tsx` (line 133)
-- `portfolio-grid.tsx` (line 251)
-
-### B5. Footer Social Links — All Point to Generic URLs
-
-**File:** `src/components/Footer.tsx` (lines 283-336)
-
-```tsx
-{ name: 'Facebook', href: 'https://facebook.com' },     // should be /shaonlandmarks
-{ name: 'Instagram', href: 'https://instagram.com' },   // should be /shaonlandmarks
-{ name: 'LinkedIn', href: 'https://linkedin.com' },     // should be /company/shaonlandmarks
-{ name: 'Twitter', href: 'https://twitter.com' },       // should be @shaonlandmarks
-```
-
-All four social icon links point to homepage URLs, not the brand's actual profiles. Navigation data in `FooterSection` already has correct URLs for link text, but hardcoded icon array below duplicates wrong generic URLs. **Users clicking these go nowhere useful.**
-
-### B6. `vite.config.ts` — `nitro()` + `tanstackStart()` Duplicate Plugin
-
-**File:** `vite.config.ts` (line 10)
-
-```tsx
-plugins: [devtools(), tailwindcss(), tanstackStart(), nitro(), viteReact()],
-```
-
-TanStack Start v1 bundles Nitro internally. Adding both can cause duplicate plugin registration, conflicting build steps, or version incompatibility with the bundled Nitro.
-
-### B7. `portfolio-hero.tsx` Has Unused `doneRef` — No Shared Loader
-
-Component has `doneRef` pattern but never uses `loadGsap()`. If the raw import is replaced, `doneRef` would work. Currently `doneRef` guards nothing because the import path is different from all other components.
-
----
-
-## 🟡 Performance
-
-### P1. GSAP Loads Multiple Times (Defeats Singleton Purpose)
-
-Three separate GSAP loading paths coexist:
-
-1. `loadGsap()` — shared singleton (used by 12+ components)
-2. Raw `import('gsap')` — `portfolio-hero.tsx`, `cta-section.tsx`
-3. Raw `import('gsap')` + `import('gsap/ScrollTrigger')` — `smooth-scroll.tsx`
-
-Each creates a separate chunk. In worst case, GSAP loads 3 times per page.
-
-### P2. `@unpic/react` Images Missing Intrinsic Dimensions
-
-**Files:** `portfolio-detail-gallery.tsx`, `hero-section.tsx`, `featured-projects.tsx`
-
-```tsx
-<Image src={...} alt="..." layout="fullWidth" />
-```
-
-Missing `width` + `height` attributes causes CLS as images load. Add intrinsic dimensions:
-
-```tsx
-<Image src={...} alt="..." layout="fullWidth" width={1200} height={800} />
-```
-
-### P3. CSS `backgroundImage` Components No Lazy Loading
-
-Four components use CSS background images (see B4). These always load eagerly, even when below the fold. `sustainability-section.tsx` cards load all three background images on mount regardless of viewport position.
-
-### P4. Hero Parallax Runs When Tab Hidden
-
-**File:** `hero-section.tsx` (line 143)
-
-```tsx
-gsap.ticker.add(updateParallax);
-```
-
-`gsap.ticker` runs on `requestAnimationFrame` which fires even when tab is hidden. Add `document.hidden` check to kill ticker when not visible.
-
-### P5. Material Symbols Full Font for ~10 Icons
-
-`Material+Symbols+Outlined` font (~350KB woff2) loaded for ~10 icon usages (pillars, amenities, contact form cards). Lucide-React SVG icons (already a dependency) could replace all usages with ~5KB total. **Alternative:** Use `&text=` parameter to subset font to needed characters only.
-
-### P6. Preloader Blocks Interaction for ~3.5s
-
-**File:** `preloader.tsx` — ~3s animation sequence before user can interact. On repeat visits `sessionStorage` skips it, but first visit/incognito always blocks. Consider non-blocking overlay or shorter timeout.
-
-### P7. No Image Lazy Loading on Gallery Below-Fold Images
-
-Gallery images in `portfolio-detail-gallery.tsx` use Embla layout but no explicit `loading="lazy"`. Verify `@unpic/react` defaults — if not, add explicitly.
-
-### P8. No Bundle Analysis / Code Splitting Audit
-
-No bundle visualization or analysis run. With 6 projects in static data (~200 lines each), the data module is loaded on every page (even non-portfolio routes). Consider lazy-loading project data or code-splitting route data.
-
----
-
 ## 🔵 SEO
 
 ### S1. Missing `hreflang` Tags for Bengali Market
@@ -501,39 +350,30 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 ### 🔴 P0 — Fix Now (1-2 hrs)
 
-| ID  | Item                                                             | Effort | Impact                         |
-| --- | ---------------------------------------------------------------- | ------ | ------------------------------ |
-| B1  | `portfolio-hero.tsx` raw GSAP import → `loadGsap()`              | 5 min  | Bundle size, consistency       |
-| B2  | `cta-section.tsx` magnetic button raw GSAP import → `loadGsap()` | 10 min | Bundle size, consistency       |
-| B3  | `smooth-scroll.tsx` raw GSAP imports → `loadGsap()`              | 10 min | Bundle size, duplicate loading |
-| B5  | Footer social icon URLs → point to real brand pages              | 5 min  | User trust, broken links       |
-| S5  | Add missing hreflang + og:locale:alternate                       | 5 min  | SEO for Bangladesh market      |
+| ID  | Item                                                       | Effort | Impact                    |
+| --- | ---------------------------------------------------------- | ------ | ------------------------- |
+| S5  | Add missing hreflang + og:locale:alternate                 | 5 min  | SEO for Bangladesh market |
 
 ### 🟡 P1 — Important (4-8 hrs)
 
 | ID  | Item                                                       | Effort | Impact                               |
 | --- | ---------------------------------------------------------- | ------ | ------------------------------------ |
 | Q1  | Create `useOnce` hook, refactor 12+ components             | 3 hrs  | Code quality, reusability            |
-| P2  | Add intrinsic image dimensions to all `<Image>` components | 1 hr   | CLS reduction                        |
-| P4  | Hero parallax tab visibility check                         | 30 min | Battery/performance                  |
-| B4  | Convert 4 CSS background-image components to `<Image>`     | 2 hrs  | Lazy loading, CLS, responsive images |
 | F9  | Forms: add email notification (Resend/SendGrid)            | 2 hrs  | Business-critical                    |
 | S2  | Add breadcrumb JSON-LD to all inner pages                  | 1 hr   | SEO                                  |
 | Q2  | Fix test duplication — import schemas from source          | 30 min | Test reliability                     |
 
 ### 🟢 P2 — Medium Priority (8-16 hrs)
 
-| ID  | Item                                                          | Effort | Impact          |
-| --- | ------------------------------------------------------------- | ------ | --------------- |
-| B6  | Remove `nitro()` from vite.config (bundled in TanStack Start) | 15 min | Build stability |
-| F1  | Image lightbox for galleries                                  | 3 hrs  | UX              |
-| F2  | Floor plan assets per project                                 | 2 hrs  | Feature parity  |
-| F4  | EMI calculator                                                | 3 hrs  | Conversion tool |
-| F3  | Interactive maps (Leaflet)                                    | 4 hrs  | UX, local SEO   |
-| U1  | Consistent focus indicators audit                             | 2 hrs  | Accessibility   |
-| U9  | Testimonial autoplay pause on keyboard focus                  | 30 min | WCAG compliance |
-| P5  | Replace Material Symbols with lucide-react SVGs               | 1 hr   | -350KB font     |
-| Q3  | Remove redundant `registerPlugin` calls                       | 15 min | Cleanup         |
+| ID  | Item                                                    | Effort | Impact          |
+| --- | ------------------------------------------------------- | ------ | --------------- |
+| F1  | Image lightbox for galleries                            | 3 hrs  | UX              |
+| F2  | Floor plan assets per project                           | 2 hrs  | Feature parity  |
+| F4  | EMI calculator                                          | 3 hrs  | Conversion tool |
+| F3  | Interactive maps (Leaflet)                              | 4 hrs  | UX, local SEO   |
+| U1  | Consistent focus indicators audit                       | 2 hrs  | Accessibility   |
+| U9  | Testimonial autoplay pause on keyboard focus            | 30 min | WCAG compliance |
+| Q3  | Remove redundant `registerPlugin` calls                 | 15 min | Cleanup         |
 
 ### 🔵 P3 — Longer Term (16-40 hrs)
 
@@ -562,13 +402,13 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 ## Summary
 
-**Top 5 most impactful fixes:**
+**Top remaining priorities:**
 
-1. **Fix GSAP loading** (B1, B2, B3) — eliminate duplicate GSAP chunks, use singleton everywhere
-2. **Fix Footer social links** (B5) — broken links → real brand pages
-3. **Convert CSS background images to `<Image>`** (B4) — lazy loading + CLS reduction
-4. **Remove `nitro()` from vite.config** (B6) — prevent build conflicts
-5. **Add intrinsic image dimensions** (P2) — reduce CLS site-wide
+1. **Fix `doneRef` anti-pattern** (Q1) — create `useOnce` hook, refactor 12+ components
+2. **Forms: email notifications** (F9) — stop losing leads to in-memory store
+3. **Breadcrumb JSON-LD** (S2) — SEO for all inner pages
+4. **hreflang + og:locale:alternate** (S5) — SEO for Bangladesh market
+5. **Fix test duplication** (Q2) — import schemas from source instead of duplicating
 
 **Biggest feature gap:** Forms are in-memory only (F9) — no email notification means lost leads.
 

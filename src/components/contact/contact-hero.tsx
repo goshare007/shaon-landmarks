@@ -67,6 +67,8 @@ export function ContactHero() {
           src={HERO_IMG}
           alt=''
           layout='fullWidth'
+          width={1440}
+          height={800}
           className='h-full w-full object-cover brightness-40'
         />
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
+import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 const openPositions = [
@@ -133,9 +134,7 @@ export function CareerPositions() {
                 className='inline-flex items-center gap-2 text-label font-medium tracking-widest text-secondary uppercase transition-colors hover:gap-4'
               >
                 Apply Now
-                <span className='material-symbols-outlined text-base'>
-                  arrow_forward
-                </span>
+                <ArrowRight size={16} aria-hidden='true' />
               </Link>
             </div>
           ))}

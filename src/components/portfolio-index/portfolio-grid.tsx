@@ -1,7 +1,8 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
-import { Search, X } from 'lucide-react';
+import { Image } from '@unpic/react';
+import { ArrowRight, Search, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { allProjects } from '@/data/projects';
 import { loadGsap } from '@/lib/gsap-loader';
@@ -90,7 +91,7 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
 
     const ctrls: (() => void)[] = [];
 
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
+    loadGsap().then(({ gsap }) => {
       const section = sectionRef.current;
       if (!section) return;
 
@@ -247,10 +248,16 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
                 className='block'
               >
                 <div className='group relative min-h-88 cursor-pointer overflow-hidden rounded-sm'>
-                  <div
-                    className='absolute inset-0 bg-cover bg-center transition-all duration-[600ms] group-hover:scale-105'
-                    style={{ backgroundImage: `url(${project.image})` }}
-                  />
+                  <div className='absolute inset-0 overflow-hidden transition-all duration-[600ms] group-hover:scale-105'>
+                    <Image
+                      src={project.image}
+                      alt=''
+                      layout='fullWidth'
+                      width={600}
+                      height={400}
+                      className='h-full w-full object-cover'
+                    />
+                  </div>
                   <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent' />
                   <div className='absolute right-3 top-3'>
                     <span
@@ -271,9 +278,7 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
                     </p>
                     <div className='mt-3 flex items-center gap-1 text-label font-medium tracking-widest text-secondary uppercase opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
                       View Landmark
-                      <span className='material-symbols-outlined text-sm'>
-                        arrow_right_alt
-                      </span>
+                      <ArrowRight size={14} aria-hidden='true' />
                     </div>
                   </div>
                 </div>

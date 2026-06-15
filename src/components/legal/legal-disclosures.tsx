@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { DynamicIcon } from '@/lib/icon-map';
 
 const disclosureSections = [
   {
@@ -82,9 +83,11 @@ export function LegalDisclosures() {
           <div key={section.title} data-disclosure-item>
             <div className='mb-4 flex items-start gap-4'>
               <div className='flex h-10 w-10 shrink-0 items-center justify-center border border-secondary bg-secondary/5'>
-                <span className='material-symbols-outlined text-base text-secondary'>
-                  {icons[i]}
-                </span>
+                <DynamicIcon
+                  name={icons[i]}
+                  size={16}
+                  className='text-secondary'
+                />
               </div>
               <div className='flex-1'>
                 <h2 className='mb-3 text-xl font-serif text-on-surface md:text-2xl'>

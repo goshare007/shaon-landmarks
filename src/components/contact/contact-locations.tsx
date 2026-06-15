@@ -104,6 +104,8 @@ export function ContactLocations() {
                   src={office.img}
                   alt={office.title}
                   layout='fullWidth'
+                  width={800}
+                  height={600}
                   className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                 />
               </div>

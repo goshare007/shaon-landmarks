@@ -1,5 +1,6 @@
 'use client';
 
+import { MessageCircle } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '@/lib/constants';
 
@@ -81,9 +82,7 @@ export function ContactCta() {
           rel='noopener noreferrer'
           className='inline-flex items-center gap-4 border border-secondary px-12 py-5 text-label font-medium tracking-[0.15em] text-secondary uppercase transition-all duration-500 hover:bg-secondary hover:text-on-primary hover:scale-[1.02] active:scale-[0.98]'
         >
-          <span className='material-symbols-outlined' aria-hidden='true'>
-            chat
-          </span>
+          <MessageCircle size={24} aria-hidden='true' />
           WhatsApp Integration
         </a>
       </div>

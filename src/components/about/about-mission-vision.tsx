@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { DynamicIcon } from '@/lib/icon-map';
 
 const MISSION_LIST = [
   '100% Timely Handover',
@@ -91,13 +92,12 @@ export function AboutMissionVision() {
             className='flex flex-col justify-between border border-outline-variant bg-white p-12 transition-all duration-300 hover:-translate-y-1'
           >
             <div>
-              <span
+              <DynamicIcon
+                name='track_changes'
                 data-mv-icon
-                className='material-symbols-outlined mb-8 inline-block text-4xl text-secondary'
-                aria-hidden='true'
-              >
-                track_changes
-              </span>
+                size={36}
+                className='mb-8 inline-block text-secondary'
+              />
               <h3 className='mb-6 text-3xl font-serif'>Mission</h3>
               <p className='mb-8 text-sm leading-relaxed text-on-surface-variant md:text-base'>
                 To deliver world-class living spaces that harmonize luxury with
@@ -121,13 +121,12 @@ export function AboutMissionVision() {
             className='flex flex-col justify-between bg-tertiary p-12 text-on-tertiary transition-all duration-300 hover:-translate-y-1 md:mt-16'
           >
             <div>
-              <span
+              <DynamicIcon
+                name='visibility'
                 data-mv-icon
-                className='material-symbols-outlined mb-8 inline-block text-4xl text-secondary-fixed-dim'
-                aria-hidden='true'
-              >
-                visibility
-              </span>
+                size={36}
+                className='mb-8 inline-block text-secondary-fixed-dim'
+              />
               <h3 className='mb-6 text-3xl font-serif'>Vision</h3>
               <p className='mb-8 text-sm leading-relaxed text-tertiary-fixed-dim md:text-base'>
                 To become the most trusted real estate partner in the region,

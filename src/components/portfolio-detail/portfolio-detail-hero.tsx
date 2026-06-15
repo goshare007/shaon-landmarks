@@ -1,5 +1,6 @@
 'use client';
 
+import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
 import type { Project, ProjectDetail } from '@/data/projects';
 import { loadGsap } from '@/lib/gsap-loader';
@@ -65,11 +66,16 @@ export function PortfolioDetailHero({
   return (
     <section ref={sectionRef} className='relative h-170 overflow-hidden'>
       <div className='absolute inset-0 z-10 bg-primary/40' />
-      <div
-        data-hero-bg
-        className='absolute inset-0 bg-cover bg-center'
-        style={{ backgroundImage: `url(${detail.heroImage})` }}
-      />
+      <div data-hero-bg className='absolute inset-0 overflow-hidden'>
+        <Image
+          src={detail.heroImage}
+          alt=''
+          layout='fullWidth'
+          width={1440}
+          height={600}
+          className='h-full w-full object-cover'
+        />
+      </div>
       <div className='absolute inset-0 z-20 mx-auto flex max-w-360 flex-col justify-end px-4 pb-24 md:px-16'>
         <div data-hero-meta className='mb-6 flex items-center gap-4'>
           <span className='bg-secondary px-4 py-1 text-label font-medium tracking-[0.2em] text-on-secondary uppercase'>

@@ -1,5 +1,6 @@
 'use client';
 
+import { Lock } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { ContactFormData } from '@/lib/forms';
 import { submitContactForm } from '@/lib/forms';
@@ -114,7 +115,7 @@ export function CtaSection() {
   useEffect(() => {
     if (!magneticPos.x && !magneticPos.y) return;
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       gsap.to(buttonRef.current, {
         x: magneticPos.x,
         y: magneticPos.y,
@@ -146,9 +147,7 @@ export function CtaSection() {
               style={{ width: 0 }}
             />
             <div className='mt-6 flex items-center gap-3'>
-              <span className='material-symbols-outlined text-lg text-secondary'>
-                lock
-              </span>
+              <Lock className='text-secondary' size={20} aria-hidden='true' />
               <span className='text-label font-medium tracking-widest text-on-surface-variant uppercase'>
                 Exclusive Portfolio Access
               </span>

@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
+import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 export function AboutStory() {
@@ -182,9 +183,11 @@ export function AboutStory() {
               className='mt-8 flex items-center gap-2 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:text-secondary group'
             >
               View Our Portfolio
-              <span className='material-symbols-outlined text-base transition-transform group-hover:translate-x-1'>
-                arrow_forward
-              </span>
+              <ArrowRight
+                size={16}
+                className='transition-transform group-hover:translate-x-1'
+                aria-hidden='true'
+              />
             </Link>
           </div>
         </div>

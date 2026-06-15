@@ -99,7 +99,7 @@ export function Preloader() {
   return (
     <div
       ref={containerRef}
-      className='fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]'
+      className='fixed inset-0 z-50 flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] pointer-events-none'
     >
       <svg
         className='absolute inset-[8%] h-auto w-auto md:inset-[10%]'

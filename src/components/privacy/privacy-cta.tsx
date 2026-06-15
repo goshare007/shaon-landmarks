@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
+import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 export function PrivacyCta() {
@@ -66,9 +67,7 @@ export function PrivacyCta() {
             className='inline-flex items-center gap-2 rounded-sm bg-primary px-6 py-3 text-label font-medium tracking-widest text-on-primary uppercase transition-all hover:opacity-90'
           >
             Contact Us
-            <span className='material-symbols-outlined text-base'>
-              arrow_forward
-            </span>
+            <ArrowRight size={16} aria-hidden='true' />
           </Link>
         </div>
       </div>

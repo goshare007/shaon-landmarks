@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import type { ProjectDetail } from '@/data/projects';
+import { DynamicIcon } from '@/lib/icon-map';
 
 export function PortfolioDetailAmenities({
   amenities,
@@ -78,12 +79,11 @@ export function PortfolioDetailAmenities({
               data-amenities-card
               className='border-l border-outline-variant py-4 pl-8'
             >
-              <span
-                className='material-symbols-outlined mb-6 text-4xl text-secondary'
-                aria-hidden='true'
-              >
-                {a.icon}
-              </span>
+              <DynamicIcon
+                name={a.icon}
+                size={36}
+                className='mb-6 text-secondary'
+              />
               <h3 className='mb-4 font-serif text-xl md:text-2xl'>{a.title}</h3>
               <p className='text-sm leading-relaxed text-on-primary-container md:text-base'>
                 {a.description}

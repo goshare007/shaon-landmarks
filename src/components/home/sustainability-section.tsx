@@ -1,5 +1,6 @@
 'use client';
 
+import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
 import energyEfficiency from '@/assets/images/sustainability/energy-efficiency.webp';
 import greenSpaces from '@/assets/images/sustainability/green-spaces.webp';
@@ -130,9 +131,17 @@ export function SustainabilitySection() {
             >
               <div
                 data-sus-bg
-                className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
-                style={{ backgroundImage: `url(${item.image})` }}
-              />
+                className='absolute inset-0 overflow-hidden transition-transform duration-700 group-hover:scale-110'
+              >
+                <Image
+                  src={item.image}
+                  alt=''
+                  layout='fullWidth'
+                  width={600}
+                  height={400}
+                  className='h-full w-full object-cover'
+                />
+              </div>
               <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent' />
               <div className='absolute bottom-0 left-0 right-0 p-6'>
                 <h3 className='text-lg font-serif text-white'>{item.title}</h3>

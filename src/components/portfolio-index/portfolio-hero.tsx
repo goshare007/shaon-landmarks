@@ -1,7 +1,9 @@
 'use client';
 
+import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
 import HERO_IMG from '@/assets/images/projects/the-obsidian.webp';
+import { loadGsap } from '@/lib/gsap-loader';
 
 export function PortfolioHero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -13,7 +15,7 @@ export function PortfolioHero() {
 
     const ctrls: (() => void)[] = [];
 
-    import('gsap').then(({ gsap }) => {
+    loadGsap().then(({ gsap }) => {
       const section = sectionRef.current;
       if (!section) return;
 
@@ -49,9 +51,17 @@ export function PortfolioHero() {
     >
       <div
         data-e='bg'
-        className='absolute inset-0 bg-cover bg-center will-change-transform'
-        style={{ backgroundImage: `url(${HERO_IMG})` }}
-      />
+        className='absolute inset-0 overflow-hidden will-change-transform'
+      >
+        <Image
+          src={HERO_IMG}
+          alt=''
+          layout='fullWidth'
+          width={1440}
+          height={600}
+          className='h-full w-full object-cover'
+        />
+      </div>
       <div className='absolute inset-0 bg-linear-to-b from-black/50 to-black/70' />
       <div className='relative z-10 flex h-full items-center'>
         <div

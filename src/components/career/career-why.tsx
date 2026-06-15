@@ -97,6 +97,8 @@ export function CareerWhy() {
               src={CAREER_TEAM}
               alt='Team collaboration'
               layout='fullWidth'
+              width={600}
+              height={450}
               className='h-full w-full object-cover'
             />
           </div>

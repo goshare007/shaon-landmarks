@@ -280,7 +280,7 @@ export default function Footer() {
             {[
               {
                 name: 'Facebook',
-                href: 'https://facebook.com',
+                href: 'https://facebook.com/shaonlandmarks',
                 icon: (
                   <svg
                     viewBox='0 0 24 24'
@@ -294,7 +294,7 @@ export default function Footer() {
               },
               {
                 name: 'Instagram',
-                href: 'https://instagram.com',
+                href: 'https://instagram.com/shaonlandmarks',
                 icon: (
                   <svg
                     viewBox='0 0 24 24'
@@ -308,7 +308,7 @@ export default function Footer() {
               },
               {
                 name: 'LinkedIn',
-                href: 'https://linkedin.com',
+                href: 'https://linkedin.com/company/shaonlandmarks',
                 icon: (
                   <svg
                     viewBox='0 0 24 24'
@@ -322,7 +322,7 @@ export default function Footer() {
               },
               {
                 name: 'Twitter',
-                href: 'https://twitter.com',
+                href: 'https://twitter.com/shaonlandmarks',
                 icon: (
                   <svg
                     viewBox='0 0 24 24'

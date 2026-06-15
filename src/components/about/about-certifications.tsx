@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { DynamicIcon } from '@/lib/icon-map';
 
 const CERTIFICATIONS = [
   { icon: 'verified', label: 'RAJUK Certified' },
@@ -78,12 +79,11 @@ export function AboutCertifications() {
                 className='flex flex-col items-center gap-4 transition-all duration-300 hover:-translate-y-1'
               >
                 <div className='flex h-24 w-24 items-center justify-center border border-outline-variant bg-white'>
-                  <span
-                    className='material-symbols-outlined text-5xl text-[#000000]'
-                    aria-hidden='true'
-                  >
-                    {cert.icon}
-                  </span>
+                  <DynamicIcon
+                    name={cert.icon}
+                    size={40}
+                    className='text-[#000000]'
+                  />
                 </div>
                 <span className='text-label font-medium tracking-widest text-on-surface uppercase'>
                   {cert.label}

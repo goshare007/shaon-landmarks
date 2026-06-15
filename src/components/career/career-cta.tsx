@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
+import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 export function CareerCta() {
@@ -72,9 +73,7 @@ export function CareerCta() {
             className='mt-8 inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-label font-medium tracking-widest text-on-secondary no-underline uppercase transition-all hover:opacity-90'
           >
             Get in Touch
-            <span className='material-symbols-outlined text-base'>
-              arrow_forward
-            </span>
+            <ArrowRight size={16} aria-hidden='true' />
           </Link>
         </div>
       </div>

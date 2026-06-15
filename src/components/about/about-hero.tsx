@@ -139,6 +139,8 @@ export function AboutHero() {
               src={HERO_IMAGE}
               alt=''
               layout='fullWidth'
+              width={800}
+              height={1000}
               className='h-full w-full object-cover'
             />
           </div>

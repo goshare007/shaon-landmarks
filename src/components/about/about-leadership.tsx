@@ -117,6 +117,8 @@ export function AboutLeadership() {
                     src={leader.image}
                     alt={leader.alt}
                     layout='fullWidth'
+                    width={400}
+                    height={500}
                     className='aspect-4/5 w-full object-cover'
                   />
                 </div>

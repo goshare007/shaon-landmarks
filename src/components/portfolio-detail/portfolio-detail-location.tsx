@@ -108,6 +108,8 @@ export function PortfolioDetailLocation({
               src={location.mapImage}
               alt=''
               layout='fullWidth'
+              width={800}
+              height={600}
               className='h-full w-full object-cover opacity-80 grayscale'
             />
             <div className='absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2'>

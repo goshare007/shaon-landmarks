@@ -83,6 +83,8 @@ export function PortfolioDetailVision({
             src={vision.image}
             alt=''
             layout='fullWidth'
+            width={600}
+            height={750}
             className='aspect-4/5 h-full w-full object-cover'
           />
         </div>

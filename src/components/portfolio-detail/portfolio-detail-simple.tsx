@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
+import { ArrowLeft } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import type { Project } from '@/data/projects';
 
@@ -110,9 +111,7 @@ export function PortfolioDetailSimple({ project }: { project: Project }) {
               to='/portfolio'
               className='inline-flex items-center gap-2 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:text-secondary'
             >
-              <span className='material-symbols-outlined text-base'>
-                arrow_back
-              </span>
+              <ArrowLeft size={16} aria-hidden='true' />
               Back to Portfolio
             </Link>
           </div>

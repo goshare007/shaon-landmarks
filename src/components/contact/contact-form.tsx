@@ -1,5 +1,6 @@
 'use client';
 
+import { BadgeCheck, Calendar } from 'lucide-react';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -139,12 +140,11 @@ export function ContactForm() {
           </p>
           <div className='space-y-8'>
             <div data-form-card className='flex items-start gap-4'>
-              <span
-                className='material-symbols-outlined text-secondary'
+              <BadgeCheck
+                className='text-secondary'
+                size={24}
                 aria-hidden='true'
-              >
-                verified
-              </span>
+              />
               <div>
                 <h4 className='text-label font-medium tracking-widest text-on-surface uppercase'>
                   Privacy Guaranteed
@@ -155,12 +155,11 @@ export function ContactForm() {
               </div>
             </div>
             <div data-form-card className='flex items-start gap-4'>
-              <span
-                className='material-symbols-outlined text-secondary'
+              <Calendar
+                className='text-secondary'
+                size={24}
                 aria-hidden='true'
-              >
-                calendar_today
-              </span>
+              />
               <div>
                 <h4 className='text-label font-medium tracking-widest text-on-surface uppercase'>
                   Priority Scheduling

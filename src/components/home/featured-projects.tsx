@@ -2,6 +2,7 @@
 
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { allProjects } from '@/data/projects';
 import { loadGsap } from '@/lib/gsap-loader';
@@ -54,6 +55,8 @@ function FeaturedCard({ project }: { project: Project }) {
             src={project.image}
             alt={project.title}
             layout='fullWidth'
+            width={1200}
+            height={800}
             className='h-full w-full object-cover transition-transform duration-[800ms] group-hover:scale-105'
           />
         </div>
@@ -110,6 +113,8 @@ function GridCard({ project }: { project: Project }) {
             src={project.image}
             alt={project.title}
             layout='fullWidth'
+            width={600}
+            height={500}
             className='h-full w-full object-cover transition-transform duration-[800ms] group-hover:scale-105'
           />
         </div>
@@ -126,9 +131,7 @@ function GridCard({ project }: { project: Project }) {
           <p className='mt-0.5 text-label text-white/40'>{project.date}</p>
           <div className='mt-3 flex items-center gap-1 text-label font-medium tracking-widest text-secondary uppercase opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
             View Landmark
-            <span className='material-symbols-outlined text-sm'>
-              arrow_right_alt
-            </span>
+            <ArrowRight size={14} aria-hidden='true' />
           </div>
         </div>
       </div>

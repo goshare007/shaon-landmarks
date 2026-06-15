@@ -1,6 +1,7 @@
 'use client';
 
 import { type ReactNode, useEffect, useRef } from 'react';
+import { loadGsap } from '@/lib/gsap-loader';
 
 interface LenisScrollProviderProps {
   children: ReactNode;
@@ -25,10 +26,7 @@ export function LenisScrollProvider({ children }: LenisScrollProviderProps) {
       if (prefersReduced) return;
 
       const Lenis = (await import('lenis')).default;
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-
-      gsap.registerPlugin(ScrollTrigger);
+      const { ScrollTrigger } = await loadGsap();
 
       lenis = new Lenis({
         lerp: 0.08,

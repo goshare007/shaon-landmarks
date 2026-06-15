@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { pillars } from '@/data/pillars';
 import { loadGsap } from '@/lib/gsap-loader';
+import { DynamicIcon } from '@/lib/icon-map';
 
 export function PillarsSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -106,12 +107,7 @@ export function PillarsSection() {
                 data-pillar-icon
                 className='inline-flex items-center justify-center text-2xl text-secondary'
               >
-                <span
-                  className='material-symbols-outlined text-3xl'
-                  aria-hidden='true'
-                >
-                  {pillar.icon}
-                </span>
+                <DynamicIcon name={pillar.icon} size={28} />
               </span>
               <h3
                 data-pillar-title

@@ -2,11 +2,13 @@
 
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { ArrowRight } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import ARCH_IMG from '@/assets/images/services/architecture.webp';
 import CONST_IMG from '@/assets/images/services/construction.webp';
 import INTERIOR_IMG from '@/assets/images/services/interior.webp';
 import LAND_IMG from '@/assets/images/services/land-development.webp';
+import { DynamicIcon } from '@/lib/icon-map';
 
 const SERVICES = [
   {
@@ -133,12 +135,11 @@ export function ServicesCards() {
                 >
                   <div className='flex flex-col justify-between p-10 md:w-1/2'>
                     <div>
-                      <span
-                        className='material-symbols-outlined mb-6 block text-5xl text-secondary'
-                        aria-hidden='true'
-                      >
-                        {service.icon}
-                      </span>
+                      <DynamicIcon
+                        name={service.icon}
+                        size={40}
+                        className='mb-6 block text-secondary'
+                      />
                       <h3 className='mb-4 text-3xl font-serif'>
                         {service.title}
                       </h3>
@@ -152,12 +153,7 @@ export function ServicesCards() {
                         className='flex items-center gap-2 text-label font-medium tracking-widest text-on-surface uppercase no-underline transition-all group-hover:gap-4'
                       >
                         {service.link.label}
-                        <span
-                          className='material-symbols-outlined text-base'
-                          aria-hidden='true'
-                        >
-                          arrow_forward
-                        </span>
+                        <ArrowRight size={16} aria-hidden='true' />
                       </Link>
                     )}
                   </div>
@@ -166,6 +162,8 @@ export function ServicesCards() {
                       src={service.img}
                       alt={`${service.title} project overview`}
                       layout='fullWidth'
+                      width={600}
+                      height={600}
                       className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                     />
                   </div>
@@ -177,16 +175,17 @@ export function ServicesCards() {
                       src={service.img}
                       alt={`${service.title} rendering`}
                       layout='fullWidth'
+                      width={600}
+                      height={338}
                       className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                     />
                   </div>
                   <div className='p-8'>
-                    <span
-                      className='material-symbols-outlined mb-4 block text-4xl text-secondary'
-                      aria-hidden='true'
-                    >
-                      {service.icon}
-                    </span>
+                    <DynamicIcon
+                      name={service.icon}
+                      size={36}
+                      className='mb-4 block text-secondary'
+                    />
                     <h3 className='mb-3 text-2xl font-serif'>
                       {service.title}
                     </h3>
