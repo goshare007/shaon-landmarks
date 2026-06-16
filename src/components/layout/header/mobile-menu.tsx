@@ -1,13 +1,65 @@
+'use client';
+
 import { Link, useLocation } from '@tanstack/react-router';
-import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import { navItems } from '#/data/navigation';
+import { navItems } from '@/data/navigation';
 import { cn } from '@/lib/utils';
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
+  const [renderOverlay, setRenderOverlay] = useState(false);
   const { pathname } = useLocation();
+  const overlayRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (open) {
+      setRenderOverlay(true);
+    } else {
+      const id = window.setTimeout(() => setRenderOverlay(false), 250);
+      return () => window.clearTimeout(id);
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (!renderOverlay) return;
+
+    let killed = false;
+
+    import('gsap').then(({ gsap }) => {
+      if (killed || !overlayRef.current) return;
+
+      if (open) {
+        const tl = gsap.timeline();
+        tl.fromTo(
+          overlayRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.2 },
+        );
+        tl.fromTo(
+          navRef.current?.querySelectorAll('li') ?? [],
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.35,
+            stagger: 0.08,
+            ease: 'power3.out',
+          },
+          '-=0.1',
+        );
+      } else {
+        gsap.to(overlayRef.current, {
+          opacity: 0,
+          duration: 0.2,
+        });
+      }
+    });
+
+    return () => {
+      killed = true;
+    };
+  }, [open, renderOverlay]);
 
   useEffect(() => {
     if (!open) {
@@ -22,9 +74,12 @@ export default function MobileMenu() {
     };
     document.addEventListener('keydown', handleEscape);
 
-    navRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+    const timer = window.setTimeout(() => {
+      navRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+    }, 400);
 
     return () => {
+      window.clearTimeout(timer);
       document.body.style.overflow = '';
       document.removeEventListener('keydown', handleEscape);
     };
@@ -32,7 +87,6 @@ export default function MobileMenu() {
 
   return (
     <>
-      {/* Hamburger button — three architectural lines animating to X */}
       <button
         type='button'
         onClick={() => setOpen(!open)}
@@ -61,55 +115,40 @@ export default function MobileMenu() {
         </div>
       </button>
 
-      {/* Full-screen overlay menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className='fixed inset-0 z-40 flex items-center justify-center bg-surface px-4'
-          >
-            <nav>
-              <ul ref={navRef} className='space-y-6 text-center'>
-                {navItems.map((item, i) => {
-                  const isActive =
-                    item.href === '/'
-                      ? pathname === '/'
-                      : pathname.startsWith(item.href);
+      {renderOverlay && (
+        <div
+          ref={overlayRef}
+          className='fixed inset-0 z-40 flex items-center justify-center bg-surface px-4'
+        >
+          <nav>
+            <ul ref={navRef} className='space-y-6 text-center'>
+              {navItems.map((item) => {
+                const isActive =
+                  item.href === '/'
+                    ? pathname === '/'
+                    : pathname.startsWith(item.href);
 
-                  return (
-                    <motion.li
-                      key={item.href}
-                      initial={{ opacity: 0, y: 24 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.35,
-                        delay: i * 0.08,
-                        ease: [0.25, 0.1, 0.15, 1],
-                      }}
+                return (
+                  <li key={item.href}>
+                    <Link
+                      to={item.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        'inline-block text-[28px] font-serif tracking-tight transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-secondary',
+                        isActive
+                          ? 'text-primary'
+                          : 'text-on-surface-variant hover:text-primary',
+                      )}
                     >
-                      <Link
-                        to={item.href}
-                        onClick={() => setOpen(false)}
-                        className={cn(
-                          'inline-block text-[28px] font-serif tracking-tight transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-secondary',
-                          isActive
-                            ? 'text-primary'
-                            : 'text-on-surface-variant hover:text-primary',
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    </motion.li>
-                  );
-                })}
-              </ul>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+      )}
     </>
   );
 }

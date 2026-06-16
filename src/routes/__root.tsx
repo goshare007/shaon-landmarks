@@ -4,12 +4,13 @@ import {
   Link,
   Scripts,
 } from '@tanstack/react-router';
-import Footer from '#/components/Footer';
-import Header from '#/components/layout/header';
-import { WhatsAppFab } from '#/components/shared/whatsapp-fab';
-import { allProjects } from '#/data/projects';
-import { DEFAULT_OG_IMAGE, ORGANIZATION_JSON_LD, SITE_URL } from '#/lib/seo';
-import appCss from '#/styles.css?url';
+import Footer from '@/components/Footer';
+import Header from '@/components/layout/header';
+import { WhatsAppFab } from '@/components/shared/whatsapp-fab';
+import { allProjects } from '@/data/projects';
+import { DEFAULT_OG_IMAGE, ORGANIZATION_JSON_LD, SITE_URL } from '@/lib/seo';
+import { LenisScrollProvider } from '@/lib/smooth-scroll';
+import appCss from '@/styles.css?url';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -151,10 +152,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className='min-h-dvh bg-surface text-on-surface antialiased'>
-        <Header />
-        {children}
-        <Footer />
-        <WhatsAppFab />
+        <LenisScrollProvider>
+          <Header />
+          {children}
+          <Footer />
+          <WhatsAppFab />
+        </LenisScrollProvider>
         <Scripts />
       </body>
     </html>

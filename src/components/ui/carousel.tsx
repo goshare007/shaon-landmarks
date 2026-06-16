@@ -113,6 +113,7 @@ const Carousel = React.forwardRef<
       api.on('select', onSelect);
 
       return () => {
+        api?.off('reInit', onSelect);
         api?.off('select', onSelect);
       };
     }, [api, onSelect]);
@@ -211,9 +212,9 @@ const CarouselPrevious = React.forwardRef<
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
+      {...props}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
-      {...props}
     >
       <ArrowLeft className='h-4 w-4' />
       <span className='sr-only'>Previous slide</span>
@@ -240,9 +241,9 @@ const CarouselNext = React.forwardRef<
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
+      {...props}
       disabled={!canScrollNext}
       onClick={scrollNext}
-      {...props}
     >
       <ArrowRight className='h-4 w-4' />
       <span className='sr-only'>Next slide</span>

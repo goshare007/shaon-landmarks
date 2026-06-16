@@ -1,35 +1,20 @@
-import { motion } from 'motion/react';
-import { useState } from 'react';
-import type { ContactFormData } from '#/lib/forms';
-import { submitContactForm } from '#/lib/forms';
+'use client';
 
-const leftVariants = {
-  hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.8, ease: [0.25, 0.1, 0.15, 1] as const },
-  },
-};
-
-const rightVariants = {
-  hidden: { opacity: 0, x: 40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.8,
-      delay: 0.2,
-      ease: [0.25, 0.1, 0.15, 1] as const,
-    },
-  },
-};
+import { useEffect, useRef, useState } from 'react';
+import type { ContactFormData } from '@/lib/forms';
+import { submitContactForm } from '@/lib/forms';
 
 export function CtaSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const doneRef = useRef(false);
+
   const [formState, setFormState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message: string;
   }>({ status: 'idle', message: '' });
+
+  const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0 });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -63,16 +48,90 @@ export function CtaSection() {
     }
   }
 
+  const handleMagnetMove = (e: React.MouseEvent) => {
+    const btn = buttonRef.current;
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    setMagneticPos({ x: x * 0.3, y: y * 0.3 });
+  };
+
+  const handleMagnetLeave = () => {
+    setMagneticPos({ x: 0, y: 0 });
+  };
+
+  useEffect(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+
+    const ctrls: (() => void)[] = [];
+
+    import('gsap').then(({ gsap }) => {
+      const el = sectionRef.current;
+      if (!el) return;
+
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+          defaults: { ease: 'power3.out' },
+        });
+
+        tl.fromTo(
+          el.querySelector('[data-cta-left]'),
+          { opacity: 0, x: -40 },
+          { opacity: 1, x: 0, duration: 0.8 },
+        );
+
+        tl.fromTo(
+          el.querySelector('[data-cta-right]'),
+          { opacity: 0, x: 40 },
+          { opacity: 1, x: 0, duration: 0.8 },
+          '-=0.4',
+        );
+
+        tl.fromTo(
+          el.querySelector('[data-cta-line]'),
+          { width: 0 },
+          { width: 64, duration: 0.6 },
+          '-=0.3',
+        );
+
+        ctrls.push(() => ctx.revert());
+      }, el);
+    });
+
+    return () => {
+      for (const fn of ctrls) fn();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!magneticPos.x && !magneticPos.y) return;
+
+    import('gsap').then(({ gsap }) => {
+      gsap.to(buttonRef.current, {
+        x: magneticPos.x,
+        y: magneticPos.y,
+        duration: 0.3,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      });
+    });
+  }, [magneticPos]);
+
   return (
-    <section className='bg-surface py-20 md:py-28 overflow-x-hidden'>
+    <section
+      ref={sectionRef}
+      className='bg-surface py-20 md:py-28 overflow-x-hidden'
+    >
       <div className='mx-auto max-w-360 px-4 md:px-16'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
-          <motion.div
-            variants={leftVariants}
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true, margin: '-80px' }}
-          >
+          <div data-cta-left>
             <h2 className='text-4xl leading-tight text-on-surface font-serif sm:text-5xl'>
               Begin Your Legacy
             </h2>
@@ -80,12 +139,10 @@ export function CtaSection() {
               Schedule a private consultation with our portfolio managers to
               discuss your future investment in timeless landmarks.
             </p>
-            <motion.div
-              className='mt-6 h-px w-16 bg-secondary'
-              initial={{ width: 0 }}
-              whileInView={{ width: 64 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+            <div
+              data-cta-line
+              className='mt-6 h-px bg-secondary'
+              style={{ width: 0 }}
             />
             <div className='mt-6 flex items-center gap-3'>
               <span className='material-symbols-outlined text-lg text-secondary'>
@@ -95,24 +152,17 @@ export function CtaSection() {
                 Exclusive Portfolio Access
               </span>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
+          <div
+            data-cta-right
             className='border border-outline-variant bg-white p-8'
-            variants={rightVariants}
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true, margin: '-80px' }}
           >
             <h3 className='mb-6 text-label font-medium tracking-widest text-on-surface-variant uppercase'>
               Exclusive Portfolio Access
             </h3>
             <form className='space-y-6' onSubmit={handleSubmit}>
-              <motion.div
-                className='group'
-                whileFocus={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-              >
+              <div className='group'>
                 <label
                   htmlFor='cta-name'
                   className='mb-1 block text-label font-medium tracking-wider text-on-surface-variant uppercase transition-colors group-focus-within:text-secondary'
@@ -127,12 +177,8 @@ export function CtaSection() {
                   placeholder='Your full name'
                   className='w-full border-0 border-b border-outline-variant bg-transparent px-0 pb-2 pt-1 text-body-sm text-on-surface outline-none transition-colors focus:border-secondary'
                 />
-              </motion.div>
-              <motion.div
-                className='group'
-                whileFocus={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-              >
+              </div>
+              <div className='group'>
                 <label
                   htmlFor='cta-email'
                   className='mb-1 block text-label font-medium tracking-wider text-on-surface-variant uppercase transition-colors group-focus-within:text-secondary'
@@ -145,15 +191,13 @@ export function CtaSection() {
                   type='email'
                   required
                   placeholder='your@email.com'
-                  aria-describedby='cta-form-status'
+                  aria-describedby={
+                    formState.message ? 'cta-form-status' : undefined
+                  }
                   className='w-full border-0 border-b border-outline-variant bg-transparent px-0 pb-2 pt-1 text-body-sm text-on-surface outline-none transition-colors focus:border-secondary'
                 />
-              </motion.div>
-              <motion.div
-                className='group'
-                whileFocus={{ scale: 1.01 }}
-                transition={{ duration: 0.2 }}
-              >
+              </div>
+              <div className='group'>
                 <label
                   htmlFor='cta-interest'
                   className='mb-1 block text-label font-medium tracking-wider text-on-surface-variant uppercase transition-colors group-focus-within:text-secondary'
@@ -169,12 +213,10 @@ export function CtaSection() {
                   <option>Commercial Landmarks</option>
                   <option>Investment Opportunities</option>
                 </select>
-              </motion.div>
+              </div>
               {formState.message && (
-                <motion.div
+                <div
                   id='cta-form-status'
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
                   className={`rounded-sm p-3 text-xs ${
                     formState.status === 'success'
                       ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
@@ -182,22 +224,28 @@ export function CtaSection() {
                   }`}
                 >
                   {formState.message}
-                </motion.div>
+                </div>
               )}
 
-              <motion.button
-                type='submit'
-                disabled={formState.status === 'submitting'}
-                className='w-full rounded-sm bg-primary py-3 text-label font-medium tracking-widest text-on-primary transition-colors hover:bg-secondary uppercase disabled:opacity-50'
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              {/** biome-ignore lint/a11y/noStaticElementInteractions: magnetic button */}
+              <div
+                onMouseMove={handleMagnetMove}
+                onMouseLeave={handleMagnetLeave}
+                className='inline-block w-full'
               >
-                {formState.status === 'submitting'
-                  ? 'Submitting...'
-                  : 'Request Consultation'}
-              </motion.button>
+                <button
+                  ref={buttonRef}
+                  type='submit'
+                  disabled={formState.status === 'submitting'}
+                  className='w-full rounded-sm bg-primary py-3 text-label font-medium tracking-widest text-on-primary transition-colors hover:bg-secondary uppercase disabled:opacity-50'
+                >
+                  {formState.status === 'submitting'
+                    ? 'Submitting...'
+                    : 'Request Consultation'}
+                </button>
+              </div>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

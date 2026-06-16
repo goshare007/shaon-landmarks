@@ -1,0 +1,81 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import HERO_IMAGE from '@/assets/images/career/hero.webp';
+
+export function CareerHero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const doneRef = useRef(false);
+
+  useEffect(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+
+    const ctrls: (() => void)[] = [];
+
+    import('gsap').then(({ gsap }) => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const ctx = gsap.context(() => {
+        const bg = section.querySelector('[data-hero-bg]');
+        if (bg) {
+          gsap.set(bg, { scale: 1 });
+          const infiniteTween = gsap.to(bg, {
+            scale: 1.1,
+            duration: 20,
+            repeat: -1,
+            yoyo: true,
+            ease: 'easeInOut',
+          });
+          ctrls.push(() => infiniteTween.kill());
+        }
+
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+        tl.fromTo(
+          section.querySelector('[data-hero-content]'),
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.8 },
+        );
+      }, section);
+
+      ctrls.push(() => ctx.revert());
+    });
+
+    return () => {
+      for (const fn of ctrls) fn();
+    };
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className='relative h-[50vh] min-h-96 overflow-hidden bg-tertiary'
+    >
+      <div
+        data-hero-bg
+        className='absolute inset-0 bg-cover bg-center will-change-transform'
+        style={{ backgroundImage: `url(${HERO_IMAGE})` }}
+      />
+      <div className='absolute inset-0 bg-linear-to-b from-black/50 to-black/70' />
+      <div className='relative z-10 flex h-full items-center'>
+        <div
+          data-hero-content
+          className='mx-auto w-full max-w-360 px-4 md:px-16'
+        >
+          <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
+            Join the Team
+          </span>
+          <h1 className='heading-hero mt-3 text-on-tertiary'>
+            Building Careers
+          </h1>
+          <p className='mt-4 max-w-xl text-base leading-relaxed text-[#d6d8d8]'>
+            Build your future with Shaon Landmarks. We are always looking for
+            talent that shares our commitment to architectural integrity.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}

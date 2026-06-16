@@ -8,7 +8,7 @@ export default function Logo() {
       <div className='flex items-center gap-2.5'>
         <Image
           src={logoSrc}
-          alt='logo'
+          alt='Shaon Landmarks & Housing'
           layout='constrained'
           width={144}
           height={36}

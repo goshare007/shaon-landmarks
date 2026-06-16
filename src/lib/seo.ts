@@ -67,7 +67,7 @@ export function generateMeta({
     meta: [
       { title },
       { name: 'description', content: description },
-      { property: 'og:locale', content: 'en_BD' },
+      { property: 'og:locale', content: 'en' },
       { property: 'og:site_name', content: 'Shaon Landmarks & Housing' },
       { property: 'og:url', content: url },
       { property: 'og:title', content: title },
@@ -112,7 +112,7 @@ export function productLd({
   units: string;
 }) {
   return {
-    '@type': 'Product',
+    '@type': 'RealEstateListing',
     name,
     description,
     image,
@@ -124,6 +124,30 @@ export function productLd({
       { '@type': 'PropertyValue', name: 'Total Area', value: area },
       { '@type': 'PropertyValue', name: 'Number of Units', value: units },
     ],
+  };
+}
+
+export function webpageLd({
+  name,
+  description,
+  url,
+}: {
+  name: string;
+  description: string;
+  url: string;
+}) {
+  return {
+    '@type': 'WebPage',
+    name,
+    description,
+    url,
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+        { '@type': 'ListItem', position: 2, name, item: url },
+      ],
+    },
   };
 }
 

@@ -1,5 +1,5 @@
 import { Link, useLocation } from '@tanstack/react-router';
-import { navItems } from '#/data/navigation';
+import { navItems } from '@/data/navigation';
 import { cn } from '@/lib/utils';
 
 export default function DesktopNav() {

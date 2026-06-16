@@ -1,136 +1,231 @@
+'use client';
+
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { HERO_CONTENT } from '@/data/home';
 
-const stagger = {
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.4 },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.25, 0.1, 0.15, 1] as const },
-  },
-};
-
-const slideUp = {
-  hidden: { opacity: 0, y: '100%' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: [0.25, 0.1, 0.15, 1] as const },
-  },
-};
+const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
+  id: i,
+  x: (i * 137.5 + 42) % 100,
+  y: (i * 89.3 + 17) % 100,
+  size: (i % 3) + 1,
+  delay: i % 6,
+  duration: (i % 4) + 5,
+}));
 
 export function HeroSection() {
   const rightPanelRef = useRef<HTMLDivElement>(null);
-  const rectRef = useRef<DOMRect | null>(null);
+  const mouseTarget = useRef({ x: 0, y: 0 });
+  const mouseCurrent = useRef({ x: 0, y: 0 });
 
-  // Mouse positions for the parallax effect
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const doneRef = useRef(false);
 
-  // Smooth out the mouse values
-  const smoothX = useSpring(x, { damping: 25, stiffness: 150 });
-  const smoothY = useSpring(y, { damping: 25, stiffness: 150 });
-
-  // Map mouse positions to slight movement offsets
-  const imageX = useTransform(smoothX, [-0.5, 0.5], ['-3%', '3%']);
-  const imageY = useTransform(smoothY, [-0.5, 0.5], ['-3%', '3%']);
-
-  // Cache rect to avoid forced layout on every mousemove
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!rightPanelRef.current) return;
-    const rect =
-      rectRef.current ?? rightPanelRef.current.getBoundingClientRect();
-
-    const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
-    const mouseY = (e.clientY - rect.top) / rect.height - 0.5;
-
-    x.set(mouseX);
-    y.set(mouseY);
-  };
-
-  const handleMouseEnter = () => {
-    if (rightPanelRef.current) {
-      rectRef.current = rightPanelRef.current.getBoundingClientRect();
-    }
+    const rect = rightPanelRef.current.getBoundingClientRect();
+    mouseTarget.current.x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
+    mouseTarget.current.y = ((e.clientY - rect.top) / rect.height - 0.5) * 6;
   };
 
   const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
+    mouseTarget.current.x = 0;
+    mouseTarget.current.y = 0;
   };
 
+  useEffect(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+
+    const ctrls: (() => void)[] = [];
+
+    import('gsap').then(({ gsap }) => {
+      const headline = headlineRef.current;
+      if (!headline) return;
+
+      gsap.set(headline, { opacity: 1 });
+
+      const lines = headline.children;
+      for (const line of lines) {
+        const text = line.textContent || '';
+        line.textContent = '';
+        for (const char of text) {
+          const span = document.createElement('span');
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          span.className = 'char';
+          if (line.classList.contains('headline-stroke')) {
+            span.style.color = 'transparent';
+            span.style.webkitTextStroke = '1px rgba(255,255,255,0.35)';
+          }
+          line.appendChild(span);
+        }
+      }
+
+      const section = sectionRef.current;
+      if (!section) return;
+      const $ = (sel: string) => section.querySelector(sel);
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.fromTo(
+        $('[data-e="eyebrow"]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6 },
+      );
+
+      tl.fromTo(
+        headline.querySelectorAll('.char'),
+        { opacity: 0, y: 40, rotateX: -90 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          duration: 0.5,
+          stagger: 0.025,
+        },
+        '-=0.3',
+      );
+
+      tl.fromTo(
+        $('[data-e="descriptor"]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.2',
+      );
+
+      tl.fromTo(
+        $('[data-e="stats"]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.1',
+      );
+
+      tl.fromTo(
+        $('[data-e="cta"]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.1',
+      );
+
+      tl.to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3');
+
+      tl.fromTo(
+        $('[data-e="location-badge"]'),
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        '+=0.5',
+      );
+
+      tl.fromTo(
+        $('[data-e="year-label"]'),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.8 },
+        '-=0.6',
+      );
+
+      const updateParallax = () => {
+        const img = imageRef.current;
+        if (!img) return;
+        mouseCurrent.current.x +=
+          (mouseTarget.current.x - mouseCurrent.current.x) * 0.1;
+        mouseCurrent.current.y +=
+          (mouseTarget.current.y - mouseCurrent.current.y) * 0.1;
+        gsap.set(img, {
+          x: `${mouseCurrent.current.x}%`,
+          y: `${mouseCurrent.current.y}%`,
+        });
+      };
+      gsap.ticker.add(updateParallax);
+      ctrls.push(() => gsap.ticker.remove(updateParallax));
+
+      ctrls.push(() => tl.kill());
+    });
+
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      import('gsap').then(({ gsap }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const imgEl = imageRef.current;
+        const section = sectionRef.current;
+        if (!imgEl || !section) return;
+
+        const st = ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+          onUpdate: (self) => {
+            const pct = self.progress;
+            gsap.set(imgEl, { y: `${pct * 10}%` });
+          },
+        });
+
+        ctrls.push(() => st.kill());
+      });
+    });
+
+    return () => {
+      for (const fn of ctrls) fn();
+    };
+  }, []);
+
   return (
-    // Changed grid-cols-2 to grid-cols-1 on mobile, grid-cols-2 on desktop (md:)
-    // Changed h-screen to min-h-screen on mobile to accommodate stacked content safely
-    <section className='relative min-h-screen md:h-screen overflow-hidden grid grid-cols-1 md:grid-cols-2'>
+    <section
+      ref={sectionRef}
+      className='relative min-h-screen md:h-screen overflow-hidden grid grid-cols-1 md:grid-cols-2'
+    >
       {/* LEFT PANEL */}
-      {/* Adjusted padding for smaller screens (px-6 py-10 vs px-14 py-12) */}
-      <motion.div className='relative z-10 bg-[#0a0a0a] flex flex-col justify-between px-6 py-10 md:px-14 md:py-12 overflow-hidden order-2 md:order-1'>
-        {/* Border divider hidden on mobile, visible on desktop */}
+      <div className='relative z-10 bg-[#0a0a0a] flex flex-col justify-between px-6 py-10 md:px-14 md:py-12 overflow-hidden order-2 md:order-1'>
         <div className='hidden md:block absolute right-0 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-secondary to-transparent opacity-60' />
 
-        <motion.div
-          variants={stagger}
-          initial='hidden'
-          animate='visible'
+        <div
+          ref={contentRef}
           className='flex flex-col h-full justify-between gap-12 md:gap-0'
         >
-          {/* Main content */}
           <div className='flex-1 flex flex-col justify-center py-4 md:py-8'>
-            {/* Eyebrow */}
-            <motion.div
-              variants={fadeUp}
-              className='flex items-center gap-4 mb-6 md:mb-9'
+            <div
+              data-e='eyebrow'
+              className='flex items-center gap-4 mb-6 md:mb-9 opacity-0'
             >
               <div className='w-10 h-px bg-secondary' />
               <span className='text-caption md:text-caption font-medium tracking-[0.2em] uppercase text-secondary-fixed-dim'>
                 {HERO_CONTENT.eyebrow}
               </span>
-            </motion.div>
+            </div>
 
-            {/* Headline */}
-            <h1 className='heading-hero text-white overflow-hidden'>
-              <motion.span className='block' variants={slideUp}>
-                {HERO_CONTENT.headline.first}
-              </motion.span>
-              <motion.span
-                className='block italic'
+            <h1
+              ref={headlineRef}
+              className='heading-hero text-white overflow-hidden opacity-0'
+            >
+              <span className='block'>{HERO_CONTENT.headline.first}</span>
+              <span
+                className='block italic headline-stroke'
                 style={{
                   color: 'transparent',
                   WebkitTextStroke: '1px rgba(255,255,255,0.35)',
                 }}
-                variants={slideUp}
               >
                 {HERO_CONTENT.headline.second}
-              </motion.span>
+              </span>
             </h1>
 
-            {/* Descriptor */}
-            <motion.div
-              variants={fadeUp}
-              className='flex items-start gap-5 mt-6 md:mt-9'
+            <div
+              data-e='descriptor'
+              className='flex items-start gap-5 mt-6 md:mt-9 opacity-0'
             >
               <div className='w-0.5 min-h-14 bg-secondary shrink-0 mt-0.5' />
               <p className='text-xs md:text-sm leading-relaxed text-white/50 max-w-xs font-light'>
                 {HERO_CONTENT.descriptor}
               </p>
-            </motion.div>
+            </div>
 
-            {/* Stats (Flex-wrap added for safety on narrow screens) */}
-            <motion.div
-              variants={fadeUp}
-              className='flex flex-wrap items-center gap-6 md:gap-8 mt-8 md:mt-11'
+            <div
+              data-e='stats'
+              className='flex flex-wrap items-center gap-6 md:gap-8 mt-8 md:mt-11 opacity-0'
             >
               {HERO_CONTENT.stats.map((stat, i) => (
                 <div
@@ -148,77 +243,62 @@ export function HeroSection() {
                   </div>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
-          {/* Bottom Controls */}
-          <motion.div
-            variants={fadeUp}
-            className='flex justify-between items-end mt-4 md:mt-0'
+          <div
+            data-e='cta'
+            className='flex justify-between items-end mt-4 md:mt-0 opacity-0'
           >
             <div className='flex flex-col gap-4'>
               <Link
                 to='/portfolio'
-                className='relative overflow-hidden inline-flex items-center gap-4 bg-primary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-caption font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200'
+                className='relative overflow-hidden group inline-flex items-center gap-4 bg-primary text-on-secondary px-6 py-3 md:px-7 md:py-3.5 text-caption font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200'
               >
-                <motion.div
-                  className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/20 to-transparent'
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '200%' }}
-                  transition={{ duration: 0.5 }}
-                />
+                <div className='absolute inset-0 -skew-12 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-[150%] group-hover:translate-x-[250%] transition-transform duration-500' />
                 <span className='relative z-10'>Explore Portfolio</span>
-                {/** biome-ignore lint/a11y/noSvgWithoutTitle: this is fine */}
                 <svg
                   className='relative z-10 w-4 h-4'
                   viewBox='0 0 16 16'
                   fill='none'
                   stroke='currentColor'
                   strokeWidth='1.5'
+                  aria-hidden='true'
                 >
                   <path d='M2 8h12M9 3l5 5-5 5' />
                 </svg>
               </Link>
             </div>
 
-            {/* Scroll indicator hidden on mobile to avoid layout crowding */}
-            <div className='hidden md:flex flex-col items-center gap-2'>
+            <div className='hidden md:flex flex-col items-center gap-2 scroll-indicator opacity-0'>
               <span
                 className='text-caption tracking-[0.2em] uppercase text-white/25'
                 style={{ writingMode: 'vertical-rl' }}
               >
                 Scroll
               </span>
-              <motion.div
-                className='w-px h-10 bg-linear-to-b from-white/20 to-transparent'
-                animate={{ scaleY: [1, 0.6, 1], opacity: [0.4, 1, 0.4] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
+              <div className='w-px h-10 bg-linear-to-b from-white/20 to-transparent animate-pulse-line' />
             </div>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          </div>
+        </div>
+      </div>
 
       {/* RIGHT PANEL */}
-      {/* Set a fixed height (like h-[45vh]) on mobile so both segments are cleanly visible, md:h-full on desktop */}
-      {/** biome-ignore lint/a11y/noStaticElementInteractions: this is fine */}
+      {/** biome-ignore lint/a11y/noStaticElementInteractions: mouse parallax */}
       <div
         ref={rightPanelRef}
         onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
+        onMouseEnter={() => {
+          if (rightPanelRef.current) {
+            rightPanelRef.current.getBoundingClientRect();
+          }
+        }}
         onMouseLeave={handleMouseLeave}
         className='relative h-[45vh] md:h-full overflow-hidden order-1 md:order-2'
       >
-        <motion.div
+        <div
+          ref={imageRef}
           className='w-full h-full will-change-transform scale-[1.15]'
-          style={{ x: imageX, y: imageY }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.2 }}
         >
           <Image
             src={HERO_CONTENT.image}
@@ -226,17 +306,30 @@ export function HeroSection() {
             layout='fullWidth'
             className='h-full w-full object-cover object-center'
           />
-        </motion.div>
+        </div>
+        <div className='absolute inset-0 pointer-events-none overflow-hidden'>
+          {PARTICLES.map((p) => (
+            <div
+              key={p.id}
+              className='absolute rounded-full'
+              style={{
+                left: `${p.x}%`,
+                top: `${p.y}%`,
+                width: `${p.size}px`,
+                height: `${p.size}px`,
+                backgroundColor: 'rgba(238,189,142,0.25)',
+                animation: `float-particle ${p.duration}s ease-in-out ${p.delay}s infinite`,
+              }}
+            />
+          ))}
+        </div>
 
         <div className='absolute inset-0 bg-linear-to-r from-black/40 to-transparent pointer-events-none' />
         <div className='absolute inset-0 bg-linear-to-t from-black/30 to-transparent pointer-events-none' />
 
-        {/* Location tag */}
-        <motion.div
+        <div
+          data-e='location-badge'
           className='absolute bottom-6 left-6 md:bottom-12 md:left-9 z-10'
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
         >
           <div
             className='flex items-center gap-3 px-4 py-3 rounded-sm border border-secondary/40'
@@ -245,23 +338,16 @@ export function HeroSection() {
               backdropFilter: 'blur(12px)',
             }}
           >
-            <motion.div
-              className='w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim shrink-0'
-              animate={{ opacity: [1, 0.4, 1], scale: [1, 0.8, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
+            <div className='w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim shrink-0 animate-pulse-dot' />
             <span className='text-caption tracking-[0.12em] uppercase text-white/70 font-medium'>
               {HERO_CONTENT.location}
             </span>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Year strip */}
-        <motion.div
+        <div
+          data-e='year-label'
           className='absolute right-6 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-4'
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.6 }}
         >
           <span
             className='text-caption font-medium tracking-[0.2em] text-white/50 uppercase'
@@ -270,7 +356,7 @@ export function HeroSection() {
             {new Date().getFullYear()}
           </span>
           <div className='w-px h-12 bg-linear-to-b from-secondary to-transparent' />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

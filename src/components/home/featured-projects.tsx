@@ -1,301 +1,306 @@
+'use client';
+
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { motion } from 'motion/react';
+import { useEffect, useRef } from 'react';
 import { allProjects } from '@/data/projects';
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.25, 0.1, 0.15, 1] as const },
-  },
+interface Project {
+  id: string;
+  title: string;
+  slug: string;
+  tagline: string;
+  description: string;
+  status: 'Completed' | 'Ongoing' | 'Upcoming';
+  location: string;
+  date: string;
+  image: string;
+}
+
+const statusStyles: Record<string, string> = {
+  Completed: 'bg-emerald-900/60 text-emerald-100 border-emerald-700',
+  Ongoing: 'bg-amber-900/60 text-amber-100 border-amber-700',
+  Upcoming: 'bg-sky-900/60 text-sky-100 border-sky-700',
 };
 
-export function FeaturedProjects() {
-  const main = allProjects[0];
-  const rightTop = allProjects[1];
-  const rightBottom = allProjects[2];
-  const secondaryLeft = allProjects[3];
-  const secondaryRight = allProjects[4];
-
-  if (!main || !rightTop || !rightBottom || !secondaryLeft || !secondaryRight) {
-    return null;
-  }
-
+function StatusBadge({ status }: { status: string }) {
   return (
-    <section className='bg-white py-20 md:py-28'>
-      <div className='mx-auto max-w-360 px-4 md:px-16'>
-        <motion.div
-          className='mb-12 flex items-end justify-between'
-          variants={sectionVariants}
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, margin: '-80px' }}
+    <span
+      className={`rounded-sm border px-2.5 py-1 text-caption font-medium tracking-widest uppercase ${statusStyles[status] ?? ''}`}
+    >
+      {status}
+    </span>
+  );
+}
+
+function FeaturedCard({ project }: { project: Project }) {
+  return (
+    <Link
+      to='/portfolio/$slug'
+      params={{ slug: project.slug }}
+      className='block'
+    >
+      <div
+        data-el-feature
+        className='relative min-h-[50vh] overflow-hidden rounded-sm md:min-h-[70vh]'
+      >
+        <div
+          data-el-feature-image
+          className='absolute inset-0'
+          style={{ clipPath: 'inset(0 100% 0 0)' }}
         >
-          <div>
-            <span className='text-label font-medium tracking-[0.15em] text-on-surface-variant uppercase'>
-              Iconic Developments
-            </span>
-            <h2 className='mt-3 text-3xl leading-tight text-on-surface font-serif sm:text-4xl'>
-              A curated selection of our most ambitious projects,
-              <br />
-              redefined for modern living.
-            </h2>
-          </div>
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className='hidden md:inline-block'
-          >
-            <Link
-              to='/portfolio'
-              className='inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-label font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
-            >
-              View All Projects
-            </Link>
-          </motion.div>
-        </motion.div>
+          <Image
+            src={project.image}
+            alt={project.title}
+            layout='fullWidth'
+            className='h-full w-full object-cover transition-transform duration-[800ms] group-hover:scale-105'
+          />
+        </div>
+        <div className='absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent' />
+        <div className='absolute inset-0 border border-white/5 transition-all duration-500 hover:border-secondary/40' />
 
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-12'>
-          {/* The Obsidian — col-span-7 */}
-          <Link
-            to='/portfolio/$slug'
-            params={{ slug: main.slug }}
-            className='col-span-7'
-          >
-            <motion.div
-              key={main.id}
-              className='group relative h-100 cursor-pointer overflow-hidden rounded-sm md:h-200'
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: 0.1 }}
+        <div
+          data-el-feature-text
+          className='absolute bottom-0 left-0 right-0 p-8 md:p-12'
+        >
+          <StatusBadge status={project.status} />
+          <h3 className='mt-3 text-3xl font-serif text-white md:text-4xl'>
+            {project.title}
+          </h3>
+          <p className='mt-2 max-w-xl text-sm text-white/60'>
+            {project.description}
+          </p>
+          <p className='mt-4 flex items-center gap-1 text-label font-medium tracking-widest text-secondary uppercase opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0'>
+            View Landmark
+            <svg
+              className='h-4 w-4'
+              viewBox='0 0 16 16'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='1.5'
+              aria-hidden='true'
             >
-              <motion.div
-                className='absolute inset-0'
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.7 }}
-              >
-                <Image
-                  src={main.image}
-                  alt={main.title}
-                  layout='fullWidth'
-                  className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
-                />
-              </motion.div>
-              <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
-              <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
-              <motion.div
-                className='absolute bottom-0 left-0 right-0 p-8'
-                initial={{ y: 16, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                  {main.tagline}
-                </span>
-                <h3 className='mt-1 text-3xl font-serif text-white'>
-                  {main.title}
-                </h3>
-                <p className='mt-2 max-w-md text-sm text-white/70'>
-                  {main.description}
-                </p>
-              </motion.div>
-            </motion.div>
-          </Link>
+              <path d='M2 8h12M9 3l5 5-5 5' />
+            </svg>
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
-          {/* Right column — col-span-5 */}
-          <div className='col-span-5 flex flex-col gap-4'>
-            {/* Bronze Heights */}
-            <Link
-              to='/portfolio/$slug'
-              params={{ slug: rightTop.slug }}
-              className='block'
-            >
-              <motion.div
-                key={rightTop.id}
-                className='group relative h-96 cursor-pointer overflow-hidden rounded-sm'
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-              >
-                <motion.div
-                  className='absolute inset-0'
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.7 }}
-                >
-                  <Image
-                    src={rightTop.image}
-                    alt={rightTop.title}
-                    layout='fullWidth'
-                    className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
-                  />
-                </motion.div>
-                <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
-                <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
-                <motion.div
-                  className='absolute bottom-0 left-0 right-0 p-6'
-                  initial={{ y: 16, opacity: 0 }}
-                  whileHover={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                    {rightTop.tagline}
-                  </span>
-                  <h3 className='mt-1 text-2xl font-serif text-white'>
-                    {rightTop.title}
-                  </h3>
-                </motion.div>
-              </motion.div>
-            </Link>
+function GridCard({ project }: { project: Project }) {
+  return (
+    <Link
+      to='/portfolio/$slug'
+      params={{ slug: project.slug }}
+      className='group block'
+    >
+      <div
+        data-el-card
+        className='relative min-h-72 overflow-hidden rounded-sm md:min-h-80'
+      >
+        <div
+          data-el-card-image
+          className='absolute inset-0'
+          style={{ clipPath: 'inset(0 100% 0 0)' }}
+        >
+          <Image
+            src={project.image}
+            alt={project.title}
+            layout='fullWidth'
+            className='h-full w-full object-cover transition-transform duration-[800ms] group-hover:scale-105'
+          />
+        </div>
+        <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent' />
+        <div className='absolute inset-0 border border-white/5 transition-all duration-500 group-hover:border-secondary/30' />
 
-            {/* The Marble Collection — text card */}
-            <motion.div
-              key={rightBottom.id}
-              className='flex h-96 flex-col justify-center rounded-sm bg-surface-container-low p-8'
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-            >
-              <Link
-                to='/portfolio/$slug'
-                params={{ slug: rightBottom.slug }}
-                className='no-underline'
-              >
-                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                  {rightBottom.tagline}
-                </span>
-                <h3 className='mt-1 text-2xl font-serif text-on-surface'>
-                  {rightBottom.title}
-                </h3>
-                <p className='mt-2 text-sm text-on-surface-variant'>
-                  {rightBottom.description}
-                </p>
-              </Link>
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Link
-                  to='/contact'
-                  className='mt-4 inline-block self-start rounded-sm border border-outline-variant px-5 py-2 text-caption font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
-                >
-                  Notify Me
-                </Link>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Azure Waterfront — col-span-6 */}
-          <Link
-            to='/portfolio/$slug'
-            params={{ slug: secondaryLeft.slug }}
-            className='col-span-6'
-          >
-            <motion.div
-              key={secondaryLeft.id}
-              className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-            >
-              <motion.div
-                className='absolute inset-0'
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.7 }}
-              >
-                <Image
-                  src={secondaryLeft.image}
-                  alt={secondaryLeft.title}
-                  layout='fullWidth'
-                  className='h-full w-full object-cover opacity-80 group-hover:opacity-100'
-                />
-              </motion.div>
-              <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
-              <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
-              <motion.div
-                className='absolute bottom-0 left-0 right-0 p-8'
-                initial={{ y: 16, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                  {secondaryLeft.tagline}
-                </span>
-                <h3 className='mt-1 text-2xl font-serif text-white'>
-                  {secondaryLeft.title}
-                </h3>
-                <p className='mt-2 max-w-md text-sm text-white/70'>
-                  {secondaryLeft.description}
-                </p>
-              </motion.div>
-            </motion.div>
-          </Link>
-
-          {/* The Skyline Plaza — col-span-6 */}
-          <Link
-            to='/portfolio/$slug'
-            params={{ slug: secondaryRight.slug }}
-            className='col-span-6'
-          >
-            <motion.div
-              key={secondaryRight.id}
-              className='group relative col-span-6 h-112.5 cursor-pointer overflow-hidden rounded-sm'
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-            >
-              <motion.div
-                className='absolute inset-0'
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.7 }}
-              >
-                <Image
-                  src={secondaryRight.image}
-                  alt={secondaryRight.title}
-                  layout='fullWidth'
-                  className='h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:opacity-100'
-                />
-              </motion.div>
-              <div className='absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60 transition-all duration-500 group-hover:opacity-40' />
-              <div className='absolute inset-0 border-0 transition-all duration-500 group-hover:border-16 border-white/5' />
-              <motion.div
-                className='absolute bottom-0 left-0 right-0 p-8'
-                initial={{ y: 16, opacity: 0 }}
-                whileHover={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.4 }}
-              >
-                <span className='text-caption font-medium tracking-[0.15em] text-secondary uppercase'>
-                  {secondaryRight.tagline}
-                </span>
-                <h3 className='mt-1 text-2xl font-serif text-white'>
-                  {secondaryRight.title}
-                </h3>
-                <p className='mt-2 max-w-md text-sm text-white/70'>
-                  {secondaryRight.description}
-                </p>
-              </motion.div>
-            </motion.div>
-          </Link>
+        <div className='absolute right-3 top-3'>
+          <StatusBadge status={project.status} />
         </div>
 
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className='mt-6 md:hidden'
-        >
+        <div data-el-card-text className='absolute bottom-0 left-0 right-0 p-6'>
+          <h3 className='text-lg font-serif text-white'>{project.title}</h3>
+          <p className='mt-1 text-sm text-white/60'>{project.location}</p>
+          <p className='mt-0.5 text-label text-white/40'>{project.date}</p>
+          <div className='mt-3 flex items-center gap-1 text-label font-medium tracking-widest text-secondary uppercase opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
+            View Landmark
+            <span className='material-symbols-outlined text-sm'>
+              arrow_right_alt
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export function FeaturedProjects() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const doneRef = useRef(false);
+
+  useEffect(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+
+    const ctrls: (() => void)[] = [];
+
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      import('gsap').then(({ gsap }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+            defaults: { ease: 'power3.out' },
+          });
+
+          tl.fromTo(
+            section.querySelector('[data-el-header]'),
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.7 },
+          );
+
+          tl.fromTo(
+            section.querySelector('[data-el-header-divider]'),
+            { scaleX: 0 },
+            { scaleX: 1, duration: 0.6, transformOrigin: 'left center' },
+            '-=0.3',
+          );
+
+          tl.fromTo(
+            section.querySelector('[data-el-feature-image]'),
+            { clipPath: 'inset(0 100% 0 0)' },
+            { clipPath: 'inset(0 0 0 0)', duration: 1, ease: 'power3.out' },
+            '-=0.3',
+          );
+
+          tl.fromTo(
+            section.querySelector('[data-el-feature-text]'),
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.7 },
+            '-=0.5',
+          );
+
+          tl.fromTo(
+            section.querySelectorAll('[data-el-card-image]'),
+            { clipPath: 'inset(0 100% 0 0)' },
+            { clipPath: 'inset(0 0 0 0)', duration: 0.8, stagger: 0.12 },
+            '-=0.3',
+          );
+
+          tl.fromTo(
+            section.querySelectorAll('[data-el-card-text]'),
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+            '-=0.5',
+          );
+
+          tl.fromTo(
+            section.querySelector('[data-el-bottom-line]'),
+            { scaleX: 0 },
+            { scaleX: 1, duration: 0.6, transformOrigin: 'left center' },
+            '-=0.2',
+          );
+
+          tl.fromTo(
+            section.querySelector('[data-el-bottom-cta]'),
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5 },
+            '-=0.3',
+          );
+        }, section);
+
+        ctrls.push(() => ctx.revert());
+
+        const featureEl = section.querySelector('[data-el-feature]');
+        if (featureEl) {
+          const st = ScrollTrigger.create({
+            trigger: featureEl,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+            onUpdate: (self) => {
+              const img = featureEl.querySelector('[data-el-feature-image]');
+              if (img) {
+                gsap.set(img, { y: `${self.progress * 10}%` });
+              }
+            },
+          });
+          ctrls.push(() => st.kill());
+        }
+      });
+    });
+
+    return () => {
+      for (const fn of ctrls) fn();
+    };
+  }, []);
+
+  const feature =
+    allProjects.find((p) => p.slug === 'the-obsidian') ?? allProjects[0];
+  const gridProjects = allProjects
+    .filter((p) => p.slug !== feature?.slug)
+    .slice(0, 4);
+
+  if (!feature || gridProjects.some((p) => !p)) return null;
+
+  return (
+    <section ref={sectionRef} className='bg-white py-20 md:py-28'>
+      <div className='mx-auto max-w-360 px-4 md:px-16'>
+        <div data-el-header className='mb-12'>
+          <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
+            Iconic Developments
+          </span>
+          <h2 className='mt-3 text-3xl leading-tight text-on-surface font-serif sm:text-4xl'>
+            A curated selection of our most ambitious projects,
+            <br />
+            redefined for modern living.
+          </h2>
+          <div
+            data-el-header-divider
+            className='mt-6 h-px w-24 bg-secondary origin-left scale-x-0'
+          />
+        </div>
+
+        <FeaturedCard project={feature} />
+
+        <div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
+          {gridProjects.map((project) => (
+            <GridCard key={project.id} project={project} />
+          ))}
+        </div>
+
+        <div className='mt-12 flex items-center gap-6'>
+          <div
+            data-el-bottom-line
+            className='hidden h-px w-16 bg-secondary origin-left scale-x-0 md:block'
+          />
           <Link
+            data-el-bottom-cta
             to='/portfolio'
-            className='inline-block rounded-sm border border-outline-variant px-5 py-2.5 text-label font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
+            className='inline-flex items-center gap-3 rounded-sm border border-outline-variant px-6 py-3 text-label font-medium tracking-widest text-on-surface no-underline transition-colors hover:border-secondary hover:text-secondary uppercase'
           >
             View All Projects
+            <svg
+              className='h-4 w-4'
+              viewBox='0 0 16 16'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='1.5'
+              aria-hidden='true'
+            >
+              <path d='M2 8h12M9 3l5 5-5 5' />
+            </svg>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

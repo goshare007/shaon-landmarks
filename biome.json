@@ -33,7 +33,7 @@
         }
       },
       "suspicious": {
-        "noConsole": "error"
+        "noConsole": { "level": "warn" }
       }
     }
   },

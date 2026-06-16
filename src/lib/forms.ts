@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
+import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
 
 const contactFormSchema = z.object({
@@ -18,6 +19,9 @@ const newsletterSchema = z.object({
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
+// NOTE: In-memory only — resets on every server restart / cold start.
+// For production, replace with a shared store (Redis/DB) and add IP-based
+// rate limiting from request headers (see TanStack Start server function docs).
 const subscribedEmails = new Set<string>();
 const submissionTimestamps = new Map<string, number>();
 
@@ -30,7 +34,7 @@ function isRateLimited(identifier: string, limitMs = 5000) {
 }
 
 function sanitize(text: string) {
-  return text.replace(/<[^>]*>?/gm, '').trim();
+  return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} }).trim();
 }
 
 export const submitContactForm = createServerFn({ method: 'POST' })

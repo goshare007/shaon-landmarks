@@ -18,8 +18,8 @@ export const HERO_CONTENT = {
 };
 
 export const TRUST_STATS = [
-  { value: '15+', label: 'Years of Excellence' },
-  { value: '25+', label: 'Landmark Projects' },
+  { value: '16+', label: 'Years of Excellence' },
+  { value: '48+', label: 'Landmark Projects' },
   { value: '500+', label: 'Families Served' },
   { value: 'RAJUK', label: 'Certified Developer' },
 ];

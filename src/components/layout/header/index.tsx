@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
-import { Button } from '#/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import DesktopNav from './desktop-nav';
 import Logo from './logo';

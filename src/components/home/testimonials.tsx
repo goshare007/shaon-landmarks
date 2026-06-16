@@ -1,6 +1,7 @@
+'use client';
+
 import Autoplay from 'embla-carousel-autoplay';
-import { motion } from 'motion/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CarouselApi } from '@/components/ui/carousel';
 import {
   Carousel,
@@ -11,11 +12,12 @@ import {
 } from '@/components/ui/carousel';
 import { testimonials } from '@/data/testimonials';
 
-import { fadeUp } from '@/lib/animations';
-
 export function TestimonialSection() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const doneRef = useRef(false);
+
   const autoplayPlugin = useMemo(
     () =>
       Autoplay({
@@ -36,23 +38,74 @@ export function TestimonialSection() {
     };
   }, [api]);
 
+  useEffect(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+
+    const ctrls: (() => void)[] = [];
+
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      import('gsap').then(({ gsap }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const section = sectionRef.current;
+        if (!section) return;
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 100%',
+          end: 'bottom 0%',
+          onEnter: () => autoplayPlugin.play(),
+          onLeave: () => autoplayPlugin.stop(),
+          onEnterBack: () => autoplayPlugin.play(),
+          onLeaveBack: () => autoplayPlugin.stop(),
+        });
+
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+            defaults: { ease: 'power3.out' },
+          });
+
+          tl.fromTo(
+            section.querySelector('[data-t-header]'),
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.7 },
+          );
+
+          const cards = section.querySelectorAll('[data-t-card]');
+          tl.fromTo(
+            cards,
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
+            '-=0.3',
+          );
+        }, section);
+
+        ctrls.push(() => ctx.revert());
+      });
+    });
+
+    return () => {
+      for (const fn of ctrls) fn();
+    };
+  }, [autoplayPlugin]);
+
   return (
-    <section className='relative bg-tertiary py-20 md:py-28'>
+    <section ref={sectionRef} className='relative bg-tertiary py-20 md:py-28'>
       <div className='mx-auto max-w-360 px-4'>
-        <motion.div
-          className='mb-16 text-center'
-          variants={fadeUp}
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, margin: '-80px' }}
-        >
+        <div data-t-header className='mb-16 text-center'>
           <span className='mb-4 block font-sans text-label font-medium tracking-[0.2em] text-secondary uppercase'>
             What Our Clients Say
           </span>
           <h2 className='font-serif text-4xl text-on-tertiary md:text-5xl'>
             Trusted Voices
           </h2>
-        </motion.div>
+        </div>
 
         <Carousel
           setApi={setApi}
@@ -65,18 +118,14 @@ export function TestimonialSection() {
           aria-live='polite'
         >
           <CarouselContent>
-            {testimonials.map((t, i) => (
+            {testimonials.map((t) => (
               <CarouselItem
                 key={t.id}
                 className='md:basis-4/5 lg:basis-2/4 py-3'
               >
-                <motion.div
+                <div
+                  data-t-card
                   className='border border-white/10 p-10 md:p-14'
-                  variants={fadeUp}
-                  initial='hidden'
-                  whileInView='visible'
-                  viewport={{ once: true, margin: '-80px' }}
-                  transition={{ delay: i * 0.05 }}
                 >
                   <div className='mb-8 font-serif text-7xl leading-none text-secondary'>
                     &ldquo;
@@ -96,7 +145,7 @@ export function TestimonialSection() {
                       {t.role}
                     </p>
                   </footer>
-                </motion.div>
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>

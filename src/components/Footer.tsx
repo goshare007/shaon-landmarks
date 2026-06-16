@@ -1,35 +1,15 @@
+'use client';
+
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
-import { useState } from 'react';
-import { submitNewsletterSignup } from '#/lib/forms';
+import { useEffect, useRef, useState } from 'react';
 import logo from '@/assets/logo.png';
+import { submitNewsletterSignup } from '@/lib/forms';
 import { Button } from './ui/button';
 
 const year = new Date().getFullYear();
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.15, 1] } as const,
-  },
-};
-
-// Define explicit types to handle optional properties cleanly
 interface FooterLink {
   label: string;
   href: string;
@@ -54,8 +34,8 @@ const footerSections: FooterSection[] = [
   {
     title: 'Legal',
     links: [
-      { label: 'RAJUK Certified', href: '/about' },
-      { label: 'REHAB Member', href: '/about' },
+      { label: 'RAJUK Certified', href: '/legal' },
+      { label: 'REHAB Member', href: '/legal' },
       { label: 'Legal Disclosures', href: '/legal' },
       { label: 'Privacy Policy', href: '/privacy' },
     ],
@@ -63,15 +43,33 @@ const footerSections: FooterSection[] = [
   {
     title: 'Connect',
     links: [
-      { label: 'Facebook', href: 'https://facebook.com', external: true },
-      { label: 'Instagram', href: 'https://instagram.com', external: true },
-      { label: 'LinkedIn', href: 'https://linkedin.com', external: true },
-      { label: 'Twitter', href: 'https://twitter.com', external: true },
+      {
+        label: 'Facebook',
+        href: 'https://facebook.com/shaonlandmarks',
+        external: true,
+      },
+      {
+        label: 'Instagram',
+        href: 'https://instagram.com/shaonlandmarks',
+        external: true,
+      },
+      {
+        label: 'LinkedIn',
+        href: 'https://linkedin.com/company/shaonlandmarks',
+        external: true,
+      },
+      {
+        label: 'Twitter',
+        href: 'https://twitter.com/shaonlandmarks',
+        external: true,
+      },
     ],
   },
 ];
 
 export default function Footer() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const doneRef = useRef(false);
   const [newsletterState, setNewsletterState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message: string;
@@ -106,27 +104,64 @@ export default function Footer() {
       setNewsletterState({ status: 'error', message: errorMessage });
     }
   }
-  const MotionButton = motion(Button);
+
+  useEffect(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+
+    const ctrls: (() => void)[] = [];
+
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      import('gsap').then(({ gsap }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const section = sectionRef.current;
+        if (!section) return;
+
+        const ctx = gsap.context(() => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section.querySelector('[data-footer-grid]'),
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+            defaults: { ease: 'power3.out' },
+          });
+
+          tl.fromTo(
+            section.querySelectorAll('[data-footer-item]'),
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
+            0.2,
+          );
+
+          tl.fromTo(
+            section.querySelector('[data-footer-bottom]'),
+            { opacity: 0 },
+            { opacity: 1, duration: 0.6 },
+            '+=0.1',
+          );
+        }, section);
+
+        ctrls.push(() => ctx.revert());
+      });
+    });
+
+    return () => {
+      for (const fn of ctrls) fn();
+    };
+  }, []);
 
   return (
-    <footer className='border-t border-outline-variant/20 bg-tertiary'>
-      {/* Main Footer Content */}
+    <footer
+      ref={sectionRef}
+      className='border-t border-outline-variant/20 bg-tertiary'
+    >
       <div className='mx-auto max-w-6xl px-4 py-16 md:py-24'>
-        <motion.div
-          className='grid gap-12 md:gap-16 lg:grid-cols-5'
-          variants={containerVariants}
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, margin: '-60px' }}
-        >
-          {/* Brand Section */}
-          <motion.div variants={itemVariants} className='lg:col-span-2'>
+        <div data-footer-grid className='grid gap-12 md:gap-16 lg:grid-cols-5'>
+          <div data-footer-item className='lg:col-span-2'>
             <Link to='/' className='inline-block group'>
-              <motion.div
-                className='flex items-center gap-3 mb-6'
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
+              <div className='flex items-center gap-3 mb-6 transition-all duration-300 hover:scale-[1.02]'>
                 <div className='h-12 w-12 rounded-lg bg-linear-to-br from-secondary via-secondary to-secondary-fixed-dim flex items-center justify-center font-serif font-bold text-tertiary text-lg'>
                   <Image
                     src={logo}
@@ -144,18 +179,20 @@ export default function Footer() {
                     LANDMARKS
                   </p>
                 </div>
-              </motion.div>
+              </div>
             </Link>
             <p className='text-sm text-on-surface-variant leading-relaxed mb-8'>
               Redefining the skyline through structural precision and unwavering
               aesthetic integrity since 2008. Transforming visions into
               architectural masterpieces.
             </p>
-            {/* Newsletter Signup */}
             <div>
-              <p className='text-xs font-medium text-secondary-fixed-dim uppercase tracking-widest mb-4 block'>
+              <label
+                htmlFor='newsletter-email'
+                className='text-xs font-medium text-secondary-fixed-dim uppercase tracking-widest mb-4 block'
+              >
                 Subscribe to Updates
-              </p>
+              </label>
               <form onSubmit={handleNewsletterSubmit} className='space-y-3'>
                 <div className='relative'>
                   <input
@@ -165,24 +202,20 @@ export default function Footer() {
                     required
                     placeholder='Enter your email'
                     aria-describedby='newsletter-form-status'
-                    className='w-full bg-surface-container-low border border-outline-variant/30 text-black rounded-lg px-4 py-3 text-sm  placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all'
+                    className='w-full bg-surface-container-low border border-outline-variant/30 text-black rounded-lg px-4 py-3 text-sm placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-secondary/50 transition-all'
                   />
-                  <MotionButton
+                  <Button
                     type='submit'
                     disabled={newsletterState.status === 'submitting'}
                     variant='ghost'
-                    className='absolute right-1.5 top-1/2 -translate-y-1/2 p-2 text-on-tertiary hover:text-secondary-fixed-dim disabled:opacity-50 transition-colors'
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    className='absolute right-1.5 top-1/2 -translate-y-1/2 p-2 text-on-tertiary hover:text-secondary-fixed-dim disabled:opacity-50 transition-all duration-200 hover:scale-110 active:scale-95'
                   >
                     <ArrowRight className='text-black' />
-                  </MotionButton>
+                  </Button>
                 </div>
                 {newsletterState.message && (
-                  <motion.p
+                  <p
                     id='newsletter-form-status'
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
                     className={`text-xs ${
                       newsletterState.status === 'success'
                         ? 'text-emerald-500'
@@ -190,21 +223,20 @@ export default function Footer() {
                     }`}
                   >
                     {newsletterState.message}
-                  </motion.p>
+                  </p>
                 )}
               </form>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Links Sections */}
           {footerSections.map((section) => (
-            <motion.div key={section.title} variants={itemVariants}>
+            <div key={section.title} data-footer-item>
               <h4 className='text-xs font-medium text-secondary-fixed-dim uppercase tracking-widest mb-6'>
                 {section.title}
               </h4>
               <ul className='space-y-4'>
                 {section.links.map((link) => (
-                  <motion.li key={link.label}>
+                  <li key={link.label}>
                     {link.external ? (
                       <a
                         href={link.href}
@@ -213,14 +245,9 @@ export default function Footer() {
                         className='text-sm text-on-surface-variant hover:text-secondary-fixed-dim transition-colors duration-300 group inline-flex items-center gap-2'
                       >
                         {link.label}
-                        <motion.span
-                          className='opacity-0 group-hover:opacity-100'
-                          initial={{ x: -4 }}
-                          whileHover={{ x: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
+                        <span className='opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0'>
                           →
-                        </motion.span>
+                        </span>
                       </a>
                     ) : (
                       <Link
@@ -228,42 +255,28 @@ export default function Footer() {
                         className='text-sm text-on-surface-variant hover:text-secondary-fixed-dim transition-colors duration-300 group inline-flex items-center gap-2'
                       >
                         {link.label}
-                        <motion.span
-                          className='opacity-0 group-hover:opacity-100'
-                          initial={{ x: -4 }}
-                          whileHover={{ x: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
+                        <span className='opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0'>
                           →
-                        </motion.span>
+                        </span>
                       </Link>
                     )}
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* Divider */}
       <div className='border-t border-outline-variant/20' />
 
-      {/* Bottom Section */}
-      <div className='mx-auto max-w-6xl px-4 py-8 md:py-12'>
-        <motion.div
-          className='flex flex-col md:flex-row items-center justify-between gap-6'
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
+      <div data-footer-bottom className='mx-auto max-w-6xl px-4 py-8 md:py-12'>
+        <div className='flex flex-col md:flex-row items-center justify-between gap-6'>
           <p className='text-xs text-on-surface-variant'>
             &copy; {year} Shaon Landmarks. Architectural Excellence. All Rights
             Reserved.
           </p>
 
-          {/* Social Links */}
           <div className='flex items-center gap-6'>
             {[
               {
@@ -323,21 +336,19 @@ export default function Footer() {
                 ),
               },
             ].map((social) => (
-              <motion.a
+              <a
                 key={social.name}
                 href={social.href}
                 target='_blank'
                 rel='noopener noreferrer'
                 aria-label={social.name}
-                className='text-on-surface-variant hover:text-secondary-fixed-dim transition-colors duration-300'
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
+                className='text-on-surface-variant hover:text-secondary-fixed-dim transition-all duration-200 hover:scale-125 active:scale-95'
               >
                 {social.icon}
-              </motion.a>
+              </a>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

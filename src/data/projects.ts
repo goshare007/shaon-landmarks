@@ -262,7 +262,7 @@ export const allProjects: Project[] = [
         floorCount: 'G + 20 Levels',
         completion: 'Q4 2025',
       },
-      heroImage: theMarbleCollection,
+      heroImage: azureWaterfront,
       vision: {
         title: 'Where Water Meets',
         italicPart: 'Architecture',
@@ -272,7 +272,7 @@ export const allProjects: Project[] = [
         ],
         image: landmarkVision,
       },
-      gallery: [theMarbleCollection, galleryImg1, galleryImg3],
+      gallery: [azureWaterfront, galleryImg1, galleryImg3],
       amenities: [
         {
           icon: 'pool',
