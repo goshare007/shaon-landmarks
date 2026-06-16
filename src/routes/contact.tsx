@@ -4,7 +4,7 @@ import { ContactCta } from '@/components/contact/contact-cta';
 import { ContactForm } from '@/components/contact/contact-form';
 import { ContactHero } from '@/components/contact/contact-hero';
 import { ContactLocations } from '@/components/contact/contact-locations';
-import { generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/contact')({
   head: () => {
@@ -24,6 +24,15 @@ export const Route = createFileRoute('/contact')({
             'Get in touch with Shaon Landmarks & Housing for consultations or office visits.',
           url: `${SITE_URL}/contact`,
         }),
+      },
+      {
+        'script:ld+json': {
+          '@context': 'https://schema.org',
+          ...breadcrumbLd([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Contact Us', url: `${SITE_URL}/contact` },
+          ]),
+        },
       },
     ];
 

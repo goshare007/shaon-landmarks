@@ -7,64 +7,6 @@
 
 ---
 
-## 🔵 SEO
-
-### S1. Missing `hreflang` Tags for Bengali Market
-
-Bangladesh has ~98% Bengali speakers. Even with English content, `hreflang` signals target market. Add to `__root.tsx`:
-
-```tsx
-{ rel: 'alternate', hrefLang: 'bn', href: `${SITE_URL}/bn` },
-{ rel: 'alternate', hrefLang: 'en', href: SITE_URL },
-```
-
-### S2. Missing `og:locale:alternate`
-
-Add for social sharing:
-
-```tsx
-{ property: 'og:locale', content: 'en_US' },
-{ property: 'og:locale:alternate', content: 'bn_BD' },
-```
-
-### S3. No `twitter:site` or `twitter:creator` Tags
-
-Only `twitter:card` + `twitter:title` + `twitter:description` + `twitter:image` present. Add brand's Twitter handle.
-
-### S4. Sitemap Missing Image Title/Caption
-
-**File:** `scripts/generate-sitemap.ts` — image tags have `<image:loc>` but no `<image:title>` or `<image:caption>`. These improve Google Image search ranking.
-
-### S5. Static Pages Missing From Sitemap
-
-Pages exist for `/legal` and `/privacy` but these have priority 0.3 — while technically present, the low priority may signal less importance than warranted.
-
-### S6. No `robots.txt` Allow/Disallow Rules Beyond Sitemap
-
-Current `robots.txt` is minimal:
-
-```
-User-agent: *
-Allow: /
-Sitemap: https://...
-```
-
-Consider blocking `/projects` (301 redirect page) and any future admin routes.
-
-### S7. No Breadcrumb JSON-LD on Inner Pages
-
-Only `portfolio.$slug.tsx` includes breadcrumb structured data. About, Services, Career, Contact, Privacy, Legal pages lack breadcrumb schemas.
-
-### S8. Meta Description Lengths Not Validated
-
-Some descriptions exceed Google's ~160 character display limit. Verify all route descriptions with a character count check.
-
-### S9. Missing `article:published_time` / `article:modified_time`
-
-If blog/news added later. For now, not critical but noted for future.
-
----
-
 ## 🟠 Code Quality
 
 ### Q1. `doneRef` Anti-Pattern Used in 12+ Components
@@ -352,7 +294,7 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 | ID  | Item                                                       | Effort | Impact                    |
 | --- | ---------------------------------------------------------- | ------ | ------------------------- |
-| S5  | Add missing hreflang + og:locale:alternate                 | 5 min  | SEO for Bangladesh market |
+
 
 ### 🟡 P1 — Important (4-8 hrs)
 
@@ -360,7 +302,7 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 | --- | ---------------------------------------------------------- | ------ | ------------------------------------ |
 | Q1  | Create `useOnce` hook, refactor 12+ components             | 3 hrs  | Code quality, reusability            |
 | F9  | Forms: add email notification (Resend/SendGrid)            | 2 hrs  | Business-critical                    |
-| S2  | Add breadcrumb JSON-LD to all inner pages                  | 1 hr   | SEO                                  |
+
 | Q2  | Fix test duplication — import schemas from source          | 30 min | Test reliability                     |
 
 ### 🟢 P2 — Medium Priority (8-16 hrs)
@@ -406,12 +348,8 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 1. **Fix `doneRef` anti-pattern** (Q1) — create `useOnce` hook, refactor 12+ components
 2. **Forms: email notifications** (F9) — stop losing leads to in-memory store
-3. **Breadcrumb JSON-LD** (S2) — SEO for all inner pages
-4. **hreflang + og:locale:alternate** (S5) — SEO for Bangladesh market
-5. **Fix test duplication** (Q2) — import schemas from source instead of duplicating
+3. **Fix test duplication** (Q2) — import schemas from source instead of duplicating
 
 **Biggest feature gap:** Forms are in-memory only (F9) — no email notification means lost leads.
-
-**Biggest SEO gap:** No hreflang (S1) for primary market language.
 
 _Audit generated 2026-06-19. Items verified against current codebase state._

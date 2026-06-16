@@ -55,25 +55,34 @@ const staticPages: {
     changefreq: 'monthly',
     file: 'sustainability.tsx',
   },
-  { path: '/legal', priority: '0.3', changefreq: 'yearly', file: 'legal.tsx' },
+  { path: '/legal', priority: '0.5', changefreq: 'yearly', file: 'legal.tsx' },
   {
     path: '/privacy',
-    priority: '0.3',
+    priority: '0.5',
     changefreq: 'yearly',
     file: 'privacy.tsx',
   },
 ];
+
+function escapeXml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
 
 function url(
   loc: string,
   priority: string,
   changefreq: string,
   lm: string,
-  image?: string,
+  image?: { loc: string; title: string; caption: string },
 ): string {
   let entry = `  <url>\n    <loc>${SITE_URL}${loc}</loc>\n    <lastmod>${lm}</lastmod>\n    <priority>${priority}</priority>\n    <changefreq>${changefreq}</changefreq>`;
   if (image) {
-    entry += `\n    <image:image>\n      <image:loc>${SITE_URL}${image}</image:loc>\n    </image:image>`;
+    entry += `\n    <image:image>\n      <image:loc>${SITE_URL}${image.loc}</image:loc>\n      <image:title>${escapeXml(image.title)}</image:title>\n      <image:caption>${escapeXml(image.caption)}</image:caption>\n    </image:image>`;
   }
   entry += `\n  </url>`;
   return entry;
@@ -85,7 +94,11 @@ const urls = [
     url(p.path, p.priority, p.changefreq, lastmod(p.file)),
   ),
   ...allProjects.map((project) =>
-    url(`/portfolio/${project.slug}`, '0.7', 'monthly', dataMod, project.image),
+    url(`/portfolio/${project.slug}`, '0.7', 'monthly', dataMod, {
+      loc: project.image,
+      title: project.title,
+      caption: project.description,
+    }),
   ),
 ];
 
@@ -97,7 +110,7 @@ ${urls.join('\n')}
 writeFileSync('public/sitemap.xml', sitemap, 'utf-8');
 writeFileSync(
   'public/robots.txt',
-  `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\nDisallow: /projects\nSitemap: ${SITE_URL}/sitemap.xml\n`,
   'utf-8',
 );
 process.stdout.write(`Generated sitemap.xml with ${urls.length} URLs\n`);

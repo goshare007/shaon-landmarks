@@ -70,7 +70,7 @@ export function generateMeta({
     : 'Shaon Landmarks — Architectural Integrity | Premium Real Estate Bangladesh';
   const description =
     pageDescription ??
-    'Shaon Landmarks & Housing redefines Bangladesh real estate with architectural integrity, timely handover, and premium quality construction. Explore iconic developments.';
+    'Shaon Landmarks & Housing — architectural integrity, timely handover, and premium quality construction in Bangladesh real estate.';
   const ogImage = image ?? DEFAULT_OG_IMAGE;
   const ogImageAlt = imageAlt ?? pageDescription ?? DEFAULT_OG_IMAGE_ALT;
   const url = path ? `${SITE_URL}${path}` : SITE_URL;
@@ -79,7 +79,7 @@ export function generateMeta({
     meta: [
       { title },
       { name: 'description', content: description },
-      { property: 'og:locale', content: 'en' },
+      { property: 'og:locale', content: 'en_US' },
       { property: 'og:site_name', content: 'Shaon Landmarks & Housing' },
       { property: 'og:url', content: url },
       { property: 'og:title', content: title },
@@ -93,6 +93,8 @@ export function generateMeta({
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },
       { name: 'twitter:image', content: ogImage },
+      { name: 'twitter:site', content: '@shaonlandmarks' },
+      { name: 'twitter:creator', content: '@shaonlandmarks' },
       { name: 'twitter:image:alt', content: ogImageAlt },
     ],
   };

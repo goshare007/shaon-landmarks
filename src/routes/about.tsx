@@ -5,7 +5,7 @@ import { AboutHero } from '@/components/about/about-hero';
 import { AboutLeadership } from '@/components/about/about-leadership';
 import { AboutMissionVision } from '@/components/about/about-mission-vision';
 import { AboutStory } from '@/components/about/about-story';
-import { generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/about')({
   component: About,
@@ -26,6 +26,15 @@ export const Route = createFileRoute('/about')({
             "Shaon Landmarks & Housing's legacy of architectural integrity and certified excellence in Bangladesh real estate.",
           url: `${SITE_URL}/about`,
         }),
+      },
+      {
+        'script:ld+json': {
+          '@context': 'https://schema.org',
+          ...breadcrumbLd([
+            { name: 'Home', url: SITE_URL },
+            { name: 'About Us', url: `${SITE_URL}/about` },
+          ]),
+        },
       },
     ];
 

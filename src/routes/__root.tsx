@@ -28,12 +28,16 @@ export const Route = createRootRoute({
           'Shaon Landmarks & Housing redefines Bangladesh real estate with architectural integrity, timely handover, and premium quality construction. Explore iconic developments.',
       },
       { property: 'og:image', content: DEFAULT_OG_IMAGE },
+      { property: 'og:locale', content: 'en_US' },
+      { property: 'og:locale:alternate', content: 'bn_BD' },
       { property: 'og:type', content: 'website' },
       { 'script:ld+json': ORGANIZATION_JSON_LD },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
       { rel: 'canonical', href: SITE_URL },
+      { rel: 'alternate', hrefLang: 'bn', href: `${SITE_URL}/bn` },
+      { rel: 'alternate', hrefLang: 'en', href: SITE_URL },
       {
         rel: 'preconnect',
         href: 'https://fonts.googleapis.com',

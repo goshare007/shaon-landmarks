@@ -5,7 +5,7 @@ import { SustainabilityCta } from '@/components/sustainability/sustainability-ct
 import { SustainabilityHero } from '@/components/sustainability/sustainability-hero';
 import { SustainabilityPhilosophy } from '@/components/sustainability/sustainability-philosophy';
 import { SustainabilityPillars } from '@/components/sustainability/sustainability-pillars';
-import { generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/sustainability')({
   component: Sustainability,
@@ -26,6 +26,15 @@ export const Route = createFileRoute('/sustainability')({
             'Shaon Landmarks is committed to sustainable architecture with eco-friendly materials, green spaces, and energy-efficient practices.',
           url: `${SITE_URL}/sustainability`,
         }),
+      },
+      {
+        'script:ld+json': {
+          '@context': 'https://schema.org',
+          ...breadcrumbLd([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Sustainability', url: `${SITE_URL}/sustainability` },
+          ]),
+        },
       },
     ];
 

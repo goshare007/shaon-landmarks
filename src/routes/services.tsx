@@ -4,7 +4,7 @@ import { ServicesCards } from '@/components/services/services-cards';
 import { ServicesCta } from '@/components/services/services-cta';
 import { ServicesHero } from '@/components/services/services-hero';
 import { ServicesStandard } from '@/components/services/services-standard';
-import { generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/services')({
   component: Services,
@@ -25,6 +25,15 @@ export const Route = createFileRoute('/services')({
             'Shaon Landmarks offers land development, architectural design, construction management, and interior design services across Bangladesh.',
           url: `${SITE_URL}/services`,
         }),
+      },
+      {
+        'script:ld+json': {
+          '@context': 'https://schema.org',
+          ...breadcrumbLd([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Our Services', url: `${SITE_URL}/services` },
+          ]),
+        },
       },
     ];
 

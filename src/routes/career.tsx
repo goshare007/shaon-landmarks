@@ -4,7 +4,7 @@ import { CareerCta } from '@/components/career/career-cta';
 import { CareerHero } from '@/components/career/career-hero';
 import { CareerPositions } from '@/components/career/career-positions';
 import { CareerWhy } from '@/components/career/career-why';
-import { generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/career')({
   component: Career,
@@ -25,6 +25,15 @@ export const Route = createFileRoute('/career')({
             'Career opportunities at Shaon Landmarks & Housing in architecture, project management, interior design, and more.',
           url: `${SITE_URL}/career`,
         }),
+      },
+      {
+        'script:ld+json': {
+          '@context': 'https://schema.org',
+          ...breadcrumbLd([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Careers', url: `${SITE_URL}/career` },
+          ]),
+        },
       },
     ];
 

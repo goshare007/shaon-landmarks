@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { LegalCta } from '@/components/legal/legal-cta';
 import { LegalDisclosures } from '@/components/legal/legal-disclosures';
 import { LegalHero } from '@/components/legal/legal-hero';
-import { generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/legal')({
   component: Legal,
@@ -22,6 +22,15 @@ export const Route = createFileRoute('/legal')({
             'RAJUK certified, REHAB member — Shaon Landmarks operates with full regulatory compliance.',
           url: `${SITE_URL}/legal`,
         }),
+      },
+      {
+        'script:ld+json': {
+          '@context': 'https://schema.org',
+          ...breadcrumbLd([
+            { name: 'Home', url: SITE_URL },
+            { name: 'Legal Disclosures', url: `${SITE_URL}/legal` },
+          ]),
+        },
       },
     ];
 

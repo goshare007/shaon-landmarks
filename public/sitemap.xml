@@ -8,13 +8,13 @@
   </url>
   <url>
     <loc>http://localhost:3000/about</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/services</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -26,32 +26,32 @@
   </url>
   <url>
     <loc>http://localhost:3000/contact</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/career</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.6</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/sustainability</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/legal</loc>
-    <lastmod>2026-06-16</lastmod>
-    <priority>0.3</priority>
+    <lastmod>2026-06-19</lastmod>
+    <priority>0.5</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/privacy</loc>
-    <lastmod>2026-06-16</lastmod>
-    <priority>0.3</priority>
+    <lastmod>2026-06-19</lastmod>
+    <priority>0.5</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
@@ -61,6 +61,8 @@
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-obsidian.webp</image:loc>
+      <image:title>The Obsidian</image:title>
+      <image:caption>A masterclass in dark aesthetics and light-filled spaces.</image:caption>
     </image:image>
   </url>
   <url>
@@ -70,6 +72,8 @@
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/bronze-heights.webp</image:loc>
+      <image:title>Bronze Heights</image:title>
+      <image:caption>Elevated living with panoramic views and bronze-accented interiors.</image:caption>
     </image:image>
   </url>
   <url>
@@ -79,6 +83,8 @@
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-marble-collection.webp</image:loc>
+      <image:title>The Marble Collection</image:title>
+      <image:caption>An exclusive trio of villas featuring Italian Carrara marble and sustainable heating systems.</image:caption>
     </image:image>
   </url>
   <url>
@@ -88,6 +94,8 @@
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/azure-waterfront.webp</image:loc>
+      <image:title>Azure Waterfront</image:title>
+      <image:caption>Serene lakeside living with panoramic views of the Gulshan Lake.</image:caption>
     </image:image>
   </url>
   <url>
@@ -97,6 +105,8 @@
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-skyline-plaza.webp</image:loc>
+      <image:title>The Skyline Plaza</image:title>
+      <image:caption>A revolutionary commercial hub at the intersection of innovation and tradition.</image:caption>
     </image:image>
   </url>
   <url>
@@ -106,6 +116,8 @@
     <changefreq>monthly</changefreq>
     <image:image>
       <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/landmark-hero.webp</image:loc>
+      <image:title>The Landmark Residency</image:title>
+      <image:caption>A cinematic architectural marvel in the heart of Gulshan, redefining luxury living.</image:caption>
     </image:image>
   </url>
 </urlset>
