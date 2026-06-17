@@ -1,83 +1,65 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function ServicesCta() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
+  useGsapAnimation((gsap, _ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+    const ctx = gsap.context(() => {
+      const circles = section.querySelectorAll('[data-cta-circle]');
+      if (circles[0]) {
+        gsap.to(circles[0], {
+          rotation: 360,
+          duration: 60,
+          repeat: -1,
+          ease: 'none',
+        });
+      }
+      if (circles[1]) {
+        gsap.to(circles[1], {
+          rotation: -360,
+          duration: 90,
+          repeat: -1,
+          ease: 'none',
+        });
+      }
 
-    const ctrls: (() => void)[] = [];
-
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const section = sectionRef.current;
-        if (!section) return;
-
-        const ctx = gsap.context(() => {
-          const circles = section.querySelectorAll('[data-cta-circle]');
-          if (circles[0]) {
-            const tween0 = gsap.to(circles[0], {
-              rotation: 360,
-              duration: 60,
-              repeat: -1,
-              ease: 'none',
-            });
-            ctrls.push(() => tween0.kill());
-          }
-          if (circles[1]) {
-            const tween1 = gsap.to(circles[1], {
-              rotation: -360,
-              duration: 90,
-              repeat: -1,
-              ease: 'none',
-            });
-            ctrls.push(() => tween1.kill());
-          }
-
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-            defaults: { ease: 'power3.out' },
-          });
-
-          tl.fromTo(
-            section.querySelector('[data-cta-heading]'),
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.7 },
-          );
-
-          tl.fromTo(
-            section.querySelector('[data-cta-desc]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5 },
-            '-=0.3',
-          );
-
-          tl.fromTo(
-            section.querySelectorAll('[data-cta-btn]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-            '-=0.3',
-          );
-        }, section);
-
-        ctrls.push(() => ctx.revert());
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
       });
-    });
 
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+      tl.fromTo(
+        section.querySelector('[data-cta-heading]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+      );
+
+      tl.fromTo(
+        section.querySelector('[data-cta-desc]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.3',
+      );
+
+      tl.fromTo(
+        section.querySelectorAll('[data-cta-btn]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+        '-=0.3',
+      );
+    }, section);
+
+    return [() => ctx.revert()];
   }, []);
 
   return (

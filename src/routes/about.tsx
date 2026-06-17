@@ -5,10 +5,13 @@ import { AboutHero } from '@/components/about/about-hero';
 import { AboutLeadership } from '@/components/about/about-leadership';
 import { AboutMissionVision } from '@/components/about/about-mission-vision';
 import { AboutStory } from '@/components/about/about-story';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/about')({
   component: About,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/about',

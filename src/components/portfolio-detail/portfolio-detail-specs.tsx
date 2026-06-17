@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { ProjectDetail } from '@/data/projects';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function PortfolioDetailSpecs({
   specs,
@@ -9,7 +10,6 @@ export function PortfolioDetailSpecs({
   specs: ProjectDetail['specs'];
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
   const items = [
     { label: 'Total Area', value: specs.totalArea },
@@ -18,43 +18,28 @@ export function PortfolioDetailSpecs({
     { label: 'Completion', value: specs.completion },
   ];
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
-
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const section = sectionRef.current;
-        if (!section) return;
-
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse',
-            },
-            defaults: { ease: 'power3.out' },
-          });
-
-          tl.fromTo(
-            section.querySelectorAll('[data-spec-item]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-          );
-        }, section);
-
-        ctrls.push(() => ctx.revert());
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
       });
-    });
 
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+      tl.fromTo(
+        section.querySelectorAll('[data-spec-item]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+      );
+    }, section);
+
+    return [() => ctx.revert()];
   }, []);
 
   return (

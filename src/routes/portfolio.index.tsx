@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import img from '@/assets/images/projects/the-obsidian.webp';
 import { PortfolioGrid } from '@/components/portfolio-index/portfolio-grid';
 import { PortfolioHero } from '@/components/portfolio-index/portfolio-hero';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/portfolio/')({
@@ -17,6 +18,8 @@ export const Route = createFileRoute('/portfolio/')({
     search: (search.search as string) || '',
   }),
   component: PortfolioIndex,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
   head: () => ({
     ...generateMeta({
       path: '/portfolio',

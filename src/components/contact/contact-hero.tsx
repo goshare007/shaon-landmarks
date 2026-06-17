@@ -1,60 +1,49 @@
 'use client';
 
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import HERO_IMG from '@/assets/images/contact/hero.webp';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function ContactHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    import('gsap').then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+      tl.fromTo(
+        section.querySelector('[data-hero-image]'),
+        { scale: 1.1 },
+        { scale: 1, duration: 1.5, ease: 'easeOut' },
+      );
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.fromTo(
+        section.querySelector('[data-hero-eyebrow]'),
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        '-=0.8',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-hero-image]'),
-          { scale: 1.1 },
-          { scale: 1, duration: 1.5, ease: 'easeOut' },
-        );
+      tl.fromTo(
+        section.querySelector('[data-hero-heading]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.35',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-hero-eyebrow]'),
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.6 },
-          '-=0.8',
-        );
+      tl.fromTo(
+        section.querySelector('[data-hero-desc]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.35',
+      );
+    }, section);
 
-        tl.fromTo(
-          section.querySelector('[data-hero-heading]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.35',
-        );
-
-        tl.fromTo(
-          section.querySelector('[data-hero-desc]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.35',
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   return (

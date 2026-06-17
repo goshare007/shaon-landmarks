@@ -2,9 +2,9 @@
 
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { HERO_CONTENT } from '@/data/home';
-import { loadGsap } from '@/lib/gsap-loader';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   id: i,
@@ -24,7 +24,6 @@ export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const doneRef = useRef(false);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!rightPanelRef.current) return;
@@ -38,16 +37,12 @@ export function HeroSection() {
     mouseTarget.current.y = 0;
   };
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap, ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
-
-    loadGsap().then(({ gsap }) => {
-      const headline = headlineRef.current;
-      if (!headline) return;
-
+    const headline = headlineRef.current;
+    if (headline) {
       gsap.set(headline, { opacity: 1 });
 
       const lines = headline.children;
@@ -65,19 +60,19 @@ export function HeroSection() {
           line.appendChild(span);
         }
       }
+    }
 
-      const section = sectionRef.current;
-      if (!section) return;
-      const $ = (sel: string) => section.querySelector(sel);
+    const $ = (sel: string) => section.querySelector(sel);
 
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      tl.fromTo(
-        $('[data-e="eyebrow"]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6 },
-      );
+    tl.fromTo(
+      $('[data-e="eyebrow"]'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.6 },
+    );
 
+    if (headline) {
       tl.fromTo(
         headline.querySelectorAll('.char'),
         { opacity: 0, y: 40, rotateX: -90 },
@@ -90,99 +85,90 @@ export function HeroSection() {
         },
         '-=0.3',
       );
+    }
 
-      tl.fromTo(
-        $('[data-e="descriptor"]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5 },
-        '-=0.2',
-      );
+    tl.fromTo(
+      $('[data-e="descriptor"]'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5 },
+      '-=0.2',
+    );
 
-      tl.fromTo(
-        $('[data-e="stats"]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5 },
-        '-=0.1',
-      );
+    tl.fromTo(
+      $('[data-e="stats"]'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5 },
+      '-=0.1',
+    );
 
-      tl.fromTo(
-        $('[data-e="cta"]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5 },
-        '-=0.1',
-      );
+    tl.fromTo(
+      $('[data-e="cta"]'),
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.5 },
+      '-=0.1',
+    );
 
-      tl.to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3');
+    tl.to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3');
 
-      tl.fromTo(
-        $('[data-e="location-badge"]'),
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        '+=0.5',
-      );
+    tl.fromTo(
+      $('[data-e="location-badge"]'),
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.8 },
+      '+=0.5',
+    );
 
-      tl.fromTo(
-        $('[data-e="year-label"]'),
-        { opacity: 0 },
-        { opacity: 1, duration: 0.8 },
-        '-=0.6',
-      );
+    tl.fromTo(
+      $('[data-e="year-label"]'),
+      { opacity: 0 },
+      { opacity: 1, duration: 0.8 },
+      '-=0.6',
+    );
 
-      const updateParallax = () => {
-        const img = imageRef.current;
-        if (!img) return;
-        mouseCurrent.current.x +=
-          (mouseTarget.current.x - mouseCurrent.current.x) * 0.1;
-        mouseCurrent.current.y +=
-          (mouseTarget.current.y - mouseCurrent.current.y) * 0.1;
-        gsap.set(img, {
-          x: `${mouseCurrent.current.x}%`,
-          y: `${mouseCurrent.current.y}%`,
-        });
-      };
-      gsap.ticker.add(updateParallax);
+    const updateParallax = () => {
+      const img = imageRef.current;
+      if (!img) return;
+      mouseCurrent.current.x +=
+        (mouseTarget.current.x - mouseCurrent.current.x) * 0.1;
+      mouseCurrent.current.y +=
+        (mouseTarget.current.y - mouseCurrent.current.y) * 0.1;
+      gsap.set(img, {
+        x: `${mouseCurrent.current.x}%`,
+        y: `${mouseCurrent.current.y}%`,
+      });
+    };
+    gsap.ticker.add(updateParallax);
 
-      const handleVisibility = () => {
-        if (document.hidden) {
-          gsap.ticker.remove(updateParallax);
-        } else {
-          gsap.ticker.add(updateParallax);
-        }
-      };
-      document.addEventListener('visibilitychange', handleVisibility);
+    const handleVisibility = () => {
+      if (document.hidden) {
+        gsap.ticker.remove(updateParallax);
+      } else {
+        gsap.ticker.add(updateParallax);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
 
-      ctrls.push(() => {
+    const imgEl = imageRef.current;
+    const st = imgEl
+      ? ScrollTrigger.create({
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+          onUpdate: (self) => {
+            const pct = self.progress;
+            gsap.set(imgEl, { y: `${pct * 10}%` });
+          },
+        })
+      : null;
+
+    return [
+      () => {
         gsap.ticker.remove(updateParallax);
         document.removeEventListener('visibilitychange', handleVisibility);
-      });
-
-      ctrls.push(() => tl.kill());
-    });
-
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      const imgEl = imageRef.current;
-      const section = sectionRef.current;
-      if (!imgEl || !section) return;
-
-      const st = ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.5,
-        onUpdate: (self) => {
-          const pct = self.progress;
-          gsap.set(imgEl, { y: `${pct * 10}%` });
-        },
-      });
-
-      ctrls.push(() => st.kill());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+      },
+      () => tl.kill(),
+      ...(st ? [() => st.kill()] : []),
+    ];
   }, []);
 
   return (
@@ -296,7 +282,7 @@ export function HeroSection() {
       </div>
 
       {/* RIGHT PANEL */}
-      {/** biome-ignore lint/a11y/noStaticElementInteractions: mouse parallax */}
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: decorative parallax — no semantic widget needed */}
       <div
         ref={rightPanelRef}
         onMouseMove={handleMouseMove}

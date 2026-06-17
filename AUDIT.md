@@ -7,99 +7,6 @@
 
 ---
 
-## 🟠 Code Quality
-
-### Q1. `doneRef` Anti-Pattern Used in 12+ Components
-
-Every animated component repeats:
-
-```tsx
-const doneRef = useRef(false);
-useEffect(() => {
-  if (doneRef.current) return;
-  doneRef.current = true;
-  // ...
-}, []);
-```
-
-This is a manual singleton guard that React patterns should handle. In StrictMode the second run is silently skipped. Prevents re-initialization on re-mount. **Fix:** Create shared `useOnce` hook:
-
-```tsx
-export function useOnce(fn: () => () => void) {
-  const doneRef = useRef(false);
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
-    return fn();
-  }, []);
-}
-```
-
-**Affected components:** HeroSection, FeaturedProjects, Testimonials, PillarsSection, SustainabilitySection, CtaSection, TrustStats, ContactForm, Footer, WhatsAppFab, Preloader, MobileMenu, PortfolioHero, PortfolioDetailHero, PortfolioDetailGallery, PortfolioGrid
-
-### Q2. `forms.test.ts` Duplicates Source Code
-
-**File:** `src/lib/forms.test.ts` — duplicates `contactFormSchema`, `newsletterSchema`, and `sanitize` function. If source schemas change, tests still pass on stale versions. Import from `forms.ts` instead.
-
-### Q3. `gsap.registerPlugin(ScrollTrigger)` Called Multiple Times
-
-In `loadGsap()` this is called once in the singleton — correct. But `contact-form.tsx`, `footer.tsx`, `trust-stats.tsx`, `portfolio-detail-gallery.tsx` all call `gsap.registerPlugin(ScrollTrigger)` again inside their effects. This is harmless (GSAP ignores duplicate registrations) but indicates confusion about whether the shared loader handles it.
-
-### Q4. Fragile Cleanup Pattern
-
-```tsx
-const ctrls: (() => void)[] = [];
-loadGsap().then(({ gsap }) => {
-  // push cleanup functions
-});
-return () => {
-  for (const fn of ctrls) fn();
-};
-```
-
-If the async import fails (network error), cleanup array is empty but component still unmounts. No error handling for failed GSAP loads. No fallback UI.
-
-### Q5. Field Name Mismatch (`vision` → `message`)
-
-**File:** `contact-form.tsx` — field ID/name is `vision` but handler maps it to `message` in the data object. Works but confusing. Rename field to `message`.
-
-### Q6. `CtaSection` Hardcodes Message
-
-**File:** `cta-section.tsx` (line 29)
-
-```tsx
-message: 'Request consultation via CTA section',
-```
-
-Loses user context. If user fills name/email/interest, the message should reflect what they selected. **Fix:** dynamically compose message from form values.
-
-### Q7. Test Coverage Gaps
-
-| Area       | Coverage                                                                                                           |
-| ---------- | ------------------------------------------------------------------------------------------------------------------ |
-| `seo.ts`   | Only `generateMeta` tested (5 tests). Zero tests for `productLd`, `faqLd`, `breadcrumbLd`, `webpageLd`, `ldScript` |
-| `forms.ts` | Only schema validation tested. Zero tests for `submitContactForm`, `submitNewsletterSignup`, `isRateLimited`       |
-| `utils.ts` | Only `cn` tested (3 tests)                                                                                         |
-| Components | **Zero tests** for any component                                                                                   |
-| Routes     | **Zero tests** for any route                                                                                       |
-
-### Q8. No Pending/Loading States for Routes
-
-Only `portfolio.$slug.tsx` has a `pendingComponent` skeleton. All other routes show nothing during navigation. Add skeleton states for about, services, contact, career, sustainability, privacy, legal.
-
-### Q9. TypeScript `strict: true` but 2 `biome-ignore` Suppressions
-
-- `testimonials.tsx` line 157 — array index key
-- `portfolio-detail-hero.tsx` line 85 — array index key
-
-Both legitimate uses (static data, no reordering), but documenting them as acceptable technical debt.
-
-### Q10. `portfolio-grid.tsx` GSAP Flip Imported Dynamically
-
-Uses `import('gsap/Flip')` dynamically inside filter handler — creates a new chunk on every filter click. Consider pre-loading Flip alongside GSAP singleton.
-
----
-
 ## 🟣 Feature Gaps
 
 ### F1. No Image Lightbox
@@ -181,10 +88,6 @@ Fixed `bottom-6 right-6` FAB overlaps with:
 - Mobile menu close button
 
 Consider adding bottom margin to page content or adjusting position per viewport.
-
-### U4. Carousel Uses Array Index Key
-
-**File:** `testimonials.tsx` (line 157) — suppressed with `biome-ignore`. For static list it works but pattern is fragile.
 
 ### U5. Hero Parallax Mouse Tracking Runs Continuously
 
@@ -300,10 +203,7 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 | ID  | Item                                                       | Effort | Impact                               |
 | --- | ---------------------------------------------------------- | ------ | ------------------------------------ |
-| Q1  | Create `useOnce` hook, refactor 12+ components             | 3 hrs  | Code quality, reusability            |
 | F9  | Forms: add email notification (Resend/SendGrid)            | 2 hrs  | Business-critical                    |
-
-| Q2  | Fix test duplication — import schemas from source          | 30 min | Test reliability                     |
 
 ### 🟢 P2 — Medium Priority (8-16 hrs)
 
@@ -315,7 +215,6 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 | F3  | Interactive maps (Leaflet)                              | 4 hrs  | UX, local SEO   |
 | U1  | Consistent focus indicators audit                       | 2 hrs  | Accessibility   |
 | U9  | Testimonial autoplay pause on keyboard focus            | 30 min | WCAG compliance |
-| Q3  | Remove redundant `registerPlugin` calls                 | 15 min | Cleanup         |
 
 ### 🔵 P3 — Longer Term (16-40 hrs)
 
@@ -327,7 +226,6 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 | F10 | Dynamic testimonials admin                 | 8 hrs  | Maintainability        |
 | C6  | Env var validation + error handling        | 1 hr   | Reliability            |
 | T1  | Fix Vitest close timeout                   | 1 hr   | DX                     |
-| Q7  | Add component tests (critical paths)       | 8 hrs  | Quality assurance      |
 
 ### ⚪ P4 — Polish (4-8 hrs)
 
@@ -336,7 +234,6 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 | P6  | Preloader: non-blocking overlay or shorter animation | 1 hr   | UX            |
 | U6  | Portfolio empty state: suggested projects            | 1 hr   | UX            |
 | U7  | Mobile menu exit animation                           | 1 hr   | UX polish     |
-| Q9  | Refactor array index keys                            | 30 min | Clean code    |
 | C3  | Re-enable biome formatting on CSS                    | 15 min | Consistency   |
 | C7  | Rewrite README                                       | 1 hr   | Documentation |
 
@@ -346,9 +243,9 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 **Top remaining priorities:**
 
-1. **Fix `doneRef` anti-pattern** (Q1) — create `useOnce` hook, refactor 12+ components
-2. **Forms: email notifications** (F9) — stop losing leads to in-memory store
-3. **Fix test duplication** (Q2) — import schemas from source instead of duplicating
+1. **Forms: email notifications** (F9) — stop losing leads to in-memory store
+2. **Image lightbox** (F1) — gallery images should be clickable
+3. **Interactive maps** (F3) — replace static map images
 
 **Biggest feature gap:** Forms are in-memory only (F9) — no email notification means lost leads.
 

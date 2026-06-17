@@ -1,8 +1,8 @@
 'use client';
 
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
-import { loadGsap } from '@/lib/gsap-loader';
+import { useRef } from 'react';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function PortfolioDetailGallery({
   images,
@@ -12,23 +12,16 @@ export function PortfolioDetailGallery({
   projectTitle: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
   const [img1, img2, img3] = images;
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
-
-    const ctrls: (() => void)[] = [];
-    const hasImg2 = images.length > 1;
-    const hasImg3 = images.length > 2;
-
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
-      gsap.registerPlugin(ScrollTrigger);
-
+  useGsapAnimation(
+    (gsap) => {
       const section = sectionRef.current;
-      if (!section) return;
+      if (!section) return [];
+
+      const hasImg2 = images.length > 1;
+      const hasImg3 = images.length > 2;
 
       const ctx = gsap.context(() => {
         const tl = gsap.timeline({
@@ -72,13 +65,10 @@ export function PortfolioDetailGallery({
         }
       }, section);
 
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
-  }, [images.length]);
+      return [() => ctx.revert()];
+    },
+    [images.length],
+  );
 
   return (
     <section ref={sectionRef} className='bg-surface-container-low py-24'>

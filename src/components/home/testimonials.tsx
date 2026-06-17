@@ -11,13 +11,12 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { testimonials } from '@/data/testimonials';
-import { loadGsap } from '@/lib/gsap-loader';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function TestimonialSection() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
   const autoplayPlugin = useMemo(
     () =>
@@ -39,15 +38,10 @@ export function TestimonialSection() {
     };
   }, [api]);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
-
-    const ctrls: (() => void)[] = [];
-
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
+  useGsapAnimation(
+    (gsap, ScrollTrigger) => {
       const section = sectionRef.current;
-      if (!section) return;
+      if (!section) return [];
 
       ScrollTrigger.create({
         trigger: section,
@@ -84,13 +78,10 @@ export function TestimonialSection() {
         );
       }, section);
 
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
-  }, [autoplayPlugin]);
+      return [() => ctx.revert()];
+    },
+    [autoplayPlugin],
+  );
 
   return (
     <section ref={sectionRef} className='relative bg-tertiary py-20 md:py-28'>
@@ -152,10 +143,9 @@ export function TestimonialSection() {
         </Carousel>
 
         <div className='mt-12 flex items-center justify-center gap-3'>
-          {testimonials.map((_, i) => (
+          {testimonials.map((t, i) => (
             <button
-              // biome-ignore lint/suspicious/noArrayIndexKey: this is fine
-              key={i}
+              key={t.id}
               type='button'
               onClick={() => api?.scrollTo(i)}
               className={`h-1 transition-all duration-500 ${

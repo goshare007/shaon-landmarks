@@ -3,8 +3,9 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight, Search, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { allProjects } from '@/data/projects';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { loadGsap } from '@/lib/gsap-loader';
 
 const statusFilters = ['All', 'Completed', 'Ongoing', 'Upcoming'] as const;
@@ -25,7 +26,6 @@ interface PortfolioGridProps {
 
 export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
   const [searchInput, setSearchInput] = useState(filters.search);
   const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -57,89 +57,74 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
 
   const handleFilterClick = (f: StatusFilter) => {
     const newStatus = f === 'All' ? '' : f;
-    import('gsap/Flip').then(({ Flip }) => {
-      loadGsap().then(({ gsap }) => {
-        const cards = sectionRef.current?.querySelectorAll('[data-e="card"]');
-        if (!cards || cards.length === 0) {
-          onFilterChange({ status: newStatus });
-          return;
-        }
-        const state = Flip.getState(cards);
+    loadGsap().then(({ gsap }) => {
+      const cards = sectionRef.current?.querySelectorAll('[data-e="card"]');
+      if (!cards || cards.length === 0) {
         onFilterChange({ status: newStatus });
-        requestAnimationFrame(() => {
-          Flip.from(state, {
-            duration: 0.5,
-            ease: 'power3.out',
-            absolute: true,
-            onEnter: (els) =>
-              gsap.fromTo(
-                els,
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 0.5 },
-              ),
-            onLeave: (els) =>
-              gsap.to(els, { opacity: 0, y: 30, duration: 0.3 }),
-          });
+        return;
+      }
+      const state = Flip.getState(cards);
+      onFilterChange({ status: newStatus });
+      requestAnimationFrame(() => {
+        Flip.from(state, {
+          duration: 0.5,
+          ease: 'power3.out',
+          absolute: true,
+          onEnter: (els) =>
+            gsap.fromTo(
+              els,
+              { opacity: 0, y: 30 },
+              { opacity: 1, y: 0, duration: 0.5 },
+            ),
+          onLeave: (els) => gsap.to(els, { opacity: 0, y: 30, duration: 0.3 }),
         });
       });
     });
   };
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section.querySelector('[data-e="grid-section"]'),
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+        defaults: { ease: 'power3.out' },
+      });
 
-    loadGsap().then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+      tl.fromTo(
+        section.querySelector('[data-e="project-count"]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+      );
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section.querySelector('[data-e="grid-section"]'),
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          defaults: { ease: 'power3.out' },
-        });
+      tl.fromTo(
+        section.querySelector('[data-e="filter-bar"]'),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5 },
+        '-=0.3',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-e="project-count"]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5 },
-        );
+      tl.fromTo(
+        section.querySelectorAll('[data-e="card"]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 },
+        '-=0.2',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-e="filter-bar"]'),
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5 },
-          '-=0.3',
-        );
+      tl.fromTo(
+        section.querySelector('[data-e="view-count"]'),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.5 },
+        '-=0.2',
+      );
+    }, section);
 
-        tl.fromTo(
-          section.querySelectorAll('[data-e="card"]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 },
-          '-=0.2',
-        );
-
-        tl.fromTo(
-          section.querySelector('[data-e="view-count"]'),
-          { opacity: 0 },
-          { opacity: 1, duration: 0.5 },
-          '-=0.2',
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-      clearTimeout(debounceRef.current);
-    };
+    return [() => ctx.revert(), () => clearTimeout(debounceRef.current)];
   }, []);
 
   const activeStatus: StatusFilter = (filters.status as StatusFilter) || 'All';

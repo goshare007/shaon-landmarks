@@ -4,10 +4,13 @@ import { CareerCta } from '@/components/career/career-cta';
 import { CareerHero } from '@/components/career/career-hero';
 import { CareerPositions } from '@/components/career/career-positions';
 import { CareerWhy } from '@/components/career/career-why';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/career')({
   component: Career,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/career',

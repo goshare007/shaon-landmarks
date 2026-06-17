@@ -1,8 +1,9 @@
 'use client';
 
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import CAREER_TEAM from '@/assets/images/career/team.webp';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 const benefits = [
   'Work on iconic projects across Bangladesh',
@@ -13,52 +14,35 @@ const benefits = [
 
 export function CareerWhy() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
+  useGsapAnimation((gsap, _ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
-
-    const ctrls: (() => void)[] = [];
-
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const section = sectionRef.current;
-        if (!section) return;
-
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-            defaults: { ease: 'power3.out' },
-          });
-
-          tl.fromTo(
-            section.querySelector('[data-why-text]'),
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.7 },
-          );
-
-          tl.fromTo(
-            section.querySelector('[data-why-image]'),
-            { opacity: 0, scale: 1.03 },
-            { opacity: 1, scale: 1, duration: 0.8 },
-            '-=0.4',
-          );
-        }, section);
-
-        ctrls.push(() => ctx.revert());
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
       });
-    });
 
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+      tl.fromTo(
+        section.querySelector('[data-why-text]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+      );
+
+      tl.fromTo(
+        section.querySelector('[data-why-image]'),
+        { opacity: 0, scale: 1.03 },
+        { opacity: 1, scale: 1, duration: 0.8 },
+        '-=0.4',
+      );
+    }, section);
+
+    return [() => ctx.revert()];
   }, []);
 
   return (

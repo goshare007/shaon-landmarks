@@ -2,10 +2,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import { PrivacyCta } from '@/components/privacy/privacy-cta';
 import { PrivacyHero } from '@/components/privacy/privacy-hero';
 import { PrivacyPolicy } from '@/components/privacy/privacy-policy';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/privacy')({
   component: Privacy,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/privacy',

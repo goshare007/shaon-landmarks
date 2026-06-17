@@ -1,25 +1,19 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '@/lib/constants';
-import { loadGsap } from '@/lib/gsap-loader';
 
 export function WhatsAppFab() {
   const ref = useRef<HTMLAnchorElement>(null);
-  const doneRef = useRef(false);
-
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
-
-    loadGsap().then(({ gsap }) => {
-      if (!ref.current) return;
-      gsap.fromTo(
-        ref.current,
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' },
-      );
-    });
+  useGsapAnimation((gsap, _ScrollTrigger) => {
+    if (!ref.current) return [];
+    gsap.fromTo(
+      ref.current,
+      { scale: 0, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' },
+    );
+    return [];
   }, []);
 
   return (

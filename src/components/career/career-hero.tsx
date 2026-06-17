@@ -1,51 +1,38 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import HERO_IMAGE from '@/assets/images/career/hero.webp';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function CareerHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
+  useGsapAnimation((gsap, _ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+    const ctx = gsap.context(() => {
+      const bg = section.querySelector('[data-hero-bg]');
+      if (bg) {
+        gsap.set(bg, { scale: 1 });
+        gsap.to(bg, {
+          scale: 1.1,
+          duration: 20,
+          repeat: -1,
+          yoyo: true,
+          ease: 'easeInOut',
+        });
+      }
 
-    const ctrls: (() => void)[] = [];
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    import('gsap').then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+      tl.fromTo(
+        section.querySelector('[data-hero-content]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8 },
+      );
+    }, section);
 
-      const ctx = gsap.context(() => {
-        const bg = section.querySelector('[data-hero-bg]');
-        if (bg) {
-          gsap.set(bg, { scale: 1 });
-          const infiniteTween = gsap.to(bg, {
-            scale: 1.1,
-            duration: 20,
-            repeat: -1,
-            yoyo: true,
-            ease: 'easeInOut',
-          });
-          ctrls.push(() => infiniteTween.kill());
-        }
-
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-        tl.fromTo(
-          section.querySelector('[data-hero-content]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8 },
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   return (

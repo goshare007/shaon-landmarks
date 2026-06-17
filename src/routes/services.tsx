@@ -4,10 +4,13 @@ import { ServicesCards } from '@/components/services/services-cards';
 import { ServicesCta } from '@/components/services/services-cta';
 import { ServicesHero } from '@/components/services/services-hero';
 import { ServicesStandard } from '@/components/services/services-standard';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/services')({
   component: Services,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/services',

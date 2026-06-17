@@ -2,10 +2,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import { LegalCta } from '@/components/legal/legal-cta';
 import { LegalDisclosures } from '@/components/legal/legal-disclosures';
 import { LegalHero } from '@/components/legal/legal-hero';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/legal')({
   component: Legal,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/legal',

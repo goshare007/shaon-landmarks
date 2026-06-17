@@ -1,37 +1,26 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function LegalHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    import('gsap').then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+      tl.fromTo(
+        section.querySelector('[data-hero-content]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8 },
+      );
+    }, section);
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-        tl.fromTo(
-          section.querySelector('[data-hero-content]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8 },
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   return (

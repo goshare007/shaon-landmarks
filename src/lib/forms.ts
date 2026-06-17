@@ -2,7 +2,7 @@ import { createServerFn } from '@tanstack/react-start';
 import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
 
-const contactFormSchema = z.object({
+export const contactFormSchema = z.object({
   name: z
     .string()
     .min(2, 'Name must be at least 2 characters')
@@ -13,7 +13,7 @@ const contactFormSchema = z.object({
   message: z.string().max(2000, 'Message is too long').trim().optional(),
 });
 
-const newsletterSchema = z.object({
+export const newsletterSchema = z.object({
   email: z.string().email('Please enter a valid email address').trim(),
 });
 
@@ -33,7 +33,7 @@ function isRateLimited(identifier: string, limitMs = 5000) {
   return false;
 }
 
-function sanitize(text: string) {
+export function sanitize(text: string) {
   return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} }).trim();
 }
 
@@ -59,7 +59,7 @@ export const submitContactForm = createServerFn({ method: 'POST' })
 
     // TODO: Phase B — integrate with Resend/SendGrid for email notification
     // TODO: Phase D — persist to database via Prisma + NeonDB
-    // biome-ignore lint/suspicious/noConsole: this is fine
+    // biome-ignore lint/suspicious/noConsole: intentional dev log — replace with email service in Phase B
     console.log('[Form Submission] Contact:', {
       ...sanitizedData,
       timestamp: new Date().toISOString(),
@@ -96,7 +96,7 @@ export const submitNewsletterSignup = createServerFn({ method: 'POST' })
 
     subscribedEmails.add(email);
 
-    // biome-ignore lint/suspicious/noConsole: server-side log
+    // biome-ignore lint/suspicious/noConsole: intentional dev log — replace with email service in Phase B
     console.log('[Newsletter] New subscriber:', {
       email,
       total: subscribedEmails.size,

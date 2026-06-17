@@ -1,25 +1,5 @@
-import sanitizeHtml from 'sanitize-html';
 import { describe, expect, it } from 'vitest';
-import { z } from 'zod';
-
-const contactFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(200, 'Name is too long')
-    .trim(),
-  email: z.string().email('Please enter a valid email address').trim(),
-  interest: z.string().optional(),
-  message: z.string().max(2000, 'Message is too long').trim().optional(),
-});
-
-const newsletterSchema = z.object({
-  email: z.string().email('Please enter a valid email address').trim(),
-});
-
-function sanitize(text: string) {
-  return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} }).trim();
-}
+import { contactFormSchema, newsletterSchema, sanitize } from '@/lib/forms';
 
 describe('contactFormSchema', () => {
   it('accepts valid contact data', () => {

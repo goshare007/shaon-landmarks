@@ -3,9 +3,9 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { allProjects } from '@/data/projects';
-import { loadGsap } from '@/lib/gsap-loader';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 interface Project {
   id: string;
@@ -141,107 +141,99 @@ function GridCard({ project }: { project: Project }) {
 
 export function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap, ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const cleanups: (() => void)[] = [];
 
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
+      });
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          defaults: { ease: 'power3.out' },
-        });
+      tl.fromTo(
+        section.querySelector('[data-el-header]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-el-header]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.7 },
-        );
+      tl.fromTo(
+        section.querySelector('[data-el-header-divider]'),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, transformOrigin: 'left center' },
+        '-=0.3',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-el-header-divider]'),
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.6, transformOrigin: 'left center' },
-          '-=0.3',
-        );
+      tl.fromTo(
+        section.querySelector('[data-el-feature-image]'),
+        { clipPath: 'inset(0 100% 0 0)' },
+        { clipPath: 'inset(0 0 0 0)', duration: 1, ease: 'power3.out' },
+        '-=0.3',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-el-feature-image]'),
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 0 0 0)', duration: 1, ease: 'power3.out' },
-          '-=0.3',
-        );
+      tl.fromTo(
+        section.querySelector('[data-el-feature-text]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.5',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-el-feature-text]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.5',
-        );
+      tl.fromTo(
+        section.querySelectorAll('[data-el-card-image]'),
+        { clipPath: 'inset(0 100% 0 0)' },
+        { clipPath: 'inset(0 0 0 0)', duration: 0.8, stagger: 0.12 },
+        '-=0.3',
+      );
 
-        tl.fromTo(
-          section.querySelectorAll('[data-el-card-image]'),
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 0 0 0)', duration: 0.8, stagger: 0.12 },
-          '-=0.3',
-        );
+      tl.fromTo(
+        section.querySelectorAll('[data-el-card-text]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+        '-=0.5',
+      );
 
-        tl.fromTo(
-          section.querySelectorAll('[data-el-card-text]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-          '-=0.5',
-        );
+      tl.fromTo(
+        section.querySelector('[data-el-bottom-line]'),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, transformOrigin: 'left center' },
+        '-=0.2',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-el-bottom-line]'),
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.6, transformOrigin: 'left center' },
-          '-=0.2',
-        );
+      tl.fromTo(
+        section.querySelector('[data-el-bottom-cta]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.3',
+      );
+    }, section);
 
-        tl.fromTo(
-          section.querySelector('[data-el-bottom-cta]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5 },
-          '-=0.3',
-        );
-      }, section);
+    cleanups.push(() => ctx.revert());
 
-      ctrls.push(() => ctx.revert());
+    const featureEl = section.querySelector('[data-el-feature]');
+    if (featureEl) {
+      const st = ScrollTrigger.create({
+        trigger: featureEl,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+        onUpdate: (self) => {
+          const img = featureEl.querySelector('[data-el-feature-image]');
+          if (img) {
+            gsap.set(img, { y: `${self.progress * 10}%` });
+          }
+        },
+      });
+      cleanups.push(() => st.kill());
+    }
 
-      const featureEl = section.querySelector('[data-el-feature]');
-      if (featureEl) {
-        const st = ScrollTrigger.create({
-          trigger: featureEl,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-          onUpdate: (self) => {
-            const img = featureEl.querySelector('[data-el-feature-image]');
-            if (img) {
-              gsap.set(img, { y: `${self.progress * 10}%` });
-            }
-          },
-        });
-        ctrls.push(() => st.kill());
-      }
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return cleanups;
   }, []);
 
   const feature =

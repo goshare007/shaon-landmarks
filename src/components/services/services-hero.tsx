@@ -2,93 +2,77 @@
 
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import HERO_IMG from '@/assets/images/services/hero.webp';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function ServicesHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
+  useGsapAnimation((gsap, _ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    const ctrls: (() => void)[] = [];
+      tl.fromTo(
+        section.querySelector('[data-hero-left]'),
+        { opacity: 0, x: -40 },
+        { opacity: 1, x: 0, duration: 0.8 },
+      );
 
-    import('gsap').then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+      tl.fromTo(
+        section.querySelector('[data-hero-eyebrow]'),
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        '-=0.5',
+      );
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.fromTo(
+        section.querySelector('[data-hero-heading]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.35',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-hero-left]'),
-          { opacity: 0, x: -40 },
-          { opacity: 1, x: 0, duration: 0.8 },
-        );
+      tl.fromTo(
+        section.querySelector('[data-hero-desc]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.35',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-hero-eyebrow]'),
-          { opacity: 0, y: 10 },
-          { opacity: 1, y: 0, duration: 0.6 },
-          '-=0.5',
-        );
+      tl.fromTo(
+        section.querySelector('[data-hero-cta]'),
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.3',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-hero-heading]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.35',
-        );
+      tl.fromTo(
+        section.querySelector('[data-hero-image]'),
+        { opacity: 0, scale: 1.05 },
+        { opacity: 1, scale: 1, duration: 1 },
+        '-=0.8',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-hero-desc]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.35',
-        );
+      gsap.to(section.querySelector('[data-hero-image]'), {
+        scale: 1.08,
+        duration: 20,
+        repeat: -1,
+        yoyo: true,
+        ease: 'easeInOut',
+      });
 
-        tl.fromTo(
-          section.querySelector('[data-hero-cta]'),
-          { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5 },
-          '-=0.3',
-        );
+      tl.fromTo(
+        section.querySelector('[data-hero-quote]'),
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.6 },
+        '-=0.4',
+      );
+    }, section);
 
-        tl.fromTo(
-          section.querySelector('[data-hero-image]'),
-          { opacity: 0, scale: 1.05 },
-          { opacity: 1, scale: 1, duration: 1 },
-          '-=0.8',
-        );
-
-        const infiniteTween = gsap.to(
-          section.querySelector('[data-hero-image]'),
-          {
-            scale: 1.08,
-            duration: 20,
-            repeat: -1,
-            yoyo: true,
-            ease: 'easeInOut',
-          },
-        );
-        ctrls.push(() => infiniteTween.kill());
-
-        tl.fromTo(
-          section.querySelector('[data-hero-quote]'),
-          { opacity: 0, x: -20 },
-          { opacity: 1, x: 0, duration: 0.6 },
-          '-=0.4',
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   return (

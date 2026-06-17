@@ -4,6 +4,7 @@ import { ContactCta } from '@/components/contact/contact-cta';
 import { ContactForm } from '@/components/contact/contact-form';
 import { ContactHero } from '@/components/contact/contact-hero';
 import { ContactLocations } from '@/components/contact/contact-locations';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/contact')({
@@ -43,6 +44,8 @@ export const Route = createFileRoute('/contact')({
   },
 
   component: Contact,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
 });
 
 function Contact() {

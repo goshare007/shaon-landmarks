@@ -3,10 +3,10 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import logo from '@/assets/logo.png';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { submitNewsletterSignup } from '@/lib/forms';
-import { loadGsap } from '@/lib/gsap-loader';
 import { Button } from './ui/button';
 
 const year = new Date().getFullYear();
@@ -70,7 +70,6 @@ const footerSections: FooterSection[] = [
 
 export default function Footer() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
   const [newsletterState, setNewsletterState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message: string;
@@ -106,49 +105,36 @@ export default function Footer() {
     }
   }
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap, _ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section.querySelector('[data-footer-grid]'),
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+        defaults: { ease: 'power3.out' },
+      });
 
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
-      gsap.registerPlugin(ScrollTrigger);
+      tl.fromTo(
+        section.querySelectorAll('[data-footer-item]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
+        0.2,
+      );
 
-      const section = sectionRef.current;
-      if (!section) return;
+      tl.fromTo(
+        section.querySelector('[data-footer-bottom]'),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6 },
+        '+=0.1',
+      );
+    }, section);
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section.querySelector('[data-footer-grid]'),
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          defaults: { ease: 'power3.out' },
-        });
-
-        tl.fromTo(
-          section.querySelectorAll('[data-footer-item]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
-          0.2,
-        );
-
-        tl.fromTo(
-          section.querySelector('[data-footer-bottom]'),
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6 },
-          '+=0.1',
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   return (

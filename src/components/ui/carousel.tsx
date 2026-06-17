@@ -132,7 +132,7 @@ const Carousel = React.forwardRef<
           canScrollNext,
         }}
       >
-        {/** biome-ignore lint/a11y/useSemanticElements: this is fine */}
+        {/* biome-ignore lint/a11y/useSemanticElements: <section> would break nesting in carousel items */}
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
@@ -178,7 +178,7 @@ const CarouselItem = React.forwardRef<
   const { orientation } = useCarousel();
 
   return (
-    // biome-ignore lint/a11y/useSemanticElements: this is fine
+    // biome-ignore lint/a11y/useSemanticElements: <section> would conflict with carousel region role
     <div
       ref={ref}
       role='group'

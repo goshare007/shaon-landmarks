@@ -1,51 +1,43 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import SustainabilityImg from '@/assets/images/sustainability/sustainability.webp';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function SustainabilityHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const cleanups: (() => void)[] = [];
 
-    import('gsap').then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+    const ctx = gsap.context(() => {
+      const bg = section.querySelector('[data-hero-bg]');
+      if (bg) {
+        gsap.set(bg, { scale: 1 });
+        const infiniteTween = gsap.to(bg, {
+          scale: 1.1,
+          duration: 20,
+          repeat: -1,
+          yoyo: true,
+          ease: 'easeInOut',
+        });
+        cleanups.push(() => infiniteTween.kill());
+      }
 
-      const ctx = gsap.context(() => {
-        const bg = section.querySelector('[data-hero-bg]');
-        if (bg) {
-          gsap.set(bg, { scale: 1 });
-          const infiniteTween = gsap.to(bg, {
-            scale: 1.1,
-            duration: 20,
-            repeat: -1,
-            yoyo: true,
-            ease: 'easeInOut',
-          });
-          ctrls.push(() => infiniteTween.kill());
-        }
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.fromTo(
+        section.querySelector('[data-hero-content]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8 },
+      );
+    }, section);
 
-        tl.fromTo(
-          section.querySelector('[data-hero-content]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8 },
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    cleanups.push(() => ctx.revert());
+    return cleanups;
   }, []);
 
   return (

@@ -18,7 +18,8 @@ export function loadGsap(): Promise<{
     loadPromise = Promise.all([
       import('gsap'),
       import('gsap/ScrollTrigger'),
-    ]).then(([{ gsap }, { ScrollTrigger }]) => {
+      import('gsap/Flip'),
+    ]).then(([{ gsap }, { ScrollTrigger }, _flip]) => {
       gsap.registerPlugin(ScrollTrigger);
       return { gsap, ScrollTrigger };
     });

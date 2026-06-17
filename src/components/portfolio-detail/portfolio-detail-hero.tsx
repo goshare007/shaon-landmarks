@@ -1,9 +1,9 @@
 'use client';
 
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { Project, ProjectDetail } from '@/data/projects';
-import { loadGsap } from '@/lib/gsap-loader';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function PortfolioDetailHero({
   project,
@@ -13,54 +13,45 @@ export function PortfolioDetailHero({
   detail: ProjectDetail;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const cleanups: (() => void)[] = [];
 
-    loadGsap().then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+    const ctx = gsap.context(() => {
+      const bg = section.querySelector('[data-hero-bg]');
+      if (bg) {
+        gsap.set(bg, { scale: 1 });
+        const infiniteTween = gsap.to(bg, {
+          scale: 1.08,
+          duration: 20,
+          repeat: -1,
+          yoyo: true,
+          ease: 'easeInOut',
+        });
+        cleanups.push(() => infiniteTween.kill());
+      }
 
-      const ctx = gsap.context(() => {
-        const bg = section.querySelector('[data-hero-bg]');
-        if (bg) {
-          gsap.set(bg, { scale: 1 });
-          const infiniteTween = gsap.to(bg, {
-            scale: 1.08,
-            duration: 20,
-            repeat: -1,
-            yoyo: true,
-            ease: 'easeInOut',
-          });
-          ctrls.push(() => infiniteTween.kill());
-        }
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.fromTo(
+        section.querySelector('[data-hero-meta]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6 },
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-hero-meta]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.6 },
-        );
+      tl.fromTo(
+        section.querySelector('[data-hero-heading]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8 },
+        '-=0.3',
+      );
+    }, section);
 
-        tl.fromTo(
-          section.querySelector('[data-hero-heading]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          '-=0.3',
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    cleanups.push(() => ctx.revert());
+    return cleanups;
   }, []);
 
   return (
@@ -88,7 +79,7 @@ export function PortfolioDetailHero({
         </div>
         <h1 data-hero-heading className='heading-hero max-w-3xl text-white'>
           {project.title.split(' ').map((word, i, arr) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: static word order
+            // biome-ignore lint/suspicious/noArrayIndexKey: words from static string — stable order
             <span key={i}>
               {word}
               {i === Math.floor(arr.length / 2) - 1 ? <br /> : ' '}

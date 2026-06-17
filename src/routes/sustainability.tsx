@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import SustainabilityImg from '@/assets/images/sustainability/sustainability.webp';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { SustainabilityCertifications } from '@/components/sustainability/sustainability-certifications';
 import { SustainabilityCta } from '@/components/sustainability/sustainability-cta';
 import { SustainabilityHero } from '@/components/sustainability/sustainability-hero';
@@ -9,6 +10,8 @@ import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/sustainability')({
   component: Sustainability,
+  pendingMs: 100,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/sustainability',

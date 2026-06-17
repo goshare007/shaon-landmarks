@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { TRUST_STATS as stats } from '@/data/home';
-import { loadGsap } from '@/lib/gsap-loader';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 function parseStatValue(value: string): { num: number; suffix: string } | null {
   const match = value.match(/^([\d.]+)(.*)$/);
@@ -12,99 +12,85 @@ function parseStatValue(value: string): { num: number; suffix: string } | null {
 
 export function TrustStats() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const items = section.querySelectorAll('[data-stat]');
+    if (items.length === 0) return [];
 
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
-      gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      items.forEach((item) => {
+        const labelEl = item.querySelector('[data-stat-label]');
+        const valueEl = item.querySelector('[data-stat-value]');
+        if (!valueEl) return;
 
-      const section = sectionRef.current;
-      if (!section) return;
+        const raw = valueEl.getAttribute('data-stat-raw') || '';
+        const parsed = parseStatValue(raw);
 
-      const items = section.querySelectorAll('[data-stat]');
-      if (items.length === 0) return;
+        if (parsed) {
+          const { num, suffix } = parsed;
 
-      const ctx = gsap.context(() => {
-        items.forEach((item) => {
-          const labelEl = item.querySelector('[data-stat-label]');
-          const valueEl = item.querySelector('[data-stat-value]');
-          if (!valueEl) return;
-
-          const raw = valueEl.getAttribute('data-stat-raw') || '';
-          const parsed = parseStatValue(raw);
-
-          if (parsed) {
-            const { num, suffix } = parsed;
-
-            gsap.fromTo(
-              valueEl,
-              { textContent: '0' },
-              {
-                textContent: String(num),
-                duration: 1.2,
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: item,
-                  start: 'top 90%',
-                  toggleActions: 'play none none reverse',
-                },
-                onUpdate: function () {
-                  const val = Math.round(Number(this.targets()[0].textContent));
-                  valueEl.textContent = `${val}${suffix}`;
-                },
-                onComplete: () => {
-                  valueEl.textContent = raw;
-                },
+          gsap.fromTo(
+            valueEl,
+            { textContent: '0' },
+            {
+              textContent: String(num),
+              duration: 1.2,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse',
               },
-            );
-          } else {
-            gsap.fromTo(
-              valueEl,
-              { opacity: 0, y: 20 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                scrollTrigger: {
-                  trigger: item,
-                  start: 'top 90%',
-                  toggleActions: 'play none none reverse',
-                },
+              onUpdate: function () {
+                const val = Math.round(Number(this.targets()[0].textContent));
+                valueEl.textContent = `${val}${suffix}`;
               },
-            );
-          }
-
-          if (labelEl) {
-            gsap.fromTo(
-              labelEl,
-              { opacity: 0, y: 15 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.5,
-                delay: 0.15,
-                scrollTrigger: {
-                  trigger: item,
-                  start: 'top 90%',
-                  toggleActions: 'play none none reverse',
-                },
+              onComplete: () => {
+                valueEl.textContent = raw;
               },
-            );
-          }
-        });
-      }, section);
+            },
+          );
+        } else {
+          gsap.fromTo(
+            valueEl,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse',
+              },
+            },
+          );
+        }
 
-      ctrls.push(() => ctx.revert());
-    });
+        if (labelEl) {
+          gsap.fromTo(
+            labelEl,
+            { opacity: 0, y: 15 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              delay: 0.15,
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse',
+              },
+            },
+          );
+        }
+      });
+    }, section);
 
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   return (

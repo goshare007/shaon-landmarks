@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 const steps = [
   {
@@ -27,59 +28,42 @@ const steps = [
 
 export function ServicesStandard() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
+  useGsapAnimation((gsap, _ScrollTrigger) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
-
-    const ctrls: (() => void)[] = [];
-
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        const section = sectionRef.current;
-        if (!section) return;
-
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-            defaults: { ease: 'power3.out' },
-          });
-
-          tl.fromTo(
-            section.querySelector('[data-standard-heading]'),
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.7 },
-          );
-
-          tl.fromTo(
-            section.querySelector('[data-standard-desc]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5 },
-            '-=0.3',
-          );
-
-          tl.fromTo(
-            section.querySelectorAll('[data-standard-step]'),
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-            '-=0.3',
-          );
-        }, section);
-
-        ctrls.push(() => ctx.revert());
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
       });
-    });
 
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+      tl.fromTo(
+        section.querySelector('[data-standard-heading]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+      );
+
+      tl.fromTo(
+        section.querySelector('[data-standard-desc]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.3',
+      );
+
+      tl.fromTo(
+        section.querySelectorAll('[data-standard-step]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
+        '-=0.3',
+      );
+    }, section);
+
+    return [() => ctx.revert()];
   }, []);
 
   return (

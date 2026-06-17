@@ -1,7 +1,7 @@
 'use client';
 
 import { BadgeCheck, Calendar } from 'lucide-react';
-import { type FormEvent, useEffect, useRef, useState } from 'react';
+import { type FormEvent, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,13 +13,13 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import type { ContactFormData } from '@/lib/forms';
 import { submitContactForm } from '@/lib/forms';
-import { loadGsap } from '@/lib/gsap-loader';
 
 export function ContactForm() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
+
   const [interest, setInterest] = useState('Residential Development');
   const [formState, setFormState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
@@ -59,62 +59,49 @@ export function ContactForm() {
     }
   }
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
+      });
 
-    loadGsap().then(({ gsap, ScrollTrigger }) => {
-      gsap.registerPlugin(ScrollTrigger);
+      tl.fromTo(
+        section.querySelector('[data-form-heading]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+      );
 
-      const section = sectionRef.current;
-      if (!section) return;
+      tl.fromTo(
+        section.querySelector('[data-form-text]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5 },
+        '-=0.3',
+      );
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          defaults: { ease: 'power3.out' },
-        });
+      tl.fromTo(
+        section.querySelectorAll('[data-form-card]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
+        '-=0.3',
+      );
 
-        tl.fromTo(
-          section.querySelector('[data-form-heading]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.7 },
-        );
+      tl.fromTo(
+        section.querySelector('[data-form-wrapper]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.7 },
+        '-=0.4',
+      );
+    }, section);
 
-        tl.fromTo(
-          section.querySelector('[data-form-text]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5 },
-          '-=0.3',
-        );
-
-        tl.fromTo(
-          section.querySelectorAll('[data-form-card]'),
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-          '-=0.3',
-        );
-
-        tl.fromTo(
-          section.querySelector('[data-form-wrapper]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.7 },
-          '-=0.4',
-        );
-      }, section);
-
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   return (
@@ -249,14 +236,14 @@ export function ContactForm() {
 
             <div className='group space-y-2'>
               <Label
-                htmlFor='vision'
+                htmlFor='message'
                 className='text-label font-medium tracking-widest text-on-surface uppercase transition-colors group-focus-within:text-secondary'
               >
-                Your Vision
+                Your Message
               </Label>
               <Textarea
-                id='vision'
-                name='vision'
+                id='message'
+                name='message'
                 rows={4}
                 placeholder='Describe the scale and intent of your project...'
                 className='resize-none rounded-none border border-on-surface bg-transparent p-4 shadow-none focus-visible:border-secondary focus-visible:ring-0'

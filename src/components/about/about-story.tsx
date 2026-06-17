@@ -2,109 +2,94 @@
 
 import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function AboutStory() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
+      });
 
-    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-      import('gsap').then(({ gsap }) => {
-        gsap.registerPlugin(ScrollTrigger);
+      tl.fromTo(
+        section.querySelector('[data-story-heading]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.6 },
+      );
 
-        const section = sectionRef.current;
-        if (!section) return;
+      tl.fromTo(
+        section.querySelectorAll('[data-story-p]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
+        '-=0.3',
+      );
 
-        const ctx = gsap.context(() => {
-          const tl = gsap.timeline({
+      tl.fromTo(
+        section.querySelector('[data-story-divider]'),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, transformOrigin: 'left' },
+        '-=0.2',
+      );
+
+      const statValues = section.querySelectorAll('[data-stat-value]');
+      statValues.forEach((el) => {
+        const raw = el.getAttribute('data-stat-raw') || '';
+        const match = raw.match(/^([\d.]+)(.*)$/);
+        if (!match) return;
+        const num = Number(match[1]);
+        const suffix = match[2];
+
+        gsap.fromTo(
+          el,
+          { textContent: '0' },
+          {
+            textContent: String(num),
+            duration: 1.2,
+            ease: 'power2.out',
             scrollTrigger: {
-              trigger: section,
-              start: 'top 85%',
+              trigger: el,
+              start: 'top 90%',
               toggleActions: 'play none none reverse',
             },
-            defaults: { ease: 'power3.out' },
-          });
-
-          tl.fromTo(
-            section.querySelector('[data-story-heading]'),
-            { opacity: 0, y: 30 },
-            { opacity: 1, y: 0, duration: 0.6 },
-          );
-
-          tl.fromTo(
-            section.querySelectorAll('[data-story-p]'),
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-            '-=0.3',
-          );
-
-          tl.fromTo(
-            section.querySelector('[data-story-divider]'),
-            { scaleX: 0 },
-            { scaleX: 1, duration: 0.6, transformOrigin: 'left' },
-            '-=0.2',
-          );
-
-          const statValues = section.querySelectorAll('[data-stat-value]');
-          statValues.forEach((el) => {
-            const raw = el.getAttribute('data-stat-raw') || '';
-            const match = raw.match(/^([\d.]+)(.*)$/);
-            if (!match) return;
-            const num = Number(match[1]);
-            const suffix = match[2];
-
-            gsap.fromTo(
-              el,
-              { textContent: '0' },
-              {
-                textContent: String(num),
-                duration: 1.2,
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: el,
-                  start: 'top 90%',
-                  toggleActions: 'play none none reverse',
-                },
-                onUpdate: function () {
-                  const val = Math.round(Number(this.targets()[0].textContent));
-                  el.textContent = `${val}${suffix}`;
-                },
-                onComplete: () => {
-                  el.textContent = raw;
-                },
-              },
-            );
-          });
-
-          const statLabels = section.querySelectorAll('[data-stat-label]');
-          tl.fromTo(
-            statLabels,
-            { opacity: 0, y: 10 },
-            { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 },
-            '-=0.6',
-          );
-
-          tl.fromTo(
-            section.querySelector('[data-story-cta]'),
-            { opacity: 0, y: 15 },
-            { opacity: 1, y: 0, duration: 0.4 },
-            '-=0.2',
-          );
-        }, section);
-
-        ctrls.push(() => ctx.revert());
+            onUpdate: function () {
+              const val = Math.round(Number(this.targets()[0].textContent));
+              el.textContent = `${val}${suffix}`;
+            },
+            onComplete: () => {
+              el.textContent = raw;
+            },
+          },
+        );
       });
-    });
 
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+      const statLabels = section.querySelectorAll('[data-stat-label]');
+      tl.fromTo(
+        statLabels,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 },
+        '-=0.6',
+      );
+
+      tl.fromTo(
+        section.querySelector('[data-story-cta]'),
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.4 },
+        '-=0.2',
+      );
+    }, section);
+
+    return [() => ctx.revert()];
   }, []);
 
   return (

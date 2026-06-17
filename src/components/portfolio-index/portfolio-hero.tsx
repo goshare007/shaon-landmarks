@@ -1,47 +1,39 @@
 'use client';
 
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import HERO_IMG from '@/assets/images/projects/the-obsidian.webp';
-import { loadGsap } from '@/lib/gsap-loader';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function PortfolioHero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const doneRef = useRef(false);
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const section = sectionRef.current;
+    if (!section) return [];
 
-    const ctrls: (() => void)[] = [];
+    const cleanups: (() => void)[] = [];
 
-    loadGsap().then(({ gsap }) => {
-      const section = sectionRef.current;
-      if (!section) return;
+    const ctx = gsap.context(() => {
+      const infiniteTween = gsap.to(section.querySelector('[data-e="bg"]'), {
+        scale: 1.1,
+        duration: 20,
+        repeat: -1,
+        yoyo: true,
+        ease: 'easeInOut',
+      });
+      cleanups.push(() => infiniteTween.kill());
 
-      const ctx = gsap.context(() => {
-        const infiniteTween = gsap.to(section.querySelector('[data-e="bg"]'), {
-          scale: 1.1,
-          duration: 20,
-          repeat: -1,
-          yoyo: true,
-          ease: 'easeInOut',
-        });
-        ctrls.push(() => infiniteTween.kill());
+      gsap.fromTo(
+        section.querySelector('[data-e="content"]'),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
+      );
+    }, section);
 
-        gsap.fromTo(
-          section.querySelector('[data-e="content"]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        );
-      }, section);
+    cleanups.push(() => ctx.revert());
 
-      ctrls.push(() => ctx.revert());
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return cleanups;
   }, []);
 
   return (

@@ -2,6 +2,7 @@
 
 import { Lock } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import type { ContactFormData } from '@/lib/forms';
 import { submitContactForm } from '@/lib/forms';
 import { loadGsap } from '@/lib/gsap-loader';
@@ -9,7 +10,6 @@ import { loadGsap } from '@/lib/gsap-loader';
 export function CtaSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const doneRef = useRef(false);
 
   const [formState, setFormState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
@@ -27,7 +27,7 @@ export function CtaSection() {
       name: (formData.get('name') as string) || '',
       email: (formData.get('email') as string) || '',
       interest: (formData.get('interest') as string) || '',
-      message: 'Request consultation via CTA section',
+      message: `Consultation request via CTA — Interest: ${interest || 'Not specified'}`,
     };
 
     try {
@@ -63,53 +63,42 @@ export function CtaSection() {
     setMagneticPos({ x: 0, y: 0 });
   };
 
-  useEffect(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
+  useGsapAnimation((gsap) => {
+    const el = sectionRef.current;
+    if (!el) return [];
 
-    const ctrls: (() => void)[] = [];
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+        defaults: { ease: 'power3.out' },
+      });
 
-    loadGsap().then(({ gsap }) => {
-      const el = sectionRef.current;
-      if (!el) return;
+      tl.fromTo(
+        el.querySelector('[data-cta-left]'),
+        { opacity: 0, x: -40 },
+        { opacity: 1, x: 0, duration: 0.8 },
+      );
 
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          defaults: { ease: 'power3.out' },
-        });
+      tl.fromTo(
+        el.querySelector('[data-cta-right]'),
+        { opacity: 0, x: 40 },
+        { opacity: 1, x: 0, duration: 0.8 },
+        '-=0.4',
+      );
 
-        tl.fromTo(
-          el.querySelector('[data-cta-left]'),
-          { opacity: 0, x: -40 },
-          { opacity: 1, x: 0, duration: 0.8 },
-        );
+      tl.fromTo(
+        el.querySelector('[data-cta-line]'),
+        { width: 0 },
+        { width: 64, duration: 0.6 },
+        '-=0.3',
+      );
+    }, el);
 
-        tl.fromTo(
-          el.querySelector('[data-cta-right]'),
-          { opacity: 0, x: 40 },
-          { opacity: 1, x: 0, duration: 0.8 },
-          '-=0.4',
-        );
-
-        tl.fromTo(
-          el.querySelector('[data-cta-line]'),
-          { width: 0 },
-          { width: 64, duration: 0.6 },
-          '-=0.3',
-        );
-
-        ctrls.push(() => ctx.revert());
-      }, el);
-    });
-
-    return () => {
-      for (const fn of ctrls) fn();
-    };
+    return [() => ctx.revert()];
   }, []);
 
   useEffect(() => {
@@ -227,23 +216,18 @@ export function CtaSection() {
                 </div>
               )}
 
-              {/** biome-ignore lint/a11y/noStaticElementInteractions: magnetic button */}
-              <div
+              <button
+                ref={buttonRef}
+                type='submit'
                 onMouseMove={handleMagnetMove}
                 onMouseLeave={handleMagnetLeave}
-                className='inline-block w-full'
+                disabled={formState.status === 'submitting'}
+                className='w-full rounded-sm bg-primary py-3 text-label font-medium tracking-widest text-on-primary transition-colors hover:bg-secondary uppercase disabled:opacity-50'
               >
-                <button
-                  ref={buttonRef}
-                  type='submit'
-                  disabled={formState.status === 'submitting'}
-                  className='w-full rounded-sm bg-primary py-3 text-label font-medium tracking-widest text-on-primary transition-colors hover:bg-secondary uppercase disabled:opacity-50'
-                >
-                  {formState.status === 'submitting'
-                    ? 'Submitting...'
-                    : 'Request Consultation'}
-                </button>
-              </div>
+                {formState.status === 'submitting'
+                  ? 'Submitting...'
+                  : 'Request Consultation'}
+              </button>
             </form>
           </div>
         </div>
