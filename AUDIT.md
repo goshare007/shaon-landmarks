@@ -9,60 +9,105 @@
 
 ## 🟣 Feature Gaps
 
-### F1. No Image Lightbox
+_9 items remaining. ~~12~~ 3 completed._### F8. No Route Transition Animations
 
-Gallery images in `portfolio-detail-gallery.tsx` have cursor `cursor-crosshair` suggesting they should be clickable, but clicking does nothing. Users cannot see full-resolution images.
+**File:** `src/routes/__root.tsx`
 
-### F2. No Floor Plans
+GSAP + Lenis already loaded, but route changes are instant snaps. TanStack Router renders `{children}` directly in `RootDocument` with no transition wrapper.
 
-Each project has specs (totalArea, units, floorCount) but no floor plan images or downloadable PDFs. Critical missing feature for real estate.
+**Fix:** Create a `<RouteTransition>` component using GSAP that wraps `{children}` — fade-out on route leave, fade-in on new route mount. Can use `onBeforeLoad` or a wrapper around the children outlet. Keep it simple (opacity fade, 300ms). No new dependencies needed.
 
-### F3. No Interactive Location Maps
+**Effort:** ~2 hrs
 
-Location sections use static `landmark-map.webp` image. No Google Maps / Leaflet integration. Missing: nearby amenities markers, transit info, street view, directions.
+---
 
 ### F4. No EMI / Payment Calculator
 
-Top conversion tool for real estate sites. Simple client-side calculator based on principal, rate, tenure.
+Top conversion tool for real estate sites. No calculator component exists. No price fields in project data model.
 
-### F5. No Analytics
+**Fix:** Create `EmiCalculator` standalone component with inputs for principal (slider), interest rate (slider), tenure years (slider). Display monthly EMI, total interest, total payment. Pure client-side, no data model changes needed.
 
-No page views, conversion tracking, or user behavior measurement. Cannot measure:
+**Effort:** ~2 hrs
 
-- Which projects get most views
-- Form conversion rates
-- Traffic sources
-- User flow
-
-### F6. No Cookie Consent Banner
-
-If analytics is added, GDPR/ePrivacy compliance requires consent. Add lightweight cookie banner.
-
-### F7. No Blog / News Section
-
-No content marketing. Real estate sites benefit from area guides, market trends, project updates, client stories.
-
-### F8. No Page Transition Animations
-
-GSAP + Lenis loaded but routes snap-change. TanStack Router could enable fade transitions via route `head` or `onBeforeLoad`.
-
-### F9. Forms Are In-Memory Only
-
-**File:** `forms.ts` — both contact and newsletter store nothing persistently. Resets on every deploy. No email notifications. Marked as "Phase B/D" but no timeline.
-
-### F10. No Testimonials Admin / Dynamic Data
-
-Testimonials are static data in `src/data/testimonials.ts`. No CMS integration or ability to add/edit remotely.
-
-### F11. No Project Comparison Tool
-
-Users can't compare specs across projects side-by-side.
+---
 
 ### F12. No Print-Friendly Project Detail Pages
 
-No print stylesheet for portfolio detail pages. Buyers often print property details.
+**File:** `src/components/portfolio-detail/*.tsx`, `src/styles.css`
+
+No `@media print` stylesheet. Buyers often print property details. Project detail pages render with full backgrounds, interactive elements, and animations that don't translate to paper.
+
+**Fix:** Add `@media print` rules to `src/styles.css` — remove backgrounds, hide interactive elements (nav, footer, buttons, FAB), show full text, ensure images print. Add a "Print this page" button to portfolio detail pages.
+
+**Effort:** ~30 min
 
 ---
+
+### F5. No Analytics
+
+No page views, conversion tracking, or behavior measurement. Privacy policy mentions analytics but no implementation exists. No analytics library in dependencies.
+
+**Fix:** Install `@vercel/analytics` (easiest for Vercel deployment, privacy-compliant by default). Add `<Analytics />` to root layout (`__root.tsx`). This covers page views, visit duration, and form conversion tracking with zero config.
+
+**Effort:** ~1 hr
+
+---
+
+### F6. No Cookie Consent Banner
+
+**File:** `src/components/privacy/privacy-policy.tsx`
+
+Privacy policy mentions cookies but no consent banner exists. If analytics (F5) is added, GDPR/ePrivacy compliance requires explicit consent.
+
+**Fix:** Create lightweight `CookieConsentBanner` component. Store consent preference in `localStorage`. Show banner on first visit with "Accept" / "Reject" buttons. Conditionally load analytics based on consent. Simple, no library needed.
+
+**Effort:** ~1 hr
+
+---
+
+### F2. No Floor Plans
+
+**Files:** `src/data/projects.ts`, `src/components/portfolio-detail/`
+
+Projects have specs (totalArea, units, floorCount) but no floor plan images or downloadable PDFs. Essential feature for real estate buyers.
+
+**Current type** — `ProjectDetail` has no `floorPlans` field.
+
+**Fix:** Add `floorPlans: { label: string; image: string }[]` to `ProjectDetail` type. Add placeholder floor plan images to project data. Create `PortfolioDetailFloorPlans` section component (tab/accordion UI to switch between plans). Add below specs section on detail pages.
+
+**Effort:** ~2 hrs
+
+---
+
+### F11. No Project Comparison Tool
+
+Users can't compare specs across projects side-by-side. Comparable fields already exist in data model (totalArea, units, floorCount, completion, location, status, amenities).
+
+**Fix:** Create a comparison route `/portfolio/compare` with a table view. Let users select 2–4 projects from the portfolio index and navigate to compare view. Table rows: spec fields (area, units, floors, completion, status, location, amenities count). Highlight differences.
+
+**Effort:** ~3 hrs
+
+---
+
+### F7. No Blog / News Section
+
+No content marketing infrastructure. No `/blog` route, no blog data schema, no components. Real estate benefits from area guides, market trends, project updates.
+
+**Fix:** Create blog data types and mock data (6–8 articles). Set up route `/blog` (index) + `/blog/$slug` (detail). Build index page with card grid, detail page with article layout + breadcrumbs. Add article JSON-LD schema. Add blog link to navigation. Requires full route + component + data buildout.
+
+**Effort:** ~1 week
+
+---
+
+### F10. No Testimonials Admin / Dynamic Data
+
+**File:** `src/data/testimonials.ts`
+
+5 testimonials hardcoded in source. No way to add/edit/remove without code changes. No admin interface, no CMS, no CRUD.
+
+**Fix:** Requires backend (Prisma + NeonDB for persistence, basic admin route for CRUD). Or integrate a headless CMS (Sanity, Strapi). Large scope — revisit after other items are resolved.
+
+**Effort:** ~8 hrs
 
 ## ⚪ Visual & UX
 
@@ -89,23 +134,23 @@ Fixed `bottom-6 right-6` FAB overlaps with:
 
 Consider adding bottom margin to page content or adjusting position per viewport.
 
-### U5. Hero Parallax Mouse Tracking Runs Continuously
+### U4. Hero Parallax Mouse Tracking Runs Continuously
 
 `gsap.ticker.add(updateParallax)` runs every frame even when mouse hasn't moved. Consider only updating on mouse events and killing ticker when idle.
 
-### U6. No Empty State for Portfolio Search
+### U5. No Empty State for Portfolio Search
 
 When filters match no projects, shows "No projects match your filters" with clear button. Functional but could show suggested projects or "try different criteria" guidance.
 
-### U7. Mobile Menu Animation: No Exit Animation on Close
+### U6. Mobile Menu Animation: No Exit Animation on Close
 
 Open animation uses GSAP timeline (fade in + stagger items). Close just sets opacity 0 — no stagger-out animation. Feels abrupt.
 
-### U8. Lenis Smooth Scroll — No Reduced Motion Check
+### U7. Lenis Smooth Scroll — No Reduced Motion Check
 
 `LenisScrollProvider` checks `prefers-reduced-motion` but only for initialization. No CSS `scroll-behavior: smooth` fallback or GSAP `reducedMotion` config.
 
-### U9. Testimonial Autoplay No Pause on Focus
+### U8. Testimonial Autoplay No Pause on Focus
 
 Carousel autoplay stops on `mouseEnter` but not on keyboard focus within the carousel. WCAG 2.2.2 requirement.
 
@@ -199,22 +244,14 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 | --- | ---------------------------------------------------------- | ------ | ------------------------- |
 
 
-### 🟡 P1 — Important (4-8 hrs)
-
-| ID  | Item                                                       | Effort | Impact                               |
-| --- | ---------------------------------------------------------- | ------ | ------------------------------------ |
-| F9  | Forms: add email notification (Resend/SendGrid)            | 2 hrs  | Business-critical                    |
-
 ### 🟢 P2 — Medium Priority (8-16 hrs)
 
 | ID  | Item                                                    | Effort | Impact          |
 | --- | ------------------------------------------------------- | ------ | --------------- |
-| F1  | Image lightbox for galleries                            | 3 hrs  | UX              |
 | F2  | Floor plan assets per project                           | 2 hrs  | Feature parity  |
 | F4  | EMI calculator                                          | 3 hrs  | Conversion tool |
-| F3  | Interactive maps (Leaflet)                              | 4 hrs  | UX, local SEO   |
 | U1  | Consistent focus indicators audit                       | 2 hrs  | Accessibility   |
-| U9  | Testimonial autoplay pause on keyboard focus            | 30 min | WCAG compliance |
+| U8  | Testimonial autoplay pause on keyboard focus            | 30 min | WCAG compliance |
 
 ### 🔵 P3 — Longer Term (16-40 hrs)
 
@@ -243,10 +280,10 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 **Top remaining priorities:**
 
-1. **Forms: email notifications** (F9) — stop losing leads to in-memory store
-2. **Image lightbox** (F1) — gallery images should be clickable
-3. **Interactive maps** (F3) — replace static map images
+1. **Floor plans** (F2) — add per-project floor plan images
+2. **EMI calculator** (F4) — conversion tool for buyers
+3. **Analytics + cookie consent** (F5/F6) — measure what works
 
-**Biggest feature gap:** Forms are in-memory only (F9) — no email notification means lost leads.
+**Recently completed:** F1 (lightbox), F3 (interactive maps), F9 (email notifications).
 
 _Audit generated 2026-06-19. Items verified against current codebase state._

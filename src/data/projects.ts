@@ -44,6 +44,8 @@ interface LocationDetails {
   description: string;
   points: LocationPoint[];
   mapImage: string;
+  lat: number;
+  lng: number;
 }
 
 export interface ProjectDetail {
@@ -147,6 +149,8 @@ export const allProjects: Project[] = [
           },
         ],
         mapImage: landmarkMap,
+        lat: 23.7925,
+        lng: 90.4078,
       },
     },
   },
@@ -229,6 +233,8 @@ export const allProjects: Project[] = [
           },
         ],
         mapImage: landmarkMap,
+        lat: 22.3475,
+        lng: 91.8123,
       },
     },
   },
@@ -323,6 +329,8 @@ export const allProjects: Project[] = [
           },
         ],
         mapImage: landmarkMap,
+        lat: 23.794,
+        lng: 90.409,
       },
     },
   },
@@ -417,6 +425,8 @@ export const allProjects: Project[] = [
           },
         ],
         mapImage: landmarkMap,
+        lat: 23.793,
+        lng: 90.4065,
       },
     },
   },

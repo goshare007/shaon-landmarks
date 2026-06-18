@@ -1,6 +1,7 @@
 import { createServerFn } from '@tanstack/react-start';
 import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
+import { sendContactNotification, sendNewsletterWelcome } from '@/lib/email';
 
 export const contactFormSchema = z.object({
   name: z
@@ -57,13 +58,7 @@ export const submitContactForm = createServerFn({ method: 'POST' })
       message: data.message ? sanitize(data.message) : undefined,
     };
 
-    // TODO: Phase B — integrate with Resend/SendGrid for email notification
-    // TODO: Phase D — persist to database via Prisma + NeonDB
-    // biome-ignore lint/suspicious/noConsole: intentional dev log — replace with email service in Phase B
-    console.log('[Form Submission] Contact:', {
-      ...sanitizedData,
-      timestamp: new Date().toISOString(),
-    });
+    sendContactNotification(sanitizedData);
 
     return {
       success: true,
@@ -96,12 +91,7 @@ export const submitNewsletterSignup = createServerFn({ method: 'POST' })
 
     subscribedEmails.add(email);
 
-    // biome-ignore lint/suspicious/noConsole: intentional dev log — replace with email service in Phase B
-    console.log('[Newsletter] New subscriber:', {
-      email,
-      total: subscribedEmails.size,
-      timestamp: new Date().toISOString(),
-    });
+    sendNewsletterWelcome(email);
 
     return {
       success: true,

@@ -1,7 +1,9 @@
 'use client';
 
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function PortfolioDetailGallery({
@@ -12,6 +14,15 @@ export function PortfolioDetailGallery({
   projectTitle: string;
 }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const slides = images.map((src) => ({ src }));
+
+  const openLightbox = useCallback((index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  }, []);
 
   const [img1, img2, img3] = images;
 
@@ -85,9 +96,12 @@ export function PortfolioDetailGallery({
           </p>
         </div>
         <div className='grid h-200 grid-cols-12 grid-rows-2 gap-6'>
-          <div
+          <button
             data-gallery-main
-            className='group col-span-12 cursor-crosshair overflow-hidden md:col-span-8 md:row-span-2'
+            type='button'
+            className='group col-span-12 w-full cursor-crosshair overflow-hidden text-left md:col-span-8 md:row-span-2'
+            onClick={() => openLightbox(0)}
+            aria-label='Open gallery image 1'
           >
             <Image
               src={img1}
@@ -97,11 +111,14 @@ export function PortfolioDetailGallery({
               height={800}
               className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
             />
-          </div>
+          </button>
           {img2 && (
-            <div
+            <button
               data-gallery-2
-              className='group col-span-6 cursor-crosshair overflow-hidden md:col-span-4 md:row-span-1'
+              type='button'
+              className='group col-span-6 w-full cursor-crosshair overflow-hidden text-left md:col-span-4 md:row-span-1'
+              onClick={() => openLightbox(1)}
+              aria-label='Open gallery image 2'
             >
               <Image
                 src={img2}
@@ -112,12 +129,15 @@ export function PortfolioDetailGallery({
                 loading='lazy'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
               />
-            </div>
+            </button>
           )}
           {img3 && (
-            <div
+            <button
               data-gallery-3
-              className='group col-span-6 cursor-crosshair overflow-hidden md:col-span-4 md:row-span-1'
+              type='button'
+              className='group col-span-6 w-full cursor-crosshair overflow-hidden text-left md:col-span-4 md:row-span-1'
+              onClick={() => openLightbox(2)}
+              aria-label='Open gallery image 3'
             >
               <Image
                 src={img3}
@@ -128,10 +148,19 @@ export function PortfolioDetailGallery({
                 loading='lazy'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
               />
-            </div>
+            </button>
           )}
         </div>
       </div>
+
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={lightboxIndex}
+        slides={slides}
+        carousel={{ finite: true }}
+        controller={{ closeOnBackdropClick: true }}
+      />
     </section>
   );
 }

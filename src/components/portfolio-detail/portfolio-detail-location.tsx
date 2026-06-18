@@ -1,9 +1,19 @@
 'use client';
 
-import { Image } from '@unpic/react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { useRef } from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { ProjectDetail } from '@/data/projects';
 import { useGsapAnimation } from '@/hooks/use-gsap-animation';
+
+const markerIcon = L.divIcon({
+  className: '',
+  html: `<div style="width:16px;height:16px;border-radius:50%;background:#886a43;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3)"></div>`,
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
+  popupAnchor: [0, -12],
+});
 
 export function PortfolioDetailLocation({
   location,
@@ -86,23 +96,24 @@ export function PortfolioDetailLocation({
           </div>
           <div
             data-location-map
-            className='relative h-150 overflow-hidden bg-surface-container-highest lg:col-span-7'
+            className='relative z-0 h-150 overflow-hidden lg:col-span-7'
           >
-            <div className='pointer-events-none absolute inset-0 z-10 bg-primary/5' />
-            <Image
-              src={location.mapImage}
-              alt=''
-              layout='fullWidth'
-              width={800}
-              height={600}
-              className='h-full w-full object-cover opacity-80 grayscale'
-            />
-            <div className='absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2'>
-              <div className='relative'>
-                <div className='absolute inset-0 animate-ping rounded-full bg-secondary/20' />
-                <div className='relative z-30 h-4 w-4 rounded-full border-2 border-surface bg-secondary' />
-              </div>
-            </div>
+            <MapContainer
+              center={[location.lat, location.lng]}
+              zoom={15}
+              className='h-full w-full'
+              zoomControl={false}
+              dragging={false}
+              scrollWheelZoom={false}
+              attributionControl={false}
+            >
+              <TileLayer url='https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png' />
+              <Marker position={[location.lat, location.lng]} icon={markerIcon}>
+                <Popup>
+                  <span className='text-sm font-medium'>Shaon Landmarks</span>
+                </Popup>
+              </Marker>
+            </MapContainer>
           </div>
         </div>
       </div>
