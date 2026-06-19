@@ -15,6 +15,7 @@ import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as LegalRouteImport } from './routes/legal'
+import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CareerRouteImport } from './routes/career'
 import { Route as AboutRouteImport } from './routes/about'
@@ -50,6 +51,11 @@ const PortfolioRoute = PortfolioRouteImport.update({
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
+  id: '/emi-calculator',
+  path: '/emi-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/career': typeof CareerRoute
   '/contact': typeof ContactRoute
+  '/emi-calculator': typeof EmiCalculatorRoute
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRouteWithChildren
   '/privacy': typeof PrivacyRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/career': typeof CareerRoute
   '/contact': typeof ContactRoute
+  '/emi-calculator': typeof EmiCalculatorRoute
   '/legal': typeof LegalRoute
   '/privacy': typeof PrivacyRoute
   '/projects': typeof ProjectsRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/career': typeof CareerRoute
   '/contact': typeof ContactRoute
+  '/emi-calculator': typeof EmiCalculatorRoute
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRouteWithChildren
   '/privacy': typeof PrivacyRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/career'
     | '/contact'
+    | '/emi-calculator'
     | '/legal'
     | '/portfolio'
     | '/privacy'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/career'
     | '/contact'
+    | '/emi-calculator'
     | '/legal'
     | '/privacy'
     | '/projects'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/career'
     | '/contact'
+    | '/emi-calculator'
     | '/legal'
     | '/portfolio'
     | '/privacy'
@@ -174,6 +186,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CareerRoute: typeof CareerRoute
   ContactRoute: typeof ContactRoute
+  EmiCalculatorRoute: typeof EmiCalculatorRoute
   LegalRoute: typeof LegalRoute
   PortfolioRoute: typeof PortfolioRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
@@ -224,6 +237,13 @@ declare module '@tanstack/react-router' {
       path: '/legal'
       fullPath: '/legal'
       preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emi-calculator': {
+      id: '/emi-calculator'
+      path: '/emi-calculator'
+      fullPath: '/emi-calculator'
+      preLoaderRoute: typeof EmiCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -290,6 +310,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CareerRoute: CareerRoute,
   ContactRoute: ContactRoute,
+  EmiCalculatorRoute: EmiCalculatorRoute,
   LegalRoute: LegalRoute,
   PortfolioRoute: PortfolioRouteWithChildren,
   PrivacyRoute: PrivacyRoute,

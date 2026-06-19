@@ -28,6 +28,7 @@ const footerSections: FooterSection[] = [
     links: [
       { label: 'About Us', href: '/about' },
       { label: 'Our Portfolio', href: '/portfolio' },
+      { label: 'EMI Calculator', href: '/emi-calculator' },
       { label: 'Sustainability', href: '/sustainability' },
       { label: 'Careers', href: '/career' },
     ],
