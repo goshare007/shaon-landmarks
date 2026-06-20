@@ -9,17 +9,7 @@
 
 ## 🟣 Feature Gaps
 
-_3 items remaining. ~~12~~ 9 completed._### F11. No Project Comparison Tool
-
-Users can't compare specs across projects side-by-side. Comparable fields already exist in data model (totalArea, units, floorCount, completion, location, status, amenities).
-
-**Fix:** Create a comparison route `/portfolio/compare` with a table view. Let users select 2–4 projects from the portfolio index and navigate to compare view. Table rows: spec fields (area, units, floors, completion, status, location, amenities count). Highlight differences.
-
-**Effort:** ~3 hrs
-
----
-
-### F7. No Blog / News Section
+_2 items remaining. ~~12~~ 10 completed._### F7. No Blog / News Section
 
 No content marketing infrastructure. No `/blog` route, no blog data schema, no components. Real estate benefits from area guides, market trends, project updates.
 
@@ -206,9 +196,8 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 **Top remaining priorities:**
 
 1. **Blog/news section** (F7) — content marketing, SEO
-2. **Project comparison tool** (F11) — compare specs side-by-side
-3. **Dynamic testimonials admin** (F10) — maintainability
+2. **Dynamic testimonials admin** (F10) — maintainability
 
-**Recently completed:** F1 (lightbox), F2 (floor plans), F3 (interactive maps), F4 (EMI calculator), F5+F6 (analytics + cookie consent), F8 (route transitions), F9 (email notifications), F12 (print-friendly pages).
+**Recently completed:** F1 (lightbox), F2 (floor plans), F3 (interactive maps), F4 (EMI calculator), F5+F6 (analytics + cookie consent), F8 (route transitions), F9 (email notifications), F11 (project comparison), F12 (print-friendly pages).
 
 _Audit generated 2026-06-19. Items verified against current codebase state._
