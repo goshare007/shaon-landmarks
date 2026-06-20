@@ -1,7 +1,7 @@
 'use client';
 
 import { Link } from '@tanstack/react-router';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Printer } from 'lucide-react';
 import { useRef } from 'react';
 import type { Project } from '@/data/projects';
 import { useGsapAnimation } from '@/hooks/use-gsap-animation';
@@ -51,6 +51,18 @@ export function PortfolioDetailSimple({ project }: { project: Project }) {
 
   return (
     <main>
+      <div className='print:hidden border-b border-outline-variant bg-surface py-2'>
+        <div className='mx-auto flex max-w-360 items-center justify-end px-4 md:px-16'>
+          <button
+            type='button'
+            onClick={() => window.print()}
+            className='flex items-center gap-2 text-caption font-medium tracking-wider text-on-surface-variant uppercase transition-colors hover:text-secondary'
+          >
+            <Printer size={14} aria-hidden='true' />
+            Print this page
+          </button>
+        </div>
+      </div>
       <section
         ref={sectionRef}
         className='relative h-[60vh] min-h-96 overflow-hidden'

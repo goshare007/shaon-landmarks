@@ -127,28 +127,29 @@
 }
 
 @media print {
-  header,
-  footer,
-  nav,
-  .fab,
-  button,
-  [data-floorplans-tab] {
-    display: none !important;
+  @page {
+    margin: 0.75in;
   }
 
   body {
     background: white !important;
     color: black !important;
+    font-size: 12pt;
   }
 
-  section,
-  .bg-surface,
-  .bg-surface-container-low,
-  .bg-primary {
-    background: white !important;
+  h1,
+  h2,
+  h3,
+  h4 {
     color: black !important;
-    padding: 0.5in 0 !important;
-    break-inside: avoid;
+    page-break-after: avoid;
+  }
+
+  p,
+  li,
+  blockquote {
+    orphans: 3;
+    widows: 3;
   }
 
   img {
@@ -156,20 +157,20 @@
     page-break-inside: avoid;
   }
 
-  h2,
-  h3 {
-    color: black !important;
+  a[href]::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    color: #555 !important;
+    font-weight: normal;
   }
 
-  [data-floorplans-image] {
-    display: block !important;
+  a[href^='#']::after,
+  a[href^='javascript']::after {
+    content: '';
   }
 
-  [data-floorplans-desc] {
-    display: block !important;
-  }
-
-  .text-on-surface-variant {
-    color: #333 !important;
+  section {
+    break-inside: avoid;
+    padding: 0.25in 0 !important;
   }
 }

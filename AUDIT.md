@@ -9,53 +9,7 @@
 
 ## 🟣 Feature Gaps
 
-_7 items remaining. ~~12~~ 5 completed._### F8. No Route Transition Animations
-
-**File:** `src/routes/__root.tsx`
-
-GSAP + Lenis already loaded, but route changes are instant snaps. TanStack Router renders `{children}` directly in `RootDocument` with no transition wrapper.
-
-**Fix:** Create a `<RouteTransition>` component using GSAP that wraps `{children}` — fade-out on route leave, fade-in on new route mount. Can use `onBeforeLoad` or a wrapper around the children outlet. Keep it simple (opacity fade, 300ms). No new dependencies needed.
-
-**Effort:** ~2 hrs
-
----
-
-### F12. No Print-Friendly Project Detail Pages
-
-**File:** `src/components/portfolio-detail/*.tsx`, `src/styles.css`
-
-No `@media print` stylesheet. Buyers often print property details. Project detail pages render with full backgrounds, interactive elements, and animations that don't translate to paper.
-
-**Fix:** Add `@media print` rules to `src/styles.css` — remove backgrounds, hide interactive elements (nav, footer, buttons, FAB), show full text, ensure images print. Add a "Print this page" button to portfolio detail pages.
-
-**Effort:** ~30 min
-
----
-
-### F5. No Analytics
-
-No page views, conversion tracking, or behavior measurement. Privacy policy mentions analytics but no implementation exists. No analytics library in dependencies.
-
-**Fix:** Install `@vercel/analytics` (easiest for Vercel deployment, privacy-compliant by default). Add `<Analytics />` to root layout (`__root.tsx`). This covers page views, visit duration, and form conversion tracking with zero config.
-
-**Effort:** ~1 hr
-
----
-
-### F6. No Cookie Consent Banner
-
-**File:** `src/components/privacy/privacy-policy.tsx`
-
-Privacy policy mentions cookies but no consent banner exists. If analytics (F5) is added, GDPR/ePrivacy compliance requires explicit consent.
-
-**Fix:** Create lightweight `CookieConsentBanner` component. Store consent preference in `localStorage`. Show banner on first visit with "Accept" / "Reject" buttons. Conditionally load analytics based on consent. Simple, no library needed.
-
-**Effort:** ~1 hr
-
----
-
-### F11. No Project Comparison Tool
+_3 items remaining. ~~12~~ 9 completed._### F11. No Project Comparison Tool
 
 Users can't compare specs across projects side-by-side. Comparable fields already exist in data model (totalArea, units, floorCount, completion, location, status, amenities).
 
@@ -231,8 +185,6 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 | ID  | Item                                       | Effort | Impact                 |
 | --- | ------------------------------------------ | ------ | ---------------------- |
 | F7  | Blog/news section with RSS, article schema | 1 week | Content marketing, SEO |
-| F5  | Analytics + cookie consent                 | 2 hrs  | Data-driven decisions  |
-| F8  | Page transition animations                 | 4 hrs  | UX polish              |
 | F10 | Dynamic testimonials admin                 | 8 hrs  | Maintainability        |
 | C6  | Env var validation + error handling        | 1 hr   | Reliability            |
 | T1  | Fix Vitest close timeout                   | 1 hr   | DX                     |
@@ -253,10 +205,10 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 **Top remaining priorities:**
 
-1. **Analytics + cookie consent** (F5/F6) — measure what works
-2. **Print-friendly pages** (F12) — property detail printing
-3. **Route transition animations** (F8) — UX polish
+1. **Blog/news section** (F7) — content marketing, SEO
+2. **Project comparison tool** (F11) — compare specs side-by-side
+3. **Dynamic testimonials admin** (F10) — maintainability
 
-**Recently completed:** F1 (lightbox), F2 (floor plans), F3 (interactive maps), F4 (EMI calculator), F9 (email notifications).
+**Recently completed:** F1 (lightbox), F2 (floor plans), F3 (interactive maps), F4 (EMI calculator), F5+F6 (analytics + cookie consent), F8 (route transitions), F9 (email notifications), F12 (print-friendly pages).
 
 _Audit generated 2026-06-19. Items verified against current codebase state._

@@ -7,6 +7,8 @@ import {
 import { AlertCircle } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/layout/header';
+import { RouteTransition } from '@/components/route-transition';
+import { CookieConsentBanner } from '@/components/shared/cookie-consent-banner';
 import { WhatsAppFab } from '@/components/shared/whatsapp-fab';
 import { DEFAULT_OG_IMAGE, ORGANIZATION_JSON_LD, SITE_URL } from '@/lib/seo';
 import { LenisScrollProvider } from '@/lib/smooth-scroll';
@@ -142,13 +144,20 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           Skip to content
         </a>
         <LenisScrollProvider>
-          <Header />
-          <div id='main-content' tabIndex={-1}>
-            {children}
+          <div className='print:hidden'>
+            <Header />
           </div>
-          <Footer />
-          <WhatsAppFab />
+          <div id='main-content' tabIndex={-1}>
+            <RouteTransition>{children}</RouteTransition>
+          </div>
+          <div className='print:hidden'>
+            <Footer />
+          </div>
+          <div className='print:hidden'>
+            <WhatsAppFab />
+          </div>
         </LenisScrollProvider>
+        <CookieConsentBanner />
         <Scripts />
       </body>
     </html>

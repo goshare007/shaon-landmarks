@@ -22,7 +22,7 @@ const policySections = [
   {
     title: 'Cookies',
     content:
-      'Our website uses essential cookies to ensure proper functionality. We may also use analytics cookies to understand how visitors interact with our site. You can control cookie preferences through your browser settings.',
+      'Our website uses essential cookies to ensure proper functionality. We may also use analytics cookies (with your consent) to understand how visitors interact with our site. You can manage your cookie preferences through our cookie consent banner on first visit, or through your browser settings at any time.',
   },
   {
     title: 'Third-Party Services',

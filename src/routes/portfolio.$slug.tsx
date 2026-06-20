@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { Printer } from 'lucide-react';
 import { PortfolioDetailAmenities } from '@/components/portfolio-detail/portfolio-detail-amenities';
 import { PortfolioDetailFloorPlans } from '@/components/portfolio-detail/portfolio-detail-floor-plans';
 import { PortfolioDetailGallery } from '@/components/portfolio-detail/portfolio-detail-gallery';
@@ -165,6 +166,18 @@ function FullProjectView({
 }) {
   return (
     <main>
+      <div className='print:hidden border-b border-outline-variant bg-surface py-2'>
+        <div className='mx-auto flex max-w-360 items-center justify-end px-4 md:px-16'>
+          <button
+            type='button'
+            onClick={() => window.print()}
+            className='flex items-center gap-2 text-caption font-medium tracking-wider text-on-surface-variant uppercase transition-colors hover:text-secondary'
+          >
+            <Printer size={14} aria-hidden='true' />
+            Print this page
+          </button>
+        </div>
+      </div>
       <PortfolioDetailHero project={project} detail={detail} />
       <PortfolioDetailSpecs specs={detail.specs} />
       <PortfolioDetailFloorPlans floorPlans={detail.floorPlans} />
