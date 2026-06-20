@@ -17,6 +17,7 @@ export function TestimonialSection() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const carouselWrapperRef = useRef<HTMLDivElement>(null);
 
   const autoplayPlugin = useMemo(
     () =>
@@ -27,6 +28,26 @@ export function TestimonialSection() {
       }),
     [],
   );
+
+  useEffect(() => {
+    const el = carouselWrapperRef.current;
+    if (!el) return;
+
+    const handleFocusIn = () => autoplayPlugin.stop();
+    const handleFocusOut = (e: FocusEvent) => {
+      if (!el.contains(e.relatedTarget as Node)) {
+        autoplayPlugin.play();
+      }
+    };
+
+    el.addEventListener('focusin', handleFocusIn);
+    el.addEventListener('focusout', handleFocusOut);
+
+    return () => {
+      el.removeEventListener('focusin', handleFocusIn);
+      el.removeEventListener('focusout', handleFocusOut);
+    };
+  }, [autoplayPlugin]);
 
   useEffect(() => {
     if (!api) return;
@@ -95,52 +116,54 @@ export function TestimonialSection() {
           </h2>
         </div>
 
-        <Carousel
-          setApi={setApi}
-          opts={{
-            align: 'center',
-            loop: true,
-          }}
-          plugins={[autoplayPlugin]}
-          className='mx-auto max-w-360'
-          aria-live='polite'
-        >
-          <CarouselContent>
-            {testimonials.map((t) => (
-              <CarouselItem
-                key={t.id}
-                className='md:basis-4/5 lg:basis-2/4 py-3'
-              >
-                <div
-                  data-t-card
-                  className='border border-white/10 p-10 md:p-14'
+        <div ref={carouselWrapperRef}>
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: 'center',
+              loop: true,
+            }}
+            plugins={[autoplayPlugin]}
+            className='mx-auto max-w-360'
+            aria-live='polite'
+          >
+            <CarouselContent>
+              {testimonials.map((t) => (
+                <CarouselItem
+                  key={t.id}
+                  className='md:basis-4/5 lg:basis-2/4 py-3'
                 >
-                  <div className='mb-8 font-serif text-7xl leading-none text-secondary'>
-                    &ldquo;
-                  </div>
+                  <div
+                    data-t-card
+                    className='border border-white/10 p-10 md:p-14'
+                  >
+                    <div className='mb-8 font-serif text-7xl leading-none text-secondary'>
+                      &ldquo;
+                    </div>
 
-                  <p className='mb-10 font-sans text-base leading-relaxed text-on-tertiary/90 md:text-lg'>
-                    {t.quote}
-                  </p>
-
-                  <div className='mb-6 h-px w-12 bg-secondary' />
-
-                  <footer>
-                    <strong className='block font-sans text-label font-medium tracking-[0.15em] text-secondary uppercase'>
-                      {t.name}
-                    </strong>
-                    <p className='mt-1.5 font-sans text-sm text-on-tertiary/50'>
-                      {t.role}
+                    <p className='mb-10 font-sans text-base leading-relaxed text-on-tertiary/90 md:text-lg'>
+                      {t.quote}
                     </p>
-                  </footer>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
 
-          <CarouselPrevious className='hidden border border-white/20 text-secondary hover:bg-white/5 hover:text-secondary md:flex -left-4 h-12 w-12 rounded-none' />
-          <CarouselNext className='hidden border border-white/20 text-secondary hover:bg-white/5 hover:text-secondary md:flex -right-4 h-12 w-12 rounded-none' />
-        </Carousel>
+                    <div className='mb-6 h-px w-12 bg-secondary' />
+
+                    <footer>
+                      <strong className='block font-sans text-label font-medium tracking-[0.15em] text-secondary uppercase'>
+                        {t.name}
+                      </strong>
+                      <p className='mt-1.5 font-sans text-sm text-on-tertiary/50'>
+                        {t.role}
+                      </p>
+                    </footer>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            <CarouselPrevious className='hidden border border-white/20 text-secondary hover:bg-white/5 hover:text-secondary md:flex -left-4 h-12 w-12 rounded-none' />
+            <CarouselNext className='hidden border border-white/20 text-secondary hover:bg-white/5 hover:text-secondary md:flex -right-4 h-12 w-12 rounded-none' />
+          </Carousel>
+        </div>
 
         <div className='mt-12 flex items-center justify-center gap-3'>
           {testimonials.map((t, i) => (

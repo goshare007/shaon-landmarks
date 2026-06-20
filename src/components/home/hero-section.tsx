@@ -25,22 +25,11 @@ export function HeroSection() {
   const contentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!rightPanelRef.current) return;
-    const rect = rightPanelRef.current.getBoundingClientRect();
-    mouseTarget.current.x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
-    mouseTarget.current.y = ((e.clientY - rect.top) / rect.height - 0.5) * 6;
-  };
-
-  const handleMouseLeave = () => {
-    mouseTarget.current.x = 0;
-    mouseTarget.current.y = 0;
-  };
-
   useGsapAnimation((gsap, ScrollTrigger) => {
     const section = sectionRef.current;
     if (!section) return [];
 
+    const rightPanel = rightPanelRef.current;
     const headline = headlineRef.current;
     if (headline) {
       gsap.set(headline, { opacity: 1 });
@@ -136,13 +125,51 @@ export function HeroSection() {
         y: `${mouseCurrent.current.y}%`,
       });
     };
-    gsap.ticker.add(updateParallax);
+
+    let tickerActive = false;
+    let idleTimeout: ReturnType<typeof setTimeout>;
+
+    const addTicker = () => {
+      if (!tickerActive) {
+        gsap.ticker.add(updateParallax);
+        tickerActive = true;
+      }
+    };
+
+    const removeTicker = () => {
+      if (tickerActive) {
+        gsap.ticker.remove(updateParallax);
+        tickerActive = false;
+      }
+    };
+
+    const scheduleRemove = (delay: number) => {
+      clearTimeout(idleTimeout);
+      idleTimeout = setTimeout(removeTicker, delay);
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!rightPanel) return;
+      const rect = rightPanel.getBoundingClientRect();
+      mouseTarget.current.x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
+      mouseTarget.current.y = ((e.clientY - rect.top) / rect.height - 0.5) * 6;
+      addTicker();
+      scheduleRemove(100);
+    };
+
+    const onMouseLeave = () => {
+      mouseTarget.current.x = 0;
+      mouseTarget.current.y = 0;
+      scheduleRemove(200);
+    };
+
+    rightPanel?.addEventListener('mousemove', onMouseMove);
+    rightPanel?.addEventListener('mouseleave', onMouseLeave);
 
     const handleVisibility = () => {
       if (document.hidden) {
-        gsap.ticker.remove(updateParallax);
-      } else {
-        gsap.ticker.add(updateParallax);
+        clearTimeout(idleTimeout);
+        removeTicker();
       }
     };
     document.addEventListener('visibilitychange', handleVisibility);
@@ -163,8 +190,13 @@ export function HeroSection() {
 
     return [
       () => {
-        gsap.ticker.remove(updateParallax);
+        clearTimeout(idleTimeout);
+        removeTicker();
         document.removeEventListener('visibilitychange', handleVisibility);
+        if (rightPanel) {
+          rightPanel.removeEventListener('mousemove', onMouseMove);
+          rightPanel.removeEventListener('mouseleave', onMouseLeave);
+        }
       },
       () => tl.kill(),
       ...(st ? [() => st.kill()] : []),
@@ -282,16 +314,8 @@ export function HeroSection() {
       </div>
 
       {/* RIGHT PANEL */}
-      {/* biome-ignore lint/a11y/noStaticElementInteractions: decorative parallax — no semantic widget needed */}
       <div
         ref={rightPanelRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => {
-          if (rightPanelRef.current) {
-            rightPanelRef.current.getBoundingClientRect();
-          }
-        }}
-        onMouseLeave={handleMouseLeave}
         className='relative h-[45vh] md:h-full overflow-hidden order-1 md:order-2'
       >
         <div

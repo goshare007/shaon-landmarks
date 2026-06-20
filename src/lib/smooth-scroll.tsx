@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useEffect, useRef } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { loadGsap } from '@/lib/gsap-loader';
 
 interface LenisScrollProviderProps {
@@ -8,8 +8,6 @@ interface LenisScrollProviderProps {
 }
 
 export function LenisScrollProvider({ children }: LenisScrollProviderProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     let lenis: ReturnType<
       typeof import('lenis').default extends { new (...args: infer P): infer R }
@@ -39,14 +37,17 @@ export function LenisScrollProvider({ children }: LenisScrollProviderProps) {
         ScrollTrigger.update();
       });
 
+      let rafId: number;
+
       const raf = (time: number) => {
         lenis?.raf(time);
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
       };
 
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
 
       cleanup = () => {
+        cancelAnimationFrame(rafId);
         lenis?.destroy();
       };
     }
@@ -58,5 +59,5 @@ export function LenisScrollProvider({ children }: LenisScrollProviderProps) {
     };
   }, []);
 
-  return <div ref={wrapperRef}>{children}</div>;
+  return <div>{children}</div>;
 }

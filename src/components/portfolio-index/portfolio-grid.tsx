@@ -129,6 +129,13 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
       );
 
       tl.fromTo(
+        section.querySelector('[data-e="empty-state"]'),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.4 },
+        '-=0.1',
+      );
+
+      tl.fromTo(
         section.querySelector('[data-e="view-count"]'),
         { opacity: 0 },
         { opacity: 1, duration: 0.5 },
@@ -221,9 +228,12 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
         </div>
 
         {filtered.length === 0 ? (
-          <div className='py-20 text-center'>
+          <div data-e='empty-state' className='py-20 text-center'>
             <p className='text-lg font-serif text-on-surface-variant'>
               No projects match your filters
+            </p>
+            <p className='mt-2 text-sm text-on-surface-variant/70'>
+              Try different keywords, status, or location
             </p>
             <button
               type='button'
@@ -236,6 +246,48 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
               <X className='h-3 w-3' />
               Clear Filters
             </button>
+            <div className='mx-auto mt-12 max-w-lg border-t border-outline-variant pt-8'>
+              <p className='mb-6 text-caption font-medium tracking-[0.15em] text-on-surface-variant uppercase'>
+                Featured Projects
+              </p>
+              <div className='flex flex-col gap-4'>
+                {allProjects.slice(0, 3).map((p) => (
+                  <Link
+                    key={p.id}
+                    to='/portfolio/$slug'
+                    params={{ slug: p.slug }}
+                    onClick={() => {
+                      setSearchInput('');
+                      onFilterChange({ status: '', location: '', search: '' });
+                    }}
+                    className='group flex items-center gap-4 rounded-sm border border-outline-variant p-4 text-left transition-colors hover:border-secondary'
+                  >
+                    <div className='h-14 w-14 shrink-0 overflow-hidden rounded-sm'>
+                      <Image
+                        src={p.image}
+                        alt=''
+                        layout='fullWidth'
+                        width={56}
+                        height={56}
+                        className='h-full w-full object-cover'
+                      />
+                    </div>
+                    <div className='min-w-0 flex-1'>
+                      <p className='font-serif text-sm text-on-surface group-hover:text-secondary transition-colors'>
+                        {p.title}
+                      </p>
+                      <p className='mt-0.5 text-xs text-on-surface-variant/70'>
+                        {p.location}
+                      </p>
+                    </div>
+                    <ArrowRight
+                      size={14}
+                      className='shrink-0 text-on-surface-variant transition-colors group-hover:text-secondary'
+                    />
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         ) : (
           <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>

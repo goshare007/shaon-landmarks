@@ -18,7 +18,7 @@ export default function MobileMenu() {
     if (open) {
       setRenderOverlay(true);
     } else {
-      const id = window.setTimeout(() => setRenderOverlay(false), 250);
+      const id = window.setTimeout(() => setRenderOverlay(false), 400);
       return () => window.clearTimeout(id);
     }
   }, [open]);
@@ -51,10 +51,19 @@ export default function MobileMenu() {
           '-=0.1',
         );
       } else {
-        gsap.to(overlayRef.current, {
-          opacity: 0,
-          duration: 0.2,
-        });
+        const tl = gsap.timeline();
+        tl.fromTo(
+          navRef.current?.querySelectorAll('li') ?? [],
+          { opacity: 1, y: 0 },
+          {
+            opacity: 0,
+            y: 24,
+            duration: 0.2,
+            stagger: 0.04,
+            ease: 'power3.in',
+          },
+        );
+        tl.to(overlayRef.current, { opacity: 0, duration: 0.15 }, '-=0.1');
       }
     });
 

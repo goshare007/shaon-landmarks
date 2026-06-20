@@ -147,7 +147,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <div className='print:hidden'>
             <Header />
           </div>
-          <div id='main-content' tabIndex={-1}>
+          <div id='main-content' tabIndex={-1} className='pb-16'>
             <RouteTransition>{children}</RouteTransition>
           </div>
           <div className='print:hidden'>
