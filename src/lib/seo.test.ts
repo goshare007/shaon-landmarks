@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import {
   breadcrumbLd,
   DEFAULT_OG_IMAGE,
@@ -8,7 +8,7 @@ import {
   productLd,
   SITE_URL,
   webpageLd,
-} from './seo';
+} from '@/lib/seo';
 
 describe('generateMeta', () => {
   it('returns default metadata when no props are provided', () => {

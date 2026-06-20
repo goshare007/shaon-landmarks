@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 import { contactFormSchema, newsletterSchema, sanitize } from '@/lib/forms';
 
 describe('contactFormSchema', () => {

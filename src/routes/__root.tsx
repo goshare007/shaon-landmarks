@@ -33,6 +33,20 @@ export const Route = createRootRoute({
       { property: 'og:locale', content: 'en_US' },
       { property: 'og:locale:alternate', content: 'bn_BD' },
       { property: 'og:type', content: 'website' },
+      {
+        httpEquiv: 'Content-Security-Policy',
+        content: [
+          "default-src 'self'",
+          "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com",
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+          "font-src 'self' https://fonts.gstatic.com",
+          "img-src 'self' data: https://*.basemaps.cartocdn.com",
+          "connect-src 'self' https://va.vercel-scripts.com",
+          "object-src 'none'",
+          "frame-src 'none'",
+          "base-uri 'self'",
+        ].join('; '),
+      },
       { 'script:ld+json': ORGANIZATION_JSON_LD },
     ],
     links: [

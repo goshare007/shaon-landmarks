@@ -1,27 +1,26 @@
 import nodemailer from 'nodemailer';
+import { getSmtpConfig, NOTIFICATION_EMAIL } from '@/lib/env';
 
 let transporter: nodemailer.Transporter | null = null;
 
 function getTransporter(): nodemailer.Transporter | null {
   if (transporter) return transporter;
 
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (SMTP_HOST && SMTP_USER && SMTP_PASS) {
+  const cfg = getSmtpConfig();
+  if (cfg) {
     transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: Number(SMTP_PORT) || 587,
+      host: cfg.host,
+      port: cfg.port,
       secure: false,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
+      auth: { user: cfg.user, pass: cfg.pass },
     });
     return transporter;
   }
   return null;
 }
 
-const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL ?? '';
-
 function getSenderEmail(): string {
-  return process.env.SMTP_USER || 'noreply@shaonlandmarks.com';
+  return getSmtpConfig()?.user ?? 'noreply@shaonlandmarks.com';
 }
 
 export async function sendContactNotification(data: {

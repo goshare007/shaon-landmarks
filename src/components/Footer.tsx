@@ -167,7 +167,7 @@ export default function Footer() {
                 </div>
               </div>
             </Link>
-            <p className='text-sm text-on-surface-variant leading-relaxed mb-8'>
+            <p className='text-sm text-white/65 leading-relaxed mb-8'>
               Redefining the skyline through structural precision and unwavering
               aesthetic integrity since 2008. Transforming visions into
               architectural masterpieces.
@@ -228,7 +228,7 @@ export default function Footer() {
                         href={link.href}
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='text-sm text-on-surface-variant hover:text-secondary-fixed-dim transition-colors duration-300 group inline-flex items-center gap-2'
+                        className='text-sm text-white/65 hover:text-secondary-fixed-dim transition-colors duration-300 group inline-flex items-center gap-2'
                       >
                         {link.label}
                         <span className='opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0'>
@@ -238,7 +238,7 @@ export default function Footer() {
                     ) : (
                       <Link
                         to={link.href}
-                        className='text-sm text-on-surface-variant hover:text-secondary-fixed-dim transition-colors duration-300 group inline-flex items-center gap-2'
+                        className='text-sm text-white/65 hover:text-secondary-fixed-dim transition-colors duration-300 group inline-flex items-center gap-2'
                       >
                         {link.label}
                         <span className='opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-1 group-hover:translate-x-0'>
@@ -258,7 +258,7 @@ export default function Footer() {
 
       <div data-footer-bottom className='mx-auto max-w-6xl px-4 py-8 md:py-12'>
         <div className='flex flex-col md:flex-row items-center justify-between gap-6'>
-          <p className='text-xs text-on-surface-variant'>
+          <p className='text-xs text-white/65'>
             &copy; {year} Shaon Landmarks. Architectural Excellence. All Rights
             Reserved.
           </p>
@@ -328,7 +328,7 @@ export default function Footer() {
                 target='_blank'
                 rel='noopener noreferrer'
                 aria-label={social.name}
-                className='text-on-surface-variant hover:text-secondary-fixed-dim transition-all duration-200 hover:scale-125 active:scale-95'
+                className='text-white/65 hover:text-secondary-fixed-dim transition-all duration-200 hover:scale-125 active:scale-95'
               >
                 {social.icon}
               </a>

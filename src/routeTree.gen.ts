@@ -21,6 +21,7 @@ import { Route as CareerRouteImport } from './routes/career'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
+import { Route as PortfolioCompareRouteImport } from './routes/portfolio.compare'
 import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
 
 const SustainabilityRoute = SustainabilityRouteImport.update({
@@ -83,6 +84,11 @@ const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PortfolioRoute,
 } as any)
+const PortfolioCompareRoute = PortfolioCompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
+  getParentRoute: () => PortfolioRoute,
+} as any)
 const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sustainability': typeof SustainabilityRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/portfolio/compare': typeof PortfolioCompareRoute
   '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRoutesByTo {
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sustainability': typeof SustainabilityRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/portfolio/compare': typeof PortfolioCompareRoute
   '/portfolio': typeof PortfolioIndexRoute
 }
 export interface FileRoutesById {
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sustainability': typeof SustainabilityRoute
   '/portfolio/$slug': typeof PortfolioSlugRoute
+  '/portfolio/compare': typeof PortfolioCompareRoute
   '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sustainability'
     | '/portfolio/$slug'
+    | '/portfolio/compare'
     | '/portfolio/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sustainability'
     | '/portfolio/$slug'
+    | '/portfolio/compare'
     | '/portfolio'
   id:
     | '__root__'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sustainability'
     | '/portfolio/$slug'
+    | '/portfolio/compare'
     | '/portfolio/'
   fileRoutesById: FileRoutesById
 }
@@ -281,6 +293,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PortfolioIndexRouteImport
       parentRoute: typeof PortfolioRoute
     }
+    '/portfolio/compare': {
+      id: '/portfolio/compare'
+      path: '/compare'
+      fullPath: '/portfolio/compare'
+      preLoaderRoute: typeof PortfolioCompareRouteImport
+      parentRoute: typeof PortfolioRoute
+    }
     '/portfolio/$slug': {
       id: '/portfolio/$slug'
       path: '/$slug'
@@ -293,11 +312,13 @@ declare module '@tanstack/react-router' {
 
 interface PortfolioRouteChildren {
   PortfolioSlugRoute: typeof PortfolioSlugRoute
+  PortfolioCompareRoute: typeof PortfolioCompareRoute
   PortfolioIndexRoute: typeof PortfolioIndexRoute
 }
 
 const PortfolioRouteChildren: PortfolioRouteChildren = {
   PortfolioSlugRoute: PortfolioSlugRoute,
+  PortfolioCompareRoute: PortfolioCompareRoute,
   PortfolioIndexRoute: PortfolioIndexRoute,
 }
 

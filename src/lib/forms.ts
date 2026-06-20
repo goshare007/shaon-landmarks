@@ -1,4 +1,5 @@
-import { createServerFn } from '@tanstack/react-start';
+import { createCsrfMiddleware, createServerFn } from '@tanstack/react-start';
+import { getRequestIP } from '@tanstack/react-start/server';
 import sanitizeHtml from 'sanitize-html';
 import { z } from 'zod';
 import { sendContactNotification, sendNewsletterWelcome } from '@/lib/email';
@@ -21,10 +22,11 @@ export const newsletterSchema = z.object({
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
 // NOTE: In-memory only — resets on every server restart / cold start.
-// For production, replace with a shared store (Redis/DB) and add IP-based
-// rate limiting from request headers (see TanStack Start server function docs).
+// For production, replace with a shared store (Redis/DB).
 const subscribedEmails = new Set<string>();
 const submissionTimestamps = new Map<string, number>();
+
+const csrfMiddleware = createCsrfMiddleware();
 
 function isRateLimited(identifier: string, limitMs = 5000) {
   const now = Date.now();
@@ -39,10 +41,20 @@ export function sanitize(text: string) {
 }
 
 export const submitContactForm = createServerFn({ method: 'POST' })
+  .middleware([csrfMiddleware])
   .inputValidator((data: ContactFormData) => contactFormSchema.parse(data))
   .handler(async ({ data }) => {
     // Mock network delay
     await new Promise((resolve) => setTimeout(resolve, 800));
+
+    const ip = getRequestIP({ xForwardedFor: true });
+    if (ip && isRateLimited(`ip:${ip}`)) {
+      return {
+        success: false,
+        message:
+          'Too many requests. Please wait a few seconds before trying again.',
+      };
+    }
 
     if (isRateLimited(data.email)) {
       return {
@@ -58,6 +70,13 @@ export const submitContactForm = createServerFn({ method: 'POST' })
       message: data.message ? sanitize(data.message) : undefined,
     };
 
+    if (sanitizedData.name.length < 2) {
+      return {
+        success: false,
+        message: 'Name must be at least 2 characters.',
+      };
+    }
+
     sendContactNotification(sanitizedData);
 
     return {
@@ -68,12 +87,21 @@ export const submitContactForm = createServerFn({ method: 'POST' })
   });
 
 export const submitNewsletterSignup = createServerFn({ method: 'POST' })
+  .middleware([csrfMiddleware])
   .inputValidator((data: { email: string }) => newsletterSchema.parse(data))
   .handler(async ({ data }) => {
     // Mock network delay
     await new Promise((resolve) => setTimeout(resolve, 600));
 
     const email = data.email.toLowerCase().trim();
+
+    const ip = getRequestIP({ xForwardedFor: true });
+    if (ip && isRateLimited(`ip:${ip}`)) {
+      return {
+        success: false,
+        message: 'Please wait before subscribing again.',
+      };
+    }
 
     if (isRateLimited(email)) {
       return {
