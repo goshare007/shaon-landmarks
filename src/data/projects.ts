@@ -48,6 +48,12 @@ interface LocationDetails {
   lng: number;
 }
 
+interface FloorPlan {
+  title: string;
+  image: string;
+  description: string;
+}
+
 export interface ProjectDetail {
   specs: ProjectSpecs;
   heroImage: string;
@@ -55,6 +61,7 @@ export interface ProjectDetail {
   gallery: string[];
   amenities: Amenity[];
   location: LocationDetails;
+  floorPlans: FloorPlan[];
 }
 
 export interface Project {
@@ -123,6 +130,20 @@ export const allProjects: Project[] = [
           title: 'Wellness Suite',
           description:
             'A private steam room, sauna, and fitness center reserved exclusively for residents.',
+        },
+      ],
+      floorPlans: [
+        {
+          title: 'Typical Floor',
+          image: galleryImg1,
+          description:
+            'Open-plan layout with 3 bedrooms, a private study, and a sprawling 450 sq ft living area bathed in natural light.',
+        },
+        {
+          title: 'Penthouse Suite',
+          image: galleryImg2,
+          description:
+            'The pinnacle of dark elegance — 4 bedrooms, a private terrace, and floor-to-ceiling windows framing the Gulshan skyline.',
         },
       ],
       location: {
@@ -207,6 +228,20 @@ export const allProjects: Project[] = [
           title: 'Sky Gym',
           description:
             'State-of-the-art fitness facilities with ocean views on the uppermost floor.',
+        },
+      ],
+      floorPlans: [
+        {
+          title: 'Standard Suite',
+          image: galleryImg3,
+          description:
+            'A refined 2-bedroom layout with panoramic bay views, a European kitchen, and a master suite with walk-in wardrobe.',
+        },
+        {
+          title: 'Corner Suite',
+          image: galleryImg4,
+          description:
+            'Expansive 3-bedroom corner residence with dual-aspect windows, a private study nook, and a grand entertainer’s living room.',
         },
       ],
       location: {
@@ -305,6 +340,20 @@ export const allProjects: Project[] = [
             'A meticulously curated zen garden designed for meditation and quiet reflection.',
         },
       ],
+      floorPlans: [
+        {
+          title: 'Lakeside Residence',
+          image: galleryImg1,
+          description:
+            'A luminous 3-bedroom layout with an open-concept living area, floor-to-ceiling lake-view windows, and a private balcony.',
+        },
+        {
+          title: 'Penthouse',
+          image: galleryImg3,
+          description:
+            'Sweeping 4-bedroom penthouse with wraparound terrace, private pool access, and panoramic lake and city views.',
+        },
+      ],
       location: {
         description:
           'Set along the pristine shores of Gulshan Lake, Azure Waterfront offers an unrivaled waterfront lifestyle.',
@@ -399,6 +448,26 @@ export const allProjects: Project[] = [
           title: 'Concierge Service',
           description:
             'A 24/7 personalized concierge to manage logistics, housekeeping, and secure package handling for all residents.',
+        },
+      ],
+      floorPlans: [
+        {
+          title: 'Standard Layout',
+          image: landmarkGallery2,
+          description:
+            'Generous 3-bedroom residence with a formal dining room, servant quarters, and a 600 sq ft grand living salon.',
+        },
+        {
+          title: 'Corner Unit',
+          image: landmarkGallery3,
+          description:
+            'Expansive 4-bedroom corner apartment with dual exposures, a private library, and a master suite with his-and-hers closets.',
+        },
+        {
+          title: 'Presidential Suite',
+          image: landmarkGallery1,
+          description:
+            'The crown jewel — 5 bedrooms, a private elevator lobby, a home theatre, and a 1,200 sq ft rooftop garden.',
         },
       ],
       location: {

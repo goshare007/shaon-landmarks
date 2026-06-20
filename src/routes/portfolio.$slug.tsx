@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { PortfolioDetailAmenities } from '@/components/portfolio-detail/portfolio-detail-amenities';
+import { PortfolioDetailFloorPlans } from '@/components/portfolio-detail/portfolio-detail-floor-plans';
 import { PortfolioDetailGallery } from '@/components/portfolio-detail/portfolio-detail-gallery';
 import { PortfolioDetailHero } from '@/components/portfolio-detail/portfolio-detail-hero';
 import { PortfolioDetailLocation } from '@/components/portfolio-detail/portfolio-detail-location';
@@ -166,6 +167,7 @@ function FullProjectView({
     <main>
       <PortfolioDetailHero project={project} detail={detail} />
       <PortfolioDetailSpecs specs={detail.specs} />
+      <PortfolioDetailFloorPlans floorPlans={detail.floorPlans} />
       <PortfolioDetailVision vision={detail.vision} />
       <PortfolioDetailGallery
         images={detail.gallery}

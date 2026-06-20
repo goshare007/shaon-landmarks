@@ -9,23 +9,13 @@
 
 ## 🟣 Feature Gaps
 
-_9 items remaining. ~~12~~ 3 completed._### F8. No Route Transition Animations
+_7 items remaining. ~~12~~ 5 completed._### F8. No Route Transition Animations
 
 **File:** `src/routes/__root.tsx`
 
 GSAP + Lenis already loaded, but route changes are instant snaps. TanStack Router renders `{children}` directly in `RootDocument` with no transition wrapper.
 
 **Fix:** Create a `<RouteTransition>` component using GSAP that wraps `{children}` — fade-out on route leave, fade-in on new route mount. Can use `onBeforeLoad` or a wrapper around the children outlet. Keep it simple (opacity fade, 300ms). No new dependencies needed.
-
-**Effort:** ~2 hrs
-
----
-
-### F4. No EMI / Payment Calculator
-
-Top conversion tool for real estate sites. No calculator component exists. No price fields in project data model.
-
-**Fix:** Create `EmiCalculator` standalone component with inputs for principal (slider), interest rate (slider), tenure years (slider). Display monthly EMI, total interest, total payment. Pure client-side, no data model changes needed.
 
 **Effort:** ~2 hrs
 
@@ -62,20 +52,6 @@ Privacy policy mentions cookies but no consent banner exists. If analytics (F5) 
 **Fix:** Create lightweight `CookieConsentBanner` component. Store consent preference in `localStorage`. Show banner on first visit with "Accept" / "Reject" buttons. Conditionally load analytics based on consent. Simple, no library needed.
 
 **Effort:** ~1 hr
-
----
-
-### F2. No Floor Plans
-
-**Files:** `src/data/projects.ts`, `src/components/portfolio-detail/`
-
-Projects have specs (totalArea, units, floorCount) but no floor plan images or downloadable PDFs. Essential feature for real estate buyers.
-
-**Current type** — `ProjectDetail` has no `floorPlans` field.
-
-**Fix:** Add `floorPlans: { label: string; image: string }[]` to `ProjectDetail` type. Add placeholder floor plan images to project data. Create `PortfolioDetailFloorPlans` section component (tab/accordion UI to switch between plans). Add below specs section on detail pages.
-
-**Effort:** ~2 hrs
 
 ---
 
@@ -240,18 +216,15 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 ### 🔴 P0 — Fix Now (1-2 hrs)
 
-| ID  | Item                                                       | Effort | Impact                    |
-| --- | ---------------------------------------------------------- | ------ | ------------------------- |
-
+| ID  | Item | Effort | Impact |
+| --- | ---- | ------ | ------ |
 
 ### 🟢 P2 — Medium Priority (8-16 hrs)
 
-| ID  | Item                                                    | Effort | Impact          |
-| --- | ------------------------------------------------------- | ------ | --------------- |
-| F2  | Floor plan assets per project                           | 2 hrs  | Feature parity  |
-| F4  | EMI calculator                                          | 3 hrs  | Conversion tool |
-| U1  | Consistent focus indicators audit                       | 2 hrs  | Accessibility   |
-| U8  | Testimonial autoplay pause on keyboard focus            | 30 min | WCAG compliance |
+| ID  | Item                                         | Effort | Impact          |
+| --- | -------------------------------------------- | ------ | --------------- |
+| U1  | Consistent focus indicators audit            | 2 hrs  | Accessibility   |
+| U8  | Testimonial autoplay pause on keyboard focus | 30 min | WCAG compliance |
 
 ### 🔵 P3 — Longer Term (16-40 hrs)
 
@@ -280,10 +253,10 @@ Tests import from relative paths (`./seo`, `./forms`, `./utils`) which works but
 
 **Top remaining priorities:**
 
-1. **Floor plans** (F2) — add per-project floor plan images
-2. **EMI calculator** (F4) — conversion tool for buyers
-3. **Analytics + cookie consent** (F5/F6) — measure what works
+1. **Analytics + cookie consent** (F5/F6) — measure what works
+2. **Print-friendly pages** (F12) — property detail printing
+3. **Route transition animations** (F8) — UX polish
 
-**Recently completed:** F1 (lightbox), F3 (interactive maps), F9 (email notifications).
+**Recently completed:** F1 (lightbox), F2 (floor plans), F3 (interactive maps), F4 (EMI calculator), F9 (email notifications).
 
 _Audit generated 2026-06-19. Items verified against current codebase state._

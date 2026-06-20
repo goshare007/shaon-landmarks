@@ -125,3 +125,51 @@
     transform: scale(0.8);
   }
 }
+
+@media print {
+  header,
+  footer,
+  nav,
+  .fab,
+  button,
+  [data-floorplans-tab] {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  section,
+  .bg-surface,
+  .bg-surface-container-low,
+  .bg-primary {
+    background: white !important;
+    color: black !important;
+    padding: 0.5in 0 !important;
+    break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  h2,
+  h3 {
+    color: black !important;
+  }
+
+  [data-floorplans-image] {
+    display: block !important;
+  }
+
+  [data-floorplans-desc] {
+    display: block !important;
+  }
+
+  .text-on-surface-variant {
+    color: #333 !important;
+  }
+}
