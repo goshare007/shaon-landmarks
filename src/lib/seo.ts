@@ -177,6 +177,31 @@ export function breadcrumbLd(items: { name: string; url: string }[]) {
   };
 }
 
+export function articleLd(article: {
+  headline: string;
+  description: string;
+  image: string;
+  url: string;
+  publishedAt: string;
+  author: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.headline,
+    description: article.description,
+    image: article.image,
+    url: article.url,
+    datePublished: article.publishedAt,
+    author: { '@type': 'Person', name: article.author },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Shaon Landmarks & Housing',
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
+    },
+  };
+}
+
 export function faqLd(questions: { question: string; answer: string }[]) {
   return {
     '@type': 'FAQPage',
