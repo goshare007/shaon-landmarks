@@ -1,0 +1,346 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - link "Shaon Landmarks & Housing Shaon Landmarks" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e8]:
+            - img "Shaon Landmarks & Housing" [ref=e9]
+            - generic [ref=e10]: Shaon Landmarks
+        - generic [ref=e11]:
+          - link "Let's Talk" [ref=e12] [cursor=pointer]:
+            - /url: /contact
+          - button "Open menu" [ref=e13]
+    - generic [ref=e19]:
+      - generic:
+        - img
+        - generic:
+          - heading "Shaon Landmarks" [level=1]
+        - heading "Architecting Tomorrow" [level=2]
+      - main [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e23]:
+            - generic [ref=e24]:
+              - generic [ref=e27]: Est. 2008 — Dhaka, Bangladesh
+              - heading "Architecting Tomorrow" [level=1] [ref=e28]:
+                - generic [ref=e29]: Architecting
+                - generic [ref=e30]: Tomorrow
+              - paragraph [ref=e33]: Defining the skyline with unyielding integrity and sophisticated design. Crafting the future of high-end real estate.
+              - generic [ref=e34]:
+                - generic [ref=e36]:
+                  - generic [ref=e37]: "48"
+                  - generic [ref=e38]: Projects
+                - generic [ref=e41]:
+                  - generic [ref=e42]: "16"
+                  - generic [ref=e43]: Years
+                - generic [ref=e46]:
+                  - generic [ref=e47]: 3.2M
+                  - generic [ref=e48]: Sq. Feet
+            - link "Explore Portfolio" [ref=e51] [cursor=pointer]:
+              - /url: /portfolio
+              - generic [ref=e53]: Explore Portfolio
+              - img [ref=e54]
+          - generic [ref=e56]:
+            - img "Architectural landmark" [ref=e58]
+            - generic [ref=e62]: Dhaka Central — Tower IV
+            - generic [ref=e64]: "2026"
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - img [ref=e71]
+            - heading "Integrity" [level=3] [ref=e73]
+            - paragraph [ref=e74]: Our foundations are built on transparency and ethical excellence, ensuring every landmark stands as a testament to our word.
+          - generic [ref=e75]:
+            - img [ref=e77]
+            - heading "Quality" [level=3] [ref=e81]
+            - paragraph [ref=e82]: Meticulous attention to detail and premium materials converge to create spaces of unparalleled luxury and durability.
+          - generic [ref=e83]:
+            - img [ref=e85]
+            - heading "Legacy" [level=3] [ref=e87]
+            - paragraph [ref=e88]: We don't just build structures; we create timeless landmarks that resonate through generations, defining the architectural heritage.
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - text: Iconic Developments
+            - heading "A curated selection of our most ambitious projects, redefined for modern living." [level=2] [ref=e92]:
+              - text: A curated selection of our most ambitious projects,
+              - text: redefined for modern living.
+          - link "The Obsidian Completed The Obsidian A masterclass in dark aesthetics and light-filled spaces. View Landmark" [ref=e93] [cursor=pointer]:
+            - /url: /portfolio/the-obsidian
+            - generic [ref=e94]:
+              - img "The Obsidian" [ref=e96]
+              - generic [ref=e99]:
+                - text: Completed
+                - heading "The Obsidian" [level=3] [ref=e100]
+                - paragraph [ref=e101]: A masterclass in dark aesthetics and light-filled spaces.
+                - paragraph [ref=e102]:
+                  - text: View Landmark
+                  - img [ref=e103]
+          - generic [ref=e105]:
+            - 'link "Bronze Heights Ongoing Bronze Heights Nasirabad, Chattogram Est: Dec 2025 View Landmark" [ref=e106] [cursor=pointer]':
+              - /url: /portfolio/bronze-heights
+              - generic [ref=e107]:
+                - img "Bronze Heights" [ref=e109]
+                - generic [ref=e112]: Ongoing
+                - generic [ref=e113]:
+                  - heading "Bronze Heights" [level=3] [ref=e114]
+                  - paragraph [ref=e115]: Nasirabad, Chattogram
+                  - paragraph [ref=e116]: "Est: Dec 2025"
+                  - generic [ref=e117]:
+                    - text: View Landmark
+                    - img [ref=e118]
+            - 'link "The Marble Collection Upcoming The Marble Collection Purbachal, Dhaka Launch: Q2 2024 View Landmark" [ref=e120] [cursor=pointer]':
+              - /url: /portfolio/the-marble-collection
+              - generic [ref=e121]:
+                - img "The Marble Collection" [ref=e123]
+                - generic [ref=e126]: Upcoming
+                - generic [ref=e127]:
+                  - heading "The Marble Collection" [level=3] [ref=e128]
+                  - paragraph [ref=e129]: Purbachal, Dhaka
+                  - paragraph [ref=e130]: "Launch: Q2 2024"
+                  - generic [ref=e131]:
+                    - text: View Landmark
+                    - img [ref=e132]
+            - 'link "Azure Waterfront Ongoing Azure Waterfront Gulshan, Dhaka Est: Dec 2025 View Landmark" [ref=e134] [cursor=pointer]':
+              - /url: /portfolio/azure-waterfront
+              - generic [ref=e135]:
+                - img "Azure Waterfront" [ref=e137]
+                - generic [ref=e140]: Ongoing
+                - generic [ref=e141]:
+                  - heading "Azure Waterfront" [level=3] [ref=e142]
+                  - paragraph [ref=e143]: Gulshan, Dhaka
+                  - paragraph [ref=e144]: "Est: Dec 2025"
+                  - generic [ref=e145]:
+                    - text: View Landmark
+                    - img [ref=e146]
+            - 'link "The Skyline Plaza Upcoming The Skyline Plaza Banani, Dhaka Launch: Q3 2024 View Landmark" [ref=e148] [cursor=pointer]':
+              - /url: /portfolio/the-skyline-plaza
+              - generic [ref=e149]:
+                - img "The Skyline Plaza" [ref=e151]
+                - generic [ref=e154]: Upcoming
+                - generic [ref=e155]:
+                  - heading "The Skyline Plaza" [level=3] [ref=e156]
+                  - paragraph [ref=e157]: Banani, Dhaka
+                  - paragraph [ref=e158]: "Launch: Q3 2024"
+                  - generic [ref=e159]:
+                    - text: View Landmark
+                    - img [ref=e160]
+          - link "View All Projects" [ref=e163] [cursor=pointer]:
+            - /url: /portfolio
+            - text: View All Projects
+            - img [ref=e164]
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - text: Sustainability & Innovation
+            - heading "Building responsibly for a better tomorrow." [level=2] [ref=e169]
+          - generic [ref=e170]:
+            - generic [ref=e174] [cursor=pointer]:
+              - heading "Sustainable Materials" [level=3] [ref=e175]
+              - paragraph [ref=e176]: Sourcing eco-friendly materials that minimize environmental impact without compromising luxury.
+            - generic [ref=e180] [cursor=pointer]:
+              - heading "Green Spaces" [level=3] [ref=e181]
+              - paragraph [ref=e182]: Integrating lush landscapes and vertical gardens into every development for healthier urban living.
+            - generic [ref=e186] [cursor=pointer]:
+              - heading "Energy Efficiency" [level=3] [ref=e187]
+              - paragraph [ref=e188]: Smart building systems engineered to reduce energy consumption while maximizing comfort and air quality.
+        - generic [ref=e190]:
+          - generic [ref=e191]:
+            - generic [ref=e192]: What Our Clients Say
+            - heading "Trusted Voices" [level=2] [ref=e193]
+          - region [ref=e195]:
+            - generic [ref=e197]:
+              - group [ref=e198]:
+                - generic [ref=e199]:
+                  - generic [ref=e200]: “
+                  - paragraph [ref=e201]: Shaon Landmarks doesn't just build housing; they curate an environment of dignity and permanence. Their commitment to architectural integrity in the heart of Dhaka is truly transformative.
+                  - generic [ref=e203]:
+                    - strong [ref=e204]: S. Rahman
+                    - paragraph [ref=e205]: Chief Architect, Urbana Bangladesh
+              - group [ref=e206]:
+                - generic [ref=e207]:
+                  - generic [ref=e208]: “
+                  - paragraph [ref=e209]: We invested in a Shaon Landmarks project based on reputation alone. The timely handover and build quality exceeded our expectations — every finish, every corner reflects obsession with detail.
+                  - generic [ref=e211]:
+                    - strong [ref=e212]: Fatima & Kamal Hossain
+                    - paragraph [ref=e213]: Homeowners, Gulshan Residency
+              - group [ref=e214]:
+                - generic [ref=e215]:
+                  - generic [ref=e216]: “
+                  - paragraph [ref=e217]: Shaon's approach to land development is methodical and transparent. As a partner on multiple projects, I have seen firsthand how they uphold ethical standards in an industry where shortcuts are common.
+                  - generic [ref=e219]:
+                    - strong [ref=e220]: Engr. Arefin Karim
+                    - paragraph [ref=e221]: Development Partner, Eastern Holdings
+              - group [ref=e222]:
+                - generic [ref=e223]:
+                  - generic [ref=e224]: “
+                  - paragraph [ref=e225]: The interior design team transformed our vision into a living space that feels both luxurious and functional. The use of natural light and space planning is world-class.
+                  - generic [ref=e227]:
+                    - strong [ref=e228]: Nadia Sultana
+                    - paragraph [ref=e229]: Client, The Marble Collection
+              - group [ref=e230]:
+                - generic [ref=e231]:
+                  - generic [ref=e232]: “
+                  - paragraph [ref=e233]: What sets Shaon apart is their after-sales service. Even after handover, their team remains accessible and responsive. That level of commitment is rare in Bangladesh real estate.
+                  - generic [ref=e235]:
+                    - strong [ref=e236]: Tariq Mahmud
+                    - paragraph [ref=e237]: Investor, Skyline Plaza
+          - generic [ref=e238]:
+            - button "Go to testimonial 1" [ref=e239]
+            - button "Go to testimonial 2" [ref=e240]
+            - button "Go to testimonial 3" [ref=e241]
+            - button "Go to testimonial 4" [ref=e242]
+            - button "Go to testimonial 5" [ref=e243]
+        - generic [ref=e246]:
+          - generic [ref=e247]:
+            - generic [ref=e248]: 16+
+            - generic [ref=e249]: Years of Excellence
+          - generic [ref=e250]:
+            - generic [ref=e251]: 48+
+            - generic [ref=e252]: Landmark Projects
+          - generic [ref=e253]:
+            - generic [ref=e254]: 500+
+            - generic [ref=e255]: Families Served
+          - generic [ref=e256]:
+            - generic [ref=e257]: RAJUK
+            - generic [ref=e258]: Certified Developer
+        - generic [ref=e261]:
+          - generic [ref=e262]:
+            - heading "Begin Your Legacy" [level=2] [ref=e263]
+            - paragraph [ref=e264]: Schedule a private consultation with our portfolio managers to discuss your future investment in timeless landmarks.
+            - generic [ref=e265]:
+              - img [ref=e266]
+              - generic [ref=e269]: Exclusive Portfolio Access
+          - generic [ref=e270]:
+            - heading "Exclusive Portfolio Access" [level=3] [ref=e271]
+            - generic [ref=e272]:
+              - generic [ref=e273]:
+                - generic [ref=e274]: Full Name *
+                - textbox "Full Name *" [ref=e275]:
+                  - /placeholder: Your full name
+              - generic [ref=e276]:
+                - generic [ref=e277]: Email Address *
+                - textbox "Email Address *" [ref=e278]:
+                  - /placeholder: your@email.com
+              - generic [ref=e279]:
+                - generic [ref=e280]: Interest Area
+                - combobox "Interest Area" [ref=e281]:
+                  - option "Residential Penthouses" [selected]
+                  - option "Commercial Landmarks"
+                  - option "Investment Opportunities"
+              - button "Request Consultation" [ref=e282]
+    - contentinfo [ref=e284]:
+      - generic [ref=e286]:
+        - generic [ref=e287]:
+          - link "Shaon Shaon LANDMARKS" [ref=e288] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e289]:
+              - img "Shaon" [ref=e291]
+              - generic [ref=e292]:
+                - heading "Shaon" [level=3] [ref=e293]
+                - paragraph [ref=e294]: LANDMARKS
+          - paragraph [ref=e295]: Redefining the skyline through structural precision and unwavering aesthetic integrity since 2008. Transforming visions into architectural masterpieces.
+          - generic [ref=e296]:
+            - generic [ref=e297]: Subscribe to Updates
+            - generic [ref=e299]:
+              - textbox "Subscribe to Updates" [ref=e300]:
+                - /placeholder: Enter your email
+              - button [ref=e301]:
+                - img
+        - generic [ref=e302]:
+          - heading "Company" [level=4] [ref=e303]
+          - list [ref=e304]:
+            - listitem [ref=e305]:
+              - link "About Us →" [ref=e306] [cursor=pointer]:
+                - /url: /about
+                - text: About Us
+                - generic [ref=e307]: →
+            - listitem [ref=e308]:
+              - link "Our Portfolio →" [ref=e309] [cursor=pointer]:
+                - /url: /portfolio
+                - text: Our Portfolio
+                - generic [ref=e310]: →
+            - listitem [ref=e311]:
+              - link "Blog →" [ref=e312] [cursor=pointer]:
+                - /url: /blog
+                - text: Blog
+                - generic [ref=e313]: →
+            - listitem [ref=e314]:
+              - link "EMI Calculator →" [ref=e315] [cursor=pointer]:
+                - /url: /emi-calculator
+                - text: EMI Calculator
+                - generic [ref=e316]: →
+            - listitem [ref=e317]:
+              - link "Sustainability →" [ref=e318] [cursor=pointer]:
+                - /url: /sustainability
+                - text: Sustainability
+                - generic [ref=e319]: →
+            - listitem [ref=e320]:
+              - link "Careers →" [ref=e321] [cursor=pointer]:
+                - /url: /career
+                - text: Careers
+                - generic [ref=e322]: →
+        - generic [ref=e323]:
+          - heading "Legal" [level=4] [ref=e324]
+          - list [ref=e325]:
+            - listitem [ref=e326]:
+              - link "RAJUK Certified →" [ref=e327] [cursor=pointer]:
+                - /url: /legal
+                - text: RAJUK Certified
+                - generic [ref=e328]: →
+            - listitem [ref=e329]:
+              - link "REHAB Member →" [ref=e330] [cursor=pointer]:
+                - /url: /legal
+                - text: REHAB Member
+                - generic [ref=e331]: →
+            - listitem [ref=e332]:
+              - link "Legal Disclosures →" [ref=e333] [cursor=pointer]:
+                - /url: /legal
+                - text: Legal Disclosures
+                - generic [ref=e334]: →
+            - listitem [ref=e335]:
+              - link "Privacy Policy →" [ref=e336] [cursor=pointer]:
+                - /url: /privacy
+                - text: Privacy Policy
+                - generic [ref=e337]: →
+        - generic [ref=e338]:
+          - heading "Connect" [level=4] [ref=e339]
+          - list [ref=e340]:
+            - listitem [ref=e341]:
+              - link "Facebook →" [ref=e342] [cursor=pointer]:
+                - /url: https://facebook.com/shaonlandmarks
+                - text: Facebook
+                - generic [ref=e343]: →
+            - listitem [ref=e344]:
+              - link "Instagram →" [ref=e345] [cursor=pointer]:
+                - /url: https://instagram.com/shaonlandmarks
+                - text: Instagram
+                - generic [ref=e346]: →
+            - listitem [ref=e347]:
+              - link "LinkedIn →" [ref=e348] [cursor=pointer]:
+                - /url: https://linkedin.com/company/shaonlandmarks
+                - text: LinkedIn
+                - generic [ref=e349]: →
+            - listitem [ref=e350]:
+              - link "Twitter →" [ref=e351] [cursor=pointer]:
+                - /url: https://twitter.com/shaonlandmarks
+                - text: Twitter
+                - generic [ref=e352]: →
+      - generic [ref=e355]:
+        - paragraph [ref=e356]: © 2026 Shaon Landmarks. Architectural Excellence. All Rights Reserved.
+        - generic [ref=e357]:
+          - link "Facebook" [ref=e358] [cursor=pointer]:
+            - /url: https://facebook.com/shaonlandmarks
+            - img "Facebook" [ref=e359]
+          - link "Instagram" [ref=e361] [cursor=pointer]:
+            - /url: https://instagram.com/shaonlandmarks
+            - img "Instagram" [ref=e362]
+          - link "LinkedIn" [ref=e364] [cursor=pointer]:
+            - /url: https://linkedin.com/company/shaonlandmarks
+            - img "LinkedIn" [ref=e365]
+          - link "Twitter" [ref=e367] [cursor=pointer]:
+            - /url: https://twitter.com/shaonlandmarks
+            - img "Twitter" [ref=e368]
+    - link "Chat on WhatsApp" [ref=e370] [cursor=pointer]:
+      - /url: https://wa.me/+8801712345678?text=Hello!%20I'm%20interested%20in%20Shaon%20Landmarks%20%26%20Housing%20properties.
+      - generic [ref=e371]: Chat on WhatsApp
+      - img [ref=e372]

@@ -3,9 +3,8 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import logo from '@/assets/logo.png';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { submitNewsletterSignup } from '@/lib/forms';
 import { Button } from './ui/button';
 
@@ -71,7 +70,6 @@ const footerSections: FooterSection[] = [
 ];
 
 export default function Footer() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [newsletterState, setNewsletterState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message: string;
@@ -107,46 +105,11 @@ export default function Footer() {
     }
   }
 
-  useGsapAnimation((gsap, _ScrollTrigger) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section.querySelector('[data-footer-grid]'),
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelectorAll('[data-footer-item]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
-        0.2,
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-footer-bottom]'),
-        { opacity: 0 },
-        { opacity: 1, duration: 0.6 },
-        '+=0.1',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <footer
-      ref={sectionRef}
-      className='border-t border-outline-variant/20 bg-tertiary'
-    >
+    <footer className='border-t border-outline-variant/20 bg-tertiary'>
       <div className='mx-auto max-w-6xl px-4 py-16 md:py-24'>
-        <div data-footer-grid className='grid gap-12 md:gap-16 lg:grid-cols-5'>
-          <div data-footer-item className='lg:col-span-2'>
+        <div className='grid gap-12 md:gap-16 lg:grid-cols-5'>
+          <div className='lg:col-span-2'>
             <Link to='/' className='inline-block group'>
               <div className='flex items-center gap-3 mb-6 transition-all duration-300 hover:scale-[1.02]'>
                 <div className='h-12 w-12 rounded-lg bg-linear-to-br from-secondary via-secondary to-secondary-fixed-dim flex items-center justify-center font-serif font-bold text-tertiary text-lg'>
@@ -217,7 +180,7 @@ export default function Footer() {
           </div>
 
           {footerSections.map((section) => (
-            <div key={section.title} data-footer-item>
+            <div key={section.title}>
               <h4 className='text-xs font-medium text-secondary-fixed-dim uppercase tracking-widest mb-6'>
                 {section.title}
               </h4>
@@ -257,7 +220,7 @@ export default function Footer() {
 
       <div className='border-t border-outline-variant/20' />
 
-      <div data-footer-bottom className='mx-auto max-w-6xl px-4 py-8 md:py-12'>
+      <div className='mx-auto max-w-6xl px-4 py-8 md:py-12'>
         <div className='flex flex-col md:flex-row items-center justify-between gap-6'>
           <p className='text-xs text-white/65'>
             &copy; {year} Shaon Landmarks. Architectural Excellence. All Rights

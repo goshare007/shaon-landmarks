@@ -1,10 +1,6 @@
-'use client';
-
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import CTG_IMG from '@/assets/images/contact/ctg-office.webp';
 import DHAKA_IMG from '@/assets/images/contact/dhaka-office.webp';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 const OFFICES = [
   {
@@ -28,68 +24,20 @@ const OFFICES = [
 ];
 
 export function ContactLocations() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-loc-heading]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7 },
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-loc-card="left"]'),
-        { opacity: 0, x: -40 },
-        { opacity: 1, x: 0, duration: 0.8 },
-        '-=0.3',
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-loc-card="right"]'),
-        { opacity: 0, x: 40 },
-        { opacity: 1, x: 0, duration: 0.8 },
-        '-=0.4',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface-container'>
+    <section className='bg-surface-container'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
-        <h2
-          data-loc-heading
-          className='mb-16 text-center text-4xl leading-[1.2] font-serif md:text-5xl'
-        >
+        <h2 className='mb-16 text-center text-4xl leading-[1.2] font-serif md:text-5xl'>
           Global Presence
         </h2>
         <div className='grid gap-12 pb-16 md:grid-cols-2'>
           {OFFICES.map((office) => (
-            <div
-              key={office.title}
-              data-loc-card={office.side}
-              className='group cursor-pointer space-y-6'
-            >
+            <div key={office.title} className='group cursor-pointer space-y-6'>
               <div className='h-100 overflow-hidden border border-outline-variant bg-surface-dim'>
                 <Image
                   src={office.img}
                   alt={office.title}
                   layout='fullWidth'
-                  width={800}
                   height={600}
                   className='h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0'
                 />

@@ -1,9 +1,5 @@
-'use client';
-
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import HERO_IMAGE from '@/assets/images/about/hero.webp';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 const PARTICLES = Array.from({ length: 14 }, (_, i) => ({
   id: i,
@@ -15,96 +11,22 @@ const PARTICLES = Array.from({ length: 14 }, (_, i) => ({
 }));
 
 export function AboutHero() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap, ScrollTrigger) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const headline = section.querySelector('[data-hero-headline]');
-    if (headline) {
-      const lines = headline.children;
-      for (const line of lines) {
-        const text = line.textContent || '';
-        line.textContent = '';
-        for (const char of text) {
-          const span = document.createElement('span');
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          span.className = 'char';
-          line.appendChild(span);
-        }
-      }
-    }
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.fromTo(
-        section.querySelector('[data-hero-eyebrow]'),
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.6 },
-      );
-
-      if (headline) {
-        tl.fromTo(
-          headline.querySelectorAll('.char'),
-          { opacity: 0, y: 30, rotateX: -90 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.5, stagger: 0.025 },
-          '-=0.3',
-        );
-      }
-
-      tl.fromTo(
-        section.querySelector('[data-hero-desc]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5 },
-        '-=0.2',
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-hero-quote]'),
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.5 },
-        '-=0.1',
-      );
-    }, section);
-
-    const img = section.querySelector('[data-hero-image]');
-    const st = ScrollTrigger.create({
-      trigger: section,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1.5,
-      onUpdate: (self) => {
-        gsap.set(img, { y: `${self.progress * 12}%` });
-      },
-    });
-
-    return [() => ctx.revert(), () => st.kill()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='relative overflow-hidden bg-tertiary'>
+    <section className='relative overflow-hidden bg-tertiary'>
       <div className='mx-auto grid min-h-179 max-w-360 md:grid-cols-2'>
         <div className='z-10 flex flex-col justify-center px-4 py-20 text-on-tertiary md:px-16'>
-          <span
-            data-hero-eyebrow
-            className='mb-4 text-label font-medium tracking-[0.2em] text-secondary-fixed-dim uppercase'
-          >
+          <span className='mb-4 text-label font-medium tracking-[0.2em] text-secondary-fixed-dim uppercase'>
             Established Excellence
           </span>
-          <h1 data-hero-headline className='heading-hero'>
+          <h1 className='heading-hero'>
             <span className='block'>A Legacy of</span>
             <span className='block'>Integrity</span>
           </h1>
-          <p
-            data-hero-desc
-            className='mt-6 max-w-lg text-base leading-relaxed text-on-tertiary-fixed-variant md:text-lg'
-          >
+          <p className='mt-6 max-w-lg text-base leading-relaxed text-on-tertiary-fixed-variant md:text-lg'>
             Crafting landmarks that stand as a testament to architectural
             precision and unwavering commitment in the heart of Bangladesh.
           </p>
-          <div data-hero-quote className='mt-10 flex gap-4'>
+          <div className='mt-10 flex gap-4'>
             <div className='mt-2 h-px w-12 shrink-0 bg-secondary-fixed-dim' />
             <p className='max-w-sm text-sm italic leading-relaxed text-on-tertiary-container'>
               &ldquo;We don&apos;t just build structures; we cultivate trust
@@ -114,12 +36,11 @@ export function AboutHero() {
         </div>
 
         <div className='relative h-100 overflow-hidden md:h-full'>
-          <div data-hero-image className='h-full w-full'>
+          <div className='h-full w-full'>
             <Image
               src={HERO_IMAGE}
               alt=''
               layout='fullWidth'
-              width={800}
               height={1000}
               className='h-full w-full object-cover'
             />

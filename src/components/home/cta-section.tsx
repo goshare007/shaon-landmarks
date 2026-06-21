@@ -1,32 +1,28 @@
 'use client';
 
 import { Lock } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
+import { useState } from 'react';
 import type { ContactFormData } from '@/lib/forms';
 import { submitContactForm } from '@/lib/forms';
-import { loadGsap } from '@/lib/gsap-loader';
 
 export function CtaSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
   const [formState, setFormState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message: string;
   }>({ status: 'idle', message: '' });
-
-  const [magneticPos, setMagneticPos] = useState({ x: 0, y: 0 });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFormState({ status: 'submitting', message: '' });
 
     const formData = new FormData(e.currentTarget);
+    const name = (formData.get('name') as string) || '';
+    const email = (formData.get('email') as string) || '';
+    const interest = (formData.get('interest') as string) || '';
     const data: ContactFormData = {
-      name: (formData.get('name') as string) || '',
-      email: (formData.get('email') as string) || '',
-      interest: (formData.get('interest') as string) || '',
+      name,
+      email,
+      interest,
       message: `Consultation request via CTA — Interest: ${interest || 'Not specified'}`,
     };
 
@@ -50,79 +46,11 @@ export function CtaSection() {
     }
   }
 
-  const handleMagnetMove = (e: React.MouseEvent) => {
-    const btn = buttonRef.current;
-    if (!btn) return;
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    setMagneticPos({ x: x * 0.3, y: y * 0.3 });
-  };
-
-  const handleMagnetLeave = () => {
-    setMagneticPos({ x: 0, y: 0 });
-  };
-
-  useGsapAnimation((gsap) => {
-    const el = sectionRef.current;
-    if (!el) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        el.querySelector('[data-cta-left]'),
-        { opacity: 0, x: -40 },
-        { opacity: 1, x: 0, duration: 0.8 },
-      );
-
-      tl.fromTo(
-        el.querySelector('[data-cta-right]'),
-        { opacity: 0, x: 40 },
-        { opacity: 1, x: 0, duration: 0.8 },
-        '-=0.4',
-      );
-
-      tl.fromTo(
-        el.querySelector('[data-cta-line]'),
-        { width: 0 },
-        { width: 64, duration: 0.6 },
-        '-=0.3',
-      );
-    }, el);
-
-    return [() => ctx.revert()];
-  }, []);
-
-  useEffect(() => {
-    if (!magneticPos.x && !magneticPos.y) return;
-
-    loadGsap().then(({ gsap }) => {
-      gsap.to(buttonRef.current, {
-        x: magneticPos.x,
-        y: magneticPos.y,
-        duration: 0.3,
-        ease: 'power2.out',
-        overwrite: 'auto',
-      });
-    });
-  }, [magneticPos]);
-
   return (
-    <section
-      ref={sectionRef}
-      className='bg-surface py-20 md:py-28 overflow-x-hidden'
-    >
+    <section className='bg-surface py-20 md:py-28 overflow-x-hidden'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
-          <div data-cta-left>
+          <div>
             <h2 className='text-4xl leading-tight text-on-surface font-serif sm:text-5xl'>
               Begin Your Legacy
             </h2>
@@ -130,11 +58,7 @@ export function CtaSection() {
               Schedule a private consultation with our portfolio managers to
               discuss your future investment in timeless landmarks.
             </p>
-            <div
-              data-cta-line
-              className='mt-6 h-px bg-secondary'
-              style={{ width: 0 }}
-            />
+            <div className='mt-6 h-px w-16 bg-secondary' />
             <div className='mt-6 flex items-center gap-3'>
               <Lock className='text-secondary' size={20} aria-hidden='true' />
               <span className='text-label font-medium tracking-widest text-on-surface-variant uppercase'>
@@ -143,10 +67,7 @@ export function CtaSection() {
             </div>
           </div>
 
-          <div
-            data-cta-right
-            className='border border-outline-variant bg-white p-8'
-          >
+          <div className='border border-outline-variant bg-white p-8'>
             <h3 className='mb-6 text-label font-medium tracking-widest text-on-surface-variant uppercase'>
               Exclusive Portfolio Access
             </h3>
@@ -217,10 +138,7 @@ export function CtaSection() {
               )}
 
               <button
-                ref={buttonRef}
                 type='submit'
-                onMouseMove={handleMagnetMove}
-                onMouseLeave={handleMagnetLeave}
                 disabled={formState.status === 'submitting'}
                 className='w-full rounded-sm bg-primary py-3 text-label font-medium tracking-widest text-on-primary transition-colors hover:bg-secondary uppercase disabled:opacity-50'
               >

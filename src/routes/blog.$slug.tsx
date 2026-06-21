@@ -65,6 +65,7 @@ function BlogArticle() {
       <div className='mx-auto max-w-360 px-4 pt-6 md:px-16'>
         <Link
           to='/blog'
+          search={{ category: '' }}
           className='mb-6 inline-flex items-center gap-2 text-sm text-on-surface-variant transition-colors hover:text-secondary'
         >
           <ArrowLeft size={16} aria-hidden='true' />
@@ -90,6 +91,7 @@ function ArticleNotFound() {
         <div className='mt-10'>
           <Link
             to='/blog'
+            search={{ category: '' }}
             className='inline-flex items-center gap-2 rounded-sm bg-secondary px-8 py-3.5 text-label font-medium tracking-widest text-on-secondary uppercase transition-all hover:opacity-90'
           >
             Back to Blog

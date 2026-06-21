@@ -17,7 +17,6 @@ export function BlogCard({ article }: { article: BlogArticle }) {
           src={article.image}
           alt={article.title}
           layout='fullWidth'
-          width={600}
           height={375}
           className='h-full w-full object-cover transition-all duration-500 group-hover:scale-105'
         />

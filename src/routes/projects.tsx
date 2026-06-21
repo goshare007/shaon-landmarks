@@ -2,6 +2,10 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/projects')({
   loader: () => {
-    throw redirect({ to: '/portfolio', statusCode: 301 });
+    throw redirect({
+      to: '/portfolio',
+      statusCode: 301,
+      search: { status: '', location: '', search: '' },
+    });
   },
 });

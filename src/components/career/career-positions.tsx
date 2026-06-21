@@ -1,9 +1,5 @@
-'use client';
-
 import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 const openPositions = [
   {
@@ -37,66 +33,20 @@ const openPositions = [
 ];
 
 export function CareerPositions() {
-  const sectionRef = useRef<HTMLElement>(null);
-  useGsapAnimation((gsap, _ScrollTrigger) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-positions-heading]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7 },
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-positions-line]'),
-        { scaleX: 0 },
-        { scaleX: 1, duration: 0.5, transformOrigin: 'left' },
-        '-=0.3',
-      );
-
-      tl.fromTo(
-        section.querySelectorAll('[data-positions-card]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-        '-=0.3',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className='bg-surface-container-low py-20 md:py-28'
-    >
+    <section className='bg-surface-container-low py-20 md:py-28'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
-        <div data-positions-heading className='mb-16'>
+        <div className='mb-16'>
           <h2 className='text-3xl font-serif text-on-surface sm:text-4xl'>
             Open Positions
           </h2>
-          <div
-            data-positions-line
-            className='mt-4 h-px w-24 bg-secondary scale-x-0 origin-left'
-          />
+          <div className='mt-4 h-px w-24 bg-secondary' />
         </div>
 
         <div className='grid gap-6 md:grid-cols-2'>
           {openPositions.map((position) => (
             <div
               key={position.title}
-              data-positions-card
               className='border border-outline-variant bg-white p-8 transition-transform duration-300 hover:-translate-y-1'
             >
               <div className='mb-4 flex items-center gap-3'>

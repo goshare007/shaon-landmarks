@@ -1,8 +1,3 @@
-'use client';
-
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
-
 const stats = [
   { value: '40%', label: 'Energy Reduction' },
   { value: '200+', label: 'Green-Certified Units' },
@@ -10,44 +5,11 @@ const stats = [
 ];
 
 export function SustainabilityPhilosophy() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-philosophy-text]'),
-        { opacity: 0, x: -30 },
-        { opacity: 1, x: 0, duration: 0.7 },
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-philosophy-stats]'),
-        { opacity: 0, x: 30 },
-        { opacity: 1, x: 0, duration: 0.7 },
-        '-=0.4',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface py-20 md:py-28'>
+    <section className='bg-surface py-20 md:py-28'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
-          <div data-philosophy-text>
+          <div>
             <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
               Our Philosophy
             </span>
@@ -62,7 +24,7 @@ export function SustainabilityPhilosophy() {
               exclusive.
             </p>
           </div>
-          <div data-philosophy-stats className='grid grid-cols-3 gap-4'>
+          <div className='grid grid-cols-3 gap-4'>
             {stats.map((s) => (
               <div key={s.label} className='text-center'>
                 <div className='text-3xl font-serif text-secondary sm:text-4xl'>

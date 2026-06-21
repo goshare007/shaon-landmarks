@@ -1,24 +1,8 @@
-'use client';
-
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '@/lib/constants';
 
 export function WhatsAppFab() {
-  const ref = useRef<HTMLAnchorElement>(null);
-  useGsapAnimation((gsap, _ScrollTrigger) => {
-    if (!ref.current) return [];
-    gsap.fromTo(
-      ref.current,
-      { scale: 0, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(2)' },
-    );
-    return [];
-  }, []);
-
   return (
     <a
-      ref={ref}
       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
       target='_blank'
       rel='noopener noreferrer'

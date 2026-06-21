@@ -1,8 +1,7 @@
 'use client';
 
 import * as Slider from '@radix-ui/react-slider';
-import { useRef, useState } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
+import { useState } from 'react';
 import { formatCurrency } from '@/lib/format';
 
 function calculateEmi(principal: number, annualRate: number, years: number) {
@@ -74,7 +73,6 @@ function SliderControl({
 }
 
 export function EmiCalculator() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [principal, setPrincipal] = useState(50_00_000);
   const [rate, setRate] = useState(9);
   const [tenure, setTenure] = useState(20);
@@ -85,43 +83,10 @@ export function EmiCalculator() {
     tenure,
   );
 
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-      tl.fromTo(
-        section.querySelector('[data-emi-header]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.6 },
-      );
-      tl.fromTo(
-        section.querySelectorAll('[data-emi-slider]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-        '-=0.3',
-      );
-      tl.fromTo(
-        section.querySelectorAll('[data-emi-result]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-        '-=0.3',
-      );
-    }, section);
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface py-24'>
+    <section className='bg-surface py-24'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
-        <div data-emi-header className='mb-16 text-center'>
+        <div className='mb-16 text-center'>
           <h1 className='mb-4 text-3xl font-serif text-primary md:text-4xl'>
             EMI Calculator
           </h1>
@@ -133,7 +98,7 @@ export function EmiCalculator() {
 
         <div className='grid gap-12 lg:grid-cols-2 lg:gap-16'>
           <div className='space-y-10'>
-            <div data-emi-slider>
+            <div>
               <SliderControl
                 label='Loan Amount'
                 value={principal}
@@ -144,7 +109,7 @@ export function EmiCalculator() {
                 onChange={setPrincipal}
               />
             </div>
-            <div data-emi-slider>
+            <div>
               <SliderControl
                 label='Interest Rate'
                 value={rate}
@@ -155,7 +120,7 @@ export function EmiCalculator() {
                 onChange={setRate}
               />
             </div>
-            <div data-emi-slider>
+            <div>
               <SliderControl
                 label='Tenure'
                 value={tenure}
@@ -169,10 +134,7 @@ export function EmiCalculator() {
           </div>
 
           <div className='flex flex-col justify-center space-y-6'>
-            <div
-              data-emi-result
-              className='rounded-sm border border-outline-variant/30 bg-surface-container-low p-8 text-center'
-            >
+            <div className='rounded-sm border border-outline-variant/30 bg-surface-container-low p-8 text-center'>
               <p className='text-label font-medium tracking-widest text-on-surface-variant uppercase mb-2'>
                 Monthly EMI
               </p>
@@ -184,10 +146,7 @@ export function EmiCalculator() {
               </p>
             </div>
             <div className='grid grid-cols-2 gap-4'>
-              <div
-                data-emi-result
-                className='rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-6 text-center'
-              >
+              <div className='rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-6 text-center'>
                 <p className='text-label font-medium tracking-widest text-on-surface-variant uppercase mb-1'>
                   Total Interest
                 </p>
@@ -195,10 +154,7 @@ export function EmiCalculator() {
                   {formatCurrency(Math.round(totalInterest))}
                 </p>
               </div>
-              <div
-                data-emi-result
-                className='rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-6 text-center'
-              >
+              <div className='rounded-sm border border-outline-variant/30 bg-surface-container-lowest p-6 text-center'>
                 <p className='text-label font-medium tracking-widest text-on-surface-variant uppercase mb-1'>
                   Total Payment
                 </p>
@@ -207,10 +163,7 @@ export function EmiCalculator() {
                 </p>
               </div>
             </div>
-            <p
-              data-emi-result
-              className='text-center text-caption text-on-surface-variant'
-            >
+            <p className='text-center text-caption text-on-surface-variant'>
               *This is an estimate for reference only. Actual rates and terms
               depend on lender evaluation.
             </p>

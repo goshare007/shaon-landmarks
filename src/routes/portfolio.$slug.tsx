@@ -56,6 +56,7 @@ export const Route = createFileRoute('/portfolio/$slug')({
         </p>
         <Link
           to='/portfolio'
+          search={{ status: '', location: '', search: '' }}
           className='mt-8 inline-block rounded-sm border border-outline-variant px-6 py-3 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:border-secondary hover:text-secondary'
         >
           Back to Portfolio
@@ -136,6 +137,7 @@ function ProjectNotFound() {
         <p className='mt-4 text-on-surface-variant'>Project not found</p>
         <Link
           to='/portfolio'
+          search={{ status: '', location: '', search: '' }}
           className='mt-8 inline-block rounded-sm border border-outline-variant px-6 py-3 text-label font-medium tracking-widest text-on-surface uppercase transition-colors hover:border-secondary hover:text-secondary'
         >
           Back to Portfolio

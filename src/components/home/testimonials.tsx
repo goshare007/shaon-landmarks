@@ -11,12 +11,10 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel';
 import { testimonials } from '@/data/testimonials';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 export function TestimonialSection() {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
 
   const autoplayPlugin = useMemo(
@@ -59,55 +57,10 @@ export function TestimonialSection() {
     };
   }, [api]);
 
-  useGsapAnimation(
-    (gsap, ScrollTrigger) => {
-      const section = sectionRef.current;
-      if (!section) return [];
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top 100%',
-        end: 'bottom 0%',
-        onEnter: () => autoplayPlugin.play(),
-        onLeave: () => autoplayPlugin.stop(),
-        onEnterBack: () => autoplayPlugin.play(),
-        onLeaveBack: () => autoplayPlugin.stop(),
-      });
-
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-          defaults: { ease: 'power3.out' },
-        });
-
-        tl.fromTo(
-          section.querySelector('[data-t-header]'),
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.7 },
-        );
-
-        const cards = section.querySelectorAll('[data-t-card]');
-        tl.fromTo(
-          cards,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 },
-          '-=0.3',
-        );
-      }, section);
-
-      return [() => ctx.revert()];
-    },
-    [autoplayPlugin],
-  );
-
   return (
-    <section ref={sectionRef} className='relative bg-tertiary py-20 md:py-28'>
+    <section className='relative bg-tertiary py-20 md:py-28'>
       <div className='mx-auto max-w-360 px-4'>
-        <div data-t-header className='mb-16 text-center'>
+        <div className='mb-16 text-center'>
           <span className='mb-4 block font-sans text-label font-medium tracking-[0.2em] text-secondary uppercase'>
             What Our Clients Say
           </span>
@@ -133,10 +86,7 @@ export function TestimonialSection() {
                   key={t.id}
                   className='md:basis-4/5 lg:basis-2/4 py-3'
                 >
-                  <div
-                    data-t-card
-                    className='border border-white/10 p-10 md:p-14'
-                  >
+                  <div className='border border-white/10 p-10 md:p-14'>
                     <div className='mb-8 font-serif text-7xl leading-none text-secondary'>
                       &ldquo;
                     </div>

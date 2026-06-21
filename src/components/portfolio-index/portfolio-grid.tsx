@@ -5,8 +5,6 @@ import { Image } from '@unpic/react';
 import { ArrowRight, Check, Search, X } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
 import { allProjects } from '@/data/projects';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
-import { loadGsap } from '@/lib/gsap-loader';
 
 const statusFilters = ['All', 'Completed', 'Ongoing', 'Upcoming'] as const;
 type StatusFilter = (typeof statusFilters)[number];
@@ -28,7 +26,7 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [searchInput, setSearchInput] = useState(filters.search);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const navigate = useNavigate();
 
   const toggleSelect = (id: string) => {
@@ -69,82 +67,8 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
 
   const handleFilterClick = (f: StatusFilter) => {
     const newStatus = f === 'All' ? '' : f;
-    loadGsap().then(({ gsap }) => {
-      const cards = sectionRef.current?.querySelectorAll('[data-e="card"]');
-      if (!cards || cards.length === 0) {
-        onFilterChange({ status: newStatus });
-        return;
-      }
-      const state = Flip.getState(cards);
-      onFilterChange({ status: newStatus });
-      requestAnimationFrame(() => {
-        Flip.from(state, {
-          duration: 0.5,
-          ease: 'power3.out',
-          absolute: true,
-          onEnter: (els) =>
-            gsap.fromTo(
-              els,
-              { opacity: 0, y: 30 },
-              { opacity: 1, y: 0, duration: 0.5 },
-            ),
-          onLeave: (els) => gsap.to(els, { opacity: 0, y: 30, duration: 0.3 }),
-        });
-      });
-    });
+    onFilterChange({ status: newStatus });
   };
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section.querySelector('[data-e="grid-section"]'),
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-e="project-count"]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5 },
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-e="filter-bar"]'),
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5 },
-        '-=0.3',
-      );
-
-      tl.fromTo(
-        section.querySelectorAll('[data-e="card"]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.08 },
-        '-=0.2',
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-e="empty-state"]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.4 },
-        '-=0.1',
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-e="view-count"]'),
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5 },
-        '-=0.2',
-      );
-    }, section);
-
-    return [() => ctx.revert(), () => clearTimeout(debounceRef.current)];
-  }, []);
 
   const activeStatus: StatusFilter = (filters.status as StatusFilter) || 'All';
 
@@ -155,11 +79,8 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
       ref={sectionRef}
       className={`bg-surface py-12 md:py-16 ${selectedIds.length >= 2 ? 'pb-28 md:pb-32' : ''}`}
     >
-      <div data-e='grid-section' className='mx-auto max-w-360 px-4 md:px-16'>
-        <div
-          data-e='project-count'
-          className='mb-8 flex items-center justify-between'
-        >
+      <div className='mx-auto max-w-360 px-4 md:px-16'>
+        <div className='mb-8 flex items-center justify-between'>
           <span className='text-body-sm font-medium text-on-surface-variant'>
             {allProjects.length} Total Projects
           </span>
@@ -178,10 +99,7 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
           )}
         </div>
 
-        <div
-          data-e='filter-bar'
-          className='mb-10 space-y-4 border-b border-outline-variant pb-4'
-        >
+        <div className='mb-10 space-y-4 border-b border-outline-variant pb-4'>
           {/* Row 1: Status filter buttons */}
           <div className='flex flex-wrap gap-2'>
             {statusFilters.map((f) => (
@@ -228,7 +146,7 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
         </div>
 
         {filtered.length === 0 ? (
-          <div data-e='empty-state' className='py-20 text-center'>
+          <div className='py-20 text-center'>
             <p className='text-lg font-serif text-on-surface-variant'>
               No projects match your filters
             </p>
@@ -267,7 +185,6 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
                         src={p.image}
                         alt=''
                         layout='fullWidth'
-                        width={56}
                         height={56}
                         className='h-full w-full object-cover'
                       />
@@ -316,7 +233,6 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
                 </button>
 
                 <Link
-                  data-e='card'
                   to='/portfolio/$slug'
                   params={{ slug: project.slug }}
                   className='block'
@@ -327,7 +243,6 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
                         src={project.image}
                         alt=''
                         layout='fullWidth'
-                        width={600}
                         height={400}
                         className='h-full w-full object-cover'
                       />
@@ -362,7 +277,7 @@ export function PortfolioGrid({ filters, onFilterChange }: PortfolioGridProps) {
           </div>
         )}
 
-        <div data-e='view-count' className='mt-10 text-center'>
+        <div className='mt-10 text-center'>
           <p className='text-body-sm text-on-surface-variant'>
             Viewing {filtered.length} of {allProjects.length} projects
           </p>

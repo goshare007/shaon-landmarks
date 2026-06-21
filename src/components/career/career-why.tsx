@@ -1,9 +1,5 @@
-'use client';
-
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import CAREER_TEAM from '@/assets/images/career/team.webp';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 
 const benefits = [
   'Work on iconic projects across Bangladesh',
@@ -13,43 +9,11 @@ const benefits = [
 ];
 
 export function CareerWhy() {
-  const sectionRef = useRef<HTMLElement>(null);
-  useGsapAnimation((gsap, _ScrollTrigger) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-why-text]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7 },
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-why-image]'),
-        { opacity: 0, scale: 1.03 },
-        { opacity: 1, scale: 1, duration: 0.8 },
-        '-=0.4',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface py-20 md:py-28'>
+    <section className='bg-surface py-20 md:py-28'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
-          <div data-why-text>
+          <div>
             <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
               Why Shaon Landmarks
             </span>
@@ -73,15 +37,11 @@ export function CareerWhy() {
               ))}
             </div>
           </div>
-          <div
-            data-why-image
-            className='aspect-4/3 overflow-hidden border border-outline-variant bg-surface-container-low'
-          >
+          <div className='aspect-4/3 overflow-hidden border border-outline-variant bg-surface-container-low'>
             <Image
               src={CAREER_TEAM}
               alt='Team collaboration'
               layout='fullWidth'
-              width={600}
               height={450}
               className='h-full w-full object-cover'
             />

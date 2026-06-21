@@ -4,7 +4,6 @@ import { CtaSection } from '@/components/home/cta-section';
 import { FeaturedProjects } from '@/components/home/featured-projects';
 import { HeroSection } from '@/components/home/hero-section';
 import { PillarsSection } from '@/components/home/pillars-section';
-import { Preloader } from '@/components/home/preloader';
 import { SustainabilitySection } from '@/components/home/sustainability-section';
 import { TestimonialSection } from '@/components/home/testimonials';
 import { TrustStats } from '@/components/home/trust-stats';
@@ -23,17 +22,14 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   return (
-    <>
-      <Preloader />
-      <main>
-        <HeroSection />
-        <PillarsSection />
-        <FeaturedProjects />
-        <SustainabilitySection />
-        <TestimonialSection />
-        <TrustStats />
-        <CtaSection />
-      </main>
-    </>
+    <main>
+      <HeroSection />
+      <PillarsSection />
+      <FeaturedProjects />
+      <SustainabilitySection />
+      <TestimonialSection />
+      <TrustStats />
+      <CtaSection />
+    </main>
   );
 }

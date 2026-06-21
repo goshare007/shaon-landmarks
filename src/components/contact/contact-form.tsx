@@ -1,7 +1,7 @@
 'use client';
 
 import { BadgeCheck, Calendar } from 'lucide-react';
-import { type FormEvent, useRef, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -13,13 +13,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import type { ContactFormData } from '@/lib/forms';
 import { submitContactForm } from '@/lib/forms';
 
 export function ContactForm() {
-  const sectionRef = useRef<HTMLElement>(null);
-
   const [interest, setInterest] = useState('Residential Development');
   const [formState, setFormState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
@@ -59,74 +56,20 @@ export function ContactForm() {
     }
   }
 
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-form-heading]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7 },
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-form-text]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5 },
-        '-=0.3',
-      );
-
-      tl.fromTo(
-        section.querySelectorAll('[data-form-card]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-        '-=0.3',
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-form-wrapper]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7 },
-        '-=0.4',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className='mx-auto mb-32 mt-20 max-w-360 px-4 md:px-16'
-    >
+    <section className='mx-auto mb-32 mt-20 max-w-360 px-4 md:px-16'>
       <div className='grid gap-6 md:grid-cols-12'>
         <div className='mb-12 md:col-span-5 md:mb-0'>
-          <h2
-            data-form-heading
-            className='mb-8 text-3xl font-serif md:text-4xl'
-          >
+          <h2 className='mb-8 text-3xl font-serif md:text-4xl'>
             Consultation Request
           </h2>
-          <p
-            data-form-text
-            className='mb-12 text-sm leading-relaxed text-on-surface-variant md:text-base'
-          >
+          <p className='mb-12 text-sm leading-relaxed text-on-surface-variant md:text-base'>
             Provide us with the foundational details of your aspiration. A
             dedicated senior consultant will review your request and reach out
             within 24 business hours to arrange an initial dialogue.
           </p>
           <div className='space-y-8'>
-            <div data-form-card className='flex items-start gap-4'>
+            <div className='flex items-start gap-4'>
               <BadgeCheck
                 className='text-secondary'
                 size={24}
@@ -141,7 +84,7 @@ export function ContactForm() {
                 </p>
               </div>
             </div>
-            <div data-form-card className='flex items-start gap-4'>
+            <div className='flex items-start gap-4'>
               <Calendar
                 className='text-secondary'
                 size={24}
@@ -159,10 +102,7 @@ export function ContactForm() {
           </div>
         </div>
 
-        <div
-          data-form-wrapper
-          className='border border-outline-variant/30 bg-surface-container-lowest p-8 shadow-sm md:col-span-7 md:p-16'
-        >
+        <div className='border border-outline-variant/30 bg-surface-container-lowest p-8 shadow-sm md:col-span-7 md:p-16'>
           <form className='space-y-8' onSubmit={handleSubmit}>
             <div className='grid gap-8 md:grid-cols-2'>
               <div className='group space-y-2'>

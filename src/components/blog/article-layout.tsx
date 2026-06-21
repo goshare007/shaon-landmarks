@@ -1,36 +1,16 @@
-'use client';
-
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import type { BlogArticle } from '@/data/blog';
 import { getRecentArticles } from '@/data/blog';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { renderMarkdown } from '@/lib/markdown';
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {
-  const sectionRef = useRef<HTMLElement>(null);
   const recent = getRecentArticles(article.slug, 3);
 
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        section.querySelector('[data-e="content"]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' },
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef}>
+    <section>
       <article className='mx-auto max-w-360 px-4 pb-24 md:px-16'>
-        <div data-e='content' className='mx-auto max-w-3xl'>
+        <div className='mx-auto max-w-3xl'>
           <span className='inline-block rounded-sm bg-secondary/10 px-3 py-1 text-[11px] font-medium tracking-wider text-secondary uppercase'>
             {article.category.name}
           </span>
@@ -59,7 +39,6 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
             src={article.image}
             alt={article.title}
             layout='fullWidth'
-            width={1200}
             height={675}
             className='w-full object-cover'
           />
@@ -110,7 +89,6 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                       src={r.image}
                       alt={r.title}
                       layout='fullWidth'
-                      width={400}
                       height={225}
                       className='h-full w-full object-cover transition-all duration-500 group-hover:scale-105'
                     />

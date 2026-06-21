@@ -1,7 +1,3 @@
-'use client';
-
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { DynamicIcon } from '@/lib/icon-map';
 
 const MISSION_LIST = [
@@ -11,70 +7,14 @@ const MISSION_LIST = [
 ];
 
 export function AboutMissionVision() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-mv-mission]'),
-        { opacity: 0, x: -40 },
-        { opacity: 1, x: 0, duration: 0.8 },
-      );
-
-      tl.fromTo(
-        section.querySelector('[data-mv-vision]'),
-        { opacity: 0, x: 40 },
-        { opacity: 1, x: 0, duration: 0.8 },
-        '-=0.3',
-      );
-
-      const icons = section.querySelectorAll('[data-mv-icon]');
-      tl.fromTo(
-        icons,
-        { scale: 0, rotate: -30 },
-        { scale: 1, rotate: 0, duration: 0.5, stagger: 0.1 },
-        '-=0.4',
-      );
-
-      const listItems = section.querySelectorAll('[data-mv-list]');
-      tl.fromTo(
-        listItems,
-        { opacity: 0, x: -15 },
-        { opacity: 1, x: 0, duration: 0.4, stagger: 0.08 },
-        '-=0.2',
-      );
-
-      const quotes = section.querySelectorAll('[data-mv-quote]');
-      tl.fromTo(quotes, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '-=0.1');
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface-container-low py-24'>
+    <section className='bg-surface-container-low py-24'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
         <div className='grid gap-12 md:grid-cols-2'>
-          <div
-            data-mv-mission
-            className='flex flex-col justify-between border border-outline-variant bg-white p-12 transition-all duration-300 hover:-translate-y-1'
-          >
+          <div className='flex flex-col justify-between border border-outline-variant bg-white p-12 transition-all duration-300 hover:-translate-y-1'>
             <div>
               <DynamicIcon
                 name='track_changes'
-                data-mv-icon
                 size={36}
                 className='mb-8 inline-block text-secondary'
               />
@@ -88,7 +28,7 @@ export function AboutMissionVision() {
             </div>
             <ul className='space-y-4 text-label font-medium tracking-widest text-on-surface uppercase'>
               {MISSION_LIST.map((item) => (
-                <li key={item} data-mv-list className='flex items-center gap-3'>
+                <li key={item} className='flex items-center gap-3'>
                   <span className='h-1.5 w-1.5 shrink-0 bg-secondary' />
                   {item}
                 </li>
@@ -96,14 +36,10 @@ export function AboutMissionVision() {
             </ul>
           </div>
 
-          <div
-            data-mv-vision
-            className='flex flex-col justify-between bg-tertiary p-12 text-on-tertiary transition-all duration-300 hover:-translate-y-1 md:mt-16'
-          >
+          <div className='flex flex-col justify-between bg-tertiary p-12 text-on-tertiary transition-all duration-300 hover:-translate-y-1 md:mt-16'>
             <div>
               <DynamicIcon
                 name='visibility'
-                data-mv-icon
                 size={36}
                 className='mb-8 inline-block text-secondary-fixed-dim'
               />
@@ -114,10 +50,7 @@ export function AboutMissionVision() {
                 integrity and customer-centric property management.
               </p>
             </div>
-            <div
-              data-mv-quote
-              className='border-t border-on-tertiary-container pt-8'
-            >
+            <div className='border-t border-on-tertiary-container pt-8'>
               <p className='text-2xl italic font-serif leading-snug'>
                 &ldquo;Building the Future, Preserving the Legacy.&rdquo;
               </p>

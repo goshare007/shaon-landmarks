@@ -1,8 +1,3 @@
-'use client';
-
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
-
 const policySections = [
   {
     title: 'Information We Collect',
@@ -22,7 +17,7 @@ const policySections = [
   {
     title: 'Cookies',
     content:
-      'Our website uses essential cookies to ensure proper functionality. We may also use analytics cookies (with your consent) to understand how visitors interact with our site. You can manage your cookie preferences through our cookie consent banner on first visit, or through your browser settings at any time.',
+      'Our website uses anonymous analytics to understand how visitors interact with our site. We do not use cookies for tracking purposes. You can manage cookie preferences through your browser settings at any time.',
   },
   {
     title: 'Third-Party Services',
@@ -37,37 +32,11 @@ const policySections = [
 ];
 
 export function PrivacyPolicy() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelectorAll('[data-policy-item]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface py-20 md:py-28'>
+    <section className='bg-surface py-20 md:py-28'>
       <div className='mx-auto max-w-225 px-4 md:px-16'>
         {policySections.map((section, i) => (
-          <div key={section.title} data-policy-item>
+          <div key={section.title}>
             <div className='mb-4 flex items-start gap-4'>
               <span className='text-label font-medium tracking-widest text-secondary'>
                 {String(i + 1).padStart(2, '0')}

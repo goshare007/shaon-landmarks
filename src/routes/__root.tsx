@@ -4,14 +4,12 @@ import {
   Link,
   Scripts,
 } from '@tanstack/react-router';
+import { Analytics } from '@vercel/analytics/react';
 import { AlertCircle } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Header from '@/components/layout/header';
-import { RouteTransition } from '@/components/route-transition';
-import { CookieConsentBanner } from '@/components/shared/cookie-consent-banner';
 import { WhatsAppFab } from '@/components/shared/whatsapp-fab';
 import { DEFAULT_OG_IMAGE, ORGANIZATION_JSON_LD, SITE_URL } from '@/lib/seo';
-import { LenisScrollProvider } from '@/lib/smooth-scroll';
 import appCss from '@/styles.css?url';
 
 export const Route = createRootRoute({
@@ -102,6 +100,7 @@ export const Route = createRootRoute({
           </Link>
           <Link
             to='/portfolio'
+            search={{ status: '', location: '', search: '' }}
             className='inline-flex items-center gap-2 rounded-sm border border-outline-variant px-8 py-3.5 text-label font-medium tracking-widest text-on-surface uppercase transition-all hover:border-secondary hover:text-secondary'
           >
             View Portfolio
@@ -157,21 +156,19 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         >
           Skip to content
         </a>
-        <LenisScrollProvider>
-          <div className='print:hidden'>
-            <Header />
-          </div>
-          <div id='main-content' tabIndex={-1} className='pb-16'>
-            <RouteTransition>{children}</RouteTransition>
-          </div>
-          <div className='print:hidden'>
-            <Footer />
-          </div>
-          <div className='print:hidden'>
-            <WhatsAppFab />
-          </div>
-        </LenisScrollProvider>
-        <CookieConsentBanner />
+        <div className='print:hidden'>
+          <Header />
+        </div>
+        <div id='main-content' tabIndex={-1} className='pb-16'>
+          {children}
+        </div>
+        <div className='print:hidden'>
+          <Footer />
+        </div>
+        <div className='print:hidden'>
+          <WhatsAppFab />
+        </div>
+        <Analytics />
         <Scripts />
       </body>
     </html>

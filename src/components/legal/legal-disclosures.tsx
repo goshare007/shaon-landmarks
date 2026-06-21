@@ -1,7 +1,3 @@
-'use client';
-
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { DynamicIcon } from '@/lib/icon-map';
 
 const disclosureSections = [
@@ -35,37 +31,11 @@ const disclosureSections = [
 const icons = ['verified', 'handshake', 'description', 'gavel', 'balance'];
 
 export function LegalDisclosures() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelectorAll('[data-disclosure-item]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface py-20 md:py-28'>
+    <section className='bg-surface py-20 md:py-28'>
       <div className='mx-auto max-w-225 px-4 md:px-16'>
         {disclosureSections.map((section, i) => (
-          <div key={section.title} data-disclosure-item>
+          <div key={section.title}>
             <div className='mb-4 flex items-start gap-4'>
               <div className='flex h-10 w-10 shrink-0 items-center justify-center border border-secondary bg-secondary/5'>
                 <DynamicIcon

@@ -1,8 +1,7 @@
 'use client';
 
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { BLOG_CATEGORIES, blogArticles } from '@/data/blog';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { BlogCard } from './blog-card';
 import { BlogCardSkeleton } from './blog-card-skeleton';
 
@@ -12,7 +11,6 @@ interface BlogGridProps {
 }
 
 export function BlogGrid({ category, onCategoryChange }: BlogGridProps) {
-  const sectionRef = useRef<HTMLElement>(null);
   const isPending = false;
 
   const filtered = useMemo(() => {
@@ -27,26 +25,8 @@ export function BlogGrid({ category, onCategoryChange }: BlogGridProps) {
     [filtered, featured],
   );
 
-  useGsapAnimation(
-    (gsap) => {
-      const section = sectionRef.current;
-      if (!section) return [];
-
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          section.querySelectorAll('[data-e="card"]'),
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
-        );
-      }, section);
-
-      return [() => ctx.revert()];
-    },
-    [category],
-  );
-
   return (
-    <section ref={sectionRef} className='bg-surface py-16 md:py-24'>
+    <section className='bg-surface py-16 md:py-24'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
         <div className='mb-12 flex flex-wrap gap-3'>
           <button

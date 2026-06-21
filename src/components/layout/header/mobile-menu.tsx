@@ -3,74 +3,12 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { navItems } from '@/data/navigation';
-import { loadGsap } from '@/lib/gsap-loader';
 import { cn } from '@/lib/utils';
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
-  const [renderOverlay, setRenderOverlay] = useState(false);
   const { pathname } = useLocation();
-  const overlayRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLUListElement>(null);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (open) {
-      setRenderOverlay(true);
-    } else {
-      const id = window.setTimeout(() => setRenderOverlay(false), 400);
-      return () => window.clearTimeout(id);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    if (!renderOverlay) return;
-
-    let killed = false;
-
-    loadGsap().then(({ gsap }) => {
-      if (killed || !overlayRef.current) return;
-
-      if (open) {
-        const tl = gsap.timeline();
-        tl.fromTo(
-          overlayRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.2 },
-        );
-        tl.fromTo(
-          navRef.current?.querySelectorAll('li') ?? [],
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.35,
-            stagger: 0.08,
-            ease: 'power3.out',
-          },
-          '-=0.1',
-        );
-      } else {
-        const tl = gsap.timeline();
-        tl.fromTo(
-          navRef.current?.querySelectorAll('li') ?? [],
-          { opacity: 1, y: 0 },
-          {
-            opacity: 0,
-            y: 24,
-            duration: 0.2,
-            stagger: 0.04,
-            ease: 'power3.in',
-          },
-        );
-        tl.to(overlayRef.current, { opacity: 0, duration: 0.15 }, '-=0.1');
-      }
-    });
-
-    return () => {
-      killed = true;
-    };
-  }, [open, renderOverlay]);
 
   useEffect(() => {
     if (!open) {
@@ -112,7 +50,7 @@ export default function MobileMenu() {
 
     const timer = window.setTimeout(() => {
       navRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
-    }, 400);
+    }, 100);
 
     return () => {
       window.clearTimeout(timer);
@@ -125,7 +63,6 @@ export default function MobileMenu() {
   return (
     <>
       <button
-        ref={toggleRef}
         type='button'
         onClick={() => setOpen(!open)}
         className='relative z-50 flex h-8 w-8 items-center justify-center md:hidden'
@@ -153,11 +90,8 @@ export default function MobileMenu() {
         </div>
       </button>
 
-      {renderOverlay && (
-        <div
-          ref={overlayRef}
-          className='fixed inset-0 z-40 flex items-center justify-center bg-surface px-4'
-        >
+      {open && (
+        <div className='fixed inset-0 z-40 flex items-center justify-center bg-surface px-4 animate-fade-in'>
           <nav>
             <ul ref={navRef} className='space-y-6 text-center'>
               {navItems.map((item) => {

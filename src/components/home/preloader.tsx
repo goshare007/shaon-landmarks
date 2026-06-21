@@ -1,96 +1,39 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { loadGsap } from '@/lib/gsap-loader';
 
 export function Preloader() {
   const [show, setShow] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef<SVGRectElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const logoRef = useRef<HTMLDivElement>(null);
-  const accentRef = useRef<HTMLDivElement>(null);
-  const taglineRef = useRef<HTMLHeadingElement>(null);
+  const dismissedRef = useRef(false);
 
   useEffect(() => {
-    const dismissed = (() => {
-      try {
-        return sessionStorage.getItem('sl-preloader');
-      } catch {
-        return null;
+    if (dismissedRef.current) return;
+    try {
+      if (sessionStorage.getItem('sl-preloader')) {
+        dismissedRef.current = true;
+        setShow(false);
+        return;
       }
-    })();
-
-    if (dismissed) {
-      setShow(false);
-      return;
+    } catch {
+      /* noop */
     }
 
-    let killed = false;
-    const cleanupRef: { current: (() => void) | null } = { current: null };
+    const dismiss = () => {
+      if (dismissedRef.current) return;
+      dismissedRef.current = true;
+      setShow(false);
+      try {
+        sessionStorage.setItem('sl-preloader', '1');
+      } catch {
+        /* noop */
+      }
+    };
 
-    loadGsap().then(({ gsap }) => {
-      if (killed) return;
-      const el = containerRef.current;
-      if (!el) return;
-
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline({
-          onComplete: () => {
-            gsap.to(el, {
-              opacity: 0,
-              duration: 0.5,
-              ease: 'power2.inOut',
-              onComplete: () => {
-                setShow(false);
-                try {
-                  sessionStorage.setItem('sl-preloader', '1');
-                } catch {
-                  /* noop */
-                }
-              },
-            });
-          },
-        });
-
-        tl.fromTo(
-          frameRef.current,
-          { strokeDashoffset: 2500 },
-          { strokeDashoffset: 0, duration: 1.4, ease: 'power2.inOut' },
-        );
-
-        tl.to(gridRef.current, { opacity: 1, duration: 0.8 }, '-=0.8');
-
-        tl.fromTo(
-          logoRef.current,
-          { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-          '-=0.4',
-        );
-
-        tl.fromTo(
-          accentRef.current,
-          { width: '0%' },
-          { width: '40%', duration: 0.6, ease: 'power3.out' },
-          '-=0.3',
-        );
-
-        tl.fromTo(
-          taglineRef.current,
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-          '-=0.2',
-        );
-
-        tl.to({}, { duration: 0.8 });
-      }, el);
-
-      cleanupRef.current = () => ctx.revert();
-    });
+    const timer = setTimeout(dismiss, 3500);
 
     return () => {
-      killed = true;
-      cleanupRef.current?.();
+      clearTimeout(timer);
     };
   }, []);
 
@@ -108,7 +51,6 @@ export function Preloader() {
         aria-hidden='true'
       >
         <rect
-          ref={frameRef}
           x='0'
           y='0'
           width='100'
@@ -116,37 +58,27 @@ export function Preloader() {
           fill='none'
           stroke='rgba(166,124,82,0.2)'
           strokeWidth='0.4'
-          strokeDasharray='2500'
-          strokeDashoffset='2500'
           vectorEffect='non-scaling-stroke'
         />
       </svg>
 
       <div
-        ref={gridRef}
-        className='absolute inset-0 opacity-0'
+        className='absolute inset-0'
         style={{
           backgroundImage:
             'repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px), repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.03) 59px, rgba(255,255,255,0.03) 60px)',
         }}
       />
 
-      <div ref={logoRef} className='relative z-10 opacity-0'>
+      <div className='relative z-10'>
         <h1 className='font-serif text-3xl tracking-wide text-white md:text-5xl'>
           Shaon Landmarks
         </h1>
       </div>
 
-      <div
-        ref={accentRef}
-        className='relative z-10 mt-5 h-px bg-secondary'
-        style={{ width: 0 }}
-      />
+      <div className='relative z-10 mt-5 h-px w-2/5 bg-secondary' />
 
-      <h2
-        ref={taglineRef}
-        className='relative z-10 mt-5 font-sans text-xs tracking-[0.3em] text-white/40 opacity-0 uppercase md:text-sm'
-      >
+      <h2 className='relative z-10 mt-5 font-sans text-xs tracking-[0.3em] text-white/40 uppercase md:text-sm'>
         Architecting Tomorrow
       </h2>
     </div>

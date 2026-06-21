@@ -1,7 +1,3 @@
-'use client';
-
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { DynamicIcon } from '@/lib/icon-map';
 
 const pillars = [
@@ -26,46 +22,10 @@ const pillars = [
 ];
 
 export function SustainabilityPillars() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-pillars-heading]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.6 },
-      );
-
-      tl.fromTo(
-        section.querySelectorAll('[data-pillars-card]'),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.12 },
-        '-=0.3',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section
-      ref={sectionRef}
-      className='bg-surface-container-low py-20 md:py-28'
-    >
+    <section className='bg-surface-container-low py-20 md:py-28'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
-        <div data-pillars-heading className='mb-12 text-center'>
+        <div className='mb-12 text-center'>
           <span className='text-label font-medium tracking-[0.15em] text-secondary uppercase'>
             Our Initiatives
           </span>
@@ -77,7 +37,6 @@ export function SustainabilityPillars() {
           {pillars.map((p) => (
             <div
               key={p.title}
-              data-pillars-card
               className='rounded-sm bg-white p-8 transition-transform duration-300 hover:-translate-y-1'
             >
               <DynamicIcon name={p.icon} size={28} className='text-secondary' />

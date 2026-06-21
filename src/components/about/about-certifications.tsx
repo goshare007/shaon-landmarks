@@ -1,7 +1,3 @@
-'use client';
-
-import { useRef } from 'react';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { DynamicIcon } from '@/lib/icon-map';
 
 const CERTIFICATIONS = [
@@ -11,45 +7,11 @@ const CERTIFICATIONS = [
 ];
 
 export function AboutCertifications() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-cert-text]'),
-        { opacity: 0, x: -30 },
-        { opacity: 1, x: 0, duration: 0.7 },
-      );
-
-      const badges = section.querySelectorAll('[data-cert-badge]');
-      tl.fromTo(
-        badges,
-        { opacity: 0, scale: 0.8, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 0.5, stagger: 0.1 },
-        '-=0.3',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-surface-container py-20'>
+    <section className='bg-surface-container py-20'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
         <div className='flex flex-col items-center justify-between gap-12 border-y border-outline-variant py-16 md:flex-row'>
-          <div data-cert-text className='max-w-md text-center md:text-left'>
+          <div className='max-w-md text-center md:text-left'>
             <h2 className='mb-4 text-3xl font-serif'>Certified Excellence</h2>
             <p className='text-sm leading-relaxed text-on-surface-variant'>
               We adhere to the highest regulatory standards in Bangladesh,
@@ -60,7 +22,6 @@ export function AboutCertifications() {
             {CERTIFICATIONS.map((cert) => (
               <div
                 key={cert.label}
-                data-cert-badge
                 className='flex flex-col items-center gap-4 transition-all duration-300 hover:-translate-y-1'
               >
                 <div className='flex h-24 w-24 items-center justify-center border border-outline-variant bg-white'>

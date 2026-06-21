@@ -1,8 +1,4 @@
-'use client';
-
-import { useRef } from 'react';
 import type { ProjectDetail } from '@/data/projects';
-import { useGsapAnimation } from '@/hooks/use-gsap-animation';
 import { DynamicIcon } from '@/lib/icon-map';
 
 export function PortfolioDetailAmenities({
@@ -10,43 +6,10 @@ export function PortfolioDetailAmenities({
 }: {
   amenities: ProjectDetail['amenities'];
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGsapAnimation((gsap) => {
-    const section = sectionRef.current;
-    if (!section) return [];
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-        defaults: { ease: 'power3.out' },
-      });
-
-      tl.fromTo(
-        section.querySelector('[data-amenities-header]'),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6 },
-      );
-
-      tl.fromTo(
-        section.querySelectorAll('[data-amenities-card]'),
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.5, stagger: 0.1 },
-        '-=0.3',
-      );
-    }, section);
-
-    return [() => ctx.revert()];
-  }, []);
-
   return (
-    <section ref={sectionRef} className='bg-primary py-32 text-on-primary'>
+    <section className='bg-primary py-32 text-on-primary'>
       <div className='mx-auto max-w-360 px-4 md:px-16'>
-        <div data-amenities-header className='mb-24 max-w-2xl'>
+        <div className='mb-24 max-w-2xl'>
           <h2 className='mb-6 text-3xl font-serif md:text-4xl lg:text-5xl'>
             Elevating the <br />
             Daily Experience
@@ -61,7 +24,6 @@ export function PortfolioDetailAmenities({
           {amenities.map((a) => (
             <div
               key={a.title}
-              data-amenities-card
               className='border-l border-outline-variant py-4 pl-8'
             >
               <DynamicIcon
