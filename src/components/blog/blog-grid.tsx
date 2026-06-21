@@ -1,5 +1,3 @@
-'use client';
-
 import { useMemo } from 'react';
 import { BLOG_CATEGORIES, blogArticles } from '@/data/blog';
 import { BlogCard } from './blog-card';

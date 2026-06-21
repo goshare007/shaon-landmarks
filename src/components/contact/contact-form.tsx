@@ -1,5 +1,3 @@
-'use client';
-
 import { BadgeCheck, Calendar } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';

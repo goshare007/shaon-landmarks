@@ -1,5 +1,3 @@
-'use client';
-
 import { Lock } from 'lucide-react';
 import { useState } from 'react';
 import type { ContactFormData } from '@/lib/forms';

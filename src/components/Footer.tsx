@@ -1,5 +1,3 @@
-'use client';
-
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight } from 'lucide-react';

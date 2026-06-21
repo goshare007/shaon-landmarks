@@ -1,5 +1,3 @@
-'use client';
-
 import Autoplay from 'embla-carousel-autoplay';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CarouselApi } from '@/components/ui/carousel';

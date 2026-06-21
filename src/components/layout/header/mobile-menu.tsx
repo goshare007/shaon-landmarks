@@ -1,5 +1,3 @@
-'use client';
-
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { navItems } from '@/data/navigation';
