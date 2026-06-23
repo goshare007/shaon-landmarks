@@ -149,25 +149,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className='min-h-dvh bg-surface text-on-surface antialiased'>
-        <a
-          href='#main-content'
-          className='sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-[9999] focus:p-4 focus:bg-surface focus:text-on-surface focus:outline-2 focus:outline-secondary focus:text-sm focus:font-medium'
-        >
-          Skip to content
-        </a>
-        <div className='print:hidden'>
-          <Header />
-        </div>
-        <div id='main-content' tabIndex={-1} className='pb-16'>
-          {children}
-        </div>
-        <div className='print:hidden'>
-          <Footer />
-        </div>
-        <div className='print:hidden'>
-          <WhatsAppFab />
-        </div>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+        <WhatsAppFab />
         <Analytics />
         <Scripts />
       </body>
