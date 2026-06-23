@@ -1,5 +1,5 @@
 import { Image } from '@unpic/react';
-import type { ProjectDetail } from '@/data/projects';
+import type { ProjectDetail } from '@/content/projects';
 
 export function PortfolioDetailVision({
   vision,

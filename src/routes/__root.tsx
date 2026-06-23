@@ -6,7 +6,7 @@ import {
 } from '@tanstack/react-router';
 import { Analytics } from '@vercel/analytics/react';
 import { AlertCircle } from 'lucide-react';
-import Footer from '@/components/Footer';
+import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/header';
 import { WhatsAppFab } from '@/components/shared/whatsapp-fab';
 import { DEFAULT_OG_IMAGE, ORGANIZATION_JSON_LD, SITE_URL } from '@/lib/seo';

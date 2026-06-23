@@ -1,4 +1,4 @@
-import type { ProjectDetail } from '@/data/projects';
+import type { ProjectDetail } from '@/content/projects';
 
 export function PortfolioDetailSpecs({
   specs,

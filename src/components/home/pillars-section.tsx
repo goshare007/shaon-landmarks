@@ -1,4 +1,4 @@
-import { pillars } from '@/data/pillars';
+import { pillars } from '@/content/pillars';
 import { DynamicIcon } from '@/lib/icon-map';
 
 export function PillarsSection() {

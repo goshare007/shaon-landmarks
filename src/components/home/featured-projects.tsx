@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight } from 'lucide-react';
-import { allProjects } from '@/data/projects';
+import { allProjects } from '@/content/projects';
 
 interface Project {
   id: string;

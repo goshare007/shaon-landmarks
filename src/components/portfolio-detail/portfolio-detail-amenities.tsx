@@ -1,4 +1,4 @@
-import type { ProjectDetail } from '@/data/projects';
+import type { ProjectDetail } from '@/content/projects';
 import { DynamicIcon } from '@/lib/icon-map';
 
 export function PortfolioDetailAmenities({

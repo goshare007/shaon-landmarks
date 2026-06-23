@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { testimonials } from '@/data/testimonials';
+import { testimonials } from '@/content/testimonials';
 
 export function TestimonialSection() {
   const [api, setApi] = useState<CarouselApi>();

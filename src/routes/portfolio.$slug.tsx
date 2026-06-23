@@ -11,8 +11,8 @@ import { PortfolioDetailVision } from '@/components/portfolio-detail/portfolio-d
 import type {
   Project,
   ProjectDetail as ProjectDetailData,
-} from '@/data/projects';
-import { allProjects } from '@/data/projects';
+} from '@/content/projects';
+import { allProjects } from '@/content/projects';
 import { breadcrumbLd, generateMeta, productLd, SITE_URL } from '@/lib/seo';
 
 export const Route = createFileRoute('/portfolio/$slug')({

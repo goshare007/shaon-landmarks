@@ -2,7 +2,7 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { ArrowRight, Check, Search, X } from 'lucide-react';
 import { useMemo, useRef, useState } from 'react';
-import { allProjects } from '@/data/projects';
+import { allProjects } from '@/content/projects';
 
 const statusFilters = ['All', 'Completed', 'Ongoing', 'Upcoming'] as const;
 type StatusFilter = (typeof statusFilters)[number];

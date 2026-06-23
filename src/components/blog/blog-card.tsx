@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import type { BlogArticle } from '@/data/blog';
+import type { BlogArticle } from '@/content/blog';
 
 export function BlogCard({ article }: { article: BlogArticle }) {
   return (

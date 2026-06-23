@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { ArrowLeft, Printer } from 'lucide-react';
-import type { Project } from '@/data/projects';
+import type { Project } from '@/content/projects';
 
 export function PortfolioDetailSimple({ project }: { project: Project }) {
   return (

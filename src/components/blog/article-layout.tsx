@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import type { BlogArticle } from '@/data/blog';
-import { getRecentArticles } from '@/data/blog';
+import type { BlogArticle } from '@/content/blog';
+import { getRecentArticles } from '@/content/blog';
 import { renderMarkdown } from '@/lib/markdown';
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {

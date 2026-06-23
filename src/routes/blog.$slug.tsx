@@ -2,7 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowLeft } from 'lucide-react';
 import { ArticleLayout } from '@/components/blog/article-layout';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
-import { blogArticles } from '@/data/blog';
+import { blogArticles } from '@/content/blog';
 import { articleLd, breadcrumbLd, generateMeta, SITE_URL } from '@/lib/seo';
 
 export const Route = createFileRoute('/blog/$slug')({

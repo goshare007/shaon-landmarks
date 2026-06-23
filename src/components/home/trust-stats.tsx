@@ -1,4 +1,4 @@
-import { TRUST_STATS as stats } from '@/data/home';
+import { TRUST_STATS as stats } from '@/content/home';
 
 export function TrustStats() {
   return (

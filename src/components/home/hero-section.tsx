@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { HERO_CONTENT } from '@/data/home';
+import { HERO_CONTENT } from '@/content/home';
 
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   id: i,

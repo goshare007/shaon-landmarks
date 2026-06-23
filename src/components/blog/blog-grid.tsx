@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { BLOG_CATEGORIES, blogArticles } from '@/data/blog';
+import { BLOG_CATEGORIES, blogArticles } from '@/content/blog';
 import { BlogCard } from './blog-card';
 import { BlogCardSkeleton } from './blog-card-skeleton';
 

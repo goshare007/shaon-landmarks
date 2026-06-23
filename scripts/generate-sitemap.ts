@@ -1,7 +1,7 @@
 import { statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { allProjects } from '@/data/projects';
+import { allProjects } from '@/content/projects';
 
 const SITE_URL = process.env.SITE_URL ?? 'https://shaonlandmarks.vercel.app';
 
@@ -88,7 +88,7 @@ function url(
   return entry;
 }
 
-const dataMod = lastmod('../src/data/projects.ts');
+const dataMod = lastmod('../src/content/projects.ts');
 const urls = [
   ...staticPages.map((p) =>
     url(p.path, p.priority, p.changefreq, lastmod(p.file)),

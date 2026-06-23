@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import { z } from 'zod';
 import { CompareTable } from '@/components/portfolio-compare/compare-table';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
-import { allProjects } from '@/data/projects';
+import { allProjects } from '@/content/projects';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 const compareSearchSchema = z.object({

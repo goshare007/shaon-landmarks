@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import type { Project } from '@/data/projects';
+import type { Project } from '@/content/projects';
 
 interface CompareTableProps {
   projects: Project[];

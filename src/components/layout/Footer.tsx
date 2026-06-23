@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import logo from '@/assets/logo.png';
 import { submitNewsletterSignup } from '@/lib/forms';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 const year = new Date().getFullYear();
 

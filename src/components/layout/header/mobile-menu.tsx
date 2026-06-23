@@ -1,6 +1,6 @@
 import { Link, useLocation } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
-import { navItems } from '@/data/navigation';
+import { navItems } from '@/content/navigation';
 import { cn } from '@/lib/utils';
 
 export default function MobileMenu() {
