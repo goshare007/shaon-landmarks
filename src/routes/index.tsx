@@ -362,7 +362,7 @@ function Testimonials() {
               className='flex flex-col rounded-xl border bg-background p-8'
             >
               <div className='flex gap-1 text-custom'>
-                {[...Array(5)].map((_) => (
+                {[...Array(5)].map((_, i) => (
                   <span key={i}>&#9733;</span>
                 ))}
               </div>
