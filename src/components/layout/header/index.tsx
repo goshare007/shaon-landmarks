@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
-import { cn } from '#/lib/utils';
 import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import DesktopNav from './desktop-nav';
 import Logo from './logo';
 import MobileMenu from './mobile-menu';
@@ -39,11 +39,11 @@ export default function Header() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 bg-background/80 backdrop-blur-sm transition-transform duration-300',
+        'sticky top-0 z-50 bg-background/80 backdrop-blur-sm transition-transform duration-300 border-b border-custom/10',
         isHidden ? '-translate-y-full' : 'translate-y-0',
       )}
     >
-      <div className='container-main flex items-center justify-between border-b border-custom/10 py-3 md:py-4'>
+      <div className='container flex items-center justify-between  py-3 md:py-4'>
         {/* Logo */}
         <Logo />
 

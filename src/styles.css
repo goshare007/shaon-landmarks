@@ -50,18 +50,6 @@
   --color-custom: #a67c52;
 }
 
-@utility container-main {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 90rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  @media (width >= 48rem) {
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-}
-
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -107,4 +95,8 @@
   html {
     @apply font-sans;
   }
+}
+
+@utility container {
+  @apply mx-auto px-4;
 }

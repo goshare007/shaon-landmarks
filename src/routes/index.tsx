@@ -362,9 +362,10 @@ function Testimonials() {
               className='flex flex-col rounded-xl border bg-background p-8'
             >
               <div className='flex gap-1 text-custom'>
-                {[...Array(5)].map((_, i) => (
-                  <span key={i}>&#9733;</span>
-                ))}
+                {[...Array(5)].map((_, i) => {
+                  // biome-ignore lint/suspicious/noArrayIndexKey: static 5-star rating, never reordered
+                  return <span key={i}>&#9733;</span>;
+                })}
               </div>
               <blockquote className='mt-4 flex-1 text-sm leading-relaxed text-muted-foreground'>
                 &ldquo;{t.quote}&rdquo;

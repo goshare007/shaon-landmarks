@@ -1,0 +1,272 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Shaon Landmarks & Housing Shaon Landmarks" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]:
+          - img "Shaon Landmarks & Housing" [ref=e6]
+          - generic [ref=e7]: Shaon Landmarks
+      - button "Open menu" [ref=e10]:
+        - img
+  - main [ref=e11]:
+    - generic [ref=e15]:
+      - generic [ref=e16]: Bangladesh's Premier Developer
+      - heading "Building Landmarks That Define Cities" [level=1] [ref=e17]:
+        - text: Building Landmarks
+        - text: That Define Cities
+      - paragraph [ref=e18]: From visionary architecture to enduring structures — we create spaces that inspire, communities that thrive, and icons that stand the test of time.
+      - generic [ref=e19]:
+        - link "View Our Work" [ref=e20] [cursor=pointer]:
+          - /url: /portfolio
+        - link "Get in Touch" [ref=e21] [cursor=pointer]:
+          - /url: /contact
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - text: What We Do
+        - heading "Full-Service Real Estate Excellence" [level=2] [ref=e25]:
+          - text: Full-Service Real Estate
+          - text: Excellence
+        - paragraph [ref=e26]: Every project begins with a deep understanding of the land, the community, and the vision. Here's how we bring it to life.
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - img "Architecture" [ref=e30]
+          - generic [ref=e31]:
+            - heading "Architecture" [level=3] [ref=e32]
+            - paragraph [ref=e33]: Award-winning design that blends modern aesthetics with functional living, tailored to Bangladesh's unique urban landscape.
+        - generic [ref=e34]:
+          - img "Construction" [ref=e36]
+          - generic [ref=e37]:
+            - heading "Construction" [level=3] [ref=e38]
+            - paragraph [ref=e39]: End-to-end construction management with uncompromising quality standards, delivered on time and on budget.
+        - generic [ref=e40]:
+          - img "Land Development" [ref=e42]
+          - generic [ref=e43]:
+            - heading "Land Development" [level=3] [ref=e44]
+            - paragraph [ref=e45]: Strategic land acquisition and development, transforming raw parcels into thriving residential and commercial communities.
+        - generic [ref=e46]:
+          - img "Interior Design" [ref=e48]
+          - generic [ref=e49]:
+            - heading "Interior Design" [level=3] [ref=e50]
+            - paragraph [ref=e51]: Thoughtful interior spaces that reflect your vision, combining comfort, elegance, and practical sophistication.
+    - generic [ref=e53]:
+      - generic [ref=e55]:
+        - text: Our Portfolio
+        - heading "Featured Landmarks" [level=2] [ref=e56]
+      - generic [ref=e57]:
+        - link "The Skyline Plaza Commercial The Skyline Plaza Gulshan, Dhaka" [ref=e58] [cursor=pointer]:
+          - /url: /portfolio
+          - img "The Skyline Plaza" [ref=e60]
+          - generic [ref=e61]:
+            - text: Commercial
+            - heading "The Skyline Plaza" [level=3] [ref=e62]
+            - paragraph [ref=e63]: Gulshan, Dhaka
+        - link "The Obsidian Residential The Obsidian Banani, Dhaka" [ref=e64] [cursor=pointer]:
+          - /url: /portfolio
+          - img "The Obsidian" [ref=e66]
+          - generic [ref=e67]:
+            - text: Residential
+            - heading "The Obsidian" [level=3] [ref=e68]
+            - paragraph [ref=e69]: Banani, Dhaka
+        - link "Azure Waterfront Mixed-Use Azure Waterfront Cox&apos;s Bazar" [ref=e70] [cursor=pointer]:
+          - /url: /portfolio
+          - img "Azure Waterfront" [ref=e72]
+          - generic [ref=e73]:
+            - text: Mixed-Use
+            - heading "Azure Waterfront" [level=3] [ref=e74]
+            - paragraph [ref=e75]: Cox&apos;s Bazar
+      - link "View All Projects →" [ref=e77] [cursor=pointer]:
+        - /url: /portfolio
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - text: Why Shaon Landmarks
+        - heading "Built on Trust" [level=2] [ref=e81]
+      - generic [ref=e82]:
+        - generic [ref=e83]:
+          - paragraph [ref=e84]: 25+
+          - paragraph [ref=e85]: Years Experience
+        - generic [ref=e86]:
+          - paragraph [ref=e87]: 120+
+          - paragraph [ref=e88]: Projects Delivered
+        - generic [ref=e89]:
+          - paragraph [ref=e90]: 8,500+
+          - paragraph [ref=e91]: Families Served
+        - generic [ref=e92]:
+          - paragraph [ref=e93]: 15+
+          - paragraph [ref=e94]: Design Awards
+      - generic [ref=e95]:
+        - generic [ref=e96]:
+          - heading "Uncompromising Quality" [level=3] [ref=e99]
+          - paragraph [ref=e100]: We source premium materials and work with master craftsmen to deliver structures that stand strong for generations.
+        - generic [ref=e101]:
+          - heading "Sustainable Building" [level=3] [ref=e104]
+          - paragraph [ref=e105]: Every project integrates green building practices, energy-efficient systems, and environmentally responsible materials.
+        - generic [ref=e106]:
+          - heading "Client-First Approach" [level=3] [ref=e109]
+          - paragraph [ref=e110]: From first consultation to final handover, you partner directly with our senior team every step of the way.
+        - generic [ref=e111]:
+          - heading "On-Time Delivery" [level=3] [ref=e114]
+          - paragraph [ref=e115]: Rigorous project management and decades of local expertise ensure we deliver on schedule, every time.
+    - generic [ref=e117]:
+      - generic [ref=e118]:
+        - text: Testimonials
+        - heading "What Our Clients Say" [level=2] [ref=e119]
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - generic [ref=e122]:
+            - generic [ref=e123]: ★
+            - generic [ref=e124]: ★
+            - generic [ref=e125]: ★
+            - generic [ref=e126]: ★
+            - generic [ref=e127]: ★
+          - blockquote [ref=e128]: “Working with Shaon Landmarks was a dream. They transformed our vision into a home that exceeds every expectation. The attention to detail is remarkable.”
+          - generic [ref=e129]:
+            - generic [ref=e130]: F
+            - generic [ref=e131]:
+              - paragraph [ref=e132]: Farhana Rahman
+              - paragraph [ref=e133]: Homeowner, The Obsidian
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - generic [ref=e136]: ★
+            - generic [ref=e137]: ★
+            - generic [ref=e138]: ★
+            - generic [ref=e139]: ★
+            - generic [ref=e140]: ★
+          - blockquote [ref=e141]: “Professional, transparent, and truly committed to quality. Our commercial complex was delivered three weeks ahead of schedule without compromising on a single detail.”
+          - generic [ref=e142]:
+            - generic [ref=e143]: K
+            - generic [ref=e144]:
+              - paragraph [ref=e145]: Kamal Hossain
+              - paragraph [ref=e146]: CEO, Crescent Group
+        - generic [ref=e147]:
+          - generic [ref=e148]:
+            - generic [ref=e149]: ★
+            - generic [ref=e150]: ★
+            - generic [ref=e151]: ★
+            - generic [ref=e152]: ★
+            - generic [ref=e153]: ★
+          - blockquote [ref=e154]: “What sets Shaon apart is their integrity. In an industry full of shortcuts, they never compromise. Our project stands as a testament to their craftsmanship.”
+          - generic [ref=e155]:
+            - generic [ref=e156]: D
+            - generic [ref=e157]:
+              - paragraph [ref=e158]: Dr. Ayesha Siddiqua
+              - paragraph [ref=e159]: Architect & Partner
+    - generic [ref=e162]:
+      - heading "Ready to Build Something Extraordinary?" [level=2] [ref=e163]
+      - paragraph [ref=e164]: Whether you're dreaming of a new home, planning a commercial project, or exploring land opportunities — let's start the conversation.
+      - generic [ref=e165]:
+        - link "Start Your Project" [ref=e166] [cursor=pointer]:
+          - /url: /contact
+        - link "Learn About Us" [ref=e167] [cursor=pointer]:
+          - /url: /about
+  - contentinfo [ref=e168]:
+    - generic [ref=e170]:
+      - generic [ref=e171]:
+        - link "Shaon Shaon LANDMARKS" [ref=e172] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e173]:
+            - img "Shaon" [ref=e175]
+            - generic [ref=e176]:
+              - heading "Shaon" [level=3] [ref=e177]
+              - paragraph [ref=e178]: LANDMARKS
+        - paragraph [ref=e179]: Redefining the skyline through structural precision and unwavering aesthetic integrity since 2008. Transforming visions into architectural masterpieces.
+        - generic [ref=e180]:
+          - generic [ref=e181]: Subscribe to Updates
+          - generic [ref=e183]:
+            - textbox "Subscribe to Updates" [ref=e184]:
+              - /placeholder: Enter your email
+            - button [ref=e185]:
+              - img
+      - generic [ref=e186]:
+        - heading "Company" [level=4] [ref=e187]
+        - list [ref=e188]:
+          - listitem [ref=e189]:
+            - link "About Us →" [ref=e190] [cursor=pointer]:
+              - /url: /about
+              - text: About Us
+              - generic [ref=e191]: →
+          - listitem [ref=e192]:
+            - link "Our Portfolio →" [ref=e193] [cursor=pointer]:
+              - /url: /portfolio
+              - text: Our Portfolio
+              - generic [ref=e194]: →
+          - listitem [ref=e195]:
+            - link "Blog →" [ref=e196] [cursor=pointer]:
+              - /url: /blog
+              - text: Blog
+              - generic [ref=e197]: →
+          - listitem [ref=e198]:
+            - link "EMI Calculator →" [ref=e199] [cursor=pointer]:
+              - /url: /emi-calculator
+              - text: EMI Calculator
+              - generic [ref=e200]: →
+          - listitem [ref=e201]:
+            - link "Sustainability →" [ref=e202] [cursor=pointer]:
+              - /url: /sustainability
+              - text: Sustainability
+              - generic [ref=e203]: →
+          - listitem [ref=e204]:
+            - link "Careers →" [ref=e205] [cursor=pointer]:
+              - /url: /career
+              - text: Careers
+              - generic [ref=e206]: →
+      - generic [ref=e207]:
+        - heading "Legal" [level=4] [ref=e208]
+        - list [ref=e209]:
+          - listitem [ref=e210]:
+            - link "RAJUK Certified →" [ref=e211] [cursor=pointer]:
+              - /url: /legal
+              - text: RAJUK Certified
+              - generic [ref=e212]: →
+          - listitem [ref=e213]:
+            - link "REHAB Member →" [ref=e214] [cursor=pointer]:
+              - /url: /legal
+              - text: REHAB Member
+              - generic [ref=e215]: →
+          - listitem [ref=e216]:
+            - link "Legal Disclosures →" [ref=e217] [cursor=pointer]:
+              - /url: /legal
+              - text: Legal Disclosures
+              - generic [ref=e218]: →
+          - listitem [ref=e219]:
+            - link "Privacy Policy →" [ref=e220] [cursor=pointer]:
+              - /url: /privacy
+              - text: Privacy Policy
+              - generic [ref=e221]: →
+      - generic [ref=e222]:
+        - heading "Connect" [level=4] [ref=e223]
+        - list [ref=e224]:
+          - listitem [ref=e225]:
+            - link "Facebook →" [ref=e226] [cursor=pointer]:
+              - /url: https://facebook.com/shaonlandmarks
+              - text: Facebook
+              - generic [ref=e227]: →
+          - listitem [ref=e228]:
+            - link "Instagram →" [ref=e229] [cursor=pointer]:
+              - /url: https://instagram.com/shaonlandmarks
+              - text: Instagram
+              - generic [ref=e230]: →
+          - listitem [ref=e231]:
+            - link "LinkedIn →" [ref=e232] [cursor=pointer]:
+              - /url: https://linkedin.com/company/shaonlandmarks
+              - text: LinkedIn
+              - generic [ref=e233]: →
+          - listitem [ref=e234]:
+            - link "Twitter →" [ref=e235] [cursor=pointer]:
+              - /url: https://twitter.com/shaonlandmarks
+              - text: Twitter
+              - generic [ref=e236]: →
+    - generic [ref=e239]:
+      - paragraph [ref=e240]: © 2026 Shaon Landmarks. Architectural Excellence. All Rights Reserved.
+      - generic [ref=e241]:
+        - link "Facebook" [ref=e242] [cursor=pointer]:
+          - /url: https://facebook.com/shaonlandmarks
+          - img "Facebook" [ref=e243]
+        - link "Instagram" [ref=e245] [cursor=pointer]:
+          - /url: https://instagram.com/shaonlandmarks
+          - img "Instagram" [ref=e246]
+        - link "LinkedIn" [ref=e248] [cursor=pointer]:
+          - /url: https://linkedin.com/company/shaonlandmarks
+          - img "LinkedIn" [ref=e249]
+        - link "Twitter" [ref=e251] [cursor=pointer]:
+          - /url: https://twitter.com/shaonlandmarks
+          - img "Twitter" [ref=e252]
