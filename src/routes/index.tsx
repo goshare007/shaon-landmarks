@@ -1,35 +1,16 @@
-import { createFileRoute } from '@tanstack/react-router';
-import HERO_IMAGE from '@/assets/images/projects/the-obsidian.webp';
-import { CtaSection } from '@/components/home/cta-section';
-import { FeaturedProjects } from '@/components/home/featured-projects';
-import { HeroSection } from '@/components/home/hero-section';
-import { PillarsSection } from '@/components/home/pillars-section';
-import { SustainabilitySection } from '@/components/home/sustainability-section';
-import { TestimonialSection } from '@/components/home/testimonials';
-import { TrustStats } from '@/components/home/trust-stats';
-import { generateMeta } from '@/lib/seo';
+import { createFileRoute } from "@tanstack/react-router";
+import { Button } from "#/components/ui/button";
 
-export const Route = createFileRoute('/')({
-  component: Home,
-  head: () => ({
-    ...generateMeta({
-      path: '/',
-      image: HERO_IMAGE,
-    }),
-    links: [{ rel: 'preload', as: 'image', href: HERO_IMAGE }],
-  }),
-});
+export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  return (
-    <main>
-      <HeroSection />
-      <PillarsSection />
-      <FeaturedProjects />
-      <SustainabilitySection />
-      <TestimonialSection />
-      <TrustStats />
-      <CtaSection />
-    </main>
-  );
+	return (
+		<div className="p-8">
+			<h1 className="text-4xl font-bold">Welcome to TanStack Start</h1>
+			<p className="mt-4 text-lg">
+				Edit <code>src/routes/index.tsx</code> to get started.
+			</p>
+			<Button onClick={() => console.log("Hello World!")}>Hello World!</Button>
+		</div>
+	);
 }

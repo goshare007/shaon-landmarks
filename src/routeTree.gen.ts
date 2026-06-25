@@ -9,318 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SustainabilityRouteImport } from './routes/sustainability'
-import { Route as ServicesRouteImport } from './routes/services'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PortfolioRouteImport } from './routes/portfolio'
-import { Route as LegalRouteImport } from './routes/legal'
-import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CareerRouteImport } from './routes/career'
-import { Route as BlogRouteImport } from './routes/blog'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PortfolioIndexRouteImport } from './routes/portfolio.index'
-import { Route as BlogIndexRouteImport } from './routes/blog.index'
-import { Route as PortfolioCompareRouteImport } from './routes/portfolio.compare'
-import { Route as PortfolioSlugRouteImport } from './routes/portfolio.$slug'
-import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
-const SustainabilityRoute = SustainabilityRouteImport.update({
-  id: '/sustainability',
-  path: '/sustainability',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PortfolioRoute = PortfolioRouteImport.update({
-  id: '/portfolio',
-  path: '/portfolio',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LegalRoute = LegalRouteImport.update({
-  id: '/legal',
-  path: '/legal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
-  id: '/emi-calculator',
-  path: '/emi-calculator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CareerRoute = CareerRouteImport.update({
-  id: '/career',
-  path: '/career',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PortfolioIndexRoute = PortfolioIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => PortfolioRoute,
-} as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => BlogRoute,
-} as any)
-const PortfolioCompareRoute = PortfolioCompareRouteImport.update({
-  id: '/compare',
-  path: '/compare',
-  getParentRoute: () => PortfolioRoute,
-} as any)
-const PortfolioSlugRoute = PortfolioSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => PortfolioRoute,
-} as any)
-const BlogSlugRoute = BlogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => BlogRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/career': typeof CareerRoute
-  '/contact': typeof ContactRoute
-  '/emi-calculator': typeof EmiCalculatorRoute
-  '/legal': typeof LegalRoute
-  '/portfolio': typeof PortfolioRouteWithChildren
-  '/privacy': typeof PrivacyRoute
-  '/projects': typeof ProjectsRoute
-  '/services': typeof ServicesRoute
-  '/sustainability': typeof SustainabilityRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/portfolio/$slug': typeof PortfolioSlugRoute
-  '/portfolio/compare': typeof PortfolioCompareRoute
-  '/blog/': typeof BlogIndexRoute
-  '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/career': typeof CareerRoute
-  '/contact': typeof ContactRoute
-  '/emi-calculator': typeof EmiCalculatorRoute
-  '/legal': typeof LegalRoute
-  '/privacy': typeof PrivacyRoute
-  '/projects': typeof ProjectsRoute
-  '/services': typeof ServicesRoute
-  '/sustainability': typeof SustainabilityRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/portfolio/$slug': typeof PortfolioSlugRoute
-  '/portfolio/compare': typeof PortfolioCompareRoute
-  '/blog': typeof BlogIndexRoute
-  '/portfolio': typeof PortfolioIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/career': typeof CareerRoute
-  '/contact': typeof ContactRoute
-  '/emi-calculator': typeof EmiCalculatorRoute
-  '/legal': typeof LegalRoute
-  '/portfolio': typeof PortfolioRouteWithChildren
-  '/privacy': typeof PrivacyRoute
-  '/projects': typeof ProjectsRoute
-  '/services': typeof ServicesRoute
-  '/sustainability': typeof SustainabilityRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/portfolio/$slug': typeof PortfolioSlugRoute
-  '/portfolio/compare': typeof PortfolioCompareRoute
-  '/blog/': typeof BlogIndexRoute
-  '/portfolio/': typeof PortfolioIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/blog'
-    | '/career'
-    | '/contact'
-    | '/emi-calculator'
-    | '/legal'
-    | '/portfolio'
-    | '/privacy'
-    | '/projects'
-    | '/services'
-    | '/sustainability'
-    | '/blog/$slug'
-    | '/portfolio/$slug'
-    | '/portfolio/compare'
-    | '/blog/'
-    | '/portfolio/'
+  fullPaths: '/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/career'
-    | '/contact'
-    | '/emi-calculator'
-    | '/legal'
-    | '/privacy'
-    | '/projects'
-    | '/services'
-    | '/sustainability'
-    | '/blog/$slug'
-    | '/portfolio/$slug'
-    | '/portfolio/compare'
-    | '/blog'
-    | '/portfolio'
-  id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/blog'
-    | '/career'
-    | '/contact'
-    | '/emi-calculator'
-    | '/legal'
-    | '/portfolio'
-    | '/privacy'
-    | '/projects'
-    | '/services'
-    | '/sustainability'
-    | '/blog/$slug'
-    | '/portfolio/$slug'
-    | '/portfolio/compare'
-    | '/blog/'
-    | '/portfolio/'
+  to: '/'
+  id: '__root__' | '/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  BlogRoute: typeof BlogRouteWithChildren
-  CareerRoute: typeof CareerRoute
-  ContactRoute: typeof ContactRoute
-  EmiCalculatorRoute: typeof EmiCalculatorRoute
-  LegalRoute: typeof LegalRoute
-  PortfolioRoute: typeof PortfolioRouteWithChildren
-  PrivacyRoute: typeof PrivacyRoute
-  ProjectsRoute: typeof ProjectsRoute
-  ServicesRoute: typeof ServicesRoute
-  SustainabilityRoute: typeof SustainabilityRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sustainability': {
-      id: '/sustainability'
-      path: '/sustainability'
-      fullPath: '/sustainability'
-      preLoaderRoute: typeof SustainabilityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/portfolio': {
-      id: '/portfolio'
-      path: '/portfolio'
-      fullPath: '/portfolio'
-      preLoaderRoute: typeof PortfolioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/legal': {
-      id: '/legal'
-      path: '/legal'
-      fullPath: '/legal'
-      preLoaderRoute: typeof LegalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/emi-calculator': {
-      id: '/emi-calculator'
-      path: '/emi-calculator'
-      fullPath: '/emi-calculator'
-      preLoaderRoute: typeof EmiCalculatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/career': {
-      id: '/career'
-      path: '/career'
-      fullPath: '/career'
-      preLoaderRoute: typeof CareerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -328,85 +48,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/portfolio/': {
-      id: '/portfolio/'
-      path: '/'
-      fullPath: '/portfolio/'
-      preLoaderRoute: typeof PortfolioIndexRouteImport
-      parentRoute: typeof PortfolioRoute
-    }
-    '/blog/': {
-      id: '/blog/'
-      path: '/'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof BlogRoute
-    }
-    '/portfolio/compare': {
-      id: '/portfolio/compare'
-      path: '/compare'
-      fullPath: '/portfolio/compare'
-      preLoaderRoute: typeof PortfolioCompareRouteImport
-      parentRoute: typeof PortfolioRoute
-    }
-    '/portfolio/$slug': {
-      id: '/portfolio/$slug'
-      path: '/$slug'
-      fullPath: '/portfolio/$slug'
-      preLoaderRoute: typeof PortfolioSlugRouteImport
-      parentRoute: typeof PortfolioRoute
-    }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof BlogRoute
-    }
   }
 }
 
-interface BlogRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute
-  BlogIndexRoute: typeof BlogIndexRoute
-}
-
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogSlugRoute: BlogSlugRoute,
-  BlogIndexRoute: BlogIndexRoute,
-}
-
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
-
-interface PortfolioRouteChildren {
-  PortfolioSlugRoute: typeof PortfolioSlugRoute
-  PortfolioCompareRoute: typeof PortfolioCompareRoute
-  PortfolioIndexRoute: typeof PortfolioIndexRoute
-}
-
-const PortfolioRouteChildren: PortfolioRouteChildren = {
-  PortfolioSlugRoute: PortfolioSlugRoute,
-  PortfolioCompareRoute: PortfolioCompareRoute,
-  PortfolioIndexRoute: PortfolioIndexRoute,
-}
-
-const PortfolioRouteWithChildren = PortfolioRoute._addFileChildren(
-  PortfolioRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  BlogRoute: BlogRouteWithChildren,
-  CareerRoute: CareerRoute,
-  ContactRoute: ContactRoute,
-  EmiCalculatorRoute: EmiCalculatorRoute,
-  LegalRoute: LegalRoute,
-  PortfolioRoute: PortfolioRouteWithChildren,
-  PrivacyRoute: PrivacyRoute,
-  ProjectsRoute: ProjectsRoute,
-  ServicesRoute: ServicesRoute,
-  SustainabilityRoute: SustainabilityRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,23 +1,21 @@
-import tailwindcss from '@tailwindcss/vite';
-import { devtools } from '@tanstack/devtools-vite';
-import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import viteReact from '@vitejs/plugin-react';
-import { nitro } from 'nitro/vite';
-import { visualizer } from 'rollup-plugin-visualizer';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vite'
+import { devtools } from '@tanstack/devtools-vite'
 
-const ANALYZE = process.env.ANALYZE === 'true';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+
+import viteReact from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import { nitro } from 'nitro/vite'
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [
     devtools(),
+    nitro({ rollupConfig: { external: [/^@sentry\//] } }),
     tailwindcss(),
     tanstackStart(),
-    nitro(),
     viteReact(),
-    ...(ANALYZE ? [visualizer({ filename: 'stats.html', open: true })] : []),
   ],
-});
+})
 
-export default config;
+export default config
