@@ -130,14 +130,14 @@ export function ServicesHero() {
           <div className='relative mt-8 md:col-span-5 md:mt-0'>
             <div
               ref={imageWrapRef}
-              className='aspect-[4/5] overflow-hidden rounded-sm border border-border'
+              className='aspect-4/5 overflow-hidden rounded-sm border border-border'
             >
               <Image
                 src={HERO_IMG}
                 alt='Shaon Landmark services overview'
                 layout='fullWidth'
                 height={750}
-                className='h-full w-full object-cover transition-transform duration-[900ms] ease-out hover:scale-[1.03]'
+                className='h-full w-full object-cover transition-transform duration-900 ease-out hover:scale-[1.03]'
               />
             </div>
 
