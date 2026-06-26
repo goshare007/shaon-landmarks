@@ -50,7 +50,7 @@ export function ServicesCta() {
         <div className='h-125 w-125 rounded-full border border-white/6' />
       </div>
       <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-        <div className='h-187.5 w-187.5 rounded-full border border-white/[0.04]' />
+        <div className='h-187.5 w-187.5 rounded-full border border-white/4' />
       </div>
 
       {/* Corner accents */}
