@@ -63,8 +63,8 @@ export function SustainabilityHero() {
       </div>
 
       {/* Overlays */}
-      <div className='absolute inset-0 bg-linear-to-r from-black/60 to-transparent pointer-events-none z-[1]' />
-      <div className='absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none z-[1]' />
+      <div className='absolute inset-0 bg-linear-to-r from-black/60 to-transparent pointer-events-none z-1' />
+      <div className='absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none z-1' />
 
       {/* Content */}
       <div className='relative z-10 flex h-full items-center'>
