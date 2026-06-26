@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef } from 'react';
-import { gsap, MOTION } from '@/lib/gsap';
 import { blogArticles } from '@/content/blog';
+import { gsap, MOTION } from '@/lib/gsap';
 import { BlogCard } from './blog-card';
 import { BlogCardSkeleton } from './blog-card-skeleton';
 
@@ -10,20 +10,31 @@ export function BlogGrid() {
 
   useEffect(() => {
     if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from('.blog-card', {
-        y: 24,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.06,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+    const cards = sectionRef.current?.querySelectorAll('.blog-card');
+    if (!cards?.length) return;
+
+    gsap.set(cards, { y: 24, opacity: 0 });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          gsap.to(cards, {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            stagger: 0.06,
+            ease: 'power2.out',
+            clearProps: 'transform',
+          });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    // biome-ignore lint/style/noNonNullAssertion: this is fine
+    observer.observe(sectionRef.current!);
+    return () => observer.disconnect();
   }, []);
 
   const featured = useMemo(() => blogArticles.find((a) => a.featured), []);

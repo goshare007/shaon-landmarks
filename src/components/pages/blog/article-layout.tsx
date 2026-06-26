@@ -1,12 +1,12 @@
-import { useEffect, useRef } from 'react';
-import { gsap, MOTION } from '@/lib/gsap';
-import { Link } from '@tanstack/react-router';
 import { IconArrowRight } from '@tabler/icons-react';
+import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
+import { SectionHeading } from '@/components/ui/section-heading';
 import type { BlogArticle } from '@/content/blog';
 import { getRecentArticles } from '@/content/blog';
+import { gsap, MOTION } from '@/lib/gsap';
 import { renderMarkdown } from '@/lib/markdown';
-import { SectionHeading } from '@/components/ui/section-heading';
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {
   const sectionRef = useRef<HTMLElement>(null);

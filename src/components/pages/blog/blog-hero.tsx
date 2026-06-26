@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import { gsap, MOTION } from '@/lib/gsap';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function BlogHero() {
   const sectionRef = useRef<HTMLElement>(null);

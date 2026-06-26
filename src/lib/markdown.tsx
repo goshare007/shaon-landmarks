@@ -138,7 +138,7 @@ export function renderMarkdown(content: string): ReactNode[] {
       i++;
     }
     nodes.push(
-      <p key={`p-${i}`}         className='mb-5 leading-relaxed text-muted-foreground'>
+      <p key={`p-${i}`} className='mb-5 leading-relaxed text-muted-foreground'>
         {renderInline(paraLines.join(' '))}
       </p>,
     );

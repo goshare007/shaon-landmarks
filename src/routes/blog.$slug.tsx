@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
 import { IconArrowLeft } from '@tabler/icons-react';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArticleLayout } from '@/components/pages/blog/article-layout';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { blogArticles } from '@/content/blog';
