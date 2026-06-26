@@ -77,12 +77,12 @@ export function AboutStory() {
               ].map((s, i) => (
                 <div
                   key={s.label}
-                  className={`flex flex-col gap-2 px-6 first:pl-0 ${i > 0 ? 'border-l border-border' : ''}`}
+                  className={`group flex flex-col gap-2 px-6 first:pl-0 ${i > 0 ? 'border-l border-border' : ''}`}
                 >
                   <span className='font-serif text-[2.2rem] font-light text-foreground leading-none'>
                     {s.num}
                   </span>
-                  <div className='w-6 h-px bg-custom/40' />
+                  <div className='w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
                   <span className='text-[10px] tracking-[0.2em] uppercase text-muted-foreground'>
                     {s.label}
                   </span>

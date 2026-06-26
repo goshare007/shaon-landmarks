@@ -41,9 +41,22 @@ export function AboutCertifications() {
   }, []);
 
   return (
-    <section ref={sectionRef} className='bg-white py-20 border-t border-border'>
+    <section
+      ref={sectionRef}
+      className='bg-surface-overlay py-20 border-t border-white/6'
+    >
       <div className='container'>
-        <div className='flex flex-col md:flex-row items-center justify-between gap-12 border-y border-border py-14'>
+        <div className='relative flex flex-col md:flex-row items-center justify-between gap-12 border-y border-white/6 py-14'>
+          {/* Corner accents */}
+          <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
+            <div className='absolute top-0 left-0 w-full h-px bg-custom/40' />
+            <div className='absolute top-0 left-0 h-full w-px bg-custom/40' />
+          </div>
+          <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
+            <div className='absolute bottom-0 right-0 w-full h-px bg-custom/40' />
+            <div className='absolute bottom-0 right-0 h-full w-px bg-custom/40' />
+          </div>
+
           {/* Left copy */}
           <div ref={leftRef} className='max-w-sm text-center md:text-left'>
             <div className='flex items-center gap-4 mb-5 justify-center md:justify-start'>
@@ -52,11 +65,19 @@ export function AboutCertifications() {
                 Accreditations
               </span>
             </div>
-            <h2 className='font-serif text-[clamp(1.6rem,3vw,2.2rem)] font-light text-foreground leading-tight mb-4'>
+            <h2 className='font-serif text-[clamp(1.6rem,3vw,2.2rem)] font-light text-white leading-tight mb-4'>
               Certified{' '}
-              <span className='italic text-muted-foreground'>Excellence</span>
+              <span
+                className='italic'
+                style={{
+                  color: 'transparent',
+                  WebkitTextStroke: '1px rgba(255,255,255,0.28)',
+                }}
+              >
+                Excellence
+              </span>
             </h2>
-            <p className='text-sm leading-relaxed text-muted-foreground'>
+            <p className='text-sm leading-relaxed text-white/55'>
               We adhere to the highest regulatory standards in Bangladesh,
               ensuring every development is legal, secure, and built to last.
             </p>
@@ -72,10 +93,16 @@ export function AboutCertifications() {
                 key={cert.label}
                 className='group flex flex-col items-center gap-4 transition-transform duration-300 hover:-translate-y-1'
               >
-                <div className='flex h-20 w-20 items-center justify-center border border-border bg-surface-raised text-custom rounded-sm transition-all duration-300 group-hover:border-custom/30 group-hover:bg-white group-hover:shadow-sm'>
+                <div
+                  className='flex h-20 w-20 items-center justify-center rounded-sm border border-white/10 text-custom transition-all duration-500 group-hover:border-custom/30 group-hover:scale-[1.05]'
+                  style={{
+                    background: 'rgba(0,0,0,0.45)',
+                    backdropFilter: 'blur(8px)',
+                  }}
+                >
                   {cert.icon}
                 </div>
-                <span className='text-[10px] font-medium tracking-[0.18em] uppercase text-muted-foreground text-center transition-colors duration-200 group-hover:text-foreground'>
+                <span className='text-[10px] font-medium tracking-[0.18em] uppercase text-white/50 text-center transition-colors duration-200 group-hover:text-custom'>
                   {cert.label}
                 </span>
               </div>

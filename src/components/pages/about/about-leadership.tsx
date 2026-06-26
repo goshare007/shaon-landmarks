@@ -89,15 +89,15 @@ export function AboutLeadership() {
                   />
                 </div>
 
-                {/* Gradient overlay */}
-                <div className='absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+                {/* Gradient overlay — always on for readability, darkens on hover */}
+                <div className='absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent transition-opacity duration-500 group-hover:from-black/75' />
 
-                {/* Role pill on hover */}
-                <div className='absolute bottom-5 left-5 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0'>
+                {/* Role pill — always visible */}
+                <div className='absolute bottom-5 left-5'>
                   <span
-                    className='text-[9px] font-medium tracking-[0.2em] uppercase text-white/80 border border-white/20 px-3 py-1.5 rounded-sm'
+                    className='text-[9px] font-medium tracking-[0.2em] uppercase text-white/80 border border-white/20 px-3 py-1.5 rounded-sm transition-colors duration-300 group-hover:text-white group-hover:border-custom/40'
                     style={{
-                      background: 'rgba(0,0,0,0.5)',
+                      background: 'rgba(0,0,0,0.45)',
                       backdropFilter: 'blur(8px)',
                     }}
                   >
