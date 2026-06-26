@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { testimonials } from '@/content/testimonials';
 import { gsap, MOTION } from '@/lib/gsap';
 
@@ -103,7 +104,7 @@ export function TestimonialSection() {
   return (
     <section
       ref={sectionRef}
-      className='relative bg-[#0f0f0f] py-20 md:py-28 overflow-hidden border-t border-white/5'
+      className='relative bg-surface-overlay py-20 md:py-28 overflow-hidden border-t border-white/5'
     >
       {/* Subtle background texture — large faint quotemark */}
       <div
@@ -114,28 +115,16 @@ export function TestimonialSection() {
       </div>
 
       <div className=' relative z-10'>
-        {/* Heading */}
-        <div ref={headingRef} className='mb-14 md:mb-16 text-center'>
-          <div className='flex items-center justify-center gap-4 mb-5'>
-            <div className='w-8 h-px bg-custom' />
-            <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom'>
-              What Our Clients Say
-            </span>
-            <div className='w-8 h-px bg-custom' />
-          </div>
-          <h2 className='font-serif text-[clamp(2rem,4vw,3rem)] font-light text-white leading-tight'>
-            Trusted{' '}
-            <span
-              className='italic'
-              style={{
-                color: 'transparent',
-                WebkitTextStroke: '1px rgba(255,255,255,0.28)',
-              }}
-            >
-              voices
-            </span>
-          </h2>
-        </div>
+        <SectionHeading
+          ref={headingRef}
+          eyebrow='What Our Clients Say'
+          heading='Trusted'
+          highlight='voices'
+          highlightStyle='stroke'
+          align='center'
+          className='mb-14 md:mb-16'
+          headingClassName='text-[clamp(2rem,4vw,3rem)] text-white'
+        />
 
         {/* Carousel */}
         <div ref={carouselWrapperRef}>
@@ -194,7 +183,7 @@ export function TestimonialSection() {
                         <strong className='block text-[11px] font-medium tracking-[0.18em] text-white/80 uppercase'>
                           {t.name}
                         </strong>
-                        <p className='mt-0.5 text-xs text-white/35 tracking-wide'>
+                        <p className='mt-0.5 text-xs text-white/60 tracking-wide'>
                           {t.role}
                         </p>
                       </div>

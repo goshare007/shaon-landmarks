@@ -35,11 +35,12 @@ export function TrustStats() {
       className='border-y border-border bg-white py-14 md:py-16'
     >
       <div className='container'>
+        <h2 className='sr-only'>Company Statistics</h2>
         <div ref={gridRef} className='grid grid-cols-2 md:grid-cols-4'>
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className={`group flex flex-col items-center justify-center gap-2 px-6 py-8 text-center transition-colors duration-300 hover:bg-neutral-50 ${
+              className={`group flex flex-col items-center justify-center gap-2 px-6 py-8 text-center transition-colors duration-300 hover:bg-surface-raised ${
                 i < stats.length - 1 ? 'border-r border-border' : ''
               }`}
             >

@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import energyEfficiency from '@/assets/images/sustainability/energy-efficiency.webp';
 import greenSpaces from '@/assets/images/sustainability/green-spaces.webp';
 import sustainableMaterials from '@/assets/images/sustainability/sustainable-materials.webp';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { gsap, MOTION } from '@/lib/gsap';
 
 const sustainabilityData = [
@@ -75,7 +76,7 @@ export function SustainabilitySection() {
   return (
     <section
       ref={sectionRef}
-      className='bg-neutral-50 py-20 md:py-28 border-t border-border'
+      className='bg-surface-raised py-20 md:py-28 border-t border-border'
     >
       <div className='container'>
         {/* Heading */}
@@ -83,20 +84,11 @@ export function SustainabilitySection() {
           ref={headingRef}
           className='mb-14 md:mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6'
         >
-          <div>
-            <div className='flex items-center gap-4 mb-5'>
-              <div className='w-8 h-px bg-custom' />
-              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom'>
-                Sustainability & Innovation
-              </span>
-            </div>
-            <h2 className='font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] font-light text-foreground leading-tight max-w-sm'>
-              Building responsibly{' '}
-              <span className='italic text-muted-foreground'>
-                for a better tomorrow.
-              </span>
-            </h2>
-          </div>
+          <SectionHeading
+            eyebrow='Sustainability & Innovation'
+            heading='Building responsibly'
+            highlight='for a better tomorrow.'
+          />
 
           {/* Right-side stat pill — gives the heading row visual balance */}
           <div className='flex items-center gap-4 self-end md:self-auto'>

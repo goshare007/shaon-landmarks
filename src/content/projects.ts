@@ -71,6 +71,7 @@ export interface Project {
   tagline: string;
   description: string;
   status: 'Completed' | 'Ongoing' | 'Upcoming';
+  featured?: boolean;
   location: string;
   date: string;
   image: string;
@@ -85,6 +86,7 @@ export const allProjects: Project[] = [
     tagline: 'Residential Milestone',
     description: 'A masterclass in dark aesthetics and light-filled spaces.',
     status: 'Completed',
+    featured: true,
     location: 'Gulshan, Dhaka',
     date: 'Handed Over: Oct 2023',
     image: theObsidian,

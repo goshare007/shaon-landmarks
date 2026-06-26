@@ -1,3 +1,4 @@
+import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
@@ -122,7 +123,7 @@ export function HeroSection() {
       className='relative min-h-screen md:h-screen overflow-hidden grid grid-cols-1 md:grid-cols-2'
     >
       {/* ── LEFT PANEL ─────────────────────────────────────────────────────── */}
-      <div className='relative z-10 bg-[#0a0a0a] flex flex-col justify-between px-6 py-10 md:px-14 md:py-12 overflow-hidden order-2 md:order-1'>
+      <div className='relative z-10 bg-surface-brand flex flex-col justify-between px-6 py-10 md:px-14 md:py-12 overflow-hidden order-2 md:order-1'>
         {/* Vertical divider between panels */}
         <div
           ref={dividerLineRef}
@@ -186,7 +187,7 @@ export function HeroSection() {
                     <span className='font-serif text-[22px] md:text-[26px] text-white leading-none'>
                       {stat.num}
                     </span>
-                    <span className='text-[8px] md:text-[10px] tracking-[0.18em] uppercase text-white/30 font-medium'>
+                    <span className='text-[8px] md:text-[10px] tracking-[0.18em] uppercase text-white/55 font-medium'>
                       {stat.label}
                     </span>
                   </div>
@@ -201,21 +202,15 @@ export function HeroSection() {
               <Link
                 to='/portfolio'
                 search={{ status: '', location: '', search: '' }}
-                className='relative overflow-hidden group inline-flex items-center gap-4 bg-custom text-white px-6 py-3 md:px-7 md:py-3.5 text-[11px] font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-[#8f6438] transition-colors duration-200'
+                className='relative overflow-hidden group inline-flex items-center gap-4 bg-custom text-white px-6 py-3 md:px-7 md:py-3.5 text-[11px] font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-custom/90 transition-colors duration-200'
               >
                 {/* Shimmer on hover */}
                 <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/15 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
                 <span className='relative z-10'>Explore Portfolio</span>
-                <svg
+                <IconArrowRight
                   className='relative z-10 w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5'
-                  viewBox='0 0 16 16'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
                   aria-hidden='true'
-                >
-                  <path d='M2 8h12M9 3l5 5-5 5' />
-                </svg>
+                />
               </Link>
             </div>
 
@@ -225,7 +220,7 @@ export function HeroSection() {
               className='hidden md:flex flex-col items-center gap-2'
             >
               <span
-                className='text-[10px] tracking-[0.2em] uppercase text-white/20'
+                className='text-[10px] tracking-[0.2em] uppercase text-white/45'
                 style={{ writingMode: 'vertical-rl' }}
               >
                 Scroll
@@ -299,7 +294,7 @@ export function HeroSection() {
           className='absolute right-6 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-4'
         >
           <span
-            className='text-[10px] font-medium tracking-[0.2em] text-white/30 uppercase'
+            className='text-[10px] font-medium tracking-[0.2em] text-white/55 uppercase'
             style={{ writingMode: 'vertical-rl' }}
           >
             {new Date().getFullYear()}

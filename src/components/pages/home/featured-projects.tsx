@@ -1,56 +1,11 @@
+import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
-import { allProjects } from '@/content/projects';
+import { SectionHeading } from '@/components/ui/section-heading';
+import { StatusBadge } from '@/components/ui/status-badge';
+import { allProjects, type Project } from '@/content/projects';
 import { gsap, MOTION } from '@/lib/gsap';
-
-interface Project {
-  id: string;
-  title: string;
-  slug: string;
-  tagline: string;
-  description: string;
-  status: 'Completed' | 'Ongoing' | 'Upcoming';
-  location: string;
-  date: string;
-  image: string;
-}
-
-// ── Status badge ────────────────────────────────────────────────────────────
-
-const statusConfig: Record<
-  string,
-  { dot: string; text: string; border: string }
-> = {
-  Completed: {
-    dot: 'bg-emerald-400',
-    text: 'text-emerald-100',
-    border: 'border-emerald-700/60',
-  },
-  Ongoing: {
-    dot: 'bg-amber-400',
-    text: 'text-amber-100',
-    border: 'border-amber-700/60',
-  },
-  Upcoming: {
-    dot: 'bg-sky-400',
-    text: 'text-sky-100',
-    border: 'border-sky-700/60',
-  },
-};
-
-function StatusBadge({ status }: { status: string }) {
-  const cfg = statusConfig[status];
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] uppercase backdrop-blur-sm ${cfg?.border ?? ''} ${cfg?.text ?? ''}`}
-      style={{ background: 'rgba(0,0,0,0.45)' }}
-    >
-      <span className={`size-1.5 rounded-full ${cfg?.dot ?? ''}`} />
-      {status}
-    </span>
-  );
-}
 
 // ── Featured card (hero-sized) ───────────────────────────────────────────────
 
@@ -102,16 +57,7 @@ function FeaturedCard({ project }: { project: Project }) {
           {/* CTA — slides in on hover */}
           <div className='mt-6 inline-flex items-center gap-2 text-[10px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0'>
             View Landmark
-            <svg
-              className='w-3.5 h-3.5'
-              viewBox='0 0 16 16'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='1.5'
-              aria-hidden='true'
-            >
-              <path d='M2 8h12M9 3l5 5-5 5' />
-            </svg>
+            <IconArrowRight className='w-3.5 h-3.5' aria-hidden='true' />
           </div>
         </div>
 
@@ -174,16 +120,7 @@ function GridCard({ project }: { project: Project }) {
           {/* CTA */}
           <div className='mt-3 inline-flex items-center gap-1.5 text-[9px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
             View
-            <svg
-              className='w-3 h-3'
-              viewBox='0 0 16 16'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='1.5'
-              aria-hidden='true'
-            >
-              <path d='M2 8h12M9 3l5 5-5 5' />
-            </svg>
+            <IconArrowRight className='w-3 h-3' aria-hidden='true' />
           </div>
         </div>
       </div>
@@ -261,8 +198,7 @@ export function FeaturedProjects() {
     return () => ctx.revert();
   }, []);
 
-  const feature =
-    allProjects.find((p) => p.slug === 'the-obsidian') ?? allProjects[0];
+  const feature = allProjects.find((p) => p.featured) ?? allProjects[0];
   const gridProjects = allProjects
     .filter((p) => p.slug !== feature?.slug)
     .slice(0, 4);
@@ -277,18 +213,12 @@ export function FeaturedProjects() {
       <div className='container'>
         {/* Heading */}
         <div ref={headingRef} className='mb-12 md:mb-14'>
-          <div className='flex items-center gap-4 mb-5'>
-            <div className='w-8 h-px bg-custom' />
-            <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom'>
-              Iconic Developments
-            </span>
-          </div>
-          <h2 className='font-serif text-[clamp(1.7rem,3.2vw,2.6rem)] font-light text-foreground leading-tight max-w-2xl'>
-            A curated selection of our most ambitious projects,{' '}
-            <span className='italic text-muted-foreground'>
-              redefined for modern living.
-            </span>
-          </h2>
+          <SectionHeading
+            eyebrow='Iconic Developments'
+            heading='A curated selection of our most ambitious projects,'
+            highlight='redefined for modern living.'
+            headingClassName='max-w-2xl text-[clamp(1.7rem,3.2vw,2.6rem)]'
+          />
           <div className='mt-6 h-px w-16 bg-custom/40' />
         </div>
 
@@ -316,16 +246,10 @@ export function FeaturedProjects() {
             className='group inline-flex items-center gap-3 rounded-sm border border-border px-6 py-3 text-[11px] font-medium tracking-[0.18em] text-foreground no-underline transition-all duration-200 hover:border-custom hover:text-custom uppercase'
           >
             View All Projects
-            <svg
+            <IconArrowRight
               className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5'
-              viewBox='0 0 16 16'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='1.5'
               aria-hidden='true'
-            >
-              <path d='M2 8h12M9 3l5 5-5 5' />
-            </svg>
+            />
           </Link>
         </div>
       </div>

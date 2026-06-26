@@ -22,7 +22,7 @@ export default function DesktopNav() {
                   'relative inline-flex items-center gap-1.5 px-4 py-2  font-medium  tracking-[0.12em] transition-colors duration-200',
                   isActive
                     ? 'text-custom'
-                    : 'text-on-surface-variant hover:text-custom',
+                    : 'text-muted-foreground hover:text-custom',
                 )}
               >
                 {item.label}

@@ -1,3 +1,9 @@
+import {
+  IconArrowRight,
+  IconArrowUp,
+  IconMail,
+  IconPhone,
+} from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { useEffect, useRef, useState } from 'react';
@@ -336,7 +342,10 @@ export default function Footer() {
   }
 
   return (
-    <footer ref={footerRef} className='border-t border-white/6 bg-[#0f0f0f]'>
+    <footer
+      ref={footerRef}
+      className='border-t border-white/6 bg-surface-overlay'
+    >
       {/* ── Main grid ── */}
       <div className='container py-14 md:py-20'>
         <div className='grid gap-10 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-12'>
@@ -350,7 +359,7 @@ export default function Footer() {
               to='/'
               className='mb-6 inline-flex items-center gap-3.5 group'
             >
-              <div className='flex size-11 items-center justify-center rounded-md border border-custom/20 bg-neutral-900 transition-colors duration-300 group-hover:border-custom/40'>
+              <div className='flex size-11 items-center justify-center rounded-md border border-custom/20 bg-surface-elevated transition-colors duration-300 group-hover:border-custom/40'>
                 <Image
                   src={logo}
                   height={28}
@@ -380,33 +389,14 @@ export default function Footer() {
                 href='tel:+8801712345678'
                 className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-custom'
               >
-                <svg
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                  className='size-3.5'
-                  aria-hidden='true'
-                >
-                  <path d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z' />
-                </svg>
+                <IconPhone className='size-3.5' aria-hidden='true' />
                 +880 1712-345678
               </a>
               <a
                 href='mailto:info@shaonlandmarks.com'
                 className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-custom'
               >
-                <svg
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='1.5'
-                  className='size-3.5'
-                  aria-hidden='true'
-                >
-                  <path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z' />
-                  <polyline points='22,6 12,13 2,6' />
-                </svg>
+                <IconMail className='size-3.5' aria-hidden='true' />
                 info@shaonlandmarks.com
               </a>
             </div>
@@ -436,7 +426,7 @@ export default function Footer() {
                 Stay updated
               </label>
               <form onSubmit={handleNewsletterSubmit}>
-                <div className='flex items-center overflow-hidden rounded-lg border border-white/8 bg-neutral-900 transition-colors duration-200 focus-within:border-custom/30'>
+                <div className='flex items-center overflow-hidden rounded-lg border border-white/8 bg-surface-elevated transition-colors duration-200 focus-within:border-custom/30'>
                   <input
                     id='newsletter-email'
                     name='newsletter-email'
@@ -452,21 +442,7 @@ export default function Footer() {
                     aria-label='Subscribe'
                     className='flex h-11 shrink-0 items-center border-l border-white/6 px-4 text-neutral-400 transition-colors duration-200 hover:text-custom disabled:opacity-40'
                   >
-                    <svg
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      aria-hidden='true'
-                    >
-                      <path
-                        d='M2 8h12M9 4l5 4-5 4'
-                        stroke='currentColor'
-                        strokeWidth='1.5'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                      />
-                    </svg>
+                    <IconArrowRight className='size-4' aria-hidden='true' />
                   </button>
                 </div>
                 {newsletterState.message && (
@@ -579,23 +555,9 @@ export default function Footer() {
         type='button'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label='Back to top'
-        className='fixed bottom-6 right-6 z-50 flex size-10 items-center justify-center rounded-full border border-white/10 bg-neutral-900 text-neutral-300 shadow-lg backdrop-blur-sm transition-colors duration-200 hover:border-custom/30 hover:text-custom'
+        className='fixed bottom-6 right-6 z-50 flex size-10 items-center justify-center rounded-full border border-white/10 bg-surface-elevated text-neutral-300 shadow-lg backdrop-blur-sm transition-colors duration-200 hover:border-custom/30 hover:text-custom'
       >
-        <svg
-          width='16'
-          height='16'
-          viewBox='0 0 16 16'
-          fill='none'
-          aria-hidden='true'
-        >
-          <path
-            d='M8 14V2M4 6l4-4 4 4'
-            stroke='currentColor'
-            strokeWidth='1.5'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-          />
-        </svg>
+        <IconArrowUp className='size-4' aria-hidden='true' />
       </button>
     </footer>
   );

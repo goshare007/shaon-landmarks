@@ -10,13 +10,13 @@ export const Route = createFileRoute('/')({ component: Home });
 
 function Home() {
   return (
-    <main>
+    <main id='main-content'>
       <HeroSection />
       <PillarsSection />
+      <TrustStats />
       <FeaturedProjects />
       <SustainabilitySection />
       <TestimonialSection />
-      <TrustStats />
       <CtaSection />
     </main>
   );

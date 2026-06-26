@@ -5,14 +5,15 @@ import {
 } from '@tabler/icons-react';
 import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { SectionHeading } from '@/components/ui/section-heading';
 import { pillars } from '@/content/pillars';
 import { gsap, MOTION } from '@/lib/gsap';
 
-// Map pillar id → Tabler React icon component
+// Map pillar icon string → Tabler React icon component
 const ICONS: Record<string, React.ReactNode> = {
-  '1': <IconShieldCheck size={20} stroke={1.5} />,
-  '2': <IconDiamond size={20} stroke={1.5} />,
-  '3': <IconHourglass size={20} stroke={1.5} />,
+  shield: <IconShieldCheck size={20} stroke={1.5} />,
+  architecture: <IconDiamond size={20} stroke={1.5} />,
+  history_edu: <IconHourglass size={20} stroke={1.5} />,
 };
 
 export function PillarsSection() {
@@ -57,21 +58,13 @@ export function PillarsSection() {
   return (
     <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>
       <div className='container'>
-        {/* Section heading */}
-        <div ref={headingRef} className='mb-16 md:mb-20'>
-          <div className='flex items-center gap-4 mb-5'>
-            <div className='w-8 h-px bg-custom' />
-            <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom'>
-              What We Stand For
-            </span>
-          </div>
-          <h2 className='font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] font-light text-foreground leading-tight max-w-sm'>
-            Built on three{' '}
-            <span className='italic text-muted-foreground'>
-              immovable pillars
-            </span>
-          </h2>
-        </div>
+        <SectionHeading
+          ref={headingRef}
+          eyebrow='What We Stand For'
+          heading='Built on three'
+          highlight='immovable pillars'
+          className='mb-16 md:mb-20'
+        />
 
         {/* Cards grid */}
         <div ref={cardsRef} className='grid md:grid-cols-3 gap-6'>
@@ -86,7 +79,7 @@ export function PillarsSection() {
               <CardContent className='flex flex-col gap-5 p-8 md:p-10'>
                 {/* Icon container */}
                 <div className='flex items-center justify-center w-11 h-11 rounded-md border border-border bg-background text-custom transition-all duration-300 group-hover:border-custom/30 group-hover:shadow-sm'>
-                  {ICONS[pillar.id]}
+                  {ICONS[pillar.icon]}
                 </div>
 
                 {/* Title + rule + description */}
@@ -95,7 +88,7 @@ export function PillarsSection() {
                     {pillar.title}
                   </h3>
                   <div className='w-8 h-px bg-custom/40 transition-all duration-300 group-hover:w-14 group-hover:bg-custom' />
-                  <p className='text-sm leading-relaxed text-neutral-700 mt-1'>
+                  <p className='text-sm leading-relaxed text-muted-foreground mt-1'>
                     {pillar.description}
                   </p>
                 </div>

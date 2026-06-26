@@ -1,9 +1,14 @@
-import { Lock } from 'lucide-react';
+import { IconArrowRight, IconLock } from '@tabler/icons-react';
 import { useEffect, useRef, useState } from 'react';
 import { gsap, MOTION } from '@/lib/gsap';
+import { cn } from '@/lib/utils';
 
 export function CtaSection() {
   const [interest, setInterest] = useState('residential');
+  const [formStatus, setFormStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
 
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
@@ -79,19 +84,17 @@ export function CtaSection() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    // biome-ignore lint/suspicious/noConsole: this is fine
-    console.log({
-      name: formData.get('name'),
-      email: formData.get('email'),
-      interest,
+    setFormStatus({
+      type: 'success',
+      message: 'Thank you. We will be in touch shortly.',
     });
+    e.currentTarget.reset();
   }
 
   return (
     <section
       ref={sectionRef}
-      className='bg-[#0a0a0a] py-20 md:py-28 overflow-x-hidden border-t border-white/[0.06]'
+      className='bg-surface-brand py-20 md:py-28 overflow-x-hidden border-t border-white/[0.06]'
     >
       <div className='container max-w-360'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
@@ -126,8 +129,12 @@ export function CtaSection() {
             <div ref={dividerRef} className='mt-8 h-px w-14 bg-custom/50' />
 
             <div className='mt-6 flex items-center gap-3'>
-              <Lock size={14} className='text-custom/70' aria-hidden='true' />
-              <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/30'>
+              <IconLock
+                size={14}
+                className='text-custom/70'
+                aria-hidden='true'
+              />
+              <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/55'>
                 Exclusive Portfolio Access
               </span>
             </div>
@@ -143,7 +150,7 @@ export function CtaSection() {
             <div className='absolute top-0 left-0 w-10 h-px bg-custom/60' />
             <div className='absolute top-0 left-0 w-px h-10 bg-custom/60' />
 
-            <h3 className='mb-8 text-[10px] font-medium tracking-[0.22em] uppercase text-white/30'>
+            <h3 className='mb-8 text-[10px] font-medium tracking-[0.22em] uppercase text-white/55'>
               Request Access
             </h3>
 
@@ -152,7 +159,7 @@ export function CtaSection() {
               <div className='form-field group'>
                 <label
                   htmlFor='cta-name'
-                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/30 mb-2 transition-colors group-focus-within:text-custom/70'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
                 >
                   Full Name *
                 </label>
@@ -163,7 +170,7 @@ export function CtaSection() {
                   required
                   placeholder='Your full name'
                   className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
-                             text-sm text-white placeholder:text-white/20 font-light
+                             text-sm text-white placeholder:text-white/40 font-light
                              outline-none transition-colors focus:border-custom/50'
                 />
               </div>
@@ -172,7 +179,7 @@ export function CtaSection() {
               <div className='form-field group'>
                 <label
                   htmlFor='cta-email'
-                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/30 mb-2 transition-colors group-focus-within:text-custom/70'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
                 >
                   Email Address *
                 </label>
@@ -183,7 +190,7 @@ export function CtaSection() {
                   required
                   placeholder='your@email.com'
                   className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
-                             text-sm text-white placeholder:text-white/20 font-light
+                             text-sm text-white placeholder:text-white/40 font-light
                              outline-none transition-colors focus:border-custom/50'
                 />
               </div>
@@ -192,7 +199,7 @@ export function CtaSection() {
               <div className='form-field group'>
                 <label
                   htmlFor='cta-interest'
-                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/30 mb-2 transition-colors group-focus-within:text-custom/70'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
                 >
                   Interest Area
                 </label>
@@ -203,7 +210,7 @@ export function CtaSection() {
                   className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
                              text-sm text-white/60 font-light
                              outline-none transition-colors focus:border-custom/50
-                             [&>option]:bg-[#0a0a0a] [&>option]:text-white appearance-none cursor-pointer'
+                              [&>option]:bg-surface-brand [&>option]:text-white appearance-none cursor-pointer'
                 >
                   <option value='residential'>Residential Penthouses</option>
                   <option value='commercial'>Commercial Landmarks</option>
@@ -216,24 +223,32 @@ export function CtaSection() {
                 type='submit'
                 className='form-field group relative w-full overflow-hidden rounded-sm bg-custom
                            px-6 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white
-                           uppercase transition-colors duration-200 hover:bg-[#8f6438]'
+                           uppercase transition-colors duration-200 hover:bg-custom/90'
               >
                 {/* Shimmer */}
                 <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
                 <span className='relative z-10 inline-flex items-center gap-3'>
                   Request Consultation
-                  <svg
+                  <IconArrowRight
                     className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5'
-                    viewBox='0 0 16 16'
-                    fill='none'
-                    stroke='currentColor'
-                    strokeWidth='1.5'
                     aria-hidden='true'
-                  >
-                    <path d='M2 8h12M9 3l5 5-5 5' />
-                  </svg>
+                  />
                 </span>
               </button>
+
+              {formStatus.message && (
+                <p
+                  role='alert'
+                  className={cn(
+                    'mt-4 text-xs',
+                    formStatus.type === 'success'
+                      ? 'text-emerald-400'
+                      : 'text-red-400',
+                  )}
+                >
+                  {formStatus.message}
+                </p>
+              )}
             </form>
           </div>
         </div>
