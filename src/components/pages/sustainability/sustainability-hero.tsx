@@ -15,21 +15,42 @@ export function SustainabilityHero() {
     if (!MOTION) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.from(imageWrapRef.current, { scale: 1.06, opacity: 0, duration: 1.2, ease: 'power2.out' }, 0);
+      tl.from(
+        imageWrapRef.current,
+        { scale: 1.06, opacity: 0, duration: 1.2, ease: 'power2.out' },
+        0,
+      );
       tl.from(eyebrowRef.current, { y: 16, opacity: 0, duration: 0.6 }, 0.4);
 
       if (headlineRef.current) {
-        tl.from(Array.from(headlineRef.current.children), { y: 40, opacity: 0, duration: 0.75, stagger: 0.12, ease: 'power3.out' }, 0.55);
+        tl.from(
+          Array.from(headlineRef.current.children),
+          {
+            y: 40,
+            opacity: 0,
+            duration: 0.75,
+            stagger: 0.12,
+            ease: 'power3.out',
+          },
+          0.55,
+        );
       }
 
-      tl.from(descriptorRef.current, { y: 14, opacity: 0, duration: 0.6 }, 0.85);
+      tl.from(
+        descriptorRef.current,
+        { y: 14, opacity: 0, duration: 0.6 },
+        0.85,
+      );
       tl.from(badgeRef.current, { y: 10, opacity: 0, duration: 0.5 }, 1.1);
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className='relative h-[70vh] min-h-144 overflow-hidden'>
+    <section
+      ref={sectionRef}
+      className='relative h-[70vh] min-h-144 overflow-hidden'
+    >
       {/* Image */}
       <div ref={imageWrapRef} className='absolute inset-0 z-0'>
         <Image
@@ -61,7 +82,10 @@ export function SustainabilityHero() {
             <span className='block'>Sustain</span>
             <span
               className='block italic'
-              style={{ color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.28)' }}
+              style={{
+                color: 'transparent',
+                WebkitTextStroke: '1px rgba(255,255,255,0.28)',
+              }}
             >
               ability
             </span>
@@ -83,7 +107,10 @@ export function SustainabilityHero() {
       >
         <div
           className='flex items-center gap-3 px-4 py-3 rounded-sm border border-custom/30'
-          style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(12px)' }}
+          style={{
+            background: 'rgba(0,0,0,0.55)',
+            backdropFilter: 'blur(12px)',
+          }}
         >
           <div className='w-1.5 h-1.5 rounded-full bg-custom shrink-0 animate-pulse' />
           <span className='text-[10px] tracking-[0.12em] uppercase text-white/65 font-medium'>

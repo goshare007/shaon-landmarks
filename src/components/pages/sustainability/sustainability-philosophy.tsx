@@ -68,7 +68,10 @@ export function SustainabilityPhilosophy() {
           </div>
 
           {/* Stats */}
-          <div ref={statsRef} className='grid grid-cols-3 divide-x divide-border'>
+          <div
+            ref={statsRef}
+            className='grid grid-cols-3 divide-x divide-border'
+          >
             {stats.map((s) => (
               <div
                 key={s.label}

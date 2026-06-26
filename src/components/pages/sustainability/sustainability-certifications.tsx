@@ -77,10 +77,7 @@ export function SustainabilityCertifications() {
           and regulatory authorities.
         </p>
 
-        <div
-          ref={gridRef}
-          className='flex flex-wrap justify-center gap-4'
-        >
+        <div ref={gridRef} className='flex flex-wrap justify-center gap-4'>
           {certifications.map((cert) => (
             <div
               key={cert}
@@ -92,9 +89,7 @@ export function SustainabilityCertifications() {
               }}
             >
               <div className='absolute top-0 left-0 right-0 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
-              <span
-                className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/60 transition-colors duration-200 group-hover:text-custom'
-              >
+              <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/60 transition-colors duration-200 group-hover:text-custom'>
                 {cert}
               </span>
             </div>

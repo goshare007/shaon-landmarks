@@ -35,7 +35,6 @@ const footerSections: FooterSection[] = [
       { label: 'Blog', href: '/blog' },
       { label: 'EMI Calculator', href: '/emi-calculator' },
       { label: 'Sustainability', href: '/sustainability' },
-      { label: 'Careers', href: '/career' },
     ],
   },
   {
