@@ -94,7 +94,7 @@ export function CtaSection() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-brand py-20 md:py-28 overflow-x-hidden border-t border-white/[0.06]'
+      className='bg-surface-brand py-20 md:py-28 overflow-x-hidden border-t border-white/6'
     >
       <div className='container max-w-360'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
@@ -143,7 +143,7 @@ export function CtaSection() {
           {/* ── Card ─────────────────────────────────────────────────────── */}
           <div
             ref={cardRef}
-            className='relative border border-white/[0.08] p-8 md:p-10 rounded-sm overflow-hidden'
+            className='relative border border-white/8 p-8 md:p-10 rounded-sm overflow-hidden'
             style={{ background: 'rgba(255,255,255,0.03)' }}
           >
             {/* Subtle corner accent */}
