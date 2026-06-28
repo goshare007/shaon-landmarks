@@ -1,23 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 export function PortfolioHero() {
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from('.portfolio-hero__content > *', {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

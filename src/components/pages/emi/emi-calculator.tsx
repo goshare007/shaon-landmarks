@@ -1,9 +1,8 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { formatCurrency } from '@/lib/format';
-import { gsap, MOTION } from '@/lib/gsap';
 
 function calculateEmi(principal: number, annualRate: number, years: number) {
   const months = years * 12;
@@ -87,73 +86,6 @@ export function EmiCalculator() {
   const slidersRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      // Intro fade
-      if (introRef.current) {
-        gsap.from(Array.from(introRef.current.children), {
-          y: 20,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: introRef.current,
-            start: 'top 90%',
-            once: true,
-          },
-        });
-      }
-
-      // Calculator sliders stagger
-      if (slidersRef.current) {
-        gsap.from(Array.from(slidersRef.current.children), {
-          y: 24,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: calcRef.current,
-            start: 'top 86%',
-            once: true,
-          },
-        });
-      }
-
-      // Results card slide-up
-      if (resultsRef.current) {
-        gsap.from(Array.from(resultsRef.current.children), {
-          y: 32,
-          opacity: 0,
-          duration: 0.65,
-          stagger: 0.12,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: resultsRef.current,
-            start: 'top 84%',
-            once: true,
-          },
-        });
-      }
-
-      // CTA fade
-      if (ctaRef.current) {
-        gsap.from(Array.from(ctaRef.current.children), {
-          y: 20,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: ctaRef.current,
-            start: 'top 86%',
-            once: true,
-          },
-        });
-      }
-    });
-    return () => ctx.revert();
-  }, []);
 
   return (
     <main>

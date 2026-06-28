@@ -1,44 +1,12 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 export function BlogCta() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 22,
-        opacity: 0,
-        duration: 0.7,
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 86%',
-          once: true,
-        },
-      });
-      if (actionsRef.current) {
-        gsap.from(Array.from(actionsRef.current.children), {
-          y: 16,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.12,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: actionsRef.current,
-            start: 'top 84%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

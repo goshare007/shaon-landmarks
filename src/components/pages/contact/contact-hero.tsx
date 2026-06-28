@@ -1,9 +1,8 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import HERO_IMG from '@/assets/images/contact/hero.webp';
-import { gsap, MOTION } from '@/lib/gsap';
 
 const PARTICLES = Array.from({ length: 14 }, (_, i) => ({
   id: i,
@@ -33,76 +32,6 @@ export function ContactHero() {
   const locationBadgeRef = useRef<HTMLDivElement>(null);
   const yearTagRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.from(
-        imageWrapRef.current,
-        { scale: 1.06, opacity: 0, duration: 1.2, ease: 'power2.out' },
-        0,
-      );
-      tl.from(
-        dividerLineRef.current,
-        { scaleY: 0, transformOrigin: 'top center', duration: 0.9 },
-        0.2,
-      );
-      tl.from(eyebrowRef.current, { y: 16, opacity: 0, duration: 0.6 }, 0.4);
-
-      if (headlineRef.current) {
-        tl.from(
-          Array.from(headlineRef.current.children),
-          {
-            y: 40,
-            opacity: 0,
-            duration: 0.75,
-            stagger: 0.12,
-            ease: 'power3.out',
-          },
-          0.55,
-        );
-      }
-
-      tl.from(
-        descriptorRef.current,
-        { y: 14, opacity: 0, duration: 0.6 },
-        0.85,
-      );
-
-      if (statsRef.current) {
-        tl.from(
-          Array.from(statsRef.current.children),
-          { y: 12, opacity: 0, duration: 0.5, stagger: 0.1 },
-          1.0,
-        );
-      }
-
-      tl.from(ctaRef.current, { y: 10, opacity: 0, duration: 0.5 }, 1.2);
-      tl.from(scrollIndicatorRef.current, { opacity: 0, duration: 0.5 }, 1.4);
-      tl.from(
-        [locationBadgeRef.current, yearTagRef.current],
-        { y: 10, opacity: 0, duration: 0.5, stagger: 0.1 },
-        1.1,
-      );
-
-      if (particlesRef.current) {
-        tl.from(
-          Array.from(particlesRef.current.children),
-          {
-            opacity: 0,
-            scale: 0,
-            duration: 0.4,
-            stagger: 0.03,
-            ease: 'back.out(2)',
-          },
-          1.3,
-        );
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 const stats = [
   { value: '40%', label: 'Energy Reduction' },
@@ -12,40 +11,6 @@ export function SustainabilityPhilosophy() {
   const sectionRef = useRef<HTMLElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      if (copyRef.current) {
-        gsap.from(Array.from(copyRef.current.children), {
-          y: 22,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: copyRef.current,
-            start: 'top 86%',
-            once: true,
-          },
-        });
-      }
-
-      if (statsRef.current) {
-        gsap.from(Array.from(statsRef.current.children), {
-          y: 16,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: statsRef.current,
-            start: 'top 88%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>

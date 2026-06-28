@@ -1,7 +1,6 @@
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import HERO_IMAGE from '@/assets/images/about/hero.webp';
-import { gsap, MOTION } from '@/lib/gsap';
 
 // Deterministic particles — no Math.random() so SSR and client match
 const PARTICLES = Array.from({ length: 14 }, (_, i) => ({
@@ -22,81 +21,6 @@ export function AboutHero() {
   const imageWrapRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      // Image panel scales in
-      tl.from(
-        imageWrapRef.current,
-        {
-          scale: 1.05,
-          opacity: 0,
-          duration: 1.1,
-          ease: 'power2.out',
-        },
-        0,
-      );
-
-      // Vertical divider draws down
-      tl.from(
-        dividerRef.current,
-        {
-          scaleY: 0,
-          transformOrigin: 'top center',
-          duration: 0.9,
-        },
-        0.2,
-      );
-
-      // Eyebrow
-      tl.from(eyebrowRef.current, { y: 14, opacity: 0, duration: 0.6 }, 0.35);
-
-      // Headline lines stagger
-      if (headlineRef.current) {
-        tl.from(
-          Array.from(headlineRef.current.children),
-          {
-            y: 38,
-            opacity: 0,
-            duration: 0.75,
-            stagger: 0.12,
-          },
-          0.5,
-        );
-      }
-
-      // Descriptor
-      tl.from(
-        descriptorRef.current,
-        { y: 14, opacity: 0, duration: 0.6 },
-        0.78,
-      );
-
-      // Quote block
-      tl.from(quoteRef.current, { y: 12, opacity: 0, duration: 0.55 }, 0.95);
-
-      // Particles pop in
-      if (particlesRef.current) {
-        tl.from(
-          Array.from(particlesRef.current.children),
-          {
-            opacity: 0,
-            scale: 0,
-            duration: 0.35,
-            stagger: 0.04,
-            ease: 'back.out(2)',
-          },
-          1.1,
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

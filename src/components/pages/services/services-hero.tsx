@@ -1,10 +1,9 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import HERO_IMG from '@/assets/images/services/hero.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 const HERO_STATS = [
   { num: '48+', label: 'Completed Projects' },
@@ -19,49 +18,6 @@ export function ServicesHero() {
   const quoteRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      if (contentRef.current) {
-        tl.from(
-          Array.from(contentRef.current.children),
-          {
-            y: 24,
-            opacity: 0,
-            duration: 0.65,
-            stagger: 0.1,
-          },
-          0,
-        );
-      }
-
-      tl.from(
-        imageWrapRef.current,
-        { scale: 1.04, opacity: 0, duration: 1, ease: 'power2.out' },
-        0.15,
-      );
-      tl.from(quoteRef.current, { x: -20, opacity: 0, duration: 0.6 }, 0.5);
-
-      if (statsRef.current) {
-        tl.from(
-          Array.from(statsRef.current.children),
-          {
-            y: 12,
-            opacity: 0,
-            duration: 0.4,
-            stagger: 0.08,
-          },
-          0.7,
-        );
-      }
-
-      tl.from(ctaRef.current, { y: 10, opacity: 0, duration: 0.4 }, 0.9);
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

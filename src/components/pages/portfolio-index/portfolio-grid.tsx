@@ -1,44 +1,14 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { allProjects } from '@/content/projects';
-import { gsap, MOTION } from '@/lib/gsap';
 
 export function PortfolioGrid() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 20,
-        opacity: 0,
-        duration: 0.7,
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 85%',
-          once: true,
-        },
-      });
-      gsap.from('.portfolio-grid__card', {
-        y: 28,
-        opacity: 0,
-        duration: 0.65,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 82%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

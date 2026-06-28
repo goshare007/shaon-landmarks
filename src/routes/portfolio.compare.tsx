@@ -1,15 +1,11 @@
 import { IconArrowLeft } from '@tabler/icons-react';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { z } from 'zod';
 import { CompareTable } from '@/components/pages/portfolio-compare/compare-table';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { allProjects } from '@/content/projects';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const compareSearchSchema = z.object({
   ids: z
@@ -93,24 +89,6 @@ export const Route = createFileRoute('/portfolio/compare')({
 function ComparePage() {
   const sectionRef = useRef<HTMLElement>(null);
   const { projects } = Route.useLoaderData();
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.compare-page__heading > *', {
-        y: 16,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   if (projects.length < 2) {
     return (

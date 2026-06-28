@@ -7,13 +7,12 @@ import {
 } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import ARCH_IMG from '@/assets/images/services/architecture.webp';
 import CONST_IMG from '@/assets/images/services/construction.webp';
 import INTERIOR_IMG from '@/assets/images/services/interior.webp';
 import LAND_IMG from '@/assets/images/services/land-development.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 const SERVICES = [
   {
@@ -58,37 +57,6 @@ export function ServicesCards() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 20,
-        opacity: 0,
-        duration: 0.7,
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 86%',
-          once: true,
-        },
-      });
-      if (gridRef.current) {
-        gsap.from(Array.from(gridRef.current.children), {
-          y: 32,
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.12,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 82%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

@@ -1,10 +1,6 @@
 import { Image } from '@unpic/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import type { ProjectDetail } from '@/content/projects';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function PortfolioDetailFloorPlans({
   floorPlans,
@@ -14,44 +10,6 @@ export function PortfolioDetailFloorPlans({
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const activePlan = floorPlans[activeIndex];
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.detail-floorplans__heading', {
-        y: 16,
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-      gsap.from('.detail-floorplans__tabs > *', {
-        y: 12,
-        opacity: 0,
-        duration: 0.4,
-        stagger: 0.06,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-      gsap.from('.detail-floorplans__image', {
-        y: 24,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section ref={sectionRef} className='border-b border-border bg-white py-24'>

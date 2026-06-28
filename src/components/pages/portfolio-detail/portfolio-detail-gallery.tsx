@@ -1,11 +1,7 @@
 import { Image } from '@unpic/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function PortfolioDetailGallery({
   images,
@@ -26,35 +22,6 @@ export function PortfolioDetailGallery({
   }, []);
 
   const [img1, img2, img3] = images;
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.detail-gallery__heading > *', {
-        y: 16,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-      gsap.from('.detail-gallery__image', {
-        y: 30,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section ref={sectionRef} className='bg-white py-24'>

@@ -1,8 +1,7 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // AboutStory
@@ -11,36 +10,6 @@ export function AboutStory() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 24,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 84%',
-          once: true,
-        },
-      });
-      gsap.from(bodyRef.current, {
-        y: 24,
-        opacity: 0,
-        duration: 0.75,
-        delay: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 84%',
-          once: true,
-        },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section ref={sectionRef} className='bg-white py-24 border-t border-border'>

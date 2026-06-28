@@ -1,9 +1,5 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { ProjectDetail } from '@/content/projects';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function PortfolioDetailSpecs({
   specs,
@@ -17,24 +13,6 @@ export function PortfolioDetailSpecs({
     { label: 'Floor Count', value: specs.floorCount },
     { label: 'Completion', value: specs.completion },
   ];
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.detail-specs__item', {
-        y: 16,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

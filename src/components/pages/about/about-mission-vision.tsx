@@ -3,9 +3,8 @@ import {
   IconChecks,
   IconEye,
 } from '@tabler/icons-react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 // ─────────────────────────────────────────────────────────────────────────────
 const MISSION_LIST = [
@@ -18,25 +17,6 @@ export function AboutMissionVision() {
   const sectionRef = useRef<HTMLElement>(null);
   const missionRef = useRef<HTMLDivElement>(null);
   const visionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from([missionRef.current, visionRef.current], {
-        y: 30,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 83%',
-          once: true,
-        },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

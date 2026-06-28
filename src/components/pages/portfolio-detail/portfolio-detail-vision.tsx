@@ -1,10 +1,6 @@
 import { Image } from '@unpic/react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { ProjectDetail } from '@/content/projects';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function PortfolioDetailVision({
   vision,
@@ -12,34 +8,6 @@ export function PortfolioDetailVision({
   vision: ProjectDetail['vision'];
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.detail-vision__text > *', {
-        y: 20,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-      gsap.from('.detail-vision__image', {
-        x: 40,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section ref={sectionRef} className='bg-surface-raised py-32'>

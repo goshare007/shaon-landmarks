@@ -1,11 +1,10 @@
 import { IconLeaf, IconSolarPanel, IconTree } from '@tabler/icons-react';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import energyEfficiency from '@/assets/images/sustainability/energy-efficiency.webp';
 import greenSpaces from '@/assets/images/sustainability/green-spaces.webp';
 import sustainableMaterials from '@/assets/images/sustainability/sustainable-materials.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
 
 const sustainabilityData = [
   {
@@ -38,40 +37,6 @@ export function SustainabilitySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 22,
-        opacity: 0,
-        duration: 0.7,
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 86%',
-          once: true,
-        },
-      });
-
-      if (cardsRef.current) {
-        gsap.from(Array.from(cardsRef.current.children), {
-          y: 36,
-          opacity: 0,
-          duration: 0.7,
-          stagger: 0.13,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: 'top 84%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

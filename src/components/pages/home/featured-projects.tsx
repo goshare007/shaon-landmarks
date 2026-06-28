@@ -1,11 +1,10 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { allProjects, type Project } from '@/content/projects';
-import { gsap, MOTION } from '@/lib/gsap';
 
 // ── Featured card (hero-sized) ───────────────────────────────────────────────
 
@@ -136,67 +135,6 @@ export function FeaturedProjects() {
   const featuredRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      // Heading
-      gsap.from(headingRef.current, {
-        y: 22,
-        opacity: 0,
-        duration: 0.7,
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 86%',
-          once: true,
-        },
-      });
-
-      // Featured card
-      gsap.from(featuredRef.current, {
-        y: 36,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: featuredRef.current,
-          start: 'top 84%',
-          once: true,
-        },
-      });
-
-      // Grid cards stagger
-      if (gridRef.current) {
-        gsap.from(Array.from(gridRef.current.children), {
-          y: 28,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 84%',
-            once: true,
-          },
-        });
-      }
-
-      // Footer CTA
-      gsap.from(footerRef.current, {
-        y: 16,
-        opacity: 0,
-        duration: 0.5,
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: 'top 90%',
-          once: true,
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const feature = allProjects.find((p) => p.featured) ?? allProjects[0];
   const gridProjects = allProjects

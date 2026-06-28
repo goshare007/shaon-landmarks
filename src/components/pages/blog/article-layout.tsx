@@ -1,11 +1,10 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import type { BlogArticle } from '@/content/blog';
 import { getRecentArticles } from '@/content/blog';
-import { gsap, MOTION } from '@/lib/gsap';
 import { renderMarkdown } from '@/lib/markdown';
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {
@@ -14,69 +13,6 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
   const ctaHeadingRef = useRef<HTMLDivElement>(null);
   const ctaActionsRef = useRef<HTMLDivElement>(null);
   const recent = getRecentArticles(article.slug, 3);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from('.article-layout__header > *', {
-        y: 20,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-      gsap.from('.article-layout__image', {
-        y: 24,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-      });
-      gsap.from('.article-layout__content > *', {
-        y: 16,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.04,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
-        },
-      });
-      gsap.from(ctaHeadingRef.current, {
-        y: 22,
-        opacity: 0,
-        duration: 0.7,
-        scrollTrigger: {
-          trigger: ctaHeadingRef.current,
-          start: 'top 86%',
-          once: true,
-        },
-      });
-      if (ctaActionsRef.current) {
-        gsap.from(Array.from(ctaActionsRef.current.children), {
-          y: 16,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.12,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: ctaActionsRef.current,
-            start: 'top 84%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <>

@@ -3,8 +3,7 @@ import {
   IconHeartHandshake,
   IconRosette,
 } from '@tabler/icons-react';
-import { useEffect, useRef } from 'react';
-import { gsap, MOTION } from '@/lib/gsap';
+import { useRef } from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 const CERTIFICATIONS = [
@@ -20,25 +19,6 @@ export function AboutCertifications() {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      gsap.from([leftRef.current, rightRef.current], {
-        y: 22,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 86%',
-          once: true,
-        },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

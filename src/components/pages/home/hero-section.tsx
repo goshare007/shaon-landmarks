@@ -1,9 +1,8 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { HERO_CONTENT } from '@/content/home';
-import { gsap, MOTION } from '@/lib/gsap';
 
 // Deterministic particle positions — no Math.random() so SSR and client match
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
@@ -30,92 +29,6 @@ export function HeroSection() {
   const locationBadgeRef = useRef<HTMLDivElement>(null);
   const yearTagRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      // 1. Image panel: scale down from slightly zoomed, fade in
-      tl.from(
-        imageWrapRef.current,
-        { scale: 1.06, opacity: 0, duration: 1.2, ease: 'power2.out' },
-        0,
-      );
-
-      // 2. Vertical divider line: draw downward
-      tl.from(
-        dividerLineRef.current,
-        { scaleY: 0, transformOrigin: 'top center', duration: 0.9 },
-        0.2,
-      );
-
-      // 3. Eyebrow: slide up + fade
-      tl.from(eyebrowRef.current, { y: 16, opacity: 0, duration: 0.6 }, 0.4);
-
-      // 4. Headline lines: stagger up with a clip-path reveal
-      if (headlineRef.current) {
-        tl.from(
-          Array.from(headlineRef.current.children),
-          {
-            y: 40,
-            opacity: 0,
-            duration: 0.75,
-            stagger: 0.12,
-            ease: 'power3.out',
-          },
-          0.55,
-        );
-      }
-
-      // 5. Descriptor block
-      tl.from(
-        descriptorRef.current,
-        { y: 14, opacity: 0, duration: 0.6 },
-        0.85,
-      );
-
-      // 6. Stats: stagger each stat item
-      if (statsRef.current) {
-        tl.from(
-          Array.from(statsRef.current.children),
-          { y: 12, opacity: 0, duration: 0.5, stagger: 0.1 },
-          1.0,
-        );
-      }
-
-      // 7. CTA button
-      tl.from(ctaRef.current, { y: 10, opacity: 0, duration: 0.5 }, 1.2);
-
-      // 8. Scroll indicator
-      tl.from(scrollIndicatorRef.current, { opacity: 0, duration: 0.5 }, 1.4);
-
-      // 9. Location badge + year tag on the image panel
-      tl.from(
-        [locationBadgeRef.current, yearTagRef.current],
-        { y: 10, opacity: 0, duration: 0.5, stagger: 0.1 },
-        1.1,
-      );
-
-      // 10. Particles float in after everything settles
-      if (particlesRef.current) {
-        tl.from(
-          Array.from(particlesRef.current.children),
-          {
-            opacity: 0,
-            scale: 0,
-            duration: 0.4,
-            stagger: 0.03,
-            ease: 'back.out(2)',
-          },
-          1.3,
-        );
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

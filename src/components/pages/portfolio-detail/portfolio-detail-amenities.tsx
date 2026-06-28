@@ -16,12 +16,8 @@ import {
   IconTree,
   IconWifi,
 } from '@tabler/icons-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { ProjectDetail } from '@/content/projects';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const iconMap: Record<string, typeof IconLeaf> = {
   dark_mode: IconMoonStars,
@@ -47,35 +43,6 @@ export function PortfolioDetailAmenities({
   amenities: ProjectDetail['amenities'];
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.detail-amenities__heading > *', {
-        y: 20,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.12,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-      gsap.from('.detail-amenities__card', {
-        y: 24,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

@@ -1,6 +1,5 @@
 import { IconArrowRight, IconLock } from '@tabler/icons-react';
-import { useEffect, useRef, useState } from 'react';
-import { gsap, MOTION } from '@/lib/gsap';
+import { useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 export function CtaSection() {
@@ -14,73 +13,6 @@ export function CtaSection() {
   const leftRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      // Left column children stagger up
-      if (leftRef.current) {
-        gsap.from(Array.from(leftRef.current.children), {
-          y: 28,
-          opacity: 0,
-          duration: 0.75,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: leftRef.current,
-            start: 'top 84%',
-            once: true,
-          },
-        });
-      }
-
-      // Divider line draws from left
-      gsap.from(dividerRef.current, {
-        scaleX: 0,
-        transformOrigin: 'left center',
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: dividerRef.current,
-          start: 'top 88%',
-          once: true,
-        },
-      });
-
-      // Card slides up
-      gsap.from(cardRef.current, {
-        y: 40,
-        opacity: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 82%',
-          once: true,
-        },
-      });
-
-      // Form fields stagger inside card
-      if (cardRef.current) {
-        gsap.from(Array.from(cardRef.current.querySelectorAll('.form-field')), {
-          y: 16,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.09,
-          ease: 'power2.out',
-          delay: 0.25,
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: 'top 80%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

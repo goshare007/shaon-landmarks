@@ -3,11 +3,10 @@ import {
   IconHourglass,
   IconShieldCheck,
 } from '@tabler/icons-react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { pillars } from '@/content/pillars';
-import { gsap, MOTION } from '@/lib/gsap';
 
 // Map pillar icon string → Tabler React icon component
 const ICONS: Record<string, React.ReactNode> = {
@@ -20,40 +19,6 @@ export function PillarsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        y: 20,
-        opacity: 0,
-        duration: 0.7,
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 85%',
-          once: true,
-        },
-      });
-
-      if (cardsRef.current) {
-        gsap.from(Array.from(cardsRef.current.children), {
-          y: 32,
-          opacity: 0,
-          duration: 0.65,
-          stagger: 0.15,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: 'top 82%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

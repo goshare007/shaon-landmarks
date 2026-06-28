@@ -1,12 +1,8 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import L from 'leaflet';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { ProjectDetail } from '@/content/projects';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const markerIcon = L.divIcon({
   className: '',
@@ -22,34 +18,6 @@ export function PortfolioDetailLocation({
   location: ProjectDetail['location'];
 }) {
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.detail-location__text > *', {
-        y: 20,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-      gsap.from('.detail-location__map', {
-        x: 30,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 85%',
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section ref={sectionRef} className='bg-white py-32'>

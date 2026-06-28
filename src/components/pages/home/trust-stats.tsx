@@ -1,33 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { TRUST_STATS as stats } from '@/content/home';
-import { gsap, MOTION } from '@/lib/gsap';
 
 export function TrustStats() {
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      if (gridRef.current) {
-        gsap.from(Array.from(gridRef.current.children), {
-          y: 20,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.12,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 88%',
-            once: true,
-          },
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section

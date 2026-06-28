@@ -1,7 +1,6 @@
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import SustainabilityImg from '@/assets/images/sustainability/sustainability.webp';
-import { gsap, MOTION } from '@/lib/gsap';
 
 export function SustainabilityHero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -10,41 +9,6 @@ export function SustainabilityHero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const descriptorRef = useRef<HTMLParagraphElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!MOTION) return;
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.from(
-        imageWrapRef.current,
-        { scale: 1.06, opacity: 0, duration: 1.2, ease: 'power2.out' },
-        0,
-      );
-      tl.from(eyebrowRef.current, { y: 16, opacity: 0, duration: 0.6 }, 0.4);
-
-      if (headlineRef.current) {
-        tl.from(
-          Array.from(headlineRef.current.children),
-          {
-            y: 40,
-            opacity: 0,
-            duration: 0.75,
-            stagger: 0.12,
-            ease: 'power3.out',
-          },
-          0.55,
-        );
-      }
-
-      tl.from(
-        descriptorRef.current,
-        { y: 14, opacity: 0, duration: 0.6 },
-        0.85,
-      );
-      tl.from(badgeRef.current, { y: 10, opacity: 0, duration: 0.5 }, 1.1);
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
