@@ -81,7 +81,6 @@ export const Route = createFileRoute('/portfolio/compare')({
         </p>
         <Link
           to='/portfolio'
-          search={{ status: '', location: '', search: '' }}
           className='mt-8 inline-block rounded-sm border border-border px-6 py-3 text-[10px] font-medium tracking-widest text-foreground uppercase transition-colors hover:border-custom hover:text-custom'
         >
           Back to Portfolio
@@ -125,8 +124,7 @@ function ComparePage() {
           </p>
           <Link
             to='/portfolio'
-            search={{ status: '', location: '', search: '' }}
-            className='mt-8 inline-block rounded-sm border border-border px-6 py-3 text-[10px] font-medium tracking-widest text-foreground uppercase transition-colors hover:border-custom hover:text-custom'
+            className='inline-flex items-center gap-2 text-[10px] font-medium tracking-widest text-muted-foreground uppercase transition-colors hover:text-custom'
           >
             Back to Portfolio
           </Link>

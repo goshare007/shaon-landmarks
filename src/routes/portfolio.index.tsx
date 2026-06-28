@@ -7,17 +7,6 @@ import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/portfolio/')({
-  validateSearch: (
-    search: Record<string, unknown>,
-  ): {
-    status: string;
-    location: string;
-    search: string;
-  } => ({
-    status: (search.status as string) || '',
-    location: (search.location as string) || '',
-    search: (search.search as string) || '',
-  }),
   component: PortfolioIndex,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
@@ -34,20 +23,10 @@ export const Route = createFileRoute('/portfolio/')({
 });
 
 function PortfolioIndex() {
-  const { status, location, search: searchText } = Route.useSearch();
-  const navigate = Route.useNavigate();
-
-  const setFilters = (updates: Record<string, string>) => {
-    navigate({ search: (prev) => ({ ...prev, ...updates }) });
-  };
-
   return (
     <main id='main-content'>
       <PortfolioHero />
-      <PortfolioGrid
-        filters={{ status, location, search: searchText }}
-        onFilterChange={setFilters}
-      />
+      <PortfolioGrid />
       <PortfolioCta />
     </main>
   );

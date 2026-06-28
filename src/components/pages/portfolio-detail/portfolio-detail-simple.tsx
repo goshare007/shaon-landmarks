@@ -1,4 +1,4 @@
-import { IconArrowLeft, IconPrinter } from '@tabler/icons-react';
+import { IconPrinter } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import type { Project } from '@/content/projects';
 
@@ -75,10 +75,8 @@ export function PortfolioDetailSimple({ project }: { project: Project }) {
           <div className='mt-12'>
             <Link
               to='/portfolio'
-              search={{ status: '', location: '', search: '' }}
               className='inline-flex items-center gap-2 text-[10px] font-medium tracking-widest text-muted-foreground uppercase transition-colors hover:text-custom'
             >
-              <IconArrowLeft size={16} aria-hidden='true' />
               Back to Portfolio
             </Link>
           </div>

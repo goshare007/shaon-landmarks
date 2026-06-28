@@ -42,7 +42,7 @@ export function PortfolioCta() {
       <div className='absolute bottom-0 right-0 w-10 h-px bg-custom/30' />
       <div className='absolute bottom-0 right-0 w-px h-10 bg-custom/30' />
 
-      <div className='portfolio-cta__content container'>
+      <div className='portfolio-cta__content site-wrapper'>
         <div className='max-w-lg'>
           <div className='mb-5 flex items-center gap-4'>
             <div className='w-8 h-px bg-custom' />
