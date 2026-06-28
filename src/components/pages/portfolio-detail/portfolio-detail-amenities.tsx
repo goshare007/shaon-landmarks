@@ -16,7 +16,6 @@ import {
   IconTree,
   IconWifi,
 } from '@tabler/icons-react';
-import { useRef } from 'react';
 import type { ProjectDetail } from '@/content/projects';
 
 const iconMap: Record<string, typeof IconLeaf> = {
@@ -42,13 +41,8 @@ export function PortfolioDetailAmenities({
 }: {
   amenities: ProjectDetail['amenities'];
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='relative bg-surface-brand py-32 overflow-hidden'
-    >
+    <section className='relative bg-surface-brand py-32 overflow-hidden'>
       {/* Corner accents */}
       <div className='absolute top-0 left-0 w-10 h-px bg-custom/30' />
       <div className='absolute top-0 left-0 w-px h-10 bg-custom/30' />
@@ -59,7 +53,7 @@ export function PortfolioDetailAmenities({
       <div className='absolute bottom-0 right-0 w-10 h-px bg-custom/30' />
       <div className='absolute bottom-0 right-0 w-px h-10 bg-custom/30' />
 
-      <div className='container'>
+      <div className='site-wrapper'>
         <div className='detail-amenities__heading mb-24 max-w-2xl'>
           <h2 className='mb-6 text-3xl font-serif text-white md:text-4xl lg:text-5xl'>
             Elevating the <br />

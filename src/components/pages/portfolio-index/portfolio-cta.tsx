@@ -1,15 +1,9 @@
 import { IconArrowRight, IconEye } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useRef } from 'react';
 
 export function PortfolioCta() {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='relative bg-surface-brand py-24 md:py-32 border-t border-white/6 overflow-hidden'
-    >
+    <section className='relative bg-surface-brand py-24 md:py-32 border-t border-white/6 overflow-hidden'>
       {/* Corner accents */}
       <div className='absolute top-0 left-0 w-10 h-px bg-custom/30' />
       <div className='absolute top-0 left-0 w-px h-10 bg-custom/30' />
@@ -29,16 +23,7 @@ export function PortfolioCta() {
             </span>
           </div>
           <h2 className='font-serif text-[clamp(1.8rem,4vw,3rem)] font-light leading-tight tracking-[-0.01em] text-white'>
-            Interested in a{' '}
-            <span
-              className='italic'
-              style={{
-                color: 'transparent',
-                WebkitTextStroke: '1px rgba(255,255,255,0.28)',
-              }}
-            >
-              Landmark
-            </span>{' '}
+            Interested in a <span className='italic text-custom'>Landmark</span>{' '}
             of Your Own?
           </h2>
           <p className='mt-5 max-w-xl text-sm leading-relaxed text-white/55'>

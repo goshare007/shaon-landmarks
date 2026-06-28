@@ -1,5 +1,4 @@
 import L from 'leaflet';
-import { useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { ProjectDetail } from '@/content/projects';
@@ -17,11 +16,9 @@ export function PortfolioDetailLocation({
 }: {
   location: ProjectDetail['location'];
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section ref={sectionRef} className='bg-white py-32'>
-      <div className='container'>
+    <section className='bg-white py-32'>
+      <div className='site-wrapper'>
         <div className='grid items-center gap-16 lg:grid-cols-12'>
           <div className='detail-location__text lg:col-span-5'>
             <h2 className='mb-8 text-3xl leading-tight font-serif text-foreground md:text-4xl lg:text-5xl'>

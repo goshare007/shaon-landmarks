@@ -1,5 +1,4 @@
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import type { Project, ProjectDetail } from '@/content/projects';
 
 export function PortfolioDetailHero({
@@ -9,13 +8,8 @@ export function PortfolioDetailHero({
   project: Project;
   detail: ProjectDetail;
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='relative h-170 overflow-hidden bg-surface-brand'
-    >
+    <section className='relative h-170 overflow-hidden bg-surface-brand'>
       <div className='absolute inset-0 z-10 bg-surface-brand/40' />
       <div className='absolute inset-0 overflow-hidden'>
         <Image
@@ -37,7 +31,7 @@ export function PortfolioDetailHero({
       <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
       <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
 
-      <div className='absolute inset-0 z-20 mx-auto flex container flex-col justify-end pb-24'>
+      <div className='absolute inset-0 z-20 mx-auto flex site-wrapper flex-col justify-end pb-24'>
         <div className='detail-hero__content'>
           <div className='mb-6 flex items-center gap-4'>
             <span className='bg-custom px-4 py-1 text-[10px] font-medium tracking-[0.2em] text-white uppercase'>

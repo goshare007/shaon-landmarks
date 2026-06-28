@@ -1,5 +1,5 @@
 import { Image } from '@unpic/react';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 
@@ -10,7 +10,6 @@ export function PortfolioDetailGallery({
   images: string[];
   projectTitle: string;
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -24,8 +23,8 @@ export function PortfolioDetailGallery({
   const [img1, img2, img3] = images;
 
   return (
-    <section ref={sectionRef} className='bg-white py-24'>
-      <div className='container'>
+    <section className='bg-white py-24'>
+      <div className='site-wrapper'>
         <div className='detail-gallery__heading mb-16 flex items-end justify-between'>
           <h2 className='text-2xl font-serif text-foreground md:text-3xl'>
             Immersive Spaces

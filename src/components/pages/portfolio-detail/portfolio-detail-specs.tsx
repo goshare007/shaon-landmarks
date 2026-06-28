@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import type { ProjectDetail } from '@/content/projects';
 
 export function PortfolioDetailSpecs({
@@ -6,7 +5,6 @@ export function PortfolioDetailSpecs({
 }: {
   specs: ProjectDetail['specs'];
 }) {
-  const sectionRef = useRef<HTMLElement>(null);
   const items = [
     { label: 'Total Area', value: specs.totalArea },
     { label: 'Units', value: specs.units },
@@ -15,11 +13,8 @@ export function PortfolioDetailSpecs({
   ];
 
   return (
-    <section
-      ref={sectionRef}
-      className='border-b border-border bg-surface-raised py-20'
-    >
-      <div className='container'>
+    <section className='border-b border-border bg-surface-raised py-20'>
+      <div className='site-wrapper'>
         <div className='grid grid-cols-2 gap-12 md:grid-cols-4'>
           {items.map((item) => (
             <div key={item.label} className='detail-specs__item'>

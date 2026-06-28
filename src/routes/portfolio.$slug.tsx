@@ -1,4 +1,3 @@
-import { IconPrinter } from '@tabler/icons-react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { PortfolioDetailAmenities } from '@/components/pages/portfolio-detail/portfolio-detail-amenities';
 import { PortfolioDetailFloorPlans } from '@/components/pages/portfolio-detail/portfolio-detail-floor-plans';
@@ -25,13 +24,13 @@ export const Route = createFileRoute('/portfolio/$slug')({
   pendingComponent: () => (
     <main>
       <section className='relative h-230.25 overflow-hidden bg-surface-brand'>
-        <div className='container flex h-full flex-col justify-end pb-24'>
+        <div className='site-wrapper flex h-full flex-col justify-end pb-24'>
           <div className='mb-6 h-6 w-64 animate-pulse rounded bg-white/10' />
           <div className='h-20 w-3/4 animate-pulse rounded bg-white/10 md:h-28' />
         </div>
       </section>
       <section className='bg-surface-raised py-20'>
-        <div className='container'>
+        <div className='site-wrapper'>
           <div className='grid grid-cols-4 gap-12'>
             {[...Array(4)].map((_, i) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: static skeleton rows
@@ -166,18 +165,6 @@ function FullProjectView({
 }) {
   return (
     <main>
-      <div className='print:hidden border-b border-border bg-surface-raised py-2'>
-        <div className='container flex items-center justify-end'>
-          <button
-            type='button'
-            onClick={() => window.print()}
-            className='flex items-center gap-2 text-[10px] font-medium tracking-wider text-muted-foreground uppercase transition-colors hover:text-custom'
-          >
-            <IconPrinter size={14} aria-hidden='true' />
-            Print this page
-          </button>
-        </div>
-      </div>
       <PortfolioDetailHero project={project} detail={detail} />
       <PortfolioDetailSpecs specs={detail.specs} />
       <PortfolioDetailFloorPlans floorPlans={detail.floorPlans} />
@@ -188,6 +175,16 @@ function FullProjectView({
       />
       <PortfolioDetailAmenities amenities={detail.amenities} />
       <PortfolioDetailLocation location={detail.location} />
+      <div className='border-t border-border bg-surface-raised py-6'>
+        <div className='site-wrapper'>
+          <Link
+            to='/portfolio'
+            className='inline-flex items-center gap-2 text-[10px] font-medium tracking-widest text-muted-foreground uppercase transition-colors hover:text-custom'
+          >
+            Back to Portfolio
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }

@@ -1,24 +1,16 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { allProjects } from '@/content/projects';
 
 export function PortfolioGrid() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className={`py-20 md:py-28 border-t border-border`}
-    >
+    <section className='py-20 md:py-28 border-t border-border'>
       <div className='site-wrapper'>
         <div className='mb-12 md:mb-14'>
           <SectionHeading
-            ref={headingRef}
             eyebrow='Selected Works'
             heading='Our Portfolio'
             highlight='Landmarks'
