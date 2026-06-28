@@ -1,0 +1,230 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Shaon Landmarks & Housing Shaon Landmarks" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]:
+          - img "Shaon Landmarks & Housing" [ref=e7]
+          - generic [ref=e8]: Shaon Landmarks
+      - button "Open menu" [ref=e11]:
+        - img
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - img "Shaon Landmarks — architectural excellence since 2008" [ref=e15]
+      - generic [ref=e20]:
+        - generic [ref=e23]: Since 2008
+        - heading "A Legacy of Integrity" [level=1] [ref=e24]
+        - paragraph [ref=e25]: Crafting landmarks that stand as a testament to architectural precision and unwavering commitment in the heart of Bangladesh.
+        - generic [ref=e26]:
+          - generic [ref=e28]:
+            - generic [ref=e29]: "2008"
+            - generic [ref=e30]: Founded
+          - generic [ref=e33]:
+            - generic [ref=e34]: 48+
+            - generic [ref=e35]: Projects
+          - generic [ref=e38]:
+            - generic [ref=e39]: 500+
+            - generic [ref=e40]: Families
+      - generic [ref=e44]: Dhaka, Bangladesh
+    - generic [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e50]: Our Journey
+        - heading "Built on Experience" [level=2] [ref=e51]
+      - generic [ref=e54]:
+        - generic [ref=e56]:
+          - generic [ref=e58]: "2008"
+          - heading "Founded" [level=3] [ref=e59]
+          - paragraph [ref=e60]: "Shaon Landmarks & Housing was established with a single vision: to redefine the real estate landscape of Bangladesh through transparency and architectural innovation."
+        - generic [ref=e62]:
+          - generic [ref=e64]: "2012"
+          - heading "First Landmark Delivered" [level=3] [ref=e65]
+          - paragraph [ref=e66]: Completed our first residential project, setting the standard for build quality and timely handover that would become our hallmark.
+        - generic [ref=e68]:
+          - generic [ref=e70]: "2016"
+          - heading "10 Projects Milestone" [level=3] [ref=e71]
+          - paragraph [ref=e72]: Reached a decade of expertise with 10 completed projects, earning the trust of hundreds of families across Dhaka.
+        - generic [ref=e74]:
+          - generic [ref=e76]: "2020"
+          - heading "REHAB Membership" [level=3] [ref=e77]
+          - paragraph [ref=e78]: Joined the Real Estate & Housing Association of Bangladesh, reinforcing our commitment to ethical practices and industry standards.
+        - generic [ref=e80]:
+          - generic [ref=e82]: "2024"
+          - heading "48+ Projects & Growing" [level=3] [ref=e83]
+          - paragraph [ref=e84]: Expanded our portfolio to over 48 landmark projects, serving more than 500 families with uncompromising quality.
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e102]: What We Stand For
+        - heading "Three Pillars" [level=2] [ref=e103]
+      - generic [ref=e104]:
+        - generic [ref=e105]:
+          - img [ref=e107]
+          - heading "Integrity" [level=3] [ref=e110]
+          - paragraph [ref=e112]: Our foundations are built on transparency and ethical excellence, ensuring every landmark stands as a testament to our word.
+        - generic [ref=e113]:
+          - img [ref=e115]
+          - heading "Quality" [level=3] [ref=e118]
+          - paragraph [ref=e120]: Meticulous attention to detail and premium materials converge to create spaces of unparalleled luxury and durability.
+        - generic [ref=e121]:
+          - img [ref=e123]
+          - heading "Legacy" [level=3] [ref=e126]
+          - paragraph [ref=e128]: We don't just build structures; we create timeless landmarks that resonate through generations, defining the architectural heritage.
+    - generic [ref=e130]:
+      - generic [ref=e131]:
+        - generic [ref=e134]: What People Say
+        - heading "Trusted by Hundreds" [level=2] [ref=e136]
+      - generic [ref=e137]:
+        - generic [ref=e138]:
+          - img [ref=e142]
+          - blockquote [ref=e144]: “Shaon Landmarks doesn't just build housing; they curate an environment of dignity and permanence. Their commitment to architectural integrity in the heart of Dhaka is truly transformative.”
+          - generic [ref=e145]:
+            - paragraph [ref=e146]: S. Rahman
+            - paragraph [ref=e147]: Chief Architect, Urbana Bangladesh
+        - generic [ref=e148]:
+          - img [ref=e152]
+          - blockquote [ref=e154]: “We invested in a Shaon Landmarks project based on reputation alone. The timely handover and build quality exceeded our expectations — every finish, every corner reflects obsession with detail.”
+          - generic [ref=e155]:
+            - paragraph [ref=e156]: Fatima & Kamal Hossain
+            - paragraph [ref=e157]: Homeowners, Gulshan Residency
+        - generic [ref=e158]:
+          - img [ref=e162]
+          - blockquote [ref=e164]: “Shaon's approach to land development is methodical and transparent. As a partner on multiple projects, I have seen firsthand how they uphold ethical standards in an industry where shortcuts are common.”
+          - generic [ref=e165]:
+            - paragraph [ref=e166]: Engr. Arefin Karim
+            - paragraph [ref=e167]: Development Partner, Eastern Holdings
+    - generic [ref=e169]:
+      - generic [ref=e170]:
+        - generic [ref=e173]: The Board
+        - heading "Visionary Leadership" [level=2] [ref=e175]
+      - generic [ref=e176]:
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - img "Engr. Mahfuzur Rahman — Chairman, Shaon Landmarks" [ref=e180]
+            - generic [ref=e182]: Chairman
+          - generic [ref=e184]:
+            - heading "Engr. Mahfuzur Rahman" [level=4] [ref=e185]
+            - paragraph [ref=e186]: Chairman
+            - paragraph [ref=e188]: With over 25 years in civil engineering, Engr. Rahman provides the technical oversight and strategic direction that anchors our commitment to structural safety and architectural innovation.
+        - generic [ref=e189]:
+          - generic [ref=e190]:
+            - img "Md. Shaon Ahmed — Managing Director, Shaon Landmarks" [ref=e192]
+            - generic [ref=e194]: Managing Director
+          - generic [ref=e196]:
+            - heading "Md. Shaon Ahmed" [level=4] [ref=e197]
+            - paragraph [ref=e198]: Managing Director
+            - paragraph [ref=e200]: A visionary in real estate marketing and development, Mr. Ahmed leads the company's expansion and ensures that every project aligns with the lifestyle aspirations of our elite clientele.
+    - generic [ref=e203]:
+      - generic [ref=e210]:
+        - generic [ref=e213]: Accreditations
+        - heading "Certified Excellence" [level=2] [ref=e214]
+        - paragraph [ref=e215]: We adhere to the highest regulatory standards in Bangladesh, ensuring every development is legal, secure, and built to last.
+      - generic [ref=e216]:
+        - generic [ref=e217]:
+          - img [ref=e219]
+          - generic [ref=e221]: RAJUK Certified
+        - generic [ref=e222]:
+          - img [ref=e224]
+          - generic [ref=e229]: REHAB Member
+        - generic [ref=e230]:
+          - img [ref=e232]
+          - generic [ref=e236]: ISO 9001:2015
+  - contentinfo [ref=e237]:
+    - generic [ref=e239]:
+      - generic [ref=e240]:
+        - paragraph [ref=e241]: Building Tomorrow, Today
+        - link "Shaon Landmarks Shaon Landmarks" [ref=e242] [cursor=pointer]:
+          - /url: /
+          - img "Shaon Landmarks" [ref=e244]
+          - generic [ref=e245]:
+            - paragraph [ref=e246]: Shaon
+            - paragraph [ref=e247]: Landmarks
+        - paragraph [ref=e248]: Redefining the skyline through structural precision and unwavering aesthetic integrity since 2008.
+        - generic [ref=e249]:
+          - link "+880 1712-345678" [ref=e250] [cursor=pointer]:
+            - /url: tel:+8801712345678
+            - img [ref=e251]
+            - text: +880 1712-345678
+          - link "info@shaonlandmarks.com" [ref=e253] [cursor=pointer]:
+            - /url: mailto:info@shaonlandmarks.com
+            - img [ref=e254]
+            - text: info@shaonlandmarks.com
+        - generic [ref=e258]:
+          - generic [ref=e259]: RAJUK Certified
+          - generic [ref=e260]: REHAB Member
+        - generic [ref=e261]:
+          - generic [ref=e262]: Stay updated
+          - generic [ref=e264]:
+            - textbox "Stay updated" [ref=e265]:
+              - /placeholder: Your email address
+            - button "Subscribe" [ref=e266]:
+              - img [ref=e267]
+      - generic [ref=e270]:
+        - generic [ref=e271]:
+          - heading "Company" [level=4] [ref=e272]
+          - list [ref=e273]:
+            - listitem [ref=e274]:
+              - link "About Us →" [ref=e275] [cursor=pointer]:
+                - /url: /about
+                - text: About Us
+                - generic [ref=e276]: →
+            - listitem [ref=e277]:
+              - link "Our Portfolio →" [ref=e278] [cursor=pointer]:
+                - /url: /portfolio
+                - text: Our Portfolio
+                - generic [ref=e279]: →
+            - listitem [ref=e280]:
+              - link "Blog →" [ref=e281] [cursor=pointer]:
+                - /url: /blog
+                - text: Blog
+                - generic [ref=e282]: →
+            - listitem [ref=e283]:
+              - link "EMI Calculator →" [ref=e284] [cursor=pointer]:
+                - /url: /emi-calculator
+                - text: EMI Calculator
+                - generic [ref=e285]: →
+            - listitem [ref=e286]:
+              - link "Sustainability →" [ref=e287] [cursor=pointer]:
+                - /url: /sustainability
+                - text: Sustainability
+                - generic [ref=e288]: →
+        - generic [ref=e289]:
+          - heading "Legal" [level=4] [ref=e290]
+          - list [ref=e291]:
+            - listitem [ref=e292]:
+              - link "RAJUK Certified →" [ref=e293] [cursor=pointer]:
+                - /url: /legal
+                - text: RAJUK Certified
+                - generic [ref=e294]: →
+            - listitem [ref=e295]:
+              - link "REHAB Member →" [ref=e296] [cursor=pointer]:
+                - /url: /legal
+                - text: REHAB Member
+                - generic [ref=e297]: →
+            - listitem [ref=e298]:
+              - link "Legal Disclosures →" [ref=e299] [cursor=pointer]:
+                - /url: /legal
+                - text: Legal Disclosures
+                - generic [ref=e300]: →
+            - listitem [ref=e301]:
+              - link "Privacy Policy →" [ref=e302] [cursor=pointer]:
+                - /url: /privacy
+                - text: Privacy Policy
+                - generic [ref=e303]: →
+    - generic [ref=e306]:
+      - paragraph [ref=e307]: © 2026 Shaon Landmarks. All rights reserved.
+      - generic [ref=e308]:
+        - link "Facebook" [ref=e309] [cursor=pointer]:
+          - /url: https://facebook.com/shaonlandmarks
+          - img [ref=e310]
+        - link "Instagram" [ref=e312] [cursor=pointer]:
+          - /url: https://instagram.com/shaonlandmarks
+          - img [ref=e313]
+        - link "LinkedIn" [ref=e315] [cursor=pointer]:
+          - /url: https://linkedin.com/company/shaonlandmarks
+          - img [ref=e316]
+        - link "Twitter / X" [ref=e318] [cursor=pointer]:
+          - /url: https://twitter.com/shaonlandmarks
+          - img [ref=e319]
+    - button "Back to top" [ref=e321]:
+      - img [ref=e322]

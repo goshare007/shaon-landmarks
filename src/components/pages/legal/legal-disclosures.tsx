@@ -5,7 +5,6 @@ import {
   IconShieldCheck,
   IconUsersGroup,
 } from '@tabler/icons-react';
-import { useRef } from 'react';
 
 const disclosureSections = [
   {
@@ -41,11 +40,9 @@ const disclosureSections = [
 ];
 
 export function LegalDisclosures() {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section ref={sectionRef} className='py-20 md:py-28 bg-white'>
-      <div className='container'>
+    <section className='py-20 md:py-28 bg-white'>
+      <div className='site-wrapper'>
         <div className='divide-y divide-border'>
           {disclosureSections.map((section) => {
             const Icon = section.icon;

@@ -1,6 +1,6 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { formatCurrency } from '@/lib/format';
 
@@ -81,19 +81,10 @@ export function EmiCalculator() {
   const principalPct = Math.round((principal / totalPayment) * 100);
   const interestPct = 100 - principalPct;
 
-  const introRef = useRef<HTMLElement>(null);
-  const calcRef = useRef<HTMLElement>(null);
-  const slidersRef = useRef<HTMLDivElement>(null);
-  const resultsRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLElement>(null);
-
   return (
     <main>
       {/* ── Section 1: Dark intro ─────────────────────────────────────────── */}
-      <section
-        ref={introRef}
-        className='relative bg-surface-brand py-16 md:py-20 border-t border-white/6 overflow-hidden'
-      >
+      <section className='relative bg-surface-brand py-16 md:py-20 border-t border-white/6 overflow-hidden'>
         {/* Corner accents */}
         <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
           <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
@@ -104,7 +95,7 @@ export function EmiCalculator() {
           <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
         </div>
 
-        <div className='container'>
+        <div className='site-wrapper'>
           <div className='flex items-center gap-4 mb-6'>
             <div className='w-8 h-px bg-custom' />
             <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom/80'>
@@ -131,14 +122,11 @@ export function EmiCalculator() {
       </section>
 
       {/* ── Section 2: Calculator ──────────────────────────────────────────── */}
-      <section
-        ref={calcRef}
-        className='bg-surface-raised py-20 md:py-28 border-t border-border'
-      >
-        <div className='container'>
+      <section className='bg-surface-raised py-20 md:py-28 border-t border-border'>
+        <div className='site-wrapper'>
           <div className='grid gap-12 lg:grid-cols-2 lg:gap-20'>
             {/* Sliders */}
-            <div ref={slidersRef} className='space-y-10'>
+            <div className='space-y-10'>
               <SliderControl
                 label='Loan Amount'
                 value={principal}
@@ -193,10 +181,7 @@ export function EmiCalculator() {
             </div>
 
             {/* Results */}
-            <div
-              ref={resultsRef}
-              className='flex flex-col justify-center space-y-4'
-            >
+            <div className='flex flex-col justify-center space-y-4'>
               {/* EMI card */}
               <div className='relative border border-border bg-white p-8 text-center'>
                 <div className='absolute top-0 left-0 w-8 h-px bg-custom/40' />
@@ -251,10 +236,7 @@ export function EmiCalculator() {
       </section>
 
       {/* ── Section 3: CTA ──────────────────────────────────────────────────── */}
-      <section
-        ref={ctaRef}
-        className='relative bg-surface-brand py-20 md:py-28 border-t border-white/6 overflow-hidden'
-      >
+      <section className='relative bg-surface-brand py-20 md:py-28 border-t border-white/6 overflow-hidden'>
         {/* Corner accents */}
         <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
           <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
@@ -265,7 +247,7 @@ export function EmiCalculator() {
           <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
         </div>
 
-        <div className='container flex flex-col items-center text-center'>
+        <div className='site-wrapper flex flex-col items-center text-center'>
           <h2 className='font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] font-light leading-tight text-white mb-5'>
             Ready to build your{' '}
             <span

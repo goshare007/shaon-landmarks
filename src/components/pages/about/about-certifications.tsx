@@ -3,7 +3,6 @@ import {
   IconHeartHandshake,
   IconRosette,
 } from '@tabler/icons-react';
-import { useRef } from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 const CERTIFICATIONS = [
@@ -16,16 +15,9 @@ const CERTIFICATIONS = [
 ];
 
 export function AboutCertifications() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const leftRef = useRef<HTMLDivElement>(null);
-  const rightRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='bg-surface-overlay py-20 border-t border-white/6'
-    >
-      <div className='container'>
+    <section className='bg-surface-overlay py-20 border-t border-white/6'>
+      <div className='site-wrapper'>
         <div className='relative flex flex-col md:flex-row items-center justify-between gap-12 border-y border-white/6 py-14'>
           {/* Corner accents */}
           <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
@@ -38,7 +30,7 @@ export function AboutCertifications() {
           </div>
 
           {/* Left copy */}
-          <div ref={leftRef} className='max-w-sm text-center md:text-left'>
+          <div className='max-w-sm text-center md:text-left'>
             <div className='flex items-center gap-4 mb-5 justify-center md:justify-start'>
               <div className='w-8 h-px bg-custom' />
               <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom'>
@@ -64,10 +56,7 @@ export function AboutCertifications() {
           </div>
 
           {/* Right badges */}
-          <div
-            ref={rightRef}
-            className='flex flex-wrap justify-center gap-8 md:gap-12'
-          >
+          <div className='flex flex-wrap justify-center gap-8 md:gap-12'>
             {CERTIFICATIONS.map((cert) => (
               <div
                 key={cert.label}

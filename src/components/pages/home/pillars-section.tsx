@@ -3,7 +3,6 @@ import {
   IconHourglass,
   IconShieldCheck,
 } from '@tabler/icons-react';
-import { useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { pillars } from '@/content/pillars';
@@ -16,18 +15,10 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 export function PillarsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='py-20 md:py-28 site-wrapper border-t border-border'
-    >
-      <div className='container'>
+    <section className='py-20 md:py-28 border-t border-border'>
+      <div className='site-wrapper'>
         <SectionHeading
-          ref={headingRef}
           eyebrow='What We Stand For'
           heading='Built on three'
           highlight='immovable pillars'
@@ -35,7 +26,7 @@ export function PillarsSection() {
         />
 
         {/* Cards grid */}
-        <div ref={cardsRef} className='grid md:grid-cols-3 gap-6'>
+        <div className='grid md:grid-cols-3 gap-6'>
           {pillars.map((pillar) => (
             <Card
               key={pillar.id}

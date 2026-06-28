@@ -5,6 +5,7 @@ import { AboutHero } from '@/components/pages/about/about-hero';
 import { AboutLeadership } from '@/components/pages/about/about-leadership';
 import { AboutMissionVision } from '@/components/pages/about/about-mission-vision';
 import { AboutStory } from '@/components/pages/about/about-story';
+import { AboutTestimonials } from '@/components/pages/about/about-testimonials';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
@@ -54,6 +55,7 @@ function About() {
       <AboutHero />
       <AboutStory />
       <AboutMissionVision />
+      <AboutTestimonials />
       <AboutLeadership />
       <AboutCertifications />
     </main>

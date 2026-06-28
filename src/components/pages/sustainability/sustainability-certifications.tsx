@@ -1,36 +1,43 @@
-import { useRef } from 'react';
+import {
+  IconBuildingSkyscraper,
+  IconCertificate,
+  IconCircleCheck,
+  IconUsersGroup,
+} from '@tabler/icons-react';
 import { SectionHeading } from '@/components/ui/section-heading';
 
 const certifications = [
-  'RAJUK Certified',
-  'REHAB Member',
-  'ISO 14001',
-  'Green Building Council',
+  {
+    icon: IconBuildingSkyscraper,
+    title: 'RAJUK Certified',
+    description:
+      'All projects comply with Rajdhani Unnayan Kartripakkha regulations for safe and planned urban development.',
+  },
+  {
+    icon: IconUsersGroup,
+    title: 'REHAB Member',
+    description:
+      'Proud member of the Real Estate & Housing Association of Bangladesh, upholding industry best practices.',
+  },
+  {
+    icon: IconCertificate,
+    title: 'ISO 14001',
+    description:
+      'Environmental management systems certified to international standards for sustainable operations.',
+  },
+  {
+    icon: IconCircleCheck,
+    title: 'Green Building Council',
+    description:
+      'Recognized for integrating green building principles across design, construction, and operations.',
+  },
 ];
 
 export function SustainabilityCertifications() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='relative bg-surface-overlay py-20 md:py-28 border-t border-white/6'
-    >
-      {/* Corner accents */}
-      <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
-        <div className='absolute top-0 left-0 w-full h-px bg-custom/40' />
-        <div className='absolute top-0 left-0 h-full w-px bg-custom/40' />
-      </div>
-      <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
-        <div className='absolute bottom-0 right-0 w-full h-px bg-custom/40' />
-        <div className='absolute bottom-0 right-0 h-full w-px bg-custom/40' />
-      </div>
-
-      <div className='container'>
+    <section className='bg-surface-overlay py-20 md:py-28 border-t border-white/6'>
+      <div className='site-wrapper'>
         <SectionHeading
-          ref={headingRef}
           eyebrow='Recognition'
           heading='Certifications &'
           highlight='Recognition'
@@ -45,23 +52,33 @@ export function SustainabilityCertifications() {
           and regulatory authorities.
         </p>
 
-        <div ref={gridRef} className='flex flex-wrap justify-center gap-4'>
-          {certifications.map((cert) => (
-            <div
-              key={cert}
-              className='group relative overflow-hidden rounded-sm px-6 py-4 transition-all duration-300 hover:-translate-y-0.5'
-              style={{
-                background: 'rgba(0,0,0,0.45)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255,255,255,0.1)',
-              }}
-            >
-              <div className='absolute top-0 left-0 right-0 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
-              <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/60 transition-colors duration-200 group-hover:text-custom'>
-                {cert}
-              </span>
-            </div>
-          ))}
+        <div className='grid gap-5 sm:grid-cols-2'>
+          {certifications.map((c) => {
+            const Icon = c.icon;
+            return (
+              <div
+                key={c.title}
+                className='flex items-start gap-5 rounded-sm p-6 transition-all duration-300 hover:-translate-y-0.5'
+                style={{
+                  background: 'rgba(0,0,0,0.45)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
+              >
+                <div className='flex items-center justify-center w-10 h-10 rounded-sm border border-white/10 bg-white/5 shrink-0'>
+                  <Icon size={18} className='text-custom' aria-hidden='true' />
+                </div>
+                <div>
+                  <h3 className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/80'>
+                    {c.title}
+                  </h3>
+                  <p className='mt-2 text-sm leading-relaxed text-white/55'>
+                    {c.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

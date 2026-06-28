@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-
 const policySections = [
   {
     title: 'Information We Collect',
@@ -34,11 +32,9 @@ const policySections = [
 ];
 
 export function PrivacyPolicy() {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section ref={sectionRef} className='py-20 md:py-28 bg-white'>
-      <div className='container'>
+    <section className='py-20 md:py-28 bg-white'>
+      <div className='site-wrapper'>
         <div className='divide-y divide-border'>
           {policySections.map((section, i) => (
             <div

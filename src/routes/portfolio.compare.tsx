@@ -1,6 +1,5 @@
 import { IconArrowLeft } from '@tabler/icons-react';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { useRef } from 'react';
 import { z } from 'zod';
 import { CompareTable } from '@/components/pages/portfolio-compare/compare-table';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
@@ -87,7 +86,6 @@ export const Route = createFileRoute('/portfolio/compare')({
 });
 
 function ComparePage() {
-  const sectionRef = useRef<HTMLElement>(null);
   const { projects } = Route.useLoaderData();
 
   if (projects.length < 2) {
@@ -113,8 +111,8 @@ function ComparePage() {
 
   return (
     <main>
-      <section ref={sectionRef} className='bg-surface-raised py-12 md:py-16'>
-        <div className='container'>
+      <section className='bg-surface-raised py-12 md:py-16'>
+        <div className='site-wrapper'>
           <Link
             to='/portfolio'
             search={{ status: '', location: '', search: '' }}

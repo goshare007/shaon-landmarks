@@ -1,10 +1,9 @@
-import { useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { blogArticles } from '@/content/blog';
 import { BlogCard } from './blog-card';
 import { BlogCardSkeleton } from './blog-card-skeleton';
 
 export function BlogGrid() {
-  const sectionRef = useRef<HTMLElement>(null);
   const isPending = false;
 
   const featured = useMemo(() => blogArticles.find((a) => a.featured), []);
@@ -14,8 +13,8 @@ export function BlogGrid() {
   );
 
   return (
-    <section ref={sectionRef} className='bg-surface-raised py-16 md:py-24'>
-      <div className='container'>
+    <section className='bg-surface-raised py-16 md:py-24'>
+      <div className='site-wrapper'>
         <div className='mb-8 flex items-center justify-between'>
           <p className='text-sm text-muted-foreground'>
             {blogArticles.length} Articles

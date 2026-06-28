@@ -6,7 +6,7 @@ import {
 } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import logo from '@/assets/logo.png';
 import { cn } from '@/lib/utils';
 import { submitNewsletterSignup } from './newslatter';
@@ -133,13 +133,6 @@ const socialIcons = [
 ];
 
 export default function Footer() {
-  const footerRef = useRef<HTMLElement>(null);
-  const brandRef = useRef<HTMLDivElement>(null);
-  const colsRef = useRef<HTMLDivElement>(null);
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const backToTopRef = useRef<HTMLButtonElement>(null);
-  const dividerRef = useRef<HTMLDivElement>(null);
-
   const [newsletterState, setNewsletterState] = useState<{
     status: 'idle' | 'submitting' | 'success' | 'error';
     message: string;
@@ -173,15 +166,12 @@ export default function Footer() {
   }
 
   return (
-    <footer
-      ref={footerRef}
-      className='border-t border-white/6 bg-surface-overlay'
-    >
+    <footer className='border-t border-white/6 bg-surface-overlay'>
       {/* ── Main grid ── */}
       <div className='site-wrapper py-14 md:py-20'>
         <div className='grid gap-10 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-12'>
           {/* Brand column */}
-          <div ref={brandRef}>
+          <div>
             <p className='mb-5 text-[10px] font-medium uppercase tracking-[0.2em] text-custom'>
               Building Tomorrow, Today
             </p>
@@ -232,10 +222,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div
-              ref={dividerRef}
-              className='mb-6 h-px w-10 origin-left bg-custom opacity-40'
-            />
+            <div className='mb-6 h-px w-10 origin-left bg-custom opacity-40' />
 
             <div className='mb-8 flex flex-wrap items-center gap-2'>
               {['RAJUK Certified', 'REHAB Member'].map((badge) => (
@@ -294,7 +281,7 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          <div className='grid grid-cols-2 gap-8 lg:contents' ref={colsRef}>
+          <div className='grid grid-cols-2 gap-8 lg:contents'>
             {footerSections.map((section, i) => (
               <div
                 key={section.title}
@@ -352,11 +339,8 @@ export default function Footer() {
 
       {/* ── Bottom bar ── */}
       <div className='border-t border-white/4'>
-        <div className='container py-6'>
-          <div
-            ref={bottomRef}
-            className='flex flex-col items-center justify-between gap-4 sm:flex-row'
-          >
+        <div className='site-wrapper py-6'>
+          <div className='flex flex-col items-center justify-between gap-4 sm:flex-row'>
             <p className='text-xs text-neutral-400'>
               &copy; {year}{' '}
               <span className='text-neutral-400'>Shaon Landmarks</span>. All
@@ -382,7 +366,6 @@ export default function Footer() {
 
       {/* ── Back to top ── */}
       <button
-        ref={backToTopRef}
         type='button'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label='Back to top'

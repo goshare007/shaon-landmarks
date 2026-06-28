@@ -1,83 +1,80 @@
-import { IconArrowRight } from '@tabler/icons-react';
-import { Link } from '@tanstack/react-router';
-import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AboutStory
-// ─────────────────────────────────────────────────────────────────────────────
+const MILESTONES = [
+  {
+    year: '2008',
+    title: 'Founded',
+    description:
+      'Shaon Landmarks & Housing was established with a single vision: to redefine the real estate landscape of Bangladesh through transparency and architectural innovation.',
+  },
+  {
+    year: '2012',
+    title: 'First Landmark Delivered',
+    description:
+      'Completed our first residential project, setting the standard for build quality and timely handover that would become our hallmark.',
+  },
+  {
+    year: '2016',
+    title: '10 Projects Milestone',
+    description:
+      'Reached a decade of expertise with 10 completed projects, earning the trust of hundreds of families across Dhaka.',
+  },
+  {
+    year: '2020',
+    title: 'REHAB Membership',
+    description:
+      'Joined the Real Estate & Housing Association of Bangladesh, reinforcing our commitment to ethical practices and industry standards.',
+  },
+  {
+    year: '2024',
+    title: '48+ Projects & Growing',
+    description:
+      'Expanded our portfolio to over 48 landmark projects, serving more than 500 families with uncompromising quality.',
+  },
+];
+
 export function AboutStory() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const bodyRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section ref={sectionRef} className='bg-white py-24 border-t border-border'>
-      <div className='container'>
-        <div className='grid gap-10 md:grid-cols-12'>
-          {/* Sticky heading */}
-          <div ref={headingRef} className='md:col-span-4'>
-            <div className='md:sticky md:top-32'>
-              <SectionHeading
-                eyebrow='Since 2008'
-                heading='Our'
-                highlight='Story'
-                headingClassName='text-[clamp(2rem,4vw,3rem)]'
-              />
-            </div>
-          </div>
+    <section className='bg-white py-24 border-t border-border'>
+      <div className='site-wrapper'>
+        <SectionHeading
+          eyebrow='Our Journey'
+          heading='Built on'
+          highlight='Experience'
+          headingClassName='text-[clamp(2rem,4vw,3rem)]'
+          className='mb-16'
+        />
 
-          {/* Body */}
-          <div ref={bodyRef} className='md:col-span-8 flex flex-col gap-8'>
-            <p className='text-base leading-relaxed text-muted-foreground'>
-              Founded on the principles of transparency and architectural
-              innovation, Shaon Landmarks & Housing began its journey with a
-              single vision: to redefine the real estate landscape of
-              Bangladesh. For over a decade, we have navigated the complexities
-              of urban development with a focus on sustainable growth and
-              aesthetic excellence.
-            </p>
+        <div className='relative pl-8 md:pl-0 md:max-w-3xl md:mx-auto'>
+          <div className='absolute left-3 md:left-1/2 top-2 bottom-2 w-px bg-border md:-translate-x-px' />
 
-            {/* Inline stats */}
-            <div className='grid grid-cols-2 gap-0 border-y border-border py-8'>
-              {[
-                { num: '16+', label: 'Years of Expertise' },
-                { num: '48+', label: 'Completed Projects' },
-              ].map((s, i) => (
-                <div
-                  key={s.label}
-                  className={`group flex flex-col gap-2 px-6 first:pl-0 ${i > 0 ? 'border-l border-border' : ''}`}
-                >
-                  <span className='font-serif text-[2.2rem] font-light text-foreground leading-none'>
-                    {s.num}
-                  </span>
-                  <div className='w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
-                  <span className='text-[10px] tracking-[0.2em] uppercase text-muted-foreground'>
-                    {s.label}
+          <div className='space-y-16'>
+            {MILESTONES.map((m) => (
+              <div
+                key={m.year}
+                className='relative grid md:grid-cols-2 gap-4 md:gap-12 items-start'
+              >
+                <div className='md:text-right md:pr-12 hidden md:block'>
+                  <span className='font-serif text-[clamp(1.2rem,2vw,1.6rem)] text-custom font-light'>
+                    {m.year}
                   </span>
                 </div>
-              ))}
-            </div>
 
-            <p className='text-sm leading-relaxed text-muted-foreground'>
-              Our commitment goes beyond construction. We meticulously select
-              locations that offer the perfect balance of serenity and
-              connectivity. Every project is a collaborative masterpiece,
-              involving the country's finest architects and engineers to ensure
-              that "Shaon Landmarks" remains synonymous with prestige.
-            </p>
+                <div className='pl-8 md:pl-12'>
+                  <div className='absolute left-[3px] md:left-1/2 w-[18px] h-[18px] rounded-full bg-custom border-[3px] border-white -translate-x-1/2 top-0.5 shadow-sm' />
 
-            <Link
-              to='/portfolio'
-              search={{ status: '', location: '', search: '' }}
-              className='group inline-flex items-center gap-2.5 text-[11px] font-medium tracking-[0.18em] uppercase text-foreground transition-colors duration-200 hover:text-custom w-fit'
-            >
-              View Our Portfolio
-              <IconArrowRight
-                className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5'
-                aria-hidden='true'
-              />
-            </Link>
+                  <span className='font-serif text-lg text-custom font-light md:hidden mb-1 block'>
+                    {m.year}
+                  </span>
+                  <h3 className='font-serif text-xl font-light text-foreground'>
+                    {m.title}
+                  </h3>
+                  <p className='text-sm leading-relaxed text-muted-foreground mt-3 max-w-md'>
+                    {m.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

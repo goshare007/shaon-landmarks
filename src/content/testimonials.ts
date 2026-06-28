@@ -59,4 +59,25 @@ export const testimonials: Testimonial[] = [
     name: 'Tariq Mahmud',
     role: 'Investor, Skyline Plaza',
   },
+  {
+    id: toId('Rokeya Akter'),
+    quote:
+      'The amenities and common spaces in our Shaon community are thoughtfully designed. Every detail, from the lobby finishes to the landscape planning, speaks of quality.',
+    name: 'Rokeya Akter',
+    role: 'Resident, Harmony Heights',
+  },
+  {
+    id: toId('Zahid Hasan'),
+    quote:
+      'Shaon Landmarks made the entire purchasing process seamless. Their transparency in documentation and pricing gave us complete confidence throughout.',
+    name: 'Zahid Hasan',
+    role: 'First-time Buyer, Greenview Residency',
+  },
+  {
+    id: toId('Sharmin & Rashed Chowdhury'),
+    quote:
+      'We compared several developers before choosing Shaon. The difference in material quality and construction standards was immediately visible. No regrets whatsoever.',
+    name: 'Sharmin & Rashed Chowdhury',
+    role: 'Homeowners, Lake Vista',
+  },
 ];

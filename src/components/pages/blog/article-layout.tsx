@@ -1,23 +1,18 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import type { BlogArticle } from '@/content/blog';
 import { getRecentArticles } from '@/content/blog';
 import { renderMarkdown } from '@/lib/markdown';
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const ctaRef = useRef<HTMLElement>(null);
-  const ctaHeadingRef = useRef<HTMLDivElement>(null);
-  const ctaActionsRef = useRef<HTMLDivElement>(null);
   const recent = getRecentArticles(article.slug, 3);
 
   return (
     <>
-      <section ref={sectionRef}>
-        <article className='container pb-24'>
+      <section>
+        <article className='site-wrapper pb-24'>
           <div className='mx-auto max-w-3xl'>
             <div className='article-layout__header'>
               <span className='inline-block rounded-sm bg-custom/10 px-3 py-1 text-[11px] font-medium tracking-wider text-custom uppercase'>
@@ -74,10 +69,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
       </section>
 
       {/* CTA */}
-      <section
-        ref={ctaRef}
-        className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'
-      >
+      <section className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'>
         <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
           <div className='h-125 w-125 rounded-full border border-white/6' />
         </div>
@@ -94,9 +86,8 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
           <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
         </div>
 
-        <div className='relative z-10 container'>
+        <div className='relative z-10 site-wrapper'>
           <SectionHeading
-            ref={ctaHeadingRef}
             eyebrow='Get Started'
             heading='Ready to Find Your'
             highlight='Dream Property?'
@@ -106,10 +97,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
             headingClassName='text-white'
           />
 
-          <div
-            ref={ctaActionsRef}
-            className='flex flex-col items-center justify-center gap-4 md:flex-row'
-          >
+          <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
             <Link
               to='/contact'
               className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
@@ -134,7 +122,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
       {/* Recent Articles */}
       {recent.length > 0 && (
         <section className='bg-surface-raised py-20 border-t border-white/6'>
-          <div className='container'>
+          <div className='site-wrapper'>
             <SectionHeading
               eyebrow='Read More'
               heading='Recent'

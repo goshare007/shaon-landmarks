@@ -62,7 +62,7 @@ function BlogArticle() {
 
   return (
     <main>
-      <div className='container pt-6'>
+      <div className='site-wrapper pt-6'>
         <Link
           to='/blog'
           className='mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-custom'

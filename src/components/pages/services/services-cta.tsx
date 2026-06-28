@@ -1,18 +1,10 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 
 export function ServicesCta() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const actionsRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'
-    >
+    <section className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'>
       {/* Concentric rings */}
       <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
         <div className='h-125 w-125 rounded-full border border-white/6' />
@@ -31,9 +23,8 @@ export function ServicesCta() {
         <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
       </div>
 
-      <div className='relative z-10 container'>
+      <div className='relative z-10 site-wrapper'>
         <SectionHeading
-          ref={headingRef}
           eyebrow='Get Started'
           heading='Begin Your'
           highlight='Legacy'
@@ -48,10 +39,7 @@ export function ServicesCta() {
           seeking premium real estate, our experts are ready to consult.
         </p>
 
-        <div
-          ref={actionsRef}
-          className='flex flex-col items-center justify-center gap-4 md:flex-row'
-        >
+        <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
           <Link
             to='/contact'
             className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'

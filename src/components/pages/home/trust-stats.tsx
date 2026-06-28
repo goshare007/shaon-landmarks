@@ -1,18 +1,11 @@
-import { useRef } from 'react';
 import { TRUST_STATS as stats } from '@/content/home';
 
 export function TrustStats() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='border-y border-border bg-white site-wrapper py-14 md:py-16'
-    >
-      <div className='container'>
+    <section className='border-y border-border bg-white py-14 md:py-16'>
+      <div className='site-wrapper'>
         <h2 className='sr-only'>Company Statistics</h2>
-        <div ref={gridRef} className='grid grid-cols-2 md:grid-cols-4'>
+        <div className='grid grid-cols-2 md:grid-cols-4'>
           {stats.map((stat, i) => (
             <div
               key={stat.label}

@@ -1,16 +1,10 @@
 import { IconArrowRight, IconShieldCheck } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useRef } from 'react';
 
 export function PrivacyCta() {
-  const sectionRef = useRef<HTMLElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='bg-surface-raised py-20 md:py-28 border-t border-border'
-    >
-      <div className='container'>
+    <section className='bg-surface-raised py-20 md:py-28 border-t border-border'>
+      <div className='site-wrapper'>
         <div className='privacy-cta__card relative border border-border bg-white p-8 md:p-12'>
           {/* Corner accents */}
           <div className='absolute top-0 left-0 w-8 h-px bg-custom/40' />

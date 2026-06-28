@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 
 const steps = [
@@ -25,32 +24,23 @@ const steps = [
 ];
 
 export function ServicesStandard() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='relative bg-surface-brand py-20 md:py-28 border-t border-white/6'
-    >
+    <section className='relative bg-surface-brand py-20 md:py-28 border-t border-white/6 overflow-hidden'>
       {/* Corner accents */}
-      <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
-        <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-        <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
-      </div>
-      <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
-        <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-        <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
-      </div>
+      <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
+      <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
+      <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
+      <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
+      <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
+      <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
+      <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
+      <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
 
-      <div className='container'>
+      <div className='site-wrapper'>
         <SectionHeading
-          ref={headingRef}
           eyebrow='Our Process'
           heading='The Shaon'
           highlight='Standard'
-          highlightStyle='stroke'
           align='center'
           className='mb-20'
           headingClassName='text-white'
@@ -61,19 +51,15 @@ export function ServicesStandard() {
           rigorous four-phase lifecycle.
         </p>
 
-        <div ref={gridRef} className='grid grid-cols-1 md:grid-cols-4'>
-          {steps.map((s, i) => (
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10'>
+          {steps.map((s) => (
             <div
               key={s.step}
-              className={`group relative p-8 transition-colors duration-300 hover:border-custom/40 ${
-                i > 0 ? 'border-l border-white/10' : ''
-              }`}
+              className='group relative bg-surface-brand p-8 md:p-10 transition-colors duration-300'
             >
-              {/* Step number */}
               <span className='mb-6 block font-serif text-[clamp(2rem,4vw,3rem)] font-light text-white/20 transition-colors duration-300 group-hover:text-custom/60'>
                 {s.step}
               </span>
-              {/* Expanding rule */}
               <div className='mb-5 w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
               <h4 className='mb-4 font-serif text-base font-light text-white'>
                 {s.title}

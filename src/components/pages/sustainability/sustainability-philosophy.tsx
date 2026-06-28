@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+import { Image } from '@unpic/react';
+import SustainabilityImg from '@/assets/images/sustainability/sustainability.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
 
 const stats = [
@@ -8,16 +9,11 @@ const stats = [
 ];
 
 export function SustainabilityPhilosophy() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>
-      <div className='container'>
+    <section className='py-20 md:py-28 border-t border-border'>
+      <div className='site-wrapper'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
-          {/* Copy */}
-          <div ref={copyRef}>
+          <div>
             <SectionHeading
               eyebrow='Our Philosophy'
               heading='Designing for'
@@ -30,27 +26,30 @@ export function SustainabilityPhilosophy() {
               value. We believe luxury and responsibility are not mutually
               exclusive.
             </p>
+
+            <div className='mt-10 grid grid-cols-3 gap-6'>
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <div className='font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-light text-foreground'>
+                    {s.value}
+                  </div>
+                  <div className='mt-2 w-5 h-px bg-custom/40' />
+                  <div className='mt-2 text-[9px] font-medium tracking-[0.18em] text-muted-foreground uppercase'>
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Stats */}
-          <div
-            ref={statsRef}
-            className='grid grid-cols-3 divide-x divide-border'
-          >
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className='group px-6 text-center first:pl-0 last:pr-0'
-              >
-                <div className='font-serif text-[clamp(1.8rem,3vw,2.4rem)] font-light text-foreground transition-colors duration-300 group-hover:text-custom'>
-                  {s.value}
-                </div>
-                <div className='mx-auto mt-3 w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
-                <div className='mt-3 text-[9px] font-medium tracking-[0.18em] text-muted-foreground uppercase'>
-                  {s.label}
-                </div>
-              </div>
-            ))}
+          <div className='overflow-hidden rounded-sm'>
+            <Image
+              src={SustainabilityImg}
+              alt='Sustainable architecture design'
+              layout='fullWidth'
+              height={600}
+              className='h-full w-full object-cover'
+            />
           </div>
         </div>
       </div>

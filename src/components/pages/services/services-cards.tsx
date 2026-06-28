@@ -7,7 +7,6 @@ import {
 } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import ARCH_IMG from '@/assets/images/services/architecture.webp';
 import CONST_IMG from '@/assets/images/services/construction.webp';
 import INTERIOR_IMG from '@/assets/images/services/interior.webp';
@@ -54,28 +53,17 @@ const SERVICES = [
 ] as const;
 
 export function ServicesCards() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section
-      ref={sectionRef}
-      className='bg-surface-raised py-20 md:py-28 border-t border-border'
-    >
-      <div className='container'>
+    <section className='bg-background py-20 md:py-28 border-t border-border'>
+      <div className='site-wrapper'>
         <SectionHeading
-          ref={headingRef}
           eyebrow='What We Do'
           heading='Core'
           highlight='Services'
           className='mb-16'
         />
 
-        <div
-          ref={gridRef}
-          className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12'
-        >
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12'>
           {SERVICES.map((service) => {
             const Icon = service.icon;
             return (
