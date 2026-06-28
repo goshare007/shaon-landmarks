@@ -47,18 +47,12 @@ export function LegalDisclosures() {
           {disclosureSections.map((section) => {
             const Icon = section.icon;
             return (
-              <div
-                key={section.title}
-                className='legal-disclosures__item group flex items-start gap-5 py-10'
-              >
-                {/* Icon container */}
+              <div key={section.title} className='flex items-start gap-5 py-10'>
                 <div className='flex w-11 h-11 shrink-0 items-center justify-center rounded-md border border-border bg-background text-custom'>
                   <Icon size={16} stroke={1.5} />
                 </div>
-                {/* Content */}
                 <div className='flex-1 pt-0.5'>
-                  {/* Expanding rule */}
-                  <div className='mb-4 w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+                  <div className='mb-4 w-6 h-px bg-custom/40' />
                   <h2 className='mb-4 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light text-foreground'>
                     {section.title}
                   </h2>

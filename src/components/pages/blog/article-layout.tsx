@@ -38,7 +38,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
               </div>
             </div>
 
-            <div className='article-layout__image relative mx-auto mt-8 overflow-hidden rounded-sm bg-gradient-to-br from-surface-brand to-surface-raised'>
+            <div className='article-layout__image relative mx-auto mt-8 overflow-hidden rounded-sm bg-linear-to-br from-surface-brand to-surface-raised'>
               <Image
                 src={article.image}
                 alt={article.title}
@@ -67,6 +67,52 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
           </div>
         </article>
       </section>
+
+      {/* Recent Articles */}
+      {recent.length > 0 && (
+        <section className='bg-surface-raised py-20 border-t border-white/6'>
+          <div className='site-wrapper'>
+            <SectionHeading
+              eyebrow='Read More'
+              heading='Recent'
+              highlight='Articles'
+              highlightStyle='stroke'
+              className='mb-10'
+            />
+            <div className='grid gap-6 md:grid-cols-3'>
+              {recent.map((r) => (
+                <Link
+                  key={r.slug}
+                  to='/blog/$slug'
+                  params={{ slug: r.slug }}
+                  className='group'
+                >
+                  <div className='aspect-video overflow-hidden rounded-sm bg-linear-to-br from-surface-brand to-surface-raised'>
+                    <Image
+                      src={r.image}
+                      alt={r.title}
+                      layout='fullWidth'
+                      height={225}
+                      className='h-full w-full object-cover transition-all duration-500 group-hover:scale-105'
+                    />
+                  </div>
+                  <div className='mt-3'>
+                    <span className='text-[11px] font-medium tracking-wider text-custom uppercase'>
+                      {r.category.name}
+                    </span>
+                    <h3 className='mt-1 text-base font-serif leading-snug text-foreground transition-colors group-hover:text-custom'>
+                      {r.title}
+                    </h3>
+                    <p className='mt-1 text-[10px] text-muted-foreground'>
+                      {r.readingTime} min read
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'>
@@ -118,52 +164,6 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
           </div>
         </div>
       </section>
-
-      {/* Recent Articles */}
-      {recent.length > 0 && (
-        <section className='bg-surface-raised py-20 border-t border-white/6'>
-          <div className='site-wrapper'>
-            <SectionHeading
-              eyebrow='Read More'
-              heading='Recent'
-              highlight='Articles'
-              highlightStyle='stroke'
-              className='mb-10'
-            />
-            <div className='grid gap-6 md:grid-cols-3'>
-              {recent.map((r) => (
-                <Link
-                  key={r.slug}
-                  to='/blog/$slug'
-                  params={{ slug: r.slug }}
-                  className='group'
-                >
-                  <div className='aspect-[16/9] overflow-hidden rounded-sm bg-gradient-to-br from-surface-brand to-surface-raised'>
-                    <Image
-                      src={r.image}
-                      alt={r.title}
-                      layout='fullWidth'
-                      height={225}
-                      className='h-full w-full object-cover transition-all duration-500 group-hover:scale-105'
-                    />
-                  </div>
-                  <div className='mt-3'>
-                    <span className='text-[11px] font-medium tracking-wider text-custom uppercase'>
-                      {r.category.name}
-                    </span>
-                    <h3 className='mt-1 text-base font-serif leading-snug text-foreground transition-colors group-hover:text-custom'>
-                      {r.title}
-                    </h3>
-                    <p className='mt-1 text-[10px] text-muted-foreground'>
-                      {r.readingTime} min read
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </>
   );
 }

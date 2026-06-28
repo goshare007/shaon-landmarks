@@ -4,24 +4,8 @@ import { SectionHeading } from '@/components/ui/section-heading';
 
 export function BlogCta() {
   return (
-    <section className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'>
-      <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-        <div className='h-125 w-125 rounded-full border border-white/6' />
-      </div>
-      <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
-        <div className='h-187.5 w-187.5 rounded-full border border-white/4' />
-      </div>
-
-      <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
-        <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-        <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
-      </div>
-      <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
-        <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-        <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
-      </div>
-
-      <div className='relative z-10 site-wrapper'>
+    <section className='bg-surface-brand py-16 md:py-20 border-t border-white/6'>
+      <div className='site-wrapper'>
         <SectionHeading
           eyebrow='Stay Informed'
           heading='Get the Latest'
@@ -32,7 +16,7 @@ export function BlogCta() {
           headingClassName='text-white'
         />
 
-        <p className='mx-auto mb-12 max-w-2xl text-center text-sm leading-relaxed text-white/55'>
+        <p className='mx-auto mb-8 max-w-2xl text-center text-sm leading-relaxed text-white/55'>
           Subscribe to our newsletter for market updates, buying guides, and
           exclusive property alerts delivered to your inbox.
         </p>

@@ -18,8 +18,7 @@ export function BlogCard({ article, featured }: BlogCardProps) {
       <Link
         to='/blog/$slug'
         params={{ slug: article.slug }}
-        className='blog-card group flex flex-col overflow-hidden border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:flex-row'
-        data-e='card'
+        className='group flex flex-col overflow-hidden border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg md:flex-row'
       >
         <div className='relative aspect-video overflow-hidden bg-linear-to-br from-surface-brand to-surface-raised md:w-[55%]'>
           <Image
@@ -30,7 +29,7 @@ export function BlogCard({ article, featured }: BlogCardProps) {
             className='h-full w-full object-cover transition-all duration-500 group-hover:scale-105'
           />
           <div className='absolute inset-0 bg-linear-to-t from-black/20 to-transparent' />
-          <span className='absolute top-4 left-4 rounded-sm bg-amber-500/90 px-3 py-1 text-[11px] font-medium tracking-wider text-white uppercase'>
+          <span className='absolute top-4 left-4 rounded-sm bg-custom/90 px-3 py-1 text-[11px] font-medium tracking-wider text-white uppercase'>
             Featured
           </span>
           <span className='absolute top-4 right-4 rounded-sm bg-custom/90 px-3 py-1 text-[11px] font-medium tracking-wider text-white uppercase'>
@@ -56,8 +55,7 @@ export function BlogCard({ article, featured }: BlogCardProps) {
     <Link
       to='/blog/$slug'
       params={{ slug: article.slug }}
-      className='blog-card group flex flex-col overflow-hidden border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg'
-      data-e='card'
+      className='group flex flex-col overflow-hidden border border-border bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg'
     >
       <div className='relative aspect-16/10 overflow-hidden bg-linear-to-br from-surface-brand to-surface-raised'>
         <Image

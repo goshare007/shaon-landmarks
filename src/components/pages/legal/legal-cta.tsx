@@ -3,37 +3,26 @@ import { Link } from '@tanstack/react-router';
 
 export function LegalCta() {
   return (
-    <section className='bg-surface-raised py-20 md:py-28 border-t border-border'>
+    <section className='bg-surface-raised py-16 md:py-20 border-t border-border'>
       <div className='site-wrapper'>
-        <div className='legal-cta__card relative border border-border bg-white p-8 md:p-12'>
-          {/* Corner accents */}
-          <div className='absolute top-0 left-0 w-8 h-px bg-custom/40' />
-          <div className='absolute top-0 left-0 w-px h-8 bg-custom/40' />
-          <div className='absolute bottom-0 right-0 w-8 h-px bg-custom/40' />
-          <div className='absolute bottom-0 right-0 w-px h-8 bg-custom/40' />
-
-          <div className='flex items-start gap-4 mb-6'>
-            <IconShieldCheck
-              size={18}
-              stroke={1.5}
-              className='text-custom shrink-0 mt-0.5'
-              aria-hidden='true'
-            />
-            <div>
-              <h2 className='font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light text-foreground'>
-                Need More Information?
-              </h2>
-              <p className='mt-3 text-sm leading-relaxed text-muted-foreground'>
-                For detailed legal documentation or specific inquiries regarding
-                our certifications, please reach out to our compliance
-                department.
-              </p>
-            </div>
-          </div>
-
+        <div className='flex flex-col items-center text-center'>
+          <IconShieldCheck
+            size={24}
+            stroke={1.5}
+            className='text-custom'
+            aria-hidden='true'
+          />
+          <h2 className='mt-4 font-serif text-[clamp(1.2rem,2.5vw,1.6rem)] font-light text-foreground leading-snug'>
+            Need More Information?
+          </h2>
+          <p className='mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground'>
+            For detailed legal documentation or specific inquiries regarding our
+            certifications, please reach out to our compliance department.
+          </p>
+          <div className='mt-6 h-px w-12 bg-custom/50' />
           <Link
             to='/contact'
-            className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-8 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
+            className='group relative mt-6 inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-8 py-3 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
           >
             <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
             <span className='relative z-10 inline-flex items-center gap-3'>

@@ -37,18 +37,12 @@ export function PrivacyPolicy() {
       <div className='site-wrapper'>
         <div className='divide-y divide-border'>
           {policySections.map((section, i) => (
-            <div
-              key={section.title}
-              className='privacy-policy__item group flex items-start gap-8 py-10'
-            >
-              {/* Index */}
-              <span className='shrink-0 font-serif text-[clamp(1.8rem,3vw,2.4rem)] font-light leading-none text-custom/20 transition-colors duration-300 group-hover:text-custom/60'>
+            <div key={section.title} className='flex items-start gap-8 py-10'>
+              <span className='shrink-0 font-serif text-[clamp(1.8rem,3vw,2.4rem)] font-light leading-none text-custom/20'>
                 {String(i + 1).padStart(2, '0')}
               </span>
-              {/* Content */}
               <div className='flex-1 pt-1'>
-                {/* Expanding rule */}
-                <div className='mb-4 w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+                <div className='mb-4 w-6 h-px bg-custom/40' />
                 <h2 className='mb-4 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light text-foreground'>
                   {section.title}
                 </h2>

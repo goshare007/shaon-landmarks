@@ -1,11 +1,8 @@
 import { useMemo } from 'react';
 import { blogArticles } from '@/content/blog';
 import { BlogCard } from './blog-card';
-import { BlogCardSkeleton } from './blog-card-skeleton';
 
 export function BlogGrid() {
-  const isPending = false;
-
   const featured = useMemo(() => blogArticles.find((a) => a.featured), []);
   const rest = useMemo(
     () => blogArticles.filter((a) => a.slug !== featured?.slug),
@@ -23,22 +20,14 @@ export function BlogGrid() {
 
         {featured && (
           <div className='mb-10'>
-            {isPending ? (
-              <BlogCardSkeleton />
-            ) : (
-              <BlogCard article={featured} featured />
-            )}
+            <BlogCard article={featured} featured />
           </div>
         )}
 
         <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {rest.map((article) =>
-            isPending ? (
-              <BlogCardSkeleton key={article.slug} />
-            ) : (
-              <BlogCard key={article.slug} article={article} />
-            ),
-          )}
+          {rest.map((article) => (
+            <BlogCard key={article.slug} article={article} />
+          ))}
         </div>
       </div>
     </section>

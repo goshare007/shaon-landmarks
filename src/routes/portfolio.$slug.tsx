@@ -175,16 +175,6 @@ function FullProjectView({
       />
       <PortfolioDetailAmenities amenities={detail.amenities} />
       <PortfolioDetailLocation location={detail.location} />
-      <div className='border-t border-border bg-surface-raised py-6'>
-        <div className='site-wrapper'>
-          <Link
-            to='/portfolio'
-            className='inline-flex items-center gap-2 text-[10px] font-medium tracking-widest text-muted-foreground uppercase transition-colors hover:text-custom'
-          >
-            Back to Portfolio
-          </Link>
-        </div>
-      </div>
     </main>
   );
 }
