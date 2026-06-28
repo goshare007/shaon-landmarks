@@ -78,7 +78,7 @@ export function SustainabilitySection() {
       ref={sectionRef}
       className='bg-surface-raised py-20 md:py-28 border-t border-border'
     >
-      <div className='container'>
+      <div className='site-wrapper'>
         {/* Heading */}
         <div
           ref={headingRef}

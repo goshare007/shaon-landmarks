@@ -24,13 +24,13 @@ function FeaturedCard({ project }: { project: Project }) {
             alt={project.title}
             layout='fullWidth'
             height={800}
-            className='h-full w-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-[1.03]'
+            className='h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]'
           />
         </div>
 
         {/* Gradients */}
-        <div className='absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent' />
-        <div className='absolute inset-0 bg-gradient-to-r from-black/30 to-transparent' />
+        <div className='absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent' />
+        <div className='absolute inset-0 bg-linear-to-r from-black/30 to-transparent' />
 
         {/* Border overlay */}
         <div className='absolute inset-0 border border-white/[0.07] transition-colors duration-500 group-hover:border-custom/30 rounded-sm' />
@@ -92,15 +92,15 @@ function GridCard({ project }: { project: Project }) {
             alt={project.title}
             layout='fullWidth'
             height={500}
-            className='h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]'
+            className='h-full w-full object-cover transition-transform duration-900 ease-out group-hover:scale-[1.04]'
           />
         </div>
 
         {/* Gradient */}
-        <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent' />
+        <div className='absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent' />
 
         {/* Border overlay */}
-        <div className='absolute inset-0 border border-white/[0.06] transition-colors duration-500 group-hover:border-custom/25 rounded-sm' />
+        <div className='absolute inset-0 border border-white/6 transition-colors duration-500 group-hover:border-custom/25 rounded-sm' />
 
         {/* Status badge */}
         <div className='absolute top-3 right-3'>
@@ -112,7 +112,7 @@ function GridCard({ project }: { project: Project }) {
           <h3 className='font-serif text-base md:text-lg font-light text-white leading-snug'>
             {project.title}
           </h3>
-          <p className='mt-1 text-[11px] tracking-[0.1em] text-white/45 uppercase'>
+          <p className='mt-1 text-[11px] tracking-widest text-white/45 uppercase'>
             {project.location}
           </p>
           <p className='mt-0.5 text-[10px] text-white/30'>{project.date}</p>
@@ -208,9 +208,9 @@ export function FeaturedProjects() {
   return (
     <section
       ref={sectionRef}
-      className='bg-white py-20 md:py-28 border-t border-border'
+      className=' py-20 md:py-28 border-t border-border'
     >
-      <div className='container'>
+      <div className='site-wrapper'>
         {/* Heading */}
         <div ref={headingRef} className='mb-12 md:mb-14'>
           <SectionHeading

@@ -59,7 +59,7 @@ export const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
               {highlight}
             </span>
           ) : highlight ? (
-            <span className='italic text-muted-foreground'>{highlight}</span>
+            <span className='italic text-custom'>{highlight}</span>
           ) : null}
         </Tag>
       </div>

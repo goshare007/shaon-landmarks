@@ -346,7 +346,7 @@ export default function Footer() {
       className='border-t border-white/6 bg-surface-overlay'
     >
       {/* ── Main grid ── */}
-      <div className='container py-14 md:py-20'>
+      <div className='site-wrapper py-14 md:py-20'>
         <div className='grid gap-10 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-12'>
           {/* Brand column */}
           <div ref={brandRef}>

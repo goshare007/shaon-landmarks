@@ -32,7 +32,7 @@ export function TrustStats() {
   return (
     <section
       ref={sectionRef}
-      className='border-y border-border bg-white py-14 md:py-16'
+      className='border-y border-border bg-white site-wrapper py-14 md:py-16'
     >
       <div className='container'>
         <h2 className='sr-only'>Company Statistics</h2>

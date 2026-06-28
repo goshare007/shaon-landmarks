@@ -96,7 +96,7 @@ export function CtaSection() {
       ref={sectionRef}
       className='bg-surface-brand py-20 md:py-28 overflow-x-hidden border-t border-white/6'
     >
-      <div className='container max-w-360'>
+      <div className='site-wrapper'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
           {/* ── Left ─────────────────────────────────────────────────────── */}
           <div ref={leftRef} className='flex flex-col'>

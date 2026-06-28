@@ -100,9 +100,14 @@
   }
   html {
     @apply font-sans;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
   }
 }
 
-@utility container {
-  @apply mx-auto px-4;
+@utility site-wrapper {
+  @apply mx-auto px-4 md:px-16 max-w-[100rem];
 }

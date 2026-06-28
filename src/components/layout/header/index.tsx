@@ -43,7 +43,7 @@ export default function Header() {
         isHidden ? '-translate-y-full' : 'translate-y-0',
       )}
     >
-      <div className='container flex items-center justify-between  py-3 md:py-4'>
+      <div className='site-wrapper flex items-center justify-between  py-3 md:py-4'>
         {/* Logo */}
         <Logo />
 
@@ -59,7 +59,7 @@ export default function Header() {
           <Link
             to='/contact'
             className={cn(
-              buttonVariants({ size: 'lg' }),
+              buttonVariants({ size: 'lg', variant: 'custom' }),
               'hidden md:flex px-5',
             )}
           >

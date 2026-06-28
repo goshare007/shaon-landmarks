@@ -5,8 +5,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/components/ui/carousel';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { testimonials } from '@/content/testimonials';
@@ -108,7 +106,7 @@ export function TestimonialSection() {
     >
       {/* Subtle background texture — large faint quotemark */}
       <div
-        className='pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 font-serif text-[320px] leading-none text-white/[0.02] select-none'
+        className='pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 font-serif text-[320px] leading-none text-white/2 select-none'
         aria-hidden='true'
       >
         &ldquo;
@@ -132,7 +130,7 @@ export function TestimonialSection() {
             setApi={setApi}
             opts={{ align: 'center', loop: true }}
             plugins={[autoplayPlugin]}
-            className='mx-auto'
+            className='mx-auto px-4 md:px-0'
             aria-live='polite'
           >
             <CarouselContent>
@@ -170,7 +168,7 @@ export function TestimonialSection() {
                     {/* Author */}
                     <footer className='flex items-center gap-4'>
                       {/* Initials avatar */}
-                      <div className='flex items-center justify-center w-9 h-9 rounded-sm border border-white/10 bg-white/[0.04] shrink-0'>
+                      <div className='flex items-center justify-center w-9 h-9 rounded-sm border border-white/10 bg-white/4 shrink-0'>
                         <span className='font-serif text-xs text-custom/70'>
                           {t.name
                             .split(' ')
@@ -192,9 +190,6 @@ export function TestimonialSection() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-
-            <CarouselPrevious className='hidden md:flex border border-white/10 bg-transparent text-white/40 hover:bg-white/[0.04] hover:text-custom hover:border-custom/30 -left-6 h-11 w-11 rounded-sm transition-all duration-200' />
-            <CarouselNext className='hidden md:flex border border-white/10 bg-transparent text-white/40 hover:bg-white/[0.04] hover:text-custom hover:border-custom/30 -right-6 h-11 w-11 rounded-sm transition-all duration-200' />
           </Carousel>
         </div>
 

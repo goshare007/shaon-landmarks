@@ -139,7 +139,7 @@ export function HeroSection() {
               className='flex items-center gap-4 mb-6 md:mb-9'
             >
               <div className='w-10 h-px bg-custom' />
-              <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-custom/80'>
+              <span className='text-xs font-medium  uppercase text-custom/80'>
                 {HERO_CONTENT.eyebrow}
               </span>
             </div>
@@ -147,16 +147,10 @@ export function HeroSection() {
             {/* Headline */}
             <h1
               ref={headlineRef}
-              className='font-serif text-[clamp(2.5rem,5vw,4rem)] font-light leading-[1.05] tracking-[-0.01em] text-white overflow-hidden'
+              className='font-serif text-5xl md:text-7xl   text-white overflow-hidden'
             >
               <span className='block'>{HERO_CONTENT.headline.first}</span>
-              <span
-                className='block italic'
-                style={{
-                  color: 'transparent',
-                  WebkitTextStroke: '1px rgba(255,255,255,0.3)',
-                }}
-              >
+              <span className='block italic text-custom font-bold pt-2'>
                 {HERO_CONTENT.headline.second}
               </span>
             </h1>
@@ -167,7 +161,7 @@ export function HeroSection() {
               className='flex items-start gap-5 mt-6 md:mt-9'
             >
               <div className='w-0.5 min-h-14 bg-custom/40 shrink-0 mt-0.5' />
-              <p className='text-xs md:text-sm leading-relaxed text-white/45 max-w-xs font-light'>
+              <p className='text-sm md:text-sm leading-relaxed text-white/70 max-w-xs font-light'>
                 {HERO_CONTENT.descriptor}
               </p>
             </div>

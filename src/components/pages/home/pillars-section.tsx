@@ -56,7 +56,10 @@ export function PillarsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>
+    <section
+      ref={sectionRef}
+      className='py-20 md:py-28 site-wrapper border-t border-border'
+    >
       <div className='container'>
         <SectionHeading
           ref={headingRef}
