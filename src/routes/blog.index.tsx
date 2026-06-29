@@ -2,11 +2,13 @@ import { createFileRoute } from '@tanstack/react-router';
 import { BlogCta } from '@/components/pages/blog/blog-cta';
 import { BlogGrid } from '@/components/pages/blog/blog-grid';
 import { BlogHero } from '@/components/pages/blog/blog-hero';
+import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/blog/')({
   component: BlogIndex,
+  errorComponent: RouteError,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
   head: () => {

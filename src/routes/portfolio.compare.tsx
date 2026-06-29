@@ -2,6 +2,7 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { z } from 'zod';
 import { CompareTable } from '@/components/pages/portfolio-compare/compare-table';
+import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { allProjects } from '@/content/projects';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
@@ -21,6 +22,7 @@ export const Route = createFileRoute('/portfolio/compare')({
     return { projects, ids: deps.ids };
   },
   component: ComparePage,
+  errorComponent: RouteError,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
   head: ({ loaderData }) => {

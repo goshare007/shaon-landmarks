@@ -4,11 +4,13 @@ import { ServicesCards } from '@/components/pages/services/services-cards';
 import { ServicesCta } from '@/components/pages/services/services-cta';
 import { ServicesHero } from '@/components/pages/services/services-hero';
 import { ServicesStandard } from '@/components/pages/services/services-standard';
+import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/services')({
   component: Services,
+  errorComponent: RouteError,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
   head: () => {

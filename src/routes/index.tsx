@@ -1,12 +1,35 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { CtaSection } from '@/components/pages/home/cta-section';
-import { FeaturedProjects } from '@/components/pages/home/featured-projects';
+import { lazy, Suspense } from 'react';
 import { HeroSection } from '@/components/pages/home/hero-section';
 import { PillarsSection } from '@/components/pages/home/pillars-section';
-import { SustainabilitySection } from '@/components/pages/home/sustainability-section';
-import { TestimonialSection } from '@/components/pages/home/testimonials';
 import { TrustStats } from '@/components/pages/home/trust-stats';
-export const Route = createFileRoute('/')({ component: Home });
+import { RouteError } from '@/components/shared/route-error';
+
+const FeaturedProjects = lazy(() =>
+  import('@/components/pages/home/featured-projects').then((m) => ({
+    default: m.FeaturedProjects,
+  })),
+);
+const SustainabilitySection = lazy(() =>
+  import('@/components/pages/home/sustainability-section').then((m) => ({
+    default: m.SustainabilitySection,
+  })),
+);
+const TestimonialSection = lazy(() =>
+  import('@/components/pages/home/testimonials').then((m) => ({
+    default: m.TestimonialSection,
+  })),
+);
+const CtaSection = lazy(() =>
+  import('@/components/pages/home/cta-section').then((m) => ({
+    default: m.CtaSection,
+  })),
+);
+
+export const Route = createFileRoute('/')({
+  component: Home,
+  errorComponent: RouteError,
+});
 
 function Home() {
   return (
@@ -14,10 +37,18 @@ function Home() {
       <HeroSection />
       <PillarsSection />
       <TrustStats />
-      <FeaturedProjects />
-      <SustainabilitySection />
-      <TestimonialSection />
-      <CtaSection />
+      <Suspense fallback={<div className='h-96' />}>
+        <FeaturedProjects />
+      </Suspense>
+      <Suspense fallback={<div className='h-80' />}>
+        <SustainabilitySection />
+      </Suspense>
+      <Suspense fallback={<div className='h-80' />}>
+        <TestimonialSection />
+      </Suspense>
+      <Suspense fallback={<div className='h-80' />}>
+        <CtaSection />
+      </Suspense>
     </main>
   );
 }

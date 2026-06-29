@@ -3,11 +3,13 @@ import img from '@/assets/images/projects/the-obsidian.webp';
 import { PortfolioCta } from '@/components/pages/portfolio-index/portfolio-cta';
 import { PortfolioGrid } from '@/components/pages/portfolio-index/portfolio-grid';
 import { PortfolioHero } from '@/components/pages/portfolio-index/portfolio-hero';
+import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { generateMeta } from '@/lib/seo';
 
 export const Route = createFileRoute('/portfolio/')({
   component: PortfolioIndex,
+  errorComponent: RouteError,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
   head: () => ({

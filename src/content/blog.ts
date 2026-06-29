@@ -1,9 +1,9 @@
-export interface BlogCategory {
+interface BlogCategory {
   slug: string;
   name: string;
 }
 
-export const BLOG_CATEGORIES: BlogCategory[] = [
+const BLOG_CATEGORIES: BlogCategory[] = [
   { slug: 'market-trends', name: 'Market Trends' },
   { slug: 'buying-guide', name: 'Buying Guide' },
   { slug: 'architecture', name: 'Architecture & Design' },
@@ -123,15 +123,6 @@ export const blogArticles: BlogArticle[] = Object.values(blogModules)
     (a, b) =>
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
-
-export function getArticleBySlug(slug: string): BlogArticle | undefined {
-  return blogArticles.find((a) => a.slug === slug);
-}
-
-export function getArticlesByCategory(categorySlug: string): BlogArticle[] {
-  if (!categorySlug) return blogArticles;
-  return blogArticles.filter((a) => a.category.slug === categorySlug);
-}
 
 export function getRecentArticles(
   excludeSlug?: string,

@@ -1,52 +1,10 @@
 import DEFAULT_OG_IMAGE_SRC from '@/assets/images/seo/default-og.webp';
+import { SITE_URL } from '@/lib/env';
 
-export const SITE_URL =
-  process.env.SITE_URL ?? 'https://shaonlandmarks.vercel.app';
-export const DEFAULT_OG_IMAGE = DEFAULT_OG_IMAGE_SRC;
-export const DEFAULT_OG_IMAGE_ALT =
+export { SITE_URL };
+const DEFAULT_OG_IMAGE = DEFAULT_OG_IMAGE_SRC;
+const DEFAULT_OG_IMAGE_ALT =
   'Shaon Landmarks & Housing — Architectural Integrity';
-
-export const ORGANIZATION_JSON_LD = {
-  '@context': 'https://schema.org',
-  '@type': 'RealEstateAgent',
-  name: 'Shaon Landmarks & Housing',
-  url: SITE_URL,
-  logo: `${SITE_URL}/logo.png`,
-  image: DEFAULT_OG_IMAGE,
-  description:
-    'Premium real estate developer in Bangladesh with architectural integrity, timely handover, and premium quality construction.',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Gulshan Avenue',
-    addressLocality: 'Dhaka',
-    addressRegion: 'Dhaka',
-    postalCode: '1212',
-    addressCountry: 'BD',
-  },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+880-2-987-6543',
-    contactType: 'sales',
-  },
-  knowsAbout: [
-    'Real Estate Development',
-    'Architecture',
-    'Construction',
-    'Interior Design',
-    'Property Management',
-  ],
-  foundingDate: '2008',
-  numberOfEmployees: {
-    '@type': 'QuantitativeValue',
-    minValue: 50,
-    maxValue: 200,
-  },
-  areaServed: [
-    { '@type': 'City', name: 'Dhaka' },
-    { '@type': 'City', name: 'Chattogram' },
-  ],
-  priceRange: '$$$',
-};
 
 interface SeoProps {
   title?: string;
@@ -101,10 +59,6 @@ export function generateMeta({
 }
 
 // ── Structured Data Helpers ──────────────────────────────────────────
-
-export function ldScript(data: Record<string, unknown>): string {
-  return JSON.stringify({ '@context': 'https://schema.org', ...data });
-}
 
 export function productLd({
   name,
@@ -199,19 +153,5 @@ export function articleLd(article: {
       name: 'Shaon Landmarks & Housing',
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
     },
-  };
-}
-
-export function faqLd(questions: { question: string; answer: string }[]) {
-  return {
-    '@type': 'FAQPage',
-    mainEntity: questions.map((q) => ({
-      '@type': 'Question',
-      name: q.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: q.answer,
-      },
-    })),
   };
 }

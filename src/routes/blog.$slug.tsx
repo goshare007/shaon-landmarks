@@ -1,6 +1,7 @@
 import { IconArrowLeft } from '@tabler/icons-react';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArticleLayout } from '@/components/pages/blog/article-layout';
+import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { blogArticles } from '@/content/blog';
 import { articleLd, breadcrumbLd, generateMeta, SITE_URL } from '@/lib/seo';
@@ -11,6 +12,7 @@ export const Route = createFileRoute('/blog/$slug')({
     return { article: article ?? null };
   },
   component: BlogArticle,
+  errorComponent: RouteError,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
   notFoundComponent: ArticleNotFound,

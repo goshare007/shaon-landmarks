@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import logoSrc from '@/assets/logo.png';
+import logoSrc from '@/assets/logo.webp';
 
 export default function Logo() {
   return (

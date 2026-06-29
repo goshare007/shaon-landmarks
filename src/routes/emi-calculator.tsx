@@ -1,10 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { EmiCalculator } from '@/components/pages/emi/emi-calculator';
+import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/emi-calculator')({
   component: EmiCalculatorPage,
+  errorComponent: RouteError,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
   head: () => {

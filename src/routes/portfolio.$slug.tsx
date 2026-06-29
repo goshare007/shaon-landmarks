@@ -1,12 +1,23 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { lazy, Suspense } from 'react';
 import { PortfolioDetailAmenities } from '@/components/pages/portfolio-detail/portfolio-detail-amenities';
 import { PortfolioDetailFloorPlans } from '@/components/pages/portfolio-detail/portfolio-detail-floor-plans';
-import { PortfolioDetailGallery } from '@/components/pages/portfolio-detail/portfolio-detail-gallery';
 import { PortfolioDetailHero } from '@/components/pages/portfolio-detail/portfolio-detail-hero';
-import { PortfolioDetailLocation } from '@/components/pages/portfolio-detail/portfolio-detail-location';
 import { PortfolioDetailSimple } from '@/components/pages/portfolio-detail/portfolio-detail-simple';
 import { PortfolioDetailSpecs } from '@/components/pages/portfolio-detail/portfolio-detail-specs';
 import { PortfolioDetailVision } from '@/components/pages/portfolio-detail/portfolio-detail-vision';
+
+const PortfolioDetailGallery = lazy(() =>
+  import('@/components/pages/portfolio-detail/portfolio-detail-gallery').then(
+    (m) => ({ default: m.PortfolioDetailGallery }),
+  ),
+);
+const PortfolioDetailLocation = lazy(() =>
+  import('@/components/pages/portfolio-detail/portfolio-detail-location').then(
+    (m) => ({ default: m.PortfolioDetailLocation }),
+  ),
+);
+
 import type {
   Project,
   ProjectDetail as ProjectDetailData,
@@ -169,12 +180,32 @@ function FullProjectView({
       <PortfolioDetailSpecs specs={detail.specs} />
       <PortfolioDetailFloorPlans floorPlans={detail.floorPlans} />
       <PortfolioDetailVision vision={detail.vision} />
-      <PortfolioDetailGallery
-        images={detail.gallery}
-        projectTitle={project.title}
-      />
+      <Suspense
+        fallback={
+          <section className='bg-white py-24'>
+            <div className='site-wrapper'>
+              <div className='h-200 w-full animate-pulse rounded bg-muted-foreground/10' />
+            </div>
+          </section>
+        }
+      >
+        <PortfolioDetailGallery
+          images={detail.gallery}
+          projectTitle={project.title}
+        />
+      </Suspense>
       <PortfolioDetailAmenities amenities={detail.amenities} />
-      <PortfolioDetailLocation location={detail.location} />
+      <Suspense
+        fallback={
+          <section className='bg-white py-32'>
+            <div className='site-wrapper'>
+              <div className='h-150 w-full animate-pulse rounded bg-muted-foreground/10' />
+            </div>
+          </section>
+        }
+      >
+        <PortfolioDetailLocation location={detail.location} />
+      </Suspense>
     </main>
   );
 }

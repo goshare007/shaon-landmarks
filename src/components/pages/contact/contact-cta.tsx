@@ -1,5 +1,5 @@
 import { IconArrowRight, IconBrandWhatsapp } from '@tabler/icons-react';
-import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '@/lib/constants';
+import { WHATSAPP_MSG, WHATSAPP_NUMBER } from '@/lib/env';
 
 export function ContactCta() {
   return (

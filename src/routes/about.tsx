@@ -6,11 +6,13 @@ import { AboutLeadership } from '@/components/pages/about/about-leadership';
 import { AboutMissionVision } from '@/components/pages/about/about-mission-vision';
 import { AboutStory } from '@/components/pages/about/about-story';
 import { AboutTestimonials } from '@/components/pages/about/about-testimonials';
+import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
 
 export const Route = createFileRoute('/about')({
   component: About,
+  errorComponent: RouteError,
   pendingMs: 100,
   pendingComponent: RouteSkeleton,
   head: () => {

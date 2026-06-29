@@ -7,7 +7,7 @@ import {
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { useState } from 'react';
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo.webp';
 import { cn } from '@/lib/utils';
 import { submitNewsletterSignup } from './newslatter';
 
