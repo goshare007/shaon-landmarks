@@ -2,19 +2,43 @@ import {
   IconArrowRight,
   IconBrandFacebook,
   IconBrandLinkedin,
+  IconBrandTelegram,
+  IconBrandWhatsapp,
+  IconBrandX,
+  IconCheck,
   IconLink,
 } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { FacebookShareButton, LinkedinShareButton } from 'react-share';
+import { useEffect, useState } from 'react';
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
+  XShareButton,
+} from 'react-share';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/section-heading';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import type { BlogArticle } from '@/content/blog';
 import { getRecentArticles } from '@/content/blog';
 import { renderMarkdown } from '@/lib/markdown';
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {
   const recent = getRecentArticles(article.slug, 3);
+  const [copied, setCopied] = useState(false);
+  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 2000);
+    return () => clearTimeout(timer);
+  }, [copied]);
 
   return (
     <>
@@ -60,43 +84,91 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
             </div>
 
             {/* Social Share */}
-            {(() => {
-              const shareUrl =
-                typeof window !== 'undefined' ? window.location.href : '';
-              return (
-                <div className='mx-auto mt-12 max-w-3xl'>
-                  <div className='flex items-center gap-4 border-t border-border pt-6'>
-                    <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-muted-foreground'>
-                      Share
-                    </span>
-                    <div className='flex items-center gap-2'>
+            <div className='mx-auto mt-12 max-w-3xl'>
+              <div className='flex flex-col gap-4 border-t border-border pt-6'>
+                <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-muted-foreground'>
+                  Share this article
+                </span>
+                <div className='flex flex-wrap items-center gap-3'>
+                  <Tooltip>
+                    <TooltipTrigger>
                       <FacebookShareButton
                         url={shareUrl}
-                        className='flex size-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-3.5 hover:border-custom/30 hover:text-custom'
-                        aria-label='Share on Facebook'
+                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
                       >
-                        <IconBrandFacebook size={14} />
+                        <IconBrandFacebook size={16} />
                       </FacebookShareButton>
+                    </TooltipTrigger>
+                    <TooltipContent>Facebook</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <XShareButton
+                        url={shareUrl}
+                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
+                      >
+                        <IconBrandX size={16} />
+                      </XShareButton>
+                    </TooltipTrigger>
+                    <TooltipContent>X (Twitter)</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
                       <LinkedinShareButton
                         url={shareUrl}
-                        className='flex size-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-3.5 hover:border-custom/30 hover:text-custom'
-                        aria-label='Share on LinkedIn'
+                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
                       >
-                        <IconBrandLinkedin size={14} />
+                        <IconBrandLinkedin size={16} />
                       </LinkedinShareButton>
+                    </TooltipTrigger>
+                    <TooltipContent>LinkedIn</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <WhatsappShareButton
+                        url={shareUrl}
+                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
+                      >
+                        <IconBrandWhatsapp size={16} />
+                      </WhatsappShareButton>
+                    </TooltipTrigger>
+                    <TooltipContent>WhatsApp</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <TelegramShareButton
+                        url={shareUrl}
+                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
+                      >
+                        <IconBrandTelegram size={16} />
+                      </TelegramShareButton>
+                    </TooltipTrigger>
+                    <TooltipContent>Telegram</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger>
                       <button
                         type='button'
-                        onClick={() => navigator.clipboard.writeText(shareUrl)}
-                        className='flex size-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-3.5 hover:border-custom/30 hover:text-custom'
-                        aria-label='Copy link'
+                        onClick={() => {
+                          navigator.clipboard.writeText(shareUrl);
+                          setCopied(true);
+                        }}
+                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
                       >
-                        <IconLink size={14} />
+                        {copied ? (
+                          <IconCheck size={16} />
+                        ) : (
+                          <IconLink size={16} />
+                        )}
                       </button>
-                    </div>
-                  </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {copied ? 'Copied!' : 'Copy link'}
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
-              );
-            })()}
+              </div>
+            </div>
 
             {/* Tags */}
             {article.tags.length > 0 && (

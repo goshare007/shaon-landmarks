@@ -1,6 +1,7 @@
 import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import appCss from '../styles.css?url';
 
 export const Route = createRootRoute({
@@ -24,13 +25,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <a
           href='#main-content'
-          className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-custom focus:text-white focus:rounded-sm focus:text-sm focus:outline-none'
+          className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-custom focus:text-white focus:rounded-sm focus:text-sm focus:outline-none'
         >
           Skip to content
         </a>
-        <Header />
-        {children}
-        <Footer />
+        <TooltipProvider>
+          <Header />
+          {children}
+          <Footer />
+        </TooltipProvider>
         <Scripts />
       </body>
     </html>
