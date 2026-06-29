@@ -65,9 +65,9 @@ function BlogArticle() {
       <div className='site-wrapper pt-6'>
         <Link
           to='/blog'
-          className='mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-custom'
+          className='mb-6 inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground transition-colors hover:text-custom'
         >
-          <IconArrowLeft size={16} aria-hidden='true' />
+          <IconArrowLeft size={14} aria-hidden='true' />
           Back to Blog
         </Link>
       </div>

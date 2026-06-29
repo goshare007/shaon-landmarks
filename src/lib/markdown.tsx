@@ -81,7 +81,7 @@ export function renderMarkdown(content: string): ReactNode[] {
 
     if (line.startsWith('### ')) {
       nodes.push(
-        <h3 key={i} className='mb-3 mt-10 text-xl font-serif'>
+        <h3 key={i} className='mb-3 mt-10 text-xl font-serif font-light'>
           {renderInline(line.slice(4))}
         </h3>,
       );
@@ -91,7 +91,10 @@ export function renderMarkdown(content: string): ReactNode[] {
 
     if (line.startsWith('## ')) {
       nodes.push(
-        <h2 key={i} className='mb-4 mt-12 text-2xl font-serif md:text-3xl'>
+        <h2
+          key={i}
+          className='mb-4 mt-12 text-2xl font-serif font-light md:text-3xl'
+        >
           {renderInline(line.slice(3))}
         </h2>,
       );
@@ -101,11 +104,47 @@ export function renderMarkdown(content: string): ReactNode[] {
 
     if (line.startsWith('# ')) {
       nodes.push(
-        <h1 key={i} className='mb-4 mt-12 text-3xl font-serif md:text-4xl'>
+        <h1
+          key={i}
+          className='mb-4 mt-12 text-3xl font-serif font-light md:text-4xl'
+        >
           {renderInline(line.slice(2))}
         </h1>,
       );
       i++;
+      continue;
+    }
+
+    // Blockquotes
+    if (line.startsWith('> ')) {
+      const quoteLines: ReactNode[] = [];
+      const startIdx = i;
+      while (i < lines.length && lines[i].startsWith('> ')) {
+        quoteLines.push(renderInline(lines[i].slice(2)));
+        i++;
+      }
+      if (quoteLines.length === 1) {
+        nodes.push(
+          <blockquote
+            key={`bq-${startIdx}`}
+            className='my-8 border-l-2 border-custom/30 pl-6 italic leading-relaxed text-muted-foreground'
+          >
+            {quoteLines[0]}
+          </blockquote>,
+        );
+      } else {
+        nodes.push(
+          <blockquote
+            key={`bq-${startIdx}`}
+            className='my-8 space-y-2 border-l-2 border-custom/30 pl-6 italic leading-relaxed text-muted-foreground'
+          >
+            {quoteLines.map((q, j) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: this is fine
+              <p key={j}>{q}</p>
+            ))}
+          </blockquote>,
+        );
+      }
       continue;
     }
 
@@ -132,13 +171,34 @@ export function renderMarkdown(content: string): ReactNode[] {
       continue;
     }
 
+    // Ordered lists
+    if (line.match(/^\d+\.\s/)) {
+      const items: ReactNode[] = [];
+      const startIdx = i;
+      while (i < lines.length && lines[i].match(/^\d+\.\s/)) {
+        const n = i;
+        items.push(
+          <li key={n} className='pl-2 marker:text-custom'>
+            {renderInline(lines[i].replace(/^\d+\.\s/, ''))}
+          </li>,
+        );
+        i++;
+      }
+      nodes.push(
+        <ol key={`ol-${startIdx}`} className='mb-6 space-y-2 pl-5 list-decimal'>
+          {items}
+        </ol>,
+      );
+      continue;
+    }
+
     const paraLines: string[] = [];
     while (i < lines.length && lines[i].trim() !== '') {
       paraLines.push(lines[i]);
       i++;
     }
     nodes.push(
-      <p key={`p-${i}`} className='mb-5 leading-relaxed text-muted-foreground'>
+      <p key={`p-${i}`} className='mb-5 leading-relaxed text-foreground'>
         {renderInline(paraLines.join(' '))}
       </p>,
     );

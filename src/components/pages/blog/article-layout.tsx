@@ -1,6 +1,13 @@
-import { IconArrowRight } from '@tabler/icons-react';
+import {
+  IconArrowRight,
+  IconBrandFacebook,
+  IconBrandLinkedin,
+  IconLink,
+} from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { FacebookShareButton, LinkedinShareButton } from 'react-share';
+import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/section-heading';
 import type { BlogArticle } from '@/content/blog';
 import { getRecentArticles } from '@/content/blog';
@@ -15,15 +22,15 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
         <article className='site-wrapper pb-24'>
           <div className='mx-auto max-w-3xl'>
             <div className='article-layout__header'>
-              <span className='inline-block rounded-sm bg-custom/10 px-3 py-1 text-[11px] font-medium tracking-wider text-custom uppercase'>
+              <span className='inline-block rounded-sm border border-custom/30 px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] uppercase text-custom'>
                 {article.category.name}
               </span>
 
-              <h1 className='mt-4 text-3xl font-serif leading-tight text-foreground md:text-4xl lg:text-5xl'>
+              <h1 className='mt-4 text-[clamp(1.8rem,3.5vw,2.8rem)] font-serif font-light leading-tight text-foreground'>
                 {article.title}
               </h1>
 
-              <div className='mt-4 flex flex-wrap items-center gap-4 text-sm text-muted-foreground'>
+              <div className='mt-4 flex flex-wrap items-center gap-3 text-sm text-muted-foreground'>
                 <span>{article.author}</span>
                 <span aria-hidden='true'>·</span>
                 <time dateTime={article.publishedAt}>
@@ -52,31 +59,95 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
               {renderMarkdown(article.content)}
             </div>
 
+            {/* Social Share */}
+            {(() => {
+              const shareUrl =
+                typeof window !== 'undefined' ? window.location.href : '';
+              return (
+                <div className='mx-auto mt-12 max-w-3xl'>
+                  <div className='flex items-center gap-4 border-t border-border pt-6'>
+                    <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-muted-foreground'>
+                      Share
+                    </span>
+                    <div className='flex items-center gap-2'>
+                      <FacebookShareButton
+                        url={shareUrl}
+                        className='flex size-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-3.5 hover:border-custom/30 hover:text-custom'
+                        aria-label='Share on Facebook'
+                      >
+                        <IconBrandFacebook size={14} />
+                      </FacebookShareButton>
+                      <LinkedinShareButton
+                        url={shareUrl}
+                        className='flex size-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-3.5 hover:border-custom/30 hover:text-custom'
+                        aria-label='Share on LinkedIn'
+                      >
+                        <IconBrandLinkedin size={14} />
+                      </LinkedinShareButton>
+                      <button
+                        type='button'
+                        onClick={() => navigator.clipboard.writeText(shareUrl)}
+                        className='flex size-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-3.5 hover:border-custom/30 hover:text-custom'
+                        aria-label='Copy link'
+                      >
+                        <IconLink size={14} />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Tags */}
             {article.tags.length > 0 && (
-              <div className='mx-auto mt-12 flex max-w-3xl flex-wrap gap-2 border-t border-border pt-8'>
+              <div className='mx-auto mt-8 flex max-w-3xl flex-wrap gap-2'>
                 {article.tags.map((tag) => (
                   <span
                     key={tag}
-                    className='rounded-sm border border-border bg-surface-raised px-3 py-1 text-[11px] font-medium tracking-wider text-muted-foreground uppercase'
+                    className='rounded-sm border border-border px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] uppercase text-muted-foreground'
                   >
                     {tag}
                   </span>
                 ))}
               </div>
             )}
+
+            {/* Author Bio */}
+            <div className='mx-auto mt-8 max-w-3xl'>
+              <div className='flex items-center gap-4 rounded-sm border border-border bg-muted p-6'>
+                <div className='flex size-12 shrink-0 items-center justify-center rounded-full bg-custom/10'>
+                  <span className='text-sm font-medium text-custom'>
+                    {article.author
+                      .split(' ')
+                      .map((w) => w[0])
+                      .join('')
+                      .slice(0, 2)
+                      .toUpperCase()}
+                  </span>
+                </div>
+                <div className='min-w-0'>
+                  <p className='text-sm font-medium text-foreground'>
+                    {article.author}
+                  </p>
+                  <p className='text-xs text-muted-foreground'>
+                    Shaon Landmarks & Housing
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </article>
       </section>
 
       {/* Recent Articles */}
       {recent.length > 0 && (
-        <section className='bg-surface-raised py-20 border-t border-white/6'>
+        <section className='border-t border-border bg-surface-raised py-20'>
           <div className='site-wrapper'>
             <SectionHeading
               eyebrow='Read More'
               heading='Recent'
               highlight='Articles'
-              highlightStyle='stroke'
+              highlightStyle='muted'
               className='mb-10'
             />
             <div className='grid gap-6 md:grid-cols-3'>
@@ -85,26 +156,34 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                   key={r.slug}
                   to='/blog/$slug'
                   params={{ slug: r.slug }}
-                  className='group'
+                  className='group relative flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-all duration-500 hover:ring-custom/25'
                 >
-                  <div className='aspect-video overflow-hidden rounded-sm bg-linear-to-br from-surface-brand to-surface-raised'>
+                  <div className='absolute top-0 left-0 right-0 z-10 h-0.5 origin-left scale-x-0 bg-custom transition-transform duration-500 ease-out group-hover:scale-x-100' />
+
+                  <div className='relative aspect-video overflow-hidden bg-linear-to-br from-surface-brand to-surface-raised'>
                     <Image
                       src={r.image}
                       alt={r.title}
                       layout='fullWidth'
                       height={225}
-                      className='h-full w-full object-cover transition-all duration-500 group-hover:scale-105'
+                      className='h-full w-full object-cover transition-all duration-900 ease-out group-hover:scale-[1.04]'
                     />
-                  </div>
-                  <div className='mt-3'>
-                    <span className='text-[11px] font-medium tracking-wider text-custom uppercase'>
+                    <div className='absolute inset-0 bg-linear-to-t from-black/20 to-transparent' />
+                    <span className='absolute top-3 left-3 rounded-sm border border-white/30 bg-black/45 px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] text-white/80 uppercase backdrop-blur-sm'>
                       {r.category.name}
                     </span>
-                    <h3 className='mt-1 text-base font-serif leading-snug text-foreground transition-colors group-hover:text-custom'>
+                  </div>
+
+                  <div className='flex flex-1 flex-col p-6 translate-y-1 transition-transform duration-300 group-hover:translate-y-0'>
+                    <p className='text-[10px] text-muted-foreground'>
+                      {r.readingTime} min read
+                    </p>
+                    <h3 className='mt-2 text-base font-serif leading-snug text-foreground transition-colors group-hover:text-custom'>
                       {r.title}
                     </h3>
-                    <p className='mt-1 text-[10px] text-muted-foreground'>
-                      {r.readingTime} min read
+                    <div className='my-2 h-px w-6 bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+                    <p className='max-h-0 overflow-hidden text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-400 group-hover:max-h-24 group-hover:opacity-100'>
+                      {r.excerpt}
                     </p>
                   </div>
                 </Link>
@@ -144,16 +223,19 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
           />
 
           <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
-            <Link
-              to='/contact'
-              className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
-            >
-              <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
-              <span className='relative z-10 inline-flex items-center gap-3'>
-                Contact Us
-                <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
-              </span>
-            </Link>
+            <div className='group'>
+              <Button
+                variant='custom'
+                render={<Link to='/contact' />}
+                className='relative overflow-hidden rounded-sm px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] uppercase'
+              >
+                <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
+                <span className='relative z-10 inline-flex items-center gap-3'>
+                  Contact Us
+                  <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
+                </span>
+              </Button>
+            </div>
             <Link
               to='/contact'
               className='group inline-flex items-center gap-3 rounded-sm border border-custom/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-custom hover:text-custom'
