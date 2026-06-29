@@ -18,21 +18,45 @@ import {
   WhatsappShareButton,
   XShareButton,
 } from 'react-share';
-import { Button } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/section-heading';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import type { BlogArticle } from '@/content/blog';
 import { getRecentArticles } from '@/content/blog';
 import { renderMarkdown } from '@/lib/markdown';
+import { cn } from '@/lib/utils';
+
+const SHARE_PLATFORMS = [
+  {
+    Component: FacebookShareButton,
+    Icon: IconBrandFacebook,
+    label: 'Facebook',
+  },
+  { Component: XShareButton, Icon: IconBrandX, label: 'X' },
+  {
+    Component: LinkedinShareButton,
+    Icon: IconBrandLinkedin,
+    label: 'LinkedIn',
+  },
+  {
+    Component: WhatsappShareButton,
+    Icon: IconBrandWhatsapp,
+    label: 'WhatsApp',
+  },
+  {
+    Component: TelegramShareButton,
+    Icon: IconBrandTelegram,
+    label: 'Telegram',
+  },
+] as const;
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {
   const recent = getRecentArticles(article.slug, 3);
   const [copied, setCopied] = useState(false);
-  const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const [shareUrl, setShareUrl] = useState('');
+
+  useEffect(() => {
+    setShareUrl(window.location.href);
+  }, []);
 
   useEffect(() => {
     if (!copied) return;
@@ -84,88 +108,40 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
             </div>
 
             {/* Social Share */}
+
             <div className='mx-auto mt-12 max-w-3xl'>
-              <div className='flex flex-col gap-4 border-t border-border pt-6'>
+              <div className='border-t border-border pt-6'>
                 <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-muted-foreground'>
                   Share this article
                 </span>
-                <div className='flex flex-wrap items-center gap-3'>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <FacebookShareButton
-                        url={shareUrl}
-                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
-                      >
-                        <IconBrandFacebook size={16} />
-                      </FacebookShareButton>
-                    </TooltipTrigger>
-                    <TooltipContent>Facebook</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <XShareButton
-                        url={shareUrl}
-                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
-                      >
-                        <IconBrandX size={16} />
-                      </XShareButton>
-                    </TooltipTrigger>
-                    <TooltipContent>X (Twitter)</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <LinkedinShareButton
-                        url={shareUrl}
-                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
-                      >
-                        <IconBrandLinkedin size={16} />
-                      </LinkedinShareButton>
-                    </TooltipTrigger>
-                    <TooltipContent>LinkedIn</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <WhatsappShareButton
-                        url={shareUrl}
-                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
-                      >
-                        <IconBrandWhatsapp size={16} />
-                      </WhatsappShareButton>
-                    </TooltipTrigger>
-                    <TooltipContent>WhatsApp</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <TelegramShareButton
-                        url={shareUrl}
-                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
-                      >
-                        <IconBrandTelegram size={16} />
-                      </TelegramShareButton>
-                    </TooltipTrigger>
-                    <TooltipContent>Telegram</TooltipContent>
-                  </Tooltip>
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <button
-                        type='button'
-                        onClick={() => {
-                          navigator.clipboard.writeText(shareUrl);
-                          setCopied(true);
-                        }}
-                        className='flex size-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors [&>svg]:size-4 hover:border-custom/30 hover:text-custom hover:bg-custom/5'
-                      >
-                        {copied ? (
-                          <IconCheck size={16} />
-                        ) : (
-                          <IconLink size={16} />
-                        )}
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      {copied ? 'Copied!' : 'Copy link'}
-                    </TooltipContent>
-                  </Tooltip>
+                <div className='mt-4 flex flex-wrap items-center gap-6 md:gap-12'>
+                  {SHARE_PLATFORMS.map(({ Component, Icon, label }) => (
+                    <Component
+                      key={label}
+                      url={shareUrl}
+                      title={article.title}
+                      aria-label={`Share on ${label}`}
+                    >
+                      <div className='rounded-full border p-3 bg-custom/5 pointer-events-none'>
+                        <Icon size={20} color='black' />
+                      </div>
+                    </Component>
+                  ))}
+
+                  <button
+                    type='button'
+                    aria-label={copied ? 'Copied!' : 'Copy link'}
+                    onClick={() => {
+                      navigator.clipboard.writeText(shareUrl);
+                      setCopied(true);
+                    }}
+                    className={cn(
+                      'rounded-full transition-colors bg-custom/5 p-3 border',
+                      copied && 'border-custom/40 bg-custom/5 text-custom',
+                    )}
+                  >
+                    {copied ? <IconCheck size={20} /> : <IconLink size={20} />}
+                  </button>
                 </div>
               </div>
             </div>
@@ -254,9 +230,6 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                       {r.title}
                     </h3>
                     <div className='my-2 h-px w-6 bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
-                    <p className='max-h-0 overflow-hidden text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-400 group-hover:max-h-24 group-hover:opacity-100'>
-                      {r.excerpt}
-                    </p>
                   </div>
                 </Link>
               ))}
@@ -288,7 +261,6 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
             eyebrow='Get Started'
             heading='Ready to Find Your'
             highlight='Dream Property?'
-            highlightStyle='stroke'
             align='center'
             className='mb-6'
             headingClassName='text-white'
@@ -296,17 +268,19 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
 
           <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
             <div className='group'>
-              <Button
-                variant='custom'
-                render={<Link to='/contact' />}
-                className='relative overflow-hidden rounded-sm px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] uppercase'
+              <Link
+                to='/contact'
+                className={buttonVariants({
+                  variant: 'custom',
+                  size: 'lg',
+                  className: 'px-10 py-5',
+                })}
               >
-                <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
                 <span className='relative z-10 inline-flex items-center gap-3'>
                   Contact Us
                   <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
                 </span>
-              </Button>
+              </Link>
             </div>
             <Link
               to='/contact'
