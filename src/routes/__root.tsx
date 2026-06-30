@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { LenisProvider } from '@/context/lenis-provider';
 import appCss from '../styles.css?url';
 
 export const Route = createRootRoute({
@@ -30,9 +31,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           Skip to content
         </a>
         <TooltipProvider>
-          <Header />
-          {children}
-          <Footer />
+          <LenisProvider>
+            <Header />
+            {children}
+            <Footer />
+          </LenisProvider>
         </TooltipProvider>
         <Scripts />
       </body>
