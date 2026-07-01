@@ -1,0 +1,190 @@
+import { IconArrowRight, IconLock } from '@tabler/icons-react';
+import { useRef, useState } from 'react';
+import { cn } from '@/lib/utils';
+
+export function CtaSection() {
+  const [interest, setInterest] = useState('residential');
+  const [formStatus, setFormStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const dividerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setFormStatus({
+      type: 'success',
+      message: 'Thank you. We will be in touch shortly.',
+    });
+    e.currentTarget.reset();
+  }
+
+  return (
+    <section
+      ref={sectionRef}
+      className='bg-surface-brand py-20 md:py-28 overflow-x-hidden border-t border-white/6'
+    >
+      <div className='site-wrapper'>
+        <div className='grid items-center gap-12 md:grid-cols-2'>
+          {/* ── Left ─────────────────────────────────────────────────────── */}
+          <div ref={leftRef} className='flex flex-col'>
+            {/* Eyebrow */}
+            <div className='flex items-center gap-4 mb-7'>
+              <div className='w-8 h-px bg-custom' />
+              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom/80'>
+                Private Consultation
+              </span>
+            </div>
+
+            <h2 className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-[1.05] tracking-[-0.01em] text-white'>
+              Begin Your{' '}
+              <span
+                className='italic'
+                style={{
+                  color: 'transparent',
+                  WebkitTextStroke: '1px rgba(255,255,255,0.3)',
+                }}
+              >
+                Legacy
+              </span>
+            </h2>
+
+            <p className='mt-5 max-w-sm text-sm leading-relaxed text-white/45 font-light'>
+              Schedule a private consultation with our portfolio managers to
+              discuss your future investment in timeless landmarks.
+            </p>
+
+            <div ref={dividerRef} className='mt-8 h-px w-14 bg-custom/50' />
+
+            <div className='mt-6 flex items-center gap-3'>
+              <IconLock
+                size={14}
+                className='text-custom/70'
+                aria-hidden='true'
+              />
+              <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/55'>
+                Exclusive Portfolio Access
+              </span>
+            </div>
+          </div>
+
+          {/* ── Card ─────────────────────────────────────────────────────── */}
+          <div
+            ref={cardRef}
+            className='relative border border-white/8 p-8 md:p-10 rounded-sm overflow-hidden'
+            style={{ background: 'rgba(255,255,255,0.03)' }}
+          >
+            {/* Subtle corner accent */}
+            <div className='absolute top-0 left-0 w-10 h-px bg-custom/60' />
+            <div className='absolute top-0 left-0 w-px h-10 bg-custom/60' />
+
+            <h3 className='mb-8 text-[10px] font-medium tracking-[0.22em] uppercase text-white/55'>
+              Request Access
+            </h3>
+
+            <form className='space-y-7' onSubmit={handleSubmit}>
+              {/* Name */}
+              <div className='form-field group'>
+                <label
+                  htmlFor='cta-name'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
+                >
+                  Full Name *
+                </label>
+                <input
+                  id='cta-name'
+                  name='name'
+                  type='text'
+                  required
+                  placeholder='Your full name'
+                  className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
+                             text-sm text-white placeholder:text-white/40 font-light
+                             outline-none transition-colors focus:border-custom/50'
+                />
+              </div>
+
+              {/* Email */}
+              <div className='form-field group'>
+                <label
+                  htmlFor='cta-email'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
+                >
+                  Email Address *
+                </label>
+                <input
+                  id='cta-email'
+                  name='email'
+                  type='email'
+                  required
+                  placeholder='your@email.com'
+                  className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
+                             text-sm text-white placeholder:text-white/40 font-light
+                             outline-none transition-colors focus:border-custom/50'
+                />
+              </div>
+
+              {/* Interest */}
+              <div className='form-field group'>
+                <label
+                  htmlFor='cta-interest'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
+                >
+                  Interest Area
+                </label>
+                <select
+                  id='cta-interest'
+                  value={interest}
+                  onChange={(e) => setInterest(e.target.value)}
+                  className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
+                             text-sm text-white/60 font-light
+                             outline-none transition-colors focus:border-custom/50
+                              [&>option]:bg-surface-brand [&>option]:text-white appearance-none cursor-pointer'
+                >
+                  <option value='residential'>Residential Penthouses</option>
+                  <option value='commercial'>Commercial Landmarks</option>
+                  <option value='investment'>Investment Opportunities</option>
+                </select>
+              </div>
+
+              {/* Submit */}
+              <button
+                type='submit'
+                className='form-field group relative w-full overflow-hidden rounded-sm bg-custom
+                           px-6 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white
+                           uppercase transition-colors duration-200 hover:bg-custom/90'
+              >
+                {/* Shimmer */}
+                <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
+                <span className='relative z-10 inline-flex items-center gap-3'>
+                  Request Consultation
+                  <IconArrowRight
+                    className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5'
+                    aria-hidden='true'
+                  />
+                </span>
+              </button>
+
+              {formStatus.message && (
+                <p
+                  role='alert'
+                  className={cn(
+                    'mt-4 text-xs',
+                    formStatus.type === 'success'
+                      ? 'text-emerald-400'
+                      : 'text-red-400',
+                  )}
+                >
+                  {formStatus.message}
+                </p>
+              )}
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
