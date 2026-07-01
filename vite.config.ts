@@ -1,7 +1,8 @@
-import transformImports from '@rolldown/plugin-transform-imports';
 import tailwindcss from '@tailwindcss/vite';
 import { devtools } from '@tanstack/devtools-vite';
+
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+
 import viteReact from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
@@ -13,12 +14,6 @@ const config = defineConfig({
     nitro({ rollupConfig: { external: [/^@sentry\//] } }),
     tailwindcss(),
     tanstackStart(),
-    transformImports({
-      '@tabler/icons-react': {
-        transform: '@tabler/icons-react/dist/esm/icons/{{member}}.mjs',
-        preventFullImport: true,
-      },
-    }),
     viteReact(),
   ],
 });

@@ -1,18 +1,29 @@
+import { TanStackDevtools } from '@tanstack/react-devtools';
 import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
-import Footer from '@/components/layout/footer';
-import Header from '@/components/layout/header';
-import { TooltipProvider } from '@/components/ui/tooltip';
-import { LenisProvider } from '@/context/lenis-provider';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+
 import appCss from '../styles.css?url';
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'Shaon Landmarks — Architecting Tomorrow' },
+      {
+        charSet: 'utf-8',
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
+      },
+      {
+        title: 'TanStack Start Starter',
+      },
     ],
-    links: [{ rel: 'stylesheet', href: appCss }],
+    links: [
+      {
+        rel: 'stylesheet',
+        href: appCss,
+      },
+    ],
   }),
   shellComponent: RootDocument,
 });
@@ -24,19 +35,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <a
-          href='#main-content'
-          className='sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-custom focus:text-white focus:rounded-sm focus:text-sm focus:outline-none'
-        >
-          Skip to content
-        </a>
-        <TooltipProvider>
-          <LenisProvider>
-            <Header />
-            {children}
-            <Footer />
-          </LenisProvider>
-        </TooltipProvider>
+        {children}
+        <TanStackDevtools
+          config={{
+            position: 'bottom-right',
+          }}
+          plugins={[
+            {
+              name: 'Tanstack Router',
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
         <Scripts />
       </body>
     </html>
