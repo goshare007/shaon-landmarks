@@ -103,16 +103,7 @@ export function EmiCalculator() {
             </span>
           </div>
           <h1 className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-[1.05] tracking-[-0.01em] text-white mb-5'>
-            EMI{' '}
-            <span
-              className='italic'
-              style={{
-                color: 'transparent',
-                WebkitTextStroke: '1px rgba(255,255,255,0.28)',
-              }}
-            >
-              Calculator
-            </span>
+            EMI <span className='italic text-custom'>Calculator</span>
           </h1>
           <p className='max-w-xl text-sm leading-relaxed text-white/55'>
             Plan your investment with confidence. Adjust the loan parameters
@@ -250,16 +241,7 @@ export function EmiCalculator() {
         <div className='site-wrapper flex flex-col items-center text-center'>
           <h2 className='font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] font-light leading-tight text-white mb-5'>
             Ready to build your{' '}
-            <span
-              className='italic'
-              style={{
-                color: 'transparent',
-                WebkitTextStroke: '1px rgba(255,255,255,0.28)',
-              }}
-            >
-              Landmark
-            </span>
-            ?
+            <span className='italic text-custom'>Landmark ?</span>
           </h2>
           <p className='max-w-lg text-sm leading-relaxed text-white/55 mb-10'>
             Speak with our financing experts to turn your numbers into a

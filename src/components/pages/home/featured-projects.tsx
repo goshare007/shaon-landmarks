@@ -1,7 +1,6 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { allProjects, type Project } from '@/content/projects';
@@ -130,12 +129,6 @@ function GridCard({ project }: { project: Project }) {
 // ── Section ──────────────────────────────────────────────────────────────────
 
 export function FeaturedProjects() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const featuredRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const footerRef = useRef<HTMLDivElement>(null);
-
   const feature = allProjects.find((p) => p.featured) ?? allProjects[0];
   const gridProjects = allProjects
     .filter((p) => p.slug !== feature?.slug)
@@ -144,13 +137,10 @@ export function FeaturedProjects() {
   if (!feature) return null;
 
   return (
-    <section
-      ref={sectionRef}
-      className=' py-20 md:py-28 border-t border-border'
-    >
+    <section className=' py-20 md:py-28 border-t border-border'>
       <div className='site-wrapper'>
         {/* Heading */}
-        <div ref={headingRef} className='mb-12 md:mb-14'>
+        <div className='mb-12 md:mb-14'>
           <SectionHeading
             eyebrow='Iconic Developments'
             heading='A curated selection of our most ambitious projects,'
@@ -161,22 +151,19 @@ export function FeaturedProjects() {
         </div>
 
         {/* Featured card */}
-        <div ref={featuredRef}>
+        <div>
           <FeaturedCard project={feature} />
         </div>
 
         {/* Grid cards */}
-        <div
-          ref={gridRef}
-          className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'
-        >
+        <div className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
           {gridProjects.map((project) => (
             <GridCard key={project.id} project={project} />
           ))}
         </div>
 
         {/* Footer CTA */}
-        <div ref={footerRef} className='mt-12 flex items-center gap-6'>
+        <div className='mt-12 flex items-center gap-6'>
           <div className='hidden h-px w-16 bg-custom/30 md:block' />
           <Link
             to='/portfolio'

@@ -41,7 +41,6 @@ export function SustainabilityCertifications() {
           eyebrow='Recognition'
           heading='Certifications &'
           highlight='Recognition'
-          highlightStyle='stroke'
           align='center'
           className='mb-6'
           headingClassName='text-white'
