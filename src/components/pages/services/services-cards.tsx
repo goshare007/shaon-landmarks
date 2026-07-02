@@ -122,7 +122,9 @@ export function ServicesCards() {
                         src={service.img}
                         alt={`${service.title} project overview`}
                         layout='fullWidth'
+                        decoding='async'
                         height={600}
+                        loading='lazy'
                         className='h-full w-full object-cover grayscale transition-all duration-900 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]'
                       />
                     </div>
@@ -135,7 +137,9 @@ export function ServicesCards() {
                         src={service.img}
                         alt={`${service.title} rendering`}
                         layout='fullWidth'
+                        decoding='async'
                         height={338}
+                        loading='lazy'
                         className='h-full w-full object-cover grayscale transition-all duration-900 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]'
                       />
                     </div>

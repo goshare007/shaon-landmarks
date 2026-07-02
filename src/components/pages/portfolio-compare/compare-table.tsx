@@ -39,7 +39,9 @@ export function CompareTable({ projects }: CompareTableProps) {
                       src={p.image}
                       alt=''
                       layout='fullWidth'
+                      decoding='async'
                       height={225}
+                      loading='lazy'
                       className='h-full w-full object-cover transition-transform duration-500 group-hover:scale-105'
                     />
                   </div>

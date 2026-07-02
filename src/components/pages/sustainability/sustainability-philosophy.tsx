@@ -47,7 +47,9 @@ export function SustainabilityPhilosophy() {
               src={SustainabilityImg}
               alt='Sustainable architecture design'
               layout='fullWidth'
+              decoding='async'
               height={600}
+              loading='lazy'
               className='h-full w-full object-cover'
             />
           </div>

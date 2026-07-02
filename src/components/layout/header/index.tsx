@@ -9,27 +9,34 @@ import MobileMenu from './mobile-menu';
 export default function Header() {
   const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const ticking = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const delta = currentScrollY - lastScrollY.current;
+      if (ticking.current) return;
+      ticking.current = true;
 
-      if (currentScrollY <= 0) {
-        setIsHidden(false);
-        lastScrollY.current = 0;
-        return;
-      }
+      requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const delta = currentScrollY - lastScrollY.current;
 
-      if (Math.abs(delta) < 10) return;
+        if (currentScrollY <= 0) {
+          setIsHidden(false);
+          lastScrollY.current = 0;
+          ticking.current = false;
+          return;
+        }
 
-      if (delta > 0) {
-        setIsHidden(true);
-      } else {
-        setIsHidden(false);
-      }
+        if (Math.abs(delta) < 10) {
+          ticking.current = false;
+          return;
+        }
 
-      lastScrollY.current = currentScrollY;
+        setIsHidden(delta > 0);
+
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });

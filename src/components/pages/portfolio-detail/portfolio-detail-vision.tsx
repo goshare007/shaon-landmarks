@@ -41,7 +41,9 @@ export function PortfolioDetailVision({
                 src={vision.image}
                 alt=''
                 layout='fullWidth'
+                decoding='async'
                 height={750}
+                loading='lazy'
                 className='aspect-4/5 h-full w-full object-cover'
               />
             </div>

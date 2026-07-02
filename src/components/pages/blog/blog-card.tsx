@@ -26,14 +26,14 @@ export function BlogCard({ article, featured }: BlogCardProps) {
         params={{ slug: article.slug }}
         className={`${baseClasses} md:flex-row`}
       >
-        <div className='absolute top-0 left-0 right-0 z-10 h-0.5 origin-left scale-x-0 bg-custom transition-transform duration-500 ease-out group-hover:scale-x-100' />
-
         <div className='relative aspect-video overflow-hidden bg-linear-to-br from-surface-brand to-surface-raised md:w-[55%]'>
           <Image
             src={article.image}
             alt={article.title}
             layout='fullWidth'
+            decoding='async'
             height={450}
+            loading='lazy'
             className='h-full w-full object-cover transition-all duration-900 ease-out group-hover:scale-[1.04]'
           />
           <div className='absolute inset-0 bg-linear-to-t from-black/20 to-transparent' />
@@ -70,14 +70,14 @@ export function BlogCard({ article, featured }: BlogCardProps) {
       params={{ slug: article.slug }}
       className={baseClasses}
     >
-      <div className='absolute top-0 left-0 right-0 z-10 h-0.5 origin-left scale-x-0 bg-custom transition-transform duration-500 ease-out group-hover:scale-x-100' />
-
       <div className='relative aspect-16/10 overflow-hidden bg-linear-to-br from-surface-brand to-surface-raised'>
         <Image
           src={article.image}
           alt={article.title}
           layout='fullWidth'
+          decoding='async'
           height={375}
+          loading='lazy'
           className='h-full w-full object-cover transition-all duration-900 ease-out group-hover:scale-[1.04]'
         />
         <div className='absolute inset-0 bg-linear-to-t from-black/20 to-transparent' />
@@ -94,9 +94,6 @@ export function BlogCard({ article, featured }: BlogCardProps) {
           {article.title}
         </h3>
         <div className='my-2 h-px w-6 bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
-        <p className='max-h-0 overflow-hidden text-sm leading-relaxed text-muted-foreground opacity-0 transition-all duration-400 group-hover:max-h-24 group-hover:opacity-100'>
-          {article.excerpt}
-        </p>
       </div>
     </Link>
   );

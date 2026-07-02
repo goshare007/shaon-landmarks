@@ -98,7 +98,9 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                 src={article.image}
                 alt={article.title}
                 layout='fullWidth'
+                decoding='async'
                 height={675}
+                loading='lazy'
                 className='w-full object-cover'
               />
             </div>
@@ -213,7 +215,9 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                       src={r.image}
                       alt={r.title}
                       layout='fullWidth'
+                      decoding='async'
                       height={225}
+                      loading='lazy'
                       className='h-full w-full object-cover transition-all duration-900 ease-out group-hover:scale-[1.04]'
                     />
                     <div className='absolute inset-0 bg-linear-to-t from-black/20 to-transparent' />

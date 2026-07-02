@@ -30,7 +30,9 @@ export function PortfolioDetailFloorPlans({
                     src={plan.image}
                     alt={`${plan.title} floor plan`}
                     layout='fullWidth'
+                    decoding='async'
                     height={600}
+                    loading='lazy'
                     className='h-auto w-full object-cover'
                   />
                 </div>

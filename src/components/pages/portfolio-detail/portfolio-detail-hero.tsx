@@ -16,6 +16,7 @@ export function PortfolioDetailHero({
           src={detail.heroImage}
           alt=''
           layout='fullWidth'
+          decoding='async'
           height={600}
           className='h-full w-full object-cover'
         />

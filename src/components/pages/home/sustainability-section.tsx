@@ -41,7 +41,7 @@ export function SustainabilitySection() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-raised py-20 md:py-28 border-t border-border'
+      className='bg-surface-raised py-20 md:py-28 border-t border-border [content-visibility:auto] [contain-intrinsic-size:auto_800px]'
     >
       <div className='site-wrapper'>
         {/* Heading */}
@@ -90,7 +90,9 @@ export function SustainabilitySection() {
                   src={item.image}
                   alt={item.title}
                   layout='fullWidth'
+                  decoding='async'
                   height={500}
+                  loading='lazy'
                   className='h-full w-full object-cover transition-transform duration-900 ease-out group-hover:scale-[1.04]'
                 />
               </div>
@@ -115,6 +117,7 @@ export function SustainabilitySection() {
                 style={{
                   background: 'rgba(0,0,0,0.4)',
                   backdropFilter: 'blur(8px)',
+                  willChange: 'transform',
                 }}
               >
                 {item.icon}

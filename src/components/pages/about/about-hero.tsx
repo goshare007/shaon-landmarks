@@ -15,6 +15,7 @@ export function AboutHero() {
           src={HERO_IMAGE}
           alt='Shaon Landmarks — architectural excellence since 2008'
           layout='fullWidth'
+          decoding='async'
           height={1000}
           className='h-full w-full object-cover'
         />
@@ -67,6 +68,7 @@ export function AboutHero() {
           style={{
             background: 'rgba(0,0,0,0.5)',
             backdropFilter: 'blur(10px)',
+            willChange: 'transform',
           }}
         >
           <div className='w-1.5 h-1.5 rounded-full bg-custom animate-pulse' />

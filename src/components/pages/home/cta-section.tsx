@@ -41,16 +41,7 @@ export function CtaSection() {
             </div>
 
             <h2 className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-[1.05] tracking-[-0.01em] text-white'>
-              Begin Your{' '}
-              <span
-                className='italic'
-                style={{
-                  color: 'transparent',
-                  WebkitTextStroke: '1px rgba(255,255,255,0.3)',
-                }}
-              >
-                Legacy
-              </span>
+              Begin Your <span className='italic text-custom'>Legacy</span>
             </h2>
 
             <p className='mt-5 max-w-sm text-sm leading-relaxed text-white/45 font-light'>

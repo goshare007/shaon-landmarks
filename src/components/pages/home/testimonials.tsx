@@ -74,7 +74,6 @@ export function TestimonialSection() {
           eyebrow='What Our Clients Say'
           heading='Trusted'
           highlight='voices'
-          highlightStyle='stroke'
           align='center'
           className='mb-14 md:mb-16'
           headingClassName='text-[clamp(2rem,4vw,3rem)] text-white'

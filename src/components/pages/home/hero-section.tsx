@@ -99,6 +99,7 @@ export function HeroSection() {
             src={HERO_CONTENT.image}
             alt='Architectural landmark'
             layout='fullWidth'
+            decoding='async'
             height={800}
             className='h-full w-full object-cover object-center'
           />
@@ -115,6 +116,7 @@ export function HeroSection() {
             style={{
               background: 'rgba(0,0,0,0.55)',
               backdropFilter: 'blur(12px)',
+              willChange: 'transform',
             }}
           >
             <div className='w-1.5 h-1.5 rounded-full bg-custom shrink-0 animate-pulse' />

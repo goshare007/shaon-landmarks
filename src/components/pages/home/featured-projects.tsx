@@ -14,13 +14,14 @@ function FeaturedCard({ project }: { project: Project }) {
       params={{ slug: project.slug }}
       className='group block'
     >
-      <div className='relative min-h-[50vh] md:min-h-[68vh] overflow-hidden rounded-sm'>
+      <div className='relative min-h-[50vh] md:min-h-[68vh] overflow-hidden rounded-sm [content-visibility:auto] [contain-intrinsic-size:auto_50vh]'>
         {/* Image */}
         <div className='absolute inset-0'>
           <Image
             src={project.image}
             alt={project.title}
             layout='fullWidth'
+            decoding='async'
             height={800}
             className='h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]'
           />
@@ -82,14 +83,16 @@ function GridCard({ project }: { project: Project }) {
       params={{ slug: project.slug }}
       className='group block'
     >
-      <div className='relative min-h-64 md:min-h-72 overflow-hidden rounded-sm'>
+      <div className='relative min-h-64 md:min-h-72 overflow-hidden rounded-sm [content-visibility:auto] [contain-intrinsic-size:auto_18rem]'>
         {/* Image */}
         <div className='absolute inset-0'>
           <Image
             src={project.image}
             alt={project.title}
             layout='fullWidth'
+            decoding='async'
             height={500}
+            loading='lazy'
             className='h-full w-full object-cover transition-transform duration-900 ease-out group-hover:scale-[1.04]'
           />
         </div>

@@ -7,7 +7,7 @@ import { allProjects } from '@/content/projects';
 
 export function PortfolioGrid() {
   return (
-    <section className='py-20 md:py-28 border-t border-border'>
+    <section className='py-20 md:py-28 border-t border-border [content-visibility:auto] [contain-intrinsic-size:auto_1200px]'>
       <div className='site-wrapper'>
         <div className='mb-12 md:mb-14'>
           <SectionHeading
@@ -30,9 +30,11 @@ export function PortfolioGrid() {
                   <div className='absolute inset-0 overflow-hidden transition-transform duration-900 ease-out group-hover:scale-[1.03]'>
                     <Image
                       src={project.image}
-                      alt=''
+                      alt={project.title}
                       layout='fullWidth'
+                      decoding='async'
                       height={400}
+                      loading='lazy'
                       className='h-full w-full object-cover'
                     />
                   </div>

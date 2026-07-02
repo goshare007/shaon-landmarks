@@ -46,7 +46,9 @@ export function ContactLocations() {
                   src={office.img}
                   alt={office.title}
                   layout='fullWidth'
+                  decoding='async'
                   height={400}
+                  loading='lazy'
                   className='h-full w-full object-cover'
                 />
               </div>

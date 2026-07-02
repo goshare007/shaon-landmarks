@@ -84,6 +84,7 @@ export function ServicesHero() {
               src={HERO_IMG}
               alt='Shaon Landmark services overview'
               layout='fullWidth'
+              decoding='async'
               height={900}
               className='h-full w-full object-cover'
             />

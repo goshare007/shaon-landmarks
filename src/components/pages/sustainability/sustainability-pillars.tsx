@@ -51,7 +51,9 @@ export function SustainabilityPillars() {
                   src={p.image}
                   alt={p.alt}
                   layout='fullWidth'
+                  decoding='async'
                   height={400}
+                  loading='lazy'
                   className='h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.03]'
                 />
               </div>
