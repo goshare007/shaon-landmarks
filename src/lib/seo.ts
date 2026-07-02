@@ -105,6 +105,7 @@ export function webpageLd({
   url: string;
 }) {
   return {
+    '@context': 'https://schema.org',
     '@type': 'WebPage',
     name,
     description,

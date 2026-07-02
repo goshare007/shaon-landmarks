@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>http://localhost:3000/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/about</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/services</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
@@ -26,31 +26,37 @@
   </url>
   <url>
     <loc>http://localhost:3000/contact</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>http://localhost:3000/career</loc>
+    <loc>http://localhost:3000/blog</loc>
     <lastmod>2026-07-02</lastmod>
-    <priority>0.6</priority>
+    <priority>0.7</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/sustainability</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>http://localhost:3000/emi-calculator</loc>
+    <lastmod>2026-07-02</lastmod>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>http://localhost:3000/legal</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <priority>0.5</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
     <loc>http://localhost:3000/privacy</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <priority>0.5</priority>
     <changefreq>yearly</changefreq>
   </url>
@@ -59,65 +65,71 @@
     <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-obsidian.webp</image:loc>
-      <image:title>The Obsidian</image:title>
-      <image:caption>A masterclass in dark aesthetics and light-filled spaces.</image:caption>
-    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/bronze-heights</loc>
     <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/bronze-heights.webp</image:loc>
-      <image:title>Bronze Heights</image:title>
-      <image:caption>Elevated living with panoramic views and bronze-accented interiors.</image:caption>
-    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/the-marble-collection</loc>
     <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-marble-collection.webp</image:loc>
-      <image:title>The Marble Collection</image:title>
-      <image:caption>An exclusive trio of villas featuring Italian Carrara marble and sustainable heating systems.</image:caption>
-    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/azure-waterfront</loc>
     <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/azure-waterfront.webp</image:loc>
-      <image:title>Azure Waterfront</image:title>
-      <image:caption>Serene lakeside living with panoramic views of the Gulshan Lake.</image:caption>
-    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/the-skyline-plaza</loc>
     <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/the-skyline-plaza.webp</image:loc>
-      <image:title>The Skyline Plaza</image:title>
-      <image:caption>A revolutionary commercial hub at the intersection of innovation and tradition.</image:caption>
-    </image:image>
   </url>
   <url>
     <loc>http://localhost:3000/portfolio/the-landmark-residency</loc>
     <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
-    <image:image>
-      <image:loc>http://localhost:3000/home/sejar/MyCode/shaon-landmarks/src/assets/images/projects/landmark-hero.webp</image:loc>
-      <image:title>The Landmark Residency</image:title>
-      <image:caption>A cinematic architectural marvel in the heart of Gulshan, redefining luxury living.</image:caption>
-    </image:image>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog/dhaka-real-estate-market-2026</loc>
+    <lastmod>2026-06-15</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog/complete-home-buying-guide-bangladesh</loc>
+    <lastmod>2026-05-28</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog/why-location-matters-choosing-neighborhood</loc>
+    <lastmod>2026-05-10</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog/rise-of-sustainable-architecture-bangladesh</loc>
+    <lastmod>2026-04-22</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog/understanding-rajuk-approval</loc>
+    <lastmod>2026-03-15</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://localhost:3000/blog/smart-home-features-modern-apartments</loc>
+    <lastmod>2026-02-20</lastmod>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

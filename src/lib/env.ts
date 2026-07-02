@@ -32,11 +32,12 @@ export function getSmtpConfig(): {
     .safeParse({ host: SMTP_HOST, user: SMTP_USER, pass: SMTP_PASS });
 
   if (!result.success) {
-    // biome-ignore lint/suspicious/noConsole: intentional — warn on server-side SMTP misconfiguration
-    console.warn(
-      '[env] SMTP validation failed:',
-      result.error.format()._errors.join(', '),
-    );
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn(
+        '[env] SMTP validation failed:',
+        result.error.format()._errors.join(', '),
+      );
+    }
     return null;
   }
 
@@ -62,3 +63,8 @@ export const WHATSAPP_MSG = encodeURIComponent(
 export const NOTIFICATION_EMAIL =
   (typeof process !== 'undefined' ? process.env.NOTIFICATION_EMAIL : null) ??
   '';
+
+export const CONTACT_PHONE =
+  import.meta.env.VITE_CONTACT_PHONE ?? '+8801712345678';
+export const CONTACT_EMAIL =
+  import.meta.env.VITE_CONTACT_EMAIL ?? 'info@shaonlandmarks.com';

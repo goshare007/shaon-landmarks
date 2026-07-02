@@ -53,7 +53,10 @@ export const Route = createFileRoute('/blog/$slug')({
 
     return {
       meta: [...meta.meta, ...ldMeta],
-      links: [{ rel: 'preload', as: 'image', href: article.image }],
+      links: [
+        { rel: 'canonical', href: `${SITE_URL}/blog/${params.slug}` },
+        { rel: 'preload', as: 'image', href: article.image },
+      ],
     };
   },
 });

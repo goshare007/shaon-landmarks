@@ -1,6 +1,6 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Slider } from '@/components/ui/slider';
 import { formatCurrency } from '@/lib/format';
 
@@ -72,10 +72,9 @@ export function EmiCalculator() {
   const [rate, setRate] = useState(9);
   const [tenure, setTenure] = useState(20);
 
-  const { emi, totalPayment, totalInterest } = calculateEmi(
-    principal,
-    rate,
-    tenure,
+  const { emi, totalPayment, totalInterest } = useMemo(
+    () => calculateEmi(principal, rate, tenure),
+    [principal, rate, tenure],
   );
 
   const principalPct = Math.round((principal / totalPayment) * 100);

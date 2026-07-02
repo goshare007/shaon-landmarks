@@ -14,6 +14,7 @@ export function PortfolioHero() {
 
       <div className='portfolio-hero__content site-wrapper'>
         <SectionHeading
+          as='h1'
           eyebrow='Selected Works'
           heading='Our Portfolio'
           highlight='Landmarks'

@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import type { Project } from '@/content/projects';
 
 interface CompareTableProps {
@@ -37,7 +37,7 @@ export function CompareTable({ projects }: CompareTableProps) {
                   <div className='mb-3 aspect-4/3 overflow-hidden rounded-sm'>
                     <Image
                       src={p.image}
-                      alt=''
+                      alt={`${p.title} thumbnail`}
                       layout='fullWidth'
                       decoding='async'
                       height={225}
@@ -128,7 +128,7 @@ function CompareRow({
   values: (string | undefined)[];
   keys: string[];
 }) {
-  const unique = new Set(values.filter(Boolean));
+  const unique = useMemo(() => new Set(values.filter(Boolean)), [values]);
   return (
     <tr className='compare-table__row border-b border-border'>
       <td className={`${labelClass} sticky left-0 z-10 bg-white p-4`}>

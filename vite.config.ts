@@ -35,7 +35,25 @@ const config = defineConfig({
   resolve: { tsconfigPaths: true },
   plugins: [
     devtools(),
-    nitro({ rollupConfig: { external: [/^@sentry\//] } }),
+    nitro({
+      rollupConfig: { external: [/^@sentry\//] },
+      routeRules: {
+        '/assets/**': {
+          headers: {
+            'Cache-Control': 'public, max-age=31536000, immutable',
+          },
+        },
+        '/favicon.ico': {
+          headers: { 'Cache-Control': 'public, max-age=86400' },
+        },
+        '/robots.txt': {
+          headers: { 'Cache-Control': 'public, max-age=86400' },
+        },
+        '/sitemap.xml': {
+          headers: { 'Cache-Control': 'public, max-age=86400' },
+        },
+      },
+    }),
     tailwindcss(),
     tanstackStart(),
     viteReact(),

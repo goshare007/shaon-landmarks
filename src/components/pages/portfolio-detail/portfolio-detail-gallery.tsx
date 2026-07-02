@@ -13,14 +13,16 @@ export function PortfolioDetailGallery({
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const slides = images.map((src) => ({ src }));
+  const slides = (images ?? []).map((src) => ({ src }));
 
   const openLightbox = useCallback((index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
   }, []);
 
-  const [img1, img2, img3] = images;
+  const [img1, img2, img3] = images ?? [];
+
+  if (!images?.length) return null;
 
   return (
     <section className='bg-white py-24'>

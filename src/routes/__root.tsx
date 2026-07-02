@@ -16,13 +16,23 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title:
+          'Shaon Landmarks — Architectural Integrity | Premium Real Estate Bangladesh',
+      },
+      {
+        name: 'theme-color',
+        content: '#0a0a0a',
       },
     ],
     links: [
       {
         rel: 'stylesheet',
         href: appCss,
+      },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
       },
     ],
   }),

@@ -1,4 +1,4 @@
-import { statSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { allProjects } from '@/content/projects';
@@ -44,16 +44,22 @@ const staticPages: {
     file: 'contact.tsx',
   },
   {
-    path: '/career',
-    priority: '0.6',
+    path: '/blog',
+    priority: '0.7',
     changefreq: 'weekly',
-    file: 'career.tsx',
+    file: 'blog.index.tsx',
   },
   {
     path: '/sustainability',
     priority: '0.7',
     changefreq: 'monthly',
     file: 'sustainability.tsx',
+  },
+  {
+    path: '/emi-calculator',
+    priority: '0.5',
+    changefreq: 'monthly',
+    file: 'emi-calculator.tsx',
   },
   { path: '/legal', priority: '0.5', changefreq: 'yearly', file: 'legal.tsx' },
   {
@@ -64,13 +70,36 @@ const staticPages: {
   },
 ];
 
-function escapeXml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+const blogDir = path.resolve(scriptDir, '../src/content/blog');
+
+function parseBlogPost(filePath: string): {
+  slug: string;
+  publishedAt: string;
+} | null {
+  try {
+    const content = readFileSync(filePath, 'utf-8');
+    const slug = content.match(/^slug:\s*(.+)$/m)?.[1]?.trim();
+    const publishedAt = content.match(/^publishedAt:\s*(.+)$/m)?.[1]?.trim();
+    if (!slug || !publishedAt) return null;
+    return { slug, publishedAt };
+  } catch {
+    return null;
+  }
+}
+
+function getBlogArticles() {
+  try {
+    const files = readdirSync(blogDir).filter((f) => f.endsWith('.md'));
+    return files
+      .map((f) => parseBlogPost(path.resolve(blogDir, f)))
+      .filter((a): a is { slug: string; publishedAt: string } => a !== null)
+      .sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+      );
+  } catch {
+    return [];
+  }
 }
 
 function url(
@@ -78,39 +107,33 @@ function url(
   priority: string,
   changefreq: string,
   lm: string,
-  image?: { loc: string; title: string; caption: string },
 ): string {
-  let entry = `  <url>\n    <loc>${SITE_URL}${loc}</loc>\n    <lastmod>${lm}</lastmod>\n    <priority>${priority}</priority>\n    <changefreq>${changefreq}</changefreq>`;
-  if (image) {
-    entry += `\n    <image:image>\n      <image:loc>${SITE_URL}${image.loc}</image:loc>\n      <image:title>${escapeXml(image.title)}</image:title>\n      <image:caption>${escapeXml(image.caption)}</image:caption>\n    </image:image>`;
-  }
-  entry += `\n  </url>`;
-  return entry;
+  return `  <url>\n    <loc>${SITE_URL}${loc}</loc>\n    <lastmod>${lm}</lastmod>\n    <priority>${priority}</priority>\n    <changefreq>${changefreq}</changefreq>\n  </url>`;
 }
 
 const dataMod = lastmod('../src/content/projects.ts');
+const blogArticles = getBlogArticles();
 const urls = [
   ...staticPages.map((p) =>
     url(p.path, p.priority, p.changefreq, lastmod(p.file)),
   ),
   ...allProjects.map((project) =>
-    url(`/portfolio/${project.slug}`, '0.7', 'monthly', dataMod, {
-      loc: project.image,
-      title: project.title,
-      caption: project.description,
-    }),
+    url(`/portfolio/${project.slug}`, '0.7', 'monthly', dataMod),
+  ),
+  ...blogArticles.map((article) =>
+    url(`/blog/${article.slug}`, '0.6', 'monthly', article.publishedAt),
   ),
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.join('\n')}
 </urlset>\n`;
 
 writeFileSync('public/sitemap.xml', sitemap, 'utf-8');
 writeFileSync(
   'public/robots.txt',
-  `User-agent: *\nAllow: /\nDisallow: /projects\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`,
   'utf-8',
 );
 process.stdout.write(`Generated sitemap.xml with ${urls.length} URLs\n`);

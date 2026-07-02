@@ -44,8 +44,7 @@ export const Route = createFileRoute('/portfolio/$slug')({
         <div className='site-wrapper'>
           <div className='grid grid-cols-4 gap-12'>
             {[...Array(4)].map((_, i) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: static skeleton rows
-              <div key={i} className='space-y-2'>
+              <div key={`skeleton-${i}`} className='space-y-2'>
                 <div className='h-4 w-20 animate-pulse rounded bg-muted-foreground/20' />
                 <div className='h-6 w-32 animate-pulse rounded bg-muted-foreground/20' />
               </div>
@@ -123,6 +122,7 @@ export const Route = createFileRoute('/portfolio/$slug')({
     return {
       meta: [...meta.meta, ...ldMeta],
       links: [
+        { rel: 'canonical', href: `${SITE_URL}/portfolio/${params.slug}` },
         ...(project?.image
           ? [
               {

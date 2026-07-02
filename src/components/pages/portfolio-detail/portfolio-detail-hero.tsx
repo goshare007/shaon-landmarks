@@ -14,7 +14,7 @@ export function PortfolioDetailHero({
       <div className='absolute inset-0 overflow-hidden'>
         <Image
           src={detail.heroImage}
-          alt=''
+          alt={`${project.title} — exterior view`}
           layout='fullWidth'
           decoding='async'
           height={600}

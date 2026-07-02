@@ -46,7 +46,10 @@ export const Route = createFileRoute('/about')({
 
     return {
       meta: [...meta.meta, ...ldMeta],
-      links: [{ rel: 'preload', as: 'image', href: HERO_IMAGE }],
+      links: [
+        { rel: 'canonical', href: `${SITE_URL}/about` },
+        { rel: 'preload', as: 'image', href: HERO_IMAGE },
+      ],
     };
   },
 });

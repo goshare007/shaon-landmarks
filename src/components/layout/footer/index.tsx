@@ -8,6 +8,7 @@ import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
 import { useState } from 'react';
 import logo from '@/assets/logo.webp';
+import { CONTACT_EMAIL, CONTACT_PHONE } from '@/lib/env';
 import { cn } from '@/lib/utils';
 import { submitNewsletterSignup } from './newslatter';
 
@@ -209,18 +210,18 @@ export default function Footer() {
             {/* ── Contact info ── */}
             <div className='mb-6 space-y-2 text-sm'>
               <a
-                href='tel:+8801712345678'
+                href={`tel:${CONTACT_PHONE}`}
                 className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-custom'
               >
                 <IconPhone className='size-3.5' aria-hidden='true' />
-                +880 1712-345678
+                {CONTACT_PHONE}
               </a>
               <a
-                href='mailto:info@shaonlandmarks.com'
+                href={`mailto:${CONTACT_EMAIL}`}
                 className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-custom'
               >
                 <IconMail className='size-3.5' aria-hidden='true' />
-                info@shaonlandmarks.com
+                {CONTACT_EMAIL}
               </a>
             </div>
 

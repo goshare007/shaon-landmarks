@@ -29,9 +29,8 @@ export function PortfolioDetailVision({
               )}
             </h2>
             <div className='max-w-xl space-y-6 text-base leading-relaxed text-white/55 md:text-lg'>
-              {vision.paragraphs.map((p, i) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: static paragraph array — stable order
-                <p key={i}>{p}</p>
+              {vision.paragraphs.map((p) => (
+                <p key={p.slice(0, 24)}>{p}</p>
               ))}
             </div>
           </div>
@@ -39,7 +38,7 @@ export function PortfolioDetailVision({
             <div className='overflow-hidden rounded-sm'>
               <Image
                 src={vision.image}
-                alt=''
+                alt={`${vision.title} — vision illustration`}
                 layout='fullWidth'
                 decoding='async'
                 height={750}

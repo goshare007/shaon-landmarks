@@ -39,7 +39,10 @@ export const Route = createFileRoute('/blog/')({
       },
     ];
 
-    return { meta: [...meta.meta, ...ldMeta] };
+    return {
+      meta: [...meta.meta, ...ldMeta],
+      links: [{ rel: 'canonical', href: `${SITE_URL}/blog` }],
+    };
   },
 });
 

@@ -5,7 +5,7 @@ import { PortfolioGrid } from '@/components/pages/portfolio-index/portfolio-grid
 import { PortfolioHero } from '@/components/pages/portfolio-index/portfolio-hero';
 import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
-import { generateMeta } from '@/lib/seo';
+import { generateMeta, SITE_URL } from '@/lib/seo';
 
 export const Route = createFileRoute('/portfolio/')({
   component: PortfolioIndex,
@@ -20,7 +20,10 @@ export const Route = createFileRoute('/portfolio/')({
         "Explore Shaon Landmarks' portfolio of premium residential and commercial projects across Dhaka and Chattogram.",
       image: img,
     }),
-    links: [{ rel: 'preload', as: 'image', href: img }],
+    links: [
+      { rel: 'canonical', href: `${SITE_URL}/portfolio` },
+      { rel: 'preload', as: 'image', href: img },
+    ],
   }),
 });
 
