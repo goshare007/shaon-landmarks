@@ -1,15 +1,52 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { allProjects } from '@/content/projects';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function PortfolioGrid() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(gridRef.current?.children ?? []), {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.08,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 82%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='py-20 md:py-28 border-t border-border [content-visibility:auto] [contain-intrinsic-size:auto_1200px]'>
+    <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>
       <div className='site-wrapper'>
-        <div className='mb-12 md:mb-14'>
+        <div ref={headingRef} className='mb-12 md:mb-14'>
           <SectionHeading
             eyebrow='Selected Works'
             heading='Our Portfolio'
@@ -18,7 +55,7 @@ export function PortfolioGrid() {
           />
         </div>
 
-        <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+        <div ref={gridRef} className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
           {allProjects.map((project) => (
             <div key={project.id} className='portfolio-grid__card relative'>
               <Link
@@ -27,7 +64,7 @@ export function PortfolioGrid() {
                 className='block'
               >
                 <div className='group relative min-h-88 cursor-pointer overflow-hidden rounded-sm'>
-                  <div className='absolute inset-0 overflow-hidden transition-transform duration-900 ease-out group-hover:scale-[1.03]'>
+                  <div className='absolute inset-0 overflow-hidden transition-transform duration-500 ease-out group-hover:scale-[1.03] backface-hidden'>
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -35,7 +72,7 @@ export function PortfolioGrid() {
                       decoding='async'
                       height={400}
                       loading='lazy'
-                      className='h-full w-full object-cover'
+                      className='h-full w-full object-cover will-change-transform'
                     />
                   </div>
                   <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent' />
@@ -52,7 +89,7 @@ export function PortfolioGrid() {
                     <p className='mt-0.5 text-label text-white/40'>
                       {project.date}
                     </p>
-                    <div className='mt-3 flex items-center gap-1 text-[10px] font-medium tracking-[0.15em] text-custom uppercase opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
+                    <div className='mt-3 flex items-center gap-1 text-[10px] font-medium tracking-[0.15em] text-custom uppercase opacity-0 -translate-x-2 transition-[opacity,transform] duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
                       View Landmark
                       <IconArrowRight size={14} aria-hidden='true' />
                     </div>

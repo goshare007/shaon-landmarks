@@ -1,21 +1,58 @@
 import { IconArrowRight, IconEye } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
+import { useEffect, useRef } from 'react';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function PortfolioCta() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cornersRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      });
+
+      tl.from(
+        cornersRef.current ? Array.from(cornersRef.current.children) : [],
+        { opacity: 0, scale: 0.6, duration: 0.5, stagger: 0.04 },
+        0,
+      ).from(
+        contentRef.current ? Array.from(contentRef.current.children) : [],
+        { y: 24, opacity: 0, duration: 0.6, stagger: 0.12 },
+        0.2,
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='relative bg-surface-brand py-24 md:py-32 border-t border-white/6 overflow-hidden'>
+    <section
+      ref={sectionRef}
+      className='relative bg-surface-brand py-24 md:py-32 border-t border-white/6 overflow-hidden'
+    >
       {/* Corner accents */}
-      <div className='absolute top-0 left-0 w-10 h-px bg-custom/30' />
-      <div className='absolute top-0 left-0 w-px h-10 bg-custom/30' />
-      <div className='absolute top-0 right-0 w-10 h-px bg-custom/30' />
-      <div className='absolute top-0 right-0 w-px h-10 bg-custom/30' />
-      <div className='absolute bottom-0 left-0 w-10 h-px bg-custom/30' />
-      <div className='absolute bottom-0 left-0 w-px h-10 bg-custom/30' />
-      <div className='absolute bottom-0 right-0 w-10 h-px bg-custom/30' />
-      <div className='absolute bottom-0 right-0 w-px h-10 bg-custom/30' />
+      <div ref={cornersRef}>
+        <div className='absolute top-0 left-0 w-10 h-px bg-custom/30' />
+        <div className='absolute top-0 left-0 w-px h-10 bg-custom/30' />
+        <div className='absolute top-0 right-0 w-10 h-px bg-custom/30' />
+        <div className='absolute top-0 right-0 w-px h-10 bg-custom/30' />
+        <div className='absolute bottom-0 left-0 w-10 h-px bg-custom/30' />
+        <div className='absolute bottom-0 left-0 w-px h-10 bg-custom/30' />
+        <div className='absolute bottom-0 right-0 w-10 h-px bg-custom/30' />
+        <div className='absolute bottom-0 right-0 w-px h-10 bg-custom/30' />
+      </div>
 
       <div className='portfolio-cta__content site-wrapper'>
-        <div className='max-w-lg'>
+        <div ref={contentRef} className='max-w-lg'>
           <div className='mb-5 flex items-center gap-4'>
             <div className='w-8 h-px bg-custom' />
             <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom/80'>

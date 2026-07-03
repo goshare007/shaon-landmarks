@@ -7,11 +7,13 @@ import {
 } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import ARCH_IMG from '@/assets/images/services/architecture.webp';
 import CONST_IMG from '@/assets/images/services/construction.webp';
 import INTERIOR_IMG from '@/assets/images/services/interior.webp';
 import LAND_IMG from '@/assets/images/services/land-development.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const SERVICES = [
   {
@@ -53,17 +55,60 @@ const SERVICES = [
 ] as const;
 
 export function ServicesCards() {
-  return (
-    <section className='bg-background py-20 md:py-28 border-t border-border'>
-      <div className='site-wrapper'>
-        <SectionHeading
-          eyebrow='What We Do'
-          heading='Core'
-          highlight='Services'
-          className='mb-16'
-        />
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
 
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12'>
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(cardsRef.current?.children ?? []), {
+        y: 32,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 82%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className='bg-background py-20 md:py-28 border-t border-border'
+    >
+      <div className='site-wrapper'>
+        <div ref={headingRef}>
+          <SectionHeading
+            eyebrow='What We Do'
+            heading='Core'
+            highlight='Services'
+            className='mb-16'
+          />
+        </div>
+
+        <div
+          ref={cardsRef}
+          className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-12'
+        >
           {SERVICES.map((service) => {
             const Icon = service.icon;
             return (

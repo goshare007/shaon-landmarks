@@ -1,9 +1,11 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { allProjects, type Project } from '@/content/projects';
+import { gsap, MOTION } from '@/lib/gsap';
 
 // ── Featured card (hero-sized) ───────────────────────────────────────────────
 
@@ -14,16 +16,16 @@ function FeaturedCard({ project }: { project: Project }) {
       params={{ slug: project.slug }}
       className='group block'
     >
-      <div className='relative min-h-[50vh] md:min-h-[68vh] overflow-hidden rounded-sm [content-visibility:auto] [contain-intrinsic-size:auto_50vh]'>
+      <div className='relative min-h-[50vh] md:min-h-[68vh] overflow-hidden rounded-sm'>
         {/* Image */}
-        <div className='absolute inset-0'>
+        <div className='absolute inset-0 backface-hidden'>
           <Image
             src={project.image}
             alt={project.title}
             layout='fullWidth'
             decoding='async'
             height={800}
-            className='h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]'
+            className='h-full! w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] will-change-transform'
           />
         </div>
 
@@ -54,7 +56,7 @@ function FeaturedCard({ project }: { project: Project }) {
           </p>
 
           {/* CTA — slides in on hover */}
-          <div className='mt-6 inline-flex items-center gap-2 text-[10px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0'>
+          <div className='mt-6 inline-flex items-center gap-2 text-[10px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-3 transition-[opacity,transform] duration-300 group-hover:opacity-100 group-hover:translate-x-0'>
             View Landmark
             <IconArrowRight className='w-3.5 h-3.5' aria-hidden='true' />
           </div>
@@ -83,9 +85,9 @@ function GridCard({ project }: { project: Project }) {
       params={{ slug: project.slug }}
       className='group block'
     >
-      <div className='relative min-h-64 md:min-h-72 overflow-hidden rounded-sm [content-visibility:auto] [contain-intrinsic-size:auto_18rem]'>
+      <div className='relative min-h-64 md:min-h-72 overflow-hidden rounded-sm'>
         {/* Image */}
-        <div className='absolute inset-0'>
+        <div className='absolute inset-0 backface-hidden'>
           <Image
             src={project.image}
             alt={project.title}
@@ -93,7 +95,7 @@ function GridCard({ project }: { project: Project }) {
             decoding='async'
             height={500}
             loading='lazy'
-            className='h-full w-full object-cover transition-transform duration-900 ease-out group-hover:scale-[1.04]'
+            className='h-full! w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] will-change-transform'
           />
         </div>
 
@@ -119,7 +121,7 @@ function GridCard({ project }: { project: Project }) {
           <p className='mt-0.5 text-[10px] text-white/30'>{project.date}</p>
 
           {/* CTA */}
-          <div className='mt-3 inline-flex items-center gap-1.5 text-[9px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
+          <div className='mt-3 inline-flex items-center gap-1.5 text-[9px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-2 transition-[opacity,transform] duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
             View
             <IconArrowRight className='w-3 h-3' aria-hidden='true' />
           </div>
@@ -137,13 +139,72 @@ export function FeaturedProjects() {
     .filter((p) => p.slug !== feature?.slug)
     .slice(0, 4);
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const footerCtaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION || !feature) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(featuredRef.current, {
+        y: 36,
+        opacity: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: featuredRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(gridRef.current?.children ?? []), {
+        y: 28,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(footerCtaRef.current, {
+        y: 16,
+        opacity: 0,
+        duration: 0.6,
+        scrollTrigger: {
+          trigger: footerCtaRef.current,
+          start: 'top 90%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [feature]);
+
   if (!feature) return null;
 
   return (
-    <section className=' py-20 md:py-28 border-t border-border'>
+    <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>
       <div className='site-wrapper'>
         {/* Heading */}
-        <div className='mb-12 md:mb-14'>
+        <div ref={headingRef} className='mb-12 md:mb-14'>
           <SectionHeading
             eyebrow='Iconic Developments'
             heading='A curated selection of our most ambitious projects,'
@@ -154,24 +215,27 @@ export function FeaturedProjects() {
         </div>
 
         {/* Featured card */}
-        <div>
+        <div ref={featuredRef}>
           <FeaturedCard project={feature} />
         </div>
 
         {/* Grid cards */}
-        <div className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+        <div
+          ref={gridRef}
+          className='mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'
+        >
           {gridProjects.map((project) => (
             <GridCard key={project.id} project={project} />
           ))}
         </div>
 
         {/* Footer CTA */}
-        <div className='mt-12 flex items-center gap-6'>
+        <div ref={footerCtaRef} className='mt-12 flex items-center gap-6'>
           <div className='hidden h-px w-16 bg-custom/30 md:block' />
           <Link
             to='/portfolio'
             search={{ status: '', location: '', search: '' }}
-            className='group inline-flex items-center gap-3 rounded-sm border border-border px-6 py-3 text-[11px] font-medium tracking-[0.18em] text-foreground no-underline transition-all duration-200 hover:border-custom hover:text-custom uppercase'
+            className='group inline-flex items-center gap-3 rounded-sm border border-border px-6 py-3 text-[11px] font-medium tracking-[0.18em] text-foreground no-underline transition-[border-color,color] duration-200 hover:border-custom hover:text-custom uppercase'
           >
             View All Projects
             <IconArrowRight

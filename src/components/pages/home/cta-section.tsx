@@ -1,5 +1,5 @@
 import { IconArrowRight, IconLock } from '@tabler/icons-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { submitContact } from '@/lib/contact';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const INTEREST_LABELS: Record<string, string> = {
   residential: 'Residential Penthouses',
@@ -25,6 +26,34 @@ export function CtaSection() {
   const leftRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      });
+
+      tl.from(
+        leftRef.current ? Array.from(leftRef.current.children) : [],
+        { y: 24, opacity: 0, duration: 0.6, stagger: 0.1 },
+        0,
+      )
+        .from(
+          dividerRef.current,
+          { scaleX: 0, transformOrigin: 'left center', duration: 0.5 },
+          0.3,
+        )
+        .from(cardRef.current, { x: 40, opacity: 0, duration: 0.7 }, 0.15);
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

@@ -1,10 +1,11 @@
 import { IconLeaf, IconSolarPanel, IconTree } from '@tabler/icons-react';
 import { Image } from '@unpic/react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import energyEfficiency from '@/assets/images/sustainability/energy-efficiency.webp';
 import greenSpaces from '@/assets/images/sustainability/green-spaces.webp';
 import sustainableMaterials from '@/assets/images/sustainability/sustainable-materials.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const sustainabilityData = [
   {
@@ -38,10 +39,41 @@ export function SustainabilitySection() {
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(cardsRef.current?.children ?? []), {
+        y: 36,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-raised py-20 md:py-28 border-t border-border [content-visibility:auto] [contain-intrinsic-size:auto_800px]'
+      className='bg-surface-raised py-20 md:py-28 border-t border-border'
     >
       <div className='site-wrapper'>
         {/* Heading */}

@@ -6,9 +6,12 @@ import {
 } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import logo from '@/assets/logo.webp';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { CONTACT_EMAIL, CONTACT_PHONE } from '@/lib/env';
+import { gsap, MOTION } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 import { submitNewsletterSignup } from './newslatter';
 
@@ -139,6 +142,73 @@ export default function Footer() {
     message: string;
   }>({ status: 'idle', message: '' });
 
+  const footerRef = useRef<HTMLElement>(null);
+  const brandColRef = useRef<HTMLDivElement>(null);
+  const linkColsRef = useRef<HTMLDivElement>(null);
+  const bottomBarRef = useRef<HTMLDivElement>(null);
+  const backToTopRef = useRef<HTMLButtonElement>(null);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  // Scroll-triggered footer reveal
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: 'top 88%',
+          once: true,
+        },
+      });
+
+      tl.from(brandColRef.current, { y: 24, opacity: 0, duration: 0.6 }, 0)
+        .from(
+          linkColsRef.current ? Array.from(linkColsRef.current.children) : [],
+          { y: 20, opacity: 0, duration: 0.5, stagger: 0.1 },
+          0.1,
+        )
+        .from(bottomBarRef.current, { opacity: 0, duration: 0.5 }, 0.4);
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Back-to-top visibility, driven by scroll position
+  useEffect(() => {
+    const threshold = window.innerHeight * 0.75;
+
+    function handleScroll() {
+      setShowBackToTop(window.scrollY > threshold);
+    }
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Animate the back-to-top button in/out as its visibility changes
+  useEffect(() => {
+    const el = backToTopRef.current;
+    if (!el) return;
+
+    if (!MOTION) {
+      el.style.opacity = showBackToTop ? '1' : '0';
+      el.style.pointerEvents = showBackToTop ? 'auto' : 'none';
+      return;
+    }
+
+    gsap.to(el, {
+      opacity: showBackToTop ? 1 : 0,
+      y: showBackToTop ? 0 : 12,
+      scale: showBackToTop ? 1 : 0.9,
+      duration: 0.35,
+      ease: 'power2.out',
+      pointerEvents: showBackToTop ? 'auto' : 'none',
+      overwrite: true,
+    });
+  }, [showBackToTop]);
+
   async function handleNewsletterSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setNewsletterState({ status: 'submitting', message: '' });
@@ -167,12 +237,15 @@ export default function Footer() {
   }
 
   return (
-    <footer className='border-t border-white/6 bg-surface-overlay'>
-      {/* ── Main grid ── */}
+    <footer
+      ref={footerRef}
+      className='border-t border-white/6 bg-surface-overlay'
+    >
+      {/* Main grid */}
       <div className='site-wrapper py-14 md:py-20'>
         <div className='grid gap-10 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-12'>
           {/* Brand column */}
-          <div>
+          <div ref={brandColRef}>
             <p className='mb-5 text-[10px] font-medium uppercase tracking-[0.2em] text-custom'>
               Building Tomorrow, Today
             </p>
@@ -207,7 +280,7 @@ export default function Footer() {
               aesthetic integrity since 2008.
             </p>
 
-            {/* ── Contact info ── */}
+            {/* Contact info */}
             <div className='mb-6 space-y-2 text-sm'>
               <a
                 href={`tel:${CONTACT_PHONE}`}
@@ -216,6 +289,7 @@ export default function Footer() {
                 <IconPhone className='size-3.5' aria-hidden='true' />
                 {CONTACT_PHONE}
               </a>
+
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
                 className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-custom'
@@ -248,29 +322,31 @@ export default function Footer() {
               </label>
               <form onSubmit={handleNewsletterSubmit}>
                 <div className='flex items-center overflow-hidden rounded-lg border border-white/8 bg-surface-elevated transition-colors duration-200 focus-within:border-custom/30'>
-                  <input
+                  <Input
                     id='newsletter-email'
                     name='newsletter-email'
                     type='email'
                     required
                     placeholder='Your email address'
                     aria-describedby='newsletter-status'
-                    className='min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-neutral-200 placeholder:text-neutral-500 focus:outline-none'
+                    className='min-w-0 flex-1 border-0 bg-transparent px-4 py-3 h-auto rounded-none text-sm text-neutral-200 placeholder:text-neutral-500 shadow-none focus-visible:ring-0 focus-visible:border-0'
                   />
-                  <button
+                  <Button
                     type='submit'
+                    variant='ghost'
+                    size='icon'
                     disabled={newsletterState.status === 'submitting'}
                     aria-label='Subscribe'
-                    className='flex h-11 shrink-0 items-center border-l border-white/6 px-4 text-neutral-400 transition-colors duration-200 hover:text-custom disabled:opacity-40'
+                    className='h-11 w-11 shrink-0 rounded-none border-l border-white/6 text-neutral-400 hover:bg-transparent hover:text-custom disabled:opacity-40'
                   >
                     <IconArrowRight className='size-4' aria-hidden='true' />
-                  </button>
+                  </Button>
                 </div>
                 {newsletterState.message && (
                   <p
                     id='newsletter-status'
                     className={cn(
-                      'mt-2.5 text-xs',
+                      'margin-top-2.5 text-xs',
                       newsletterState.status === 'success'
                         ? 'text-emerald-400'
                         : 'text-red-400',
@@ -284,7 +360,7 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          <div className='grid grid-cols-2 gap-8 lg:contents'>
+          <div ref={linkColsRef} className='grid grid-cols-2 gap-8 lg:contents'>
             {footerSections.map((section, i) => (
               <div
                 key={section.title}
@@ -323,7 +399,6 @@ export default function Footer() {
                   ))}
                 </ul>
 
-                {/* Office block — only appended to the Connect column */}
                 {i === footerSections.length - 1 && (
                   <div className='mt-8 border-t border-white/5 pt-7'>
                     <h4 className='mb-3 text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-400'>
@@ -340,8 +415,8 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Bottom bar ── */}
-      <div className='border-t border-white/4'>
+      {/* Bottom bar */}
+      <div ref={bottomBarRef} className='border-t border-white/4'>
         <div className='site-wrapper py-6'>
           <div className='flex flex-col items-center justify-between gap-4 sm:flex-row'>
             <p className='text-xs text-neutral-400'>
@@ -367,15 +442,21 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Back to top ── */}
-      <button
+      {/* Back to top button nested nicely inside footer */}
+      <Button
+        ref={backToTopRef}
         type='button'
+        variant='outline'
+        size='icon'
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         aria-label='Back to top'
-        className='fixed bottom-6 right-6 z-50 flex size-10 items-center justify-center rounded-full border border-white/10 bg-surface-elevated text-neutral-300 shadow-lg backdrop-blur-sm transition-colors duration-200 hover:border-custom/30 hover:text-custom'
+        aria-hidden={!showBackToTop}
+        tabIndex={showBackToTop ? 0 : -1}
+        className='fixed bottom-6 right-6 z-50 size-10 rounded-full border-white/10 bg-surface-elevated text-neutral-300 shadow-lg backdrop-blur-sm hover:border-custom/30 hover:text-custom'
+        style={{ opacity: 0, pointerEvents: 'none' }}
       >
         <IconArrowUp className='size-4' aria-hidden='true' />
-      </button>
+      </Button>
     </footer>
   );
 }

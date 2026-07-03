@@ -3,9 +3,11 @@ import {
   IconHourglass,
   IconShieldCheck,
 } from '@tabler/icons-react';
+import { useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { pillars } from '@/content/pillars';
+import { gsap, MOTION } from '@/lib/gsap';
 
 // Map pillar icon string → Tabler React icon component
 const ICONS: Record<string, React.ReactNode> = {
@@ -15,18 +17,55 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 export function PillarsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(cardsRef.current?.children ?? []), {
+        y: 32,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 82%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='py-20 md:py-28 border-t border-border'>
+    <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>
       <div className='site-wrapper'>
-        <SectionHeading
-          eyebrow='What We Stand For'
-          heading='Built on three'
-          highlight='immovable pillars'
-          className='mb-16 md:mb-20'
-        />
+        <div ref={headingRef}>
+          <SectionHeading
+            eyebrow='What We Stand For'
+            heading='Built on three'
+            highlight='immovable pillars'
+            className='mb-16 md:mb-20'
+          />
+        </div>
 
         {/* Cards grid */}
-        <div className='grid md:grid-cols-3 gap-6'>
+        <div ref={cardsRef} className='grid md:grid-cols-3 gap-6'>
           {pillars.map((pillar) => (
             <Card
               key={pillar.id}
@@ -34,13 +73,11 @@ export function PillarsSection() {
             >
               {/* Top accent line — draws in on hover */}
               <div className='absolute top-0 left-0 right-0 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
-
               <CardContent className='flex flex-col gap-5 p-8 md:p-10'>
                 {/* Icon container */}
                 <div className='flex items-center justify-center w-11 h-11 rounded-md border border-border bg-background text-custom transition-all duration-300 group-hover:border-custom/30 group-hover:shadow-sm'>
                   {ICONS[pillar.icon]}
                 </div>
-
                 {/* Title + rule + description */}
                 <div className='flex flex-col gap-3 flex-1'>
                   <h3 className='font-serif text-xl font-light text-foreground tracking-wide'>

@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/carousel';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { testimonials } from '@/content/testimonials';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function TestimonialSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -54,6 +55,35 @@ export function TestimonialSection() {
       api.off('select', onSelect);
     };
   }, [api]);
+
+  // Scroll-triggered entrance
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      });
+
+      tl.from(headingRef.current, { y: 22, opacity: 0, duration: 0.6 }, 0)
+        .from(
+          carouselWrapperRef.current,
+          { y: 30, opacity: 0, duration: 0.7 },
+          0.15,
+        )
+        .from(
+          dotsRef.current ? Array.from(dotsRef.current.children) : [],
+          { opacity: 0, stagger: 0.04, duration: 0.3 },
+          0.4,
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section

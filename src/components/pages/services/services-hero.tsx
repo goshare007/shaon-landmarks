@@ -1,8 +1,10 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import HERO_IMG from '@/assets/images/services/hero.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const HERO_STATS = [
   { num: '48+', label: 'Completed Projects' },
@@ -11,37 +13,85 @@ const HERO_STATS = [
 ];
 
 export function ServicesHero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cornersRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const paraRef = useRef<HTMLParagraphElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const imagePanelRef = useRef<HTMLDivElement>(null);
+  const quoteCardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.from(
+        imagePanelRef.current,
+        { scale: 1.06, opacity: 0, duration: 1.1 },
+        0,
+      )
+        .from(
+          cornersRef.current ? Array.from(cornersRef.current.children) : [],
+          { opacity: 0, scale: 0.6, duration: 0.5, stagger: 0.04 },
+          0.1,
+        )
+        .from(headingRef.current, { y: 24, opacity: 0, duration: 0.7 }, 0.25)
+        .from(paraRef.current, { y: 14, opacity: 0, duration: 0.6 }, 0.5)
+        .from(
+          statsRef.current ? Array.from(statsRef.current.children) : [],
+          { y: 14, opacity: 0, duration: 0.5, stagger: 0.1 },
+          0.65,
+        )
+        .from(ctaRef.current, { y: 10, opacity: 0, duration: 0.5 }, 0.85)
+        .from(quoteCardRef.current, { y: 16, opacity: 0, duration: 0.6 }, 0.7);
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='relative overflow-hidden border-b border-white/6'>
+    <section
+      ref={sectionRef}
+      className='relative overflow-hidden border-b border-white/6'
+    >
       <div className='grid md:grid-cols-12'>
         {/* Left panel — dark brand */}
         <div className='relative bg-surface-brand md:col-span-7 py-24 md:py-32'>
           {/* Corner accents */}
-          <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
-          <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
-          <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
-          <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
-          <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
-          <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
-          <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
-          <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+          <div ref={cornersRef}>
+            <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
+            <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
+            <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
+            <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
+            <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
+            <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
+            <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
+            <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+          </div>
 
           <div className='site-wrapper'>
             <SectionHeading
+              ref={headingRef}
               eyebrow='Our Expertise'
               heading='Crafting Excellence'
               highlight='Across Every Dimension'
               as='h1'
               headingClassName='text-[clamp(2.5rem,5vw,4rem)] leading-tight text-white'
             />
-            <p className='mb-8 max-w-xl text-sm leading-relaxed text-white/55 md:text-base'>
+            <p
+              ref={paraRef}
+              className='mb-8 max-w-xl text-sm leading-relaxed text-white/55 md:text-base'
+            >
               From strategic land acquisition to the final touch of interior
               elegance, Shaon Landmarks delivers architectural integrity through
               a multidisciplinary approach.
             </p>
 
             {/* Stats */}
-            <div className='flex flex-wrap gap-4 mb-8'>
+            <div ref={statsRef} className='flex flex-wrap gap-4 mb-8'>
               {HERO_STATS.map((stat) => (
                 <div
                   key={stat.label}
@@ -65,6 +115,7 @@ export function ServicesHero() {
 
             {/* CTA */}
             <Link
+              ref={ctaRef}
               to='/portfolio'
               className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-8 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
             >
@@ -78,7 +129,10 @@ export function ServicesHero() {
         </div>
 
         {/* Right panel — image */}
-        <div className='relative min-h-[50vh] md:col-span-5 md:min-h-0'>
+        <div
+          ref={imagePanelRef}
+          className='relative min-h-[50vh] md:col-span-5 md:min-h-0'
+        >
           <div className='md:absolute md:inset-0'>
             <Image
               src={HERO_IMG}
@@ -93,6 +147,7 @@ export function ServicesHero() {
 
           {/* Quote card — glass blur */}
           <div
+            ref={quoteCardRef}
             className='absolute bottom-8 left-8 border border-custom/30 rounded-sm'
             style={{
               background: 'rgba(0,0,0,0.55)',

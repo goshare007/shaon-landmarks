@@ -3,6 +3,7 @@ import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
+import { LenisProvider } from '@/lib/lenis';
 import appCss from '../styles.css?url';
 
 export const Route = createRootRoute({
@@ -46,10 +47,12 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <Header />
+        <LenisProvider>
+          <Header />
 
-        {children}
-        <Footer />
+          {children}
+          <Footer />
+        </LenisProvider>
         <TanStackDevtools
           config={{
             position: 'bottom-right',
