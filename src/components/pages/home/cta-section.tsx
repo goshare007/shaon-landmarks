@@ -1,26 +1,51 @@
 import { IconArrowRight, IconLock } from '@tabler/icons-react';
 import { useRef, useState } from 'react';
-import { cn } from '@/lib/utils';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { submitContact } from '@/lib/contact';
+
+const INTEREST_LABELS: Record<string, string> = {
+  residential: 'Residential Penthouses',
+  commercial: 'Commercial Landmarks',
+  investment: 'Investment Opportunities',
+};
 
 export function CtaSection() {
   const [interest, setInterest] = useState('residential');
-  const [formStatus, setFormStatus] = useState<{
-    type: 'success' | 'error' | null;
-    message: string;
-  }>({ type: null, message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
+    'idle',
+  );
 
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setFormStatus({
-      type: 'success',
-      message: 'Thank you. We will be in touch shortly.',
-    });
-    e.currentTarget.reset();
+    setStatus('sending');
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+
+    try {
+      await submitContact({
+        name: fd.get('name') as string,
+        email: fd.get('email') as string,
+        phone: '',
+        interest: INTEREST_LABELS[interest] || interest,
+        message: '',
+      });
+      setStatus('sent');
+      form.reset();
+      setInterest('residential');
+    } catch {
+      setStatus('error');
+    }
   }
 
   return (
@@ -126,32 +151,46 @@ export function CtaSection() {
                 >
                   Interest Area
                 </label>
-                <select
-                  id='cta-interest'
+                <Select
                   value={interest}
-                  onChange={(e) => setInterest(e.target.value)}
-                  className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
-                             text-sm text-white/60 font-light
-                             outline-none transition-colors focus:border-custom/50
-                              [&>option]:bg-surface-brand [&>option]:text-white appearance-none cursor-pointer'
+                  onValueChange={(v) => v && setInterest(v)}
                 >
-                  <option value='residential'>Residential Penthouses</option>
-                  <option value='commercial'>Commercial Landmarks</option>
-                  <option value='investment'>Investment Opportunities</option>
-                </select>
+                  <SelectTrigger
+                    id='cta-interest'
+                    className='w-full rounded-none border-0 border-b border-white/10 bg-transparent px-0 pb-2 pt-1 shadow-none text-sm text-white/60 font-light focus:ring-0 focus:border-custom/50 [&>svg]:text-white/40'
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent
+                    className='rounded-sm border border-white/10 bg-surface-brand text-white shadow-lg'
+                    sideOffset={4}
+                  >
+                    <SelectItem value='residential'>
+                      Residential Penthouses
+                    </SelectItem>
+                    <SelectItem value='commercial'>
+                      Commercial Landmarks
+                    </SelectItem>
+                    <SelectItem value='investment'>
+                      Investment Opportunities
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               {/* Submit */}
               <button
                 type='submit'
+                disabled={status === 'sending'}
                 className='form-field group relative w-full overflow-hidden rounded-sm bg-custom
                            px-6 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white
-                           uppercase transition-colors duration-200 hover:bg-custom/90'
+                           uppercase transition-colors duration-200 hover:bg-custom/90
+                           disabled:opacity-60 disabled:cursor-not-allowed'
               >
                 {/* Shimmer */}
                 <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
                 <span className='relative z-10 inline-flex items-center gap-3'>
-                  Request Consultation
+                  {status === 'sending' ? 'Sending...' : 'Request Consultation'}
                   <IconArrowRight
                     className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5'
                     aria-hidden='true'
@@ -159,17 +198,14 @@ export function CtaSection() {
                 </span>
               </button>
 
-              {formStatus.message && (
-                <p
-                  role='alert'
-                  className={cn(
-                    'mt-4 text-xs',
-                    formStatus.type === 'success'
-                      ? 'text-emerald-400'
-                      : 'text-red-400',
-                  )}
-                >
-                  {formStatus.message}
+              {status === 'sent' && (
+                <p role='alert' className='mt-4 text-xs text-emerald-400'>
+                  Thank you. We will be in touch shortly.
+                </p>
+              )}
+              {status === 'error' && (
+                <p role='alert' className='mt-4 text-xs text-red-400'>
+                  Something went wrong. Please try again.
                 </p>
               )}
             </form>

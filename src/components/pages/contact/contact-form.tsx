@@ -37,7 +37,7 @@ export function ContactForm() {
       message: (fd.get('message') as string) || '',
     };
     try {
-      await submitContact({ data });
+      await submitContact(data);
       setStatus('sent');
       form.reset();
       setInterest('Residential Development');

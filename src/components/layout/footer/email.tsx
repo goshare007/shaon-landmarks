@@ -1,10 +1,13 @@
-const logPrefix = '[Shaon Email]';
+import { sendWithEmailJS } from '@/lib/email';
+import { EMAILJS_NEWSLETTER_TEMPLATE_ID } from '@/lib/env';
 
 export async function sendNewsletterWelcome(email: string): Promise<void> {
-  if (process.env.NODE_ENV !== 'production') {
-    console.log(logPrefix, 'Newsletter welcome:', {
-      email,
+  await sendWithEmailJS(
+    EMAILJS_NEWSLETTER_TEMPLATE_ID,
+    {
+      from_email: email,
       time: new Date().toISOString(),
-    });
-  }
+    },
+    'newsletter',
+  );
 }

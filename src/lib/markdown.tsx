@@ -139,7 +139,14 @@ export function renderMarkdown(content: string): ReactNode[] {
             className='my-8 space-y-2 border-l-2 border-custom/30 pl-6 italic leading-relaxed text-muted-foreground'
           >
             {quoteLines.map((q, j) => (
-              <p key={`q-${startIdx}-${j}`}>{q}</p>
+              <p
+                key={`q-${startIdx}-${
+                  // biome-ignore lint/suspicious/noArrayIndexKey: this is fine
+                  j
+                }`}
+              >
+                {q}
+              </p>
             ))}
           </blockquote>,
         );
