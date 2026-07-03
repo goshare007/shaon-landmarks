@@ -5,10 +5,20 @@ import { SustainabilityCta } from '@/components/pages/sustainability/sustainabil
 import { SustainabilityHero } from '@/components/pages/sustainability/sustainability-hero';
 import { SustainabilityPhilosophy } from '@/components/pages/sustainability/sustainability-philosophy';
 import { SustainabilityPillars } from '@/components/pages/sustainability/sustainability-pillars';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { RouteError } from '@/components/shared/route-error';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/sustainability')({
   component: RouteComponent,
+  errorComponent: RouteError,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/sustainability',
@@ -35,6 +45,9 @@ export const Route = createFileRoute('/sustainability')({
             { name: 'Sustainability', url: `${SITE_URL}/sustainability` },
           ]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

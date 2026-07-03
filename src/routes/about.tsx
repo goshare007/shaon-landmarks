@@ -8,7 +8,13 @@ import { AboutStory } from '@/components/pages/about/about-story';
 import { AboutTestimonials } from '@/components/pages/about/about-testimonials';
 import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/about')({
   component: About,
@@ -41,6 +47,9 @@ export const Route = createFileRoute('/about')({
             { name: 'About Us', url: `${SITE_URL}/about` },
           ]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

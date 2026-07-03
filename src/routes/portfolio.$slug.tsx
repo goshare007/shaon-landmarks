@@ -23,7 +23,13 @@ import type {
   ProjectDetail as ProjectDetailData,
 } from '@/content/projects';
 import { allProjects } from '@/content/projects';
-import { breadcrumbLd, generateMeta, productLd, SITE_URL } from '@/lib/seo';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  productLd,
+  SITE_URL,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/portfolio/$slug')({
   loader: ({ params }) => {
@@ -87,7 +93,11 @@ export const Route = createFileRoute('/portfolio/$slug')({
       image: project?.image,
     });
 
-    const ldMeta: Array<Record<string, unknown>> = [];
+    const ldMeta: Array<Record<string, unknown>> = [
+      {
+        'script:ld+json': organizationLd(),
+      },
+    ];
 
     if (project) {
       ldMeta.push({

@@ -84,11 +84,20 @@ export function BlogGrid() {
           </div>
         )}
 
-        <div ref={gridRef} className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {rest.map((article) => (
-            <BlogCard key={article.slug} article={article} />
-          ))}
-        </div>
+        {rest.length === 0 && !featured ? (
+          <p className='text-center text-muted-foreground py-12'>
+            No articles published yet.
+          </p>
+        ) : (
+          <div
+            ref={gridRef}
+            className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'
+          >
+            {rest.map((article) => (
+              <BlogCard key={article.slug} article={article} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

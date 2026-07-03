@@ -4,7 +4,13 @@ import { ArticleLayout } from '@/components/pages/blog/article-layout';
 import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
 import { blogArticles } from '@/content/blog';
-import { articleLd, breadcrumbLd, generateMeta, SITE_URL } from '@/lib/seo';
+import {
+  articleLd,
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/blog/$slug')({
   loader: ({ params }) => {
@@ -50,6 +56,10 @@ export const Route = createFileRoute('/blog/$slug')({
         }),
       },
     ];
+
+    ldMeta.push({
+      'script:ld+json': organizationLd(),
+    });
 
     return {
       meta: [...meta.meta, ...ldMeta],

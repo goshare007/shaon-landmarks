@@ -72,7 +72,9 @@ export function CtaSection() {
       setStatus('sent');
       form.reset();
       setInterest('residential');
-    } catch {
+    } catch (err) {
+      // biome-ignore lint/suspicious/noConsole: error logging in production
+      console.error('CTA section form submission failed:', err);
       setStatus('error');
     }
   }

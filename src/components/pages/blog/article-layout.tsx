@@ -59,7 +59,6 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
   const recentSectionRef = useRef<HTMLElement>(null);
   const recentHeadingRef = useRef<HTMLDivElement>(null);
   const recentGridRef = useRef<HTMLDivElement>(null);
-  const ctaSectionRef = useRef<HTMLElement>(null);
   const ctaContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -350,10 +349,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
       )}
 
       {/* CTA */}
-      <section
-        ref={ctaSectionRef}
-        className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'
-      >
+      <section className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'>
         <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
           <div className='h-125 w-125 rounded-full border border-white/6' />
         </div>

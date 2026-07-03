@@ -1,7 +1,7 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { StatusBadge } from '@/components/ui/status-badge';
 import { allProjects, type Project } from '@/content/projects';
@@ -134,10 +134,14 @@ function GridCard({ project }: { project: Project }) {
 // ── Section ──────────────────────────────────────────────────────────────────
 
 export function FeaturedProjects() {
-  const feature = allProjects.find((p) => p.featured) ?? allProjects[0];
-  const gridProjects = allProjects
-    .filter((p) => p.slug !== feature?.slug)
-    .slice(0, 4);
+  const feature = useMemo(
+    () => allProjects.find((p) => p.featured) ?? allProjects[0],
+    [],
+  );
+  const gridProjects = useMemo(
+    () => allProjects.filter((p) => p.slug !== feature?.slug).slice(0, 4),
+    [feature],
+  );
 
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);

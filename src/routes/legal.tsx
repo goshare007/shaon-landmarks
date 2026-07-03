@@ -2,10 +2,20 @@ import { createFileRoute } from '@tanstack/react-router';
 import { LegalCta } from '@/components/pages/legal/legal-cta';
 import { LegalDisclosures } from '@/components/pages/legal/legal-disclosures';
 import { LegalHero } from '@/components/pages/legal/legal-hero';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { RouteError } from '@/components/shared/route-error';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/legal')({
   component: RouteComponent,
+  errorComponent: RouteError,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/legal',
@@ -34,6 +44,9 @@ export const Route = createFileRoute('/legal')({
             },
           ]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

@@ -1,10 +1,10 @@
 import DEFAULT_OG_IMAGE_SRC from '@/assets/images/seo/default-og.webp';
-import { SITE_URL } from '@/lib/env';
+import { BRAND_NAME, SITE_URL } from '@/lib/env';
 
 export { SITE_URL };
+
 const DEFAULT_OG_IMAGE = DEFAULT_OG_IMAGE_SRC;
-const DEFAULT_OG_IMAGE_ALT =
-  'Shaon Landmarks & Housing — Architectural Integrity';
+const DEFAULT_OG_IMAGE_ALT = `${BRAND_NAME} — Architectural Integrity`;
 
 interface SeoProps {
   title?: string;
@@ -15,6 +15,19 @@ interface SeoProps {
   path?: string;
 }
 
+const DEFAULT_KEYWORDS = [
+  'real estate Bangladesh',
+  'property developer Dhaka',
+  'premium apartments',
+  'architectural integrity',
+  'Shaon Landmarks',
+  'luxury housing',
+  'commercial property',
+  'Dhaka real estate',
+  'RAJUK approved',
+  'REHAB member',
+].join(', ');
+
 export function generateMeta({
   title: pageTitle,
   description: pageDescription,
@@ -24,11 +37,11 @@ export function generateMeta({
   path,
 }: SeoProps) {
   const title = pageTitle
-    ? `${pageTitle} — Shaon Landmarks & Housing`
-    : 'Shaon Landmarks — Architectural Integrity | Premium Real Estate Bangladesh';
+    ? `${pageTitle} — ${BRAND_NAME}`
+    : `Shaon Landmarks — Architectural Integrity | Premium Real Estate Bangladesh`;
   const description =
     pageDescription ??
-    'Shaon Landmarks & Housing — architectural integrity, timely handover, and premium quality construction in Bangladesh real estate.';
+    `${BRAND_NAME} — architectural integrity, timely handover, and premium quality construction in Bangladesh real estate.`;
   const ogImage = image ?? DEFAULT_OG_IMAGE;
   const ogImageAlt = imageAlt ?? pageDescription ?? DEFAULT_OG_IMAGE_ALT;
   const url = path ? `${SITE_URL}${path}` : SITE_URL;
@@ -37,8 +50,9 @@ export function generateMeta({
     meta: [
       { title },
       { name: 'description', content: description },
+      { name: 'keywords', content: DEFAULT_KEYWORDS },
       { property: 'og:locale', content: 'en_US' },
-      { property: 'og:site_name', content: 'Shaon Landmarks & Housing' },
+      { property: 'og:site_name', content: BRAND_NAME },
       { property: 'og:url', content: url },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
@@ -110,13 +124,28 @@ export function webpageLd({
     name,
     description,
     url,
-    breadcrumb: {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
-        { '@type': 'ListItem', position: 2, name, item: url },
-      ],
+  };
+}
+
+export function organizationLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: BRAND_NAME,
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo.png`,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+8801712345678',
+      contactType: 'sales',
+      availableLanguage: ['en'],
     },
+    sameAs: [
+      'https://facebook.com/shaonlandmarks',
+      'https://instagram.com/shaonlandmarks',
+      'https://linkedin.com/company/shaonlandmarks',
+      'https://twitter.com/shaonlandmarks',
+    ],
   };
 }
 
@@ -151,7 +180,7 @@ export function articleLd(article: {
     author: { '@type': 'Person', name: article.author },
     publisher: {
       '@type': 'Organization',
-      name: 'Shaon Landmarks & Housing',
+      name: BRAND_NAME,
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png` },
     },
   };

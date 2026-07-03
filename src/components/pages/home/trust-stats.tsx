@@ -88,10 +88,8 @@ export function TrustStats() {
                 }}
                 className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-none text-foreground transition-colors duration-300 group-hover:text-custom'
               >
-                {MOTION
-                  ? parseStatValue(stat.value).number === null
-                    ? stat.value
-                    : `0${parseStatValue(stat.value).suffix}`
+                {MOTION && parseStatValue(stat.value).number !== null
+                  ? `0${parseStatValue(stat.value).suffix}`
                   : stat.value}
               </span>
               {/* Expanding rule */}

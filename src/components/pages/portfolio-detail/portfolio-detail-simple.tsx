@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router';
+import { Image } from '@unpic/react';
 import { useEffect, useRef } from 'react';
 import type { Project } from '@/content/projects';
 import { gsap, MOTION } from '@/lib/gsap';
@@ -46,11 +47,15 @@ export function PortfolioDetailSimple({ project }: { project: Project }) {
   return (
     <main ref={sectionRef}>
       <section className='relative h-[60vh] min-h-96 overflow-hidden bg-surface-brand'>
-        <div
-          ref={heroMainRef}
-          className='absolute inset-0 bg-cover bg-center'
-          style={{ backgroundImage: `url(${project.image})` }}
-        />
+        <div ref={heroMainRef} className='absolute inset-0'>
+          <Image
+            src={project.image}
+            alt={project.title}
+            layout='fullWidth'
+            height={600}
+            className='h-full w-full object-cover'
+          />
+        </div>
         <div className='absolute inset-0 bg-linear-to-b from-black/50 to-black/70' />
         {/* Corner accents */}
         <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />

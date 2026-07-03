@@ -1,9 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { EmiCalculator } from '@/components/pages/emi/emi-calculator';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { RouteError } from '@/components/shared/route-error';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/emi-calculator')({
   component: RouteComponent,
+  errorComponent: RouteError,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/emi-calculator',
@@ -29,6 +39,9 @@ export const Route = createFileRoute('/emi-calculator')({
             { name: 'EMI Calculator', url: `${SITE_URL}/emi-calculator` },
           ]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

@@ -14,5 +14,11 @@ export async function sendWithEmailJS(
 
   emailjs.init(EMAILJS_PUBLIC_KEY);
 
-  await emailjs.send(EMAILJS_SERVICE_ID, templateId, params);
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, templateId, params);
+  } catch (err) {
+    // biome-ignore lint/suspicious/noConsole: error logging in production
+    console.error(`[${label}] EmailJS send failed:`, err);
+    throw err;
+  }
 }

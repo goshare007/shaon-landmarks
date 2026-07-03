@@ -328,7 +328,9 @@ export default function Footer() {
                     type='email'
                     required
                     placeholder='Your email address'
-                    aria-describedby='newsletter-status'
+                    aria-describedby={
+                      newsletterState.message ? 'newsletter-status' : undefined
+                    }
                     className='min-w-0 flex-1 border-0 bg-transparent px-4 py-3 h-auto rounded-none text-sm text-neutral-200 placeholder:text-neutral-500 shadow-none focus-visible:ring-0 focus-visible:border-0'
                   />
                   <Button

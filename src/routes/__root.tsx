@@ -31,9 +31,17 @@ export const Route = createRootRoute({
         href: appCss,
       },
       {
+        rel: 'icon',
+        href: '/favicon.ico',
+      },
+      {
         rel: 'apple-touch-icon',
         sizes: '180x180',
         href: '/apple-touch-icon.png',
+      },
+      {
+        rel: 'manifest',
+        href: '/manifest.json',
       },
     ],
   }),
@@ -47,10 +55,16 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <a
+          href='#main-content'
+          className='sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-sm focus:bg-custom focus:px-4 focus:py-2 focus:text-[11px] focus:font-semibold focus:tracking-widest focus:text-white focus:uppercase'
+        >
+          Skip to content
+        </a>
         <LenisProvider>
           <Header />
 
-          {children}
+          <div id='main-content'>{children}</div>
           <Footer />
         </LenisProvider>
         <TanStackDevtools

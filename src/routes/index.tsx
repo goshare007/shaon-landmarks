@@ -7,10 +7,20 @@ import { PillarsSection } from '@/components/pages/home/pillars-section';
 import { SustainabilitySection } from '@/components/pages/home/sustainability-section';
 import { TestimonialSection } from '@/components/pages/home/testimonials';
 import { TrustStats } from '@/components/pages/home/trust-stats';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { RouteError } from '@/components/shared/route-error';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/')({
   component: Home,
+  errorComponent: RouteError,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/',
@@ -33,6 +43,9 @@ export const Route = createFileRoute('/')({
           '@context': 'https://schema.org',
           ...breadcrumbLd([{ name: 'Home', url: SITE_URL }]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

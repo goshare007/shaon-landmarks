@@ -18,6 +18,7 @@ export default function DesktopNav() {
             <li key={item.href} className='group'>
               <Link
                 to={item.href}
+                aria-current={isActive ? 'page' : undefined}
                 className={cn(
                   'relative inline-flex items-center gap-1.5 px-4 py-2  font-medium  tracking-[0.12em] transition-colors duration-200',
                   isActive

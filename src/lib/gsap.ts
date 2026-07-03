@@ -11,4 +11,4 @@ const MOTION =
     ? !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : true;
 
-export { gsap, ScrollTrigger, MOTION };
+export { gsap, MOTION, ScrollTrigger };

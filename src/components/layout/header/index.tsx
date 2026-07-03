@@ -1,7 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { buttonVariants } from '@/components/ui/button';
-import { gsap, MOTION } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 import DesktopNav from './desktop-nav';
 import Logo from './logo';
@@ -43,23 +42,6 @@ export default function Header() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(headerRef.current, {
-        yPercent: -100,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        delay: 0.2,
-        clearProps: 'transform',
-      });
-    });
-
-    return () => ctx.revert();
   }, []);
 
   return (

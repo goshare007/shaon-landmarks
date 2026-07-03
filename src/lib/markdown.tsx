@@ -1,3 +1,4 @@
+import { Image } from '@unpic/react';
 import type { ReactNode } from 'react';
 
 function renderInline(text: string): ReactNode {
@@ -10,10 +11,13 @@ function renderInline(text: string): ReactNode {
     if (imgMatch) {
       const n = idx++;
       parts.push(
-        <img
+        <Image
           key={n}
           src={imgMatch[2]}
           alt={imgMatch[1]}
+          layout='fullWidth'
+          height={450}
+          loading='lazy'
           className='my-6 w-full rounded-sm object-cover'
         />,
       );
@@ -104,12 +108,12 @@ export function renderMarkdown(content: string): ReactNode[] {
 
     if (line.startsWith('# ')) {
       nodes.push(
-        <h1
+        <h2
           key={i}
           className='mb-4 mt-12 text-3xl font-serif font-light md:text-4xl'
         >
           {renderInline(line.slice(2))}
-        </h1>,
+        </h2>,
       );
       i++;
       continue;

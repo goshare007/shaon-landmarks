@@ -65,7 +65,9 @@ export function ContactForm() {
       setStatus('sent');
       form.reset();
       setInterest('Residential Development');
-    } catch {
+    } catch (err) {
+      // biome-ignore lint/suspicious/noConsole: error logging in production
+      console.error('Contact form submission failed:', err);
       setStatus('error');
     }
   }

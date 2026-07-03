@@ -6,7 +6,13 @@ import { ServicesHero } from '@/components/pages/services/services-hero';
 import { ServicesStandard } from '@/components/pages/services/services-standard';
 import { RouteError } from '@/components/shared/route-error';
 import { RouteSkeleton } from '@/components/shared/route-skeleton';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/services')({
   component: Services,
@@ -39,6 +45,9 @@ export const Route = createFileRoute('/services')({
             { name: 'Our Services', url: `${SITE_URL}/services` },
           ]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

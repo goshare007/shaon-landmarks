@@ -2,10 +2,20 @@ import { createFileRoute } from '@tanstack/react-router';
 import { PrivacyCta } from '@/components/pages/privacy/privacy-cta';
 import { PrivacyHero } from '@/components/pages/privacy/privacy-hero';
 import { PrivacyPolicy } from '@/components/pages/privacy/privacy-policy';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { RouteError } from '@/components/shared/route-error';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/privacy')({
   component: RouteComponent,
+  errorComponent: RouteError,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/privacy',
@@ -30,6 +40,9 @@ export const Route = createFileRoute('/privacy')({
             { name: 'Privacy Policy', url: `${SITE_URL}/privacy` },
           ]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

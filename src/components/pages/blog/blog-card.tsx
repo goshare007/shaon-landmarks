@@ -1,8 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import type { BlogArticle } from '@/content/blog';
-import { gsap, MOTION } from '@/lib/gsap';
 
 interface BlogCardProps {
   article: BlogArticle;
@@ -15,26 +14,6 @@ export function BlogCard({ article, featured }: BlogCardProps) {
     'en-US',
     { year: 'numeric', month: 'short', day: 'numeric' },
   );
-
-  useEffect(() => {
-    if (!MOTION) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from(Array.from(cardRef.current?.children ?? []), {
-        y: 14,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: 'top 85%',
-          once: true,
-        },
-      });
-    }, cardRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const baseClasses =
     'group relative flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-all duration-500 hover:ring-custom/25';

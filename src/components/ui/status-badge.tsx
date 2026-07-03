@@ -1,5 +1,7 @@
+type ProjectStatus = 'Completed' | 'Ongoing' | 'Upcoming';
+
 const statusConfig: Record<
-  string,
+  ProjectStatus,
   { dot: string; text: string; border: string }
 > = {
   Completed: {
@@ -19,7 +21,7 @@ const statusConfig: Record<
   },
 };
 
-export function StatusBadge({ status }: { status: string }) {
+export function StatusBadge({ status }: { status: ProjectStatus }) {
   const cfg = statusConfig[status];
   return (
     <span

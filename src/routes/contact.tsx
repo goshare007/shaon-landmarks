@@ -3,10 +3,20 @@ import { ContactCta } from '@/components/pages/contact/contact-cta';
 import { ContactForm } from '@/components/pages/contact/contact-form';
 import { ContactHero } from '@/components/pages/contact/contact-hero';
 import { ContactLocations } from '@/components/pages/contact/contact-locations';
-import { breadcrumbLd, generateMeta, SITE_URL, webpageLd } from '@/lib/seo';
+import { RouteError } from '@/components/shared/route-error';
+import { RouteSkeleton } from '@/components/shared/route-skeleton';
+import {
+  breadcrumbLd,
+  generateMeta,
+  organizationLd,
+  SITE_URL,
+  webpageLd,
+} from '@/lib/seo';
 
 export const Route = createFileRoute('/contact')({
   component: RouteComponent,
+  errorComponent: RouteError,
+  pendingComponent: RouteSkeleton,
   head: () => {
     const meta = generateMeta({
       path: '/contact',
@@ -32,6 +42,9 @@ export const Route = createFileRoute('/contact')({
             { name: 'Contact Us', url: `${SITE_URL}/contact` },
           ]),
         },
+      },
+      {
+        'script:ld+json': organizationLd(),
       },
     ];
 

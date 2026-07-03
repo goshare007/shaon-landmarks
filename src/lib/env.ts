@@ -1,3 +1,5 @@
+export const BRAND_NAME = 'Shaon Landmarks & Housing';
+
 export const SITE_URL =
   (typeof process !== 'undefined' ? process.env.SITE_URL : null) ??
   'https://shaonlandmarks.vercel.app';

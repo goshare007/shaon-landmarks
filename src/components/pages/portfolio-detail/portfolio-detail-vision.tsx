@@ -77,8 +77,15 @@ export function PortfolioDetailVision({
               )}
             </h2>
             <div className='max-w-xl space-y-6 text-base leading-relaxed text-white/55 md:text-lg'>
-              {vision.paragraphs.map((p) => (
-                <p key={p.slice(0, 24)}>{p}</p>
+              {vision.paragraphs.map((p, index) => (
+                <p
+                  key={
+                    // biome-ignore lint/suspicious/noArrayIndexKey: static content
+                    index
+                  }
+                >
+                  {p}
+                </p>
               ))}
             </div>
           </div>

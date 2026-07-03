@@ -35,15 +35,18 @@ export function LenisProvider({ children }: { children: ReactNode }) {
 
     lenisInstance.on('scroll', ScrollTrigger.update);
 
+    let rafId: number;
+
     function raf(time: number) {
       lenisInstance.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     setLenis(lenisInstance);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenisInstance.destroy();
     };
   }, []);

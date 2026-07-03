@@ -109,94 +109,102 @@ export function TestimonialSection() {
           headingClassName='text-[clamp(2rem,4vw,3rem)] text-white'
         />
 
-        {/* Carousel */}
-        <div ref={carouselWrapperRef}>
-          <Carousel
-            setApi={setApi}
-            opts={{ align: 'center', loop: true }}
-            plugins={[autoplayPlugin]}
-            className='mx-auto px-4 md:px-0'
-            aria-live='polite'
-          >
-            <CarouselContent>
-              {testimonials.map((t) => (
-                <CarouselItem
-                  key={t.id}
-                  className='md:basis-4/5 lg:basis-2/4 py-4'
-                >
-                  <div className='relative border border-white/[0.07] bg-white/2 p-8 md:p-12 rounded-sm group hover:border-custom/20 transition-colors duration-500'>
-                    {/* Top-left accent corner */}
-                    <div className='absolute top-0 left-0 w-8 h-8'>
-                      <div className='absolute top-0 left-0 w-full h-px bg-custom/50' />
-                      <div className='absolute top-0 left-0 h-full w-px bg-custom/50' />
-                    </div>
+        {testimonials.length === 0 ? (
+          <p className='text-center text-white/40 py-12'>
+            No testimonials available yet.
+          </p>
+        ) : (
+          <>
+            {/* Carousel */}
+            <div ref={carouselWrapperRef}>
+              <Carousel
+                setApi={setApi}
+                opts={{ align: 'center', loop: true }}
+                plugins={[autoplayPlugin]}
+                className='mx-auto px-4 md:px-0'
+                aria-live='polite'
+              >
+                <CarouselContent>
+                  {testimonials.map((t) => (
+                    <CarouselItem
+                      key={t.id}
+                      className='md:basis-4/5 lg:basis-2/4 py-4'
+                    >
+                      <div className='relative border border-white/[0.07] bg-white/2 p-8 md:p-12 rounded-sm group hover:border-custom/20 transition-colors duration-500'>
+                        {/* Top-left accent corner */}
+                        <div className='absolute top-0 left-0 w-8 h-8'>
+                          <div className='absolute top-0 left-0 w-full h-px bg-custom/50' />
+                          <div className='absolute top-0 left-0 h-full w-px bg-custom/50' />
+                        </div>
 
-                    {/* Bottom-right accent corner */}
-                    <div className='absolute bottom-0 right-0 w-8 h-8'>
-                      <div className='absolute bottom-0 right-0 w-full h-px bg-custom/50' />
-                      <div className='absolute bottom-0 right-0 h-full w-px bg-custom/50' />
-                    </div>
+                        {/* Bottom-right accent corner */}
+                        <div className='absolute bottom-0 right-0 w-8 h-8'>
+                          <div className='absolute bottom-0 right-0 w-full h-px bg-custom/50' />
+                          <div className='absolute bottom-0 right-0 h-full w-px bg-custom/50' />
+                        </div>
 
-                    {/* Opening quote mark */}
-                    <div className='mb-6 font-serif text-5xl leading-none text-custom/40 select-none'>
-                      &ldquo;
-                    </div>
+                        {/* Opening quote mark */}
+                        <div className='mb-6 font-serif text-5xl leading-none text-custom/40 select-none'>
+                          &ldquo;
+                        </div>
 
-                    {/* Quote */}
-                    <p className='text-base md:text-lg leading-relaxed text-white/70 font-light'>
-                      {t.quote}
-                    </p>
-
-                    {/* Divider */}
-                    <div className='my-7 h-px w-10 bg-custom/40' />
-
-                    {/* Author */}
-                    <footer className='flex items-center gap-4'>
-                      {/* Initials avatar */}
-                      <div className='flex items-center justify-center w-9 h-9 rounded-sm border border-white/10 bg-white/4 shrink-0'>
-                        <span className='font-serif text-xs text-custom/70'>
-                          {t.name
-                            .split(' ')
-                            .map((n: string) => n[0])
-                            .join('')
-                            .slice(0, 2)}
-                        </span>
-                      </div>
-                      <div>
-                        <strong className='block text-[11px] font-medium tracking-[0.18em] text-white/80 uppercase'>
-                          {t.name}
-                        </strong>
-                        <p className='mt-0.5 text-xs text-white/60 tracking-wide'>
-                          {t.role}
+                        {/* Quote */}
+                        <p className='text-base md:text-lg leading-relaxed text-white/70 font-light'>
+                          {t.quote}
                         </p>
-                      </div>
-                    </footer>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
 
-        {/* Dot indicators */}
-        <div
-          ref={dotsRef}
-          className='mt-10 flex items-center justify-center gap-2.5'
-        >
-          {testimonials.map((t, i) => (
-            <button
-              key={t.id}
-              type='button'
-              onClick={() => api?.scrollTo(i)}
-              className={`h-px transition-all duration-500 rounded-full ${
-                i === current
-                  ? 'w-10 bg-custom'
-                  : 'w-4 bg-white/20 hover:bg-white/40'
-              }`}
-              aria-label={`Go to testimonial ${i + 1}`}
-            />
-          ))}
-        </div>
+                        {/* Divider */}
+                        <div className='my-7 h-px w-10 bg-custom/40' />
+
+                        {/* Author */}
+                        <footer className='flex items-center gap-4'>
+                          {/* Initials avatar */}
+                          <div className='flex items-center justify-center w-9 h-9 rounded-sm border border-white/10 bg-white/4 shrink-0'>
+                            <span className='font-serif text-xs text-custom/70'>
+                              {t.name
+                                .split(' ')
+                                .map((n: string) => n[0])
+                                .join('')
+                                .slice(0, 2)}
+                            </span>
+                          </div>
+                          <div>
+                            <strong className='block text-[11px] font-medium tracking-[0.18em] text-white/80 uppercase'>
+                              {t.name}
+                            </strong>
+                            <p className='mt-0.5 text-xs text-white/60 tracking-wide'>
+                              {t.role}
+                            </p>
+                          </div>
+                        </footer>
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+            </div>
+
+            {/* Dot indicators */}
+            <div
+              ref={dotsRef}
+              className='mt-10 flex items-center justify-center gap-2.5'
+            >
+              {testimonials.map((t, i) => (
+                <button
+                  key={t.id}
+                  type='button'
+                  onClick={() => api?.scrollTo(i)}
+                  className={`h-px transition-all duration-500 rounded-full ${
+                    i === current
+                      ? 'w-10 bg-custom'
+                      : 'w-4 bg-white/20 hover:bg-white/40'
+                  }`}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
