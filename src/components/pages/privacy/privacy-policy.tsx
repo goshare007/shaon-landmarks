@@ -64,11 +64,11 @@ export function PrivacyPolicy() {
         <div ref={listRef} className='divide-y divide-border'>
           {policySections.map((section, i) => (
             <div key={section.title} className='flex items-start gap-8 py-10'>
-              <span className='shrink-0 font-serif text-[clamp(1.8rem,3vw,2.4rem)] font-light leading-none text-custom/20'>
+              <span className='shrink-0 font-serif text-[clamp(1.8rem,3vw,2.4rem)] font-light leading-none text-brand/20'>
                 {String(i + 1).padStart(2, '0')}
               </span>
               <div className='flex-1 pt-1'>
-                <div className='mb-4 w-6 h-px bg-custom/40' />
+                <div className='mb-4 w-6 h-px bg-brand/40' />
                 <h2 className='mb-4 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light text-foreground'>
                   {section.title}
                 </h2>

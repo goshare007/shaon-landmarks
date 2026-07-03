@@ -34,11 +34,11 @@ export const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
             align === 'center' && 'justify-center',
           )}
         >
-          <div className='w-8 h-px bg-custom' />
-          <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom'>
+          <div className='w-8 h-px bg-brand' />
+          <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-brand'>
             {eyebrow}
           </span>
-          {align === 'center' && <div className='w-8 h-px bg-custom' />}
+          {align === 'center' && <div className='w-8 h-px bg-brand' />}
         </div>
         <Tag
           className={cn(
@@ -59,7 +59,7 @@ export const SectionHeading = forwardRef<HTMLDivElement, SectionHeadingProps>(
               {highlight}
             </span>
           ) : highlight ? (
-            <span className='italic text-custom'>{highlight}</span>
+            <span className='italic text-brand'>{highlight}</span>
           ) : null}
         </Tag>
       </div>

@@ -121,12 +121,12 @@ export function AboutTestimonials() {
                           className='absolute top-0 left-0 w-6 h-6'
                           aria-hidden='true'
                         >
-                          <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-                          <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
+                          <div className='absolute top-0 left-0 w-full h-px bg-brand/30' />
+                          <div className='absolute top-0 left-0 h-full w-px bg-brand/30' />
                         </div>
 
                         <svg
-                          className='mb-4 h-5 w-5 text-custom/20'
+                          className='mb-4 h-5 w-5 text-brand/20'
                           viewBox='0 0 24 24'
                           fill='currentColor'
                           aria-hidden='true'
@@ -142,7 +142,7 @@ export function AboutTestimonials() {
                           <p className='font-serif text-sm font-light text-foreground'>
                             {t.name}
                           </p>
-                          <p className='text-[9px] font-medium tracking-[0.12em] uppercase text-custom mt-0.5'>
+                          <p className='text-[9px] font-medium tracking-[0.12em] uppercase text-brand mt-0.5'>
                             {t.role}
                           </p>
                         </div>
@@ -164,7 +164,7 @@ export function AboutTestimonials() {
                   onClick={() => api?.scrollTo(i)}
                   className={`h-px transition-all duration-500 rounded-full ${
                     i === current
-                      ? 'w-10 bg-custom'
+                      ? 'w-10 bg-brand'
                       : 'w-4 bg-border hover:bg-muted-foreground/40'
                   }`}
                   aria-label={`Go to testimonial ${i + 1}`}

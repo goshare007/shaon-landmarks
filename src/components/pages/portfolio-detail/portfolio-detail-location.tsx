@@ -68,7 +68,7 @@ export function PortfolioDetailLocation({
             <div className='space-y-8'>
               {location.points.map((point) => (
                 <div key={point.number} className='flex items-start gap-6'>
-                  <span className='text-[10px] font-medium tracking-widest text-custom'>
+                  <span className='text-[10px] font-medium tracking-widest text-brand'>
                     {point.number}.
                   </span>
                   <div>

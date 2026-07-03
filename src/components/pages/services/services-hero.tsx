@@ -59,17 +59,17 @@ export function ServicesHero() {
     >
       <div className='grid md:grid-cols-12'>
         {/* Left panel — dark brand */}
-        <div className='relative bg-surface-brand md:col-span-7 py-24 md:py-32'>
+        <div className='relative dark-section bg-background md:col-span-7 py-24 md:py-32'>
           {/* Corner accents */}
           <div ref={cornersRef}>
-            <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
-            <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
-            <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
-            <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
-            <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
-            <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
-            <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
-            <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+            <div className='absolute top-0 left-0 z-20 w-10 h-px bg-brand/30' />
+            <div className='absolute top-0 left-0 z-20 w-px h-10 bg-brand/30' />
+            <div className='absolute top-0 right-0 z-20 w-10 h-px bg-brand/30' />
+            <div className='absolute top-0 right-0 z-20 w-px h-10 bg-brand/30' />
+            <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-brand/30' />
+            <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-brand/30' />
+            <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-brand/30' />
+            <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-brand/30' />
           </div>
 
           <div className='site-wrapper'>
@@ -95,7 +95,7 @@ export function ServicesHero() {
               {HERO_STATS.map((stat) => (
                 <div
                   key={stat.label}
-                  className='flex items-center gap-3 border-l border-custom/40 pl-4 py-2'
+                  className='flex items-center gap-3 border-l border-brand/40 pl-4 py-2'
                   style={{
                     background: 'rgba(255,255,255,0.04)',
                     backdropFilter: 'blur(8px)',
@@ -117,10 +117,10 @@ export function ServicesHero() {
             <Link
               ref={ctaRef}
               to='/portfolio'
-              className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-8 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
+              className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-brand px-8 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-brand/90'
             >
               <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
-              <span className='relative z-10 inline-flex items-center gap-3'>
+              <span className='relative z-10 inline-flex items-center gap-3 text-black'>
                 View Our Portfolio
                 <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
               </span>
@@ -148,7 +148,7 @@ export function ServicesHero() {
           {/* Quote card — glass blur */}
           <div
             ref={quoteCardRef}
-            className='absolute bottom-8 left-8 border border-custom/30 rounded-sm'
+            className='absolute bottom-8 left-8 border border-brand/30 rounded-sm'
             style={{
               background: 'rgba(0,0,0,0.55)',
               backdropFilter: 'blur(12px)',
@@ -159,8 +159,8 @@ export function ServicesHero() {
                 &ldquo;Permanent Quality&rdquo;
               </p>
             </div>
-            <div className='absolute top-0 left-0 w-6 h-px bg-custom/50' />
-            <div className='absolute top-0 left-0 w-px h-6 bg-custom/50' />
+            <div className='absolute top-0 left-0 w-6 h-px bg-brand/50' />
+            <div className='absolute top-0 left-0 w-px h-6 bg-brand/50' />
           </div>
         </div>
       </div>

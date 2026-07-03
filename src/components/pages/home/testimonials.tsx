@@ -88,7 +88,7 @@ export function TestimonialSection() {
   return (
     <section
       ref={sectionRef}
-      className='relative bg-surface-overlay py-20 md:py-28 overflow-hidden border-t border-white/5'
+      className='relative bg-background dark-section py-20 md:py-28 overflow-hidden border-t border-white/5'
     >
       {/* Subtle background texture — large faint quotemark */}
       <div
@@ -130,21 +130,21 @@ export function TestimonialSection() {
                       key={t.id}
                       className='md:basis-4/5 lg:basis-2/4 py-4'
                     >
-                      <div className='relative border border-white/[0.07] bg-white/2 p-8 md:p-12 rounded-sm group hover:border-custom/20 transition-colors duration-500'>
+                      <div className='relative border border-white/[0.07] bg-white/2 p-8 md:p-12 rounded-sm group hover:border-brand/20 transition-colors duration-500'>
                         {/* Top-left accent corner */}
                         <div className='absolute top-0 left-0 w-8 h-8'>
-                          <div className='absolute top-0 left-0 w-full h-px bg-custom/50' />
-                          <div className='absolute top-0 left-0 h-full w-px bg-custom/50' />
+                          <div className='absolute top-0 left-0 w-full h-px bg-brand/50' />
+                          <div className='absolute top-0 left-0 h-full w-px bg-brand/50' />
                         </div>
 
                         {/* Bottom-right accent corner */}
                         <div className='absolute bottom-0 right-0 w-8 h-8'>
-                          <div className='absolute bottom-0 right-0 w-full h-px bg-custom/50' />
-                          <div className='absolute bottom-0 right-0 h-full w-px bg-custom/50' />
+                          <div className='absolute bottom-0 right-0 w-full h-px bg-brand/50' />
+                          <div className='absolute bottom-0 right-0 h-full w-px bg-brand/50' />
                         </div>
 
                         {/* Opening quote mark */}
-                        <div className='mb-6 font-serif text-5xl leading-none text-custom/40 select-none'>
+                        <div className='mb-6 font-serif text-5xl leading-none text-brand/40 select-none'>
                           &ldquo;
                         </div>
 
@@ -154,13 +154,13 @@ export function TestimonialSection() {
                         </p>
 
                         {/* Divider */}
-                        <div className='my-7 h-px w-10 bg-custom/40' />
+                        <div className='my-7 h-px w-10 bg-brand/40' />
 
                         {/* Author */}
                         <footer className='flex items-center gap-4'>
                           {/* Initials avatar */}
                           <div className='flex items-center justify-center w-9 h-9 rounded-sm border border-white/10 bg-white/4 shrink-0'>
-                            <span className='font-serif text-xs text-custom/70'>
+                            <span className='font-serif text-xs text-brand/70'>
                               {t.name
                                 .split(' ')
                                 .map((n: string) => n[0])
@@ -196,7 +196,7 @@ export function TestimonialSection() {
                   onClick={() => api?.scrollTo(i)}
                   className={`h-px transition-all duration-500 rounded-full ${
                     i === current
-                      ? 'w-10 bg-custom'
+                      ? 'w-10 bg-brand'
                       : 'w-4 bg-white/20 hover:bg-white/40'
                   }`}
                   aria-label={`Go to testimonial ${i + 1}`}

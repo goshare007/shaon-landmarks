@@ -74,15 +74,15 @@ export function ContactForm() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-raised py-20 md:py-24 border-t border-border'
+      className='bg-surface-container py-20 md:py-24 border-t border-border'
     >
       <div className='site-wrapper max-w-3xl'>
         <div
           ref={cardRef}
           className='relative border border-border bg-background p-8 md:p-12 rounded-sm'
         >
-          <div className='absolute top-0 left-0 w-10 h-px bg-custom/40' />
-          <div className='absolute top-0 left-0 w-px h-10 bg-custom/40' />
+          <div className='absolute top-0 left-0 w-10 h-px bg-brand/40' />
+          <div className='absolute top-0 left-0 w-px h-10 bg-brand/40' />
 
           <div className='mb-10 text-center'>
             <h2 className='font-serif text-[clamp(1.5rem,3vw,2rem)] font-light text-foreground leading-snug'>
@@ -98,7 +98,7 @@ export function ContactForm() {
               <div className='group space-y-2'>
                 <Label
                   htmlFor='name'
-                  className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-custom'
+                  className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-brand'
                 >
                   Full Name *
                 </Label>
@@ -108,13 +108,13 @@ export function ContactForm() {
                   type='text'
                   required
                   placeholder='Your full name'
-                  className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-custom/50 focus-visible:ring-0'
+                  className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-brand/50 focus-visible:ring-0'
                 />
               </div>
               <div className='group space-y-2'>
                 <Label
                   htmlFor='email'
-                  className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-custom'
+                  className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-brand'
                 >
                   Email Address *
                 </Label>
@@ -124,7 +124,7 @@ export function ContactForm() {
                   type='email'
                   required
                   placeholder='your@email.com'
-                  className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-custom/50 focus-visible:ring-0'
+                  className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-brand/50 focus-visible:ring-0'
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ export function ContactForm() {
             <div className='group space-y-2'>
               <Label
                 htmlFor='phone'
-                className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-custom'
+                className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-brand'
               >
                 Phone Number
               </Label>
@@ -141,14 +141,14 @@ export function ContactForm() {
                 name='phone'
                 type='tel'
                 placeholder={CONTACT_PHONE}
-                className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-custom/50 focus-visible:ring-0'
+                className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-brand/50 focus-visible:ring-0'
               />
             </div>
 
             <div className='group space-y-2'>
               <Label
                 htmlFor='interest'
-                className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-custom'
+                className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-brand'
               >
                 Project Interest
               </Label>
@@ -158,7 +158,7 @@ export function ContactForm() {
               >
                 <SelectTrigger
                   id='interest'
-                  className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground font-light focus:ring-0 focus:border-custom/50 [&>svg]:text-muted-foreground'
+                  className='rounded-none border-0 border-b border-border bg-transparent px-0 shadow-none text-foreground font-light focus:ring-0 focus:border-brand/50 [&>svg]:text-muted-foreground'
                 >
                   <SelectValue />
                 </SelectTrigger>
@@ -185,7 +185,7 @@ export function ContactForm() {
             <div className='group space-y-2'>
               <Label
                 htmlFor='message'
-                className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-custom'
+                className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase transition-colors group-focus-within:text-brand'
               >
                 Your Message
               </Label>
@@ -194,7 +194,7 @@ export function ContactForm() {
                 name='message'
                 rows={4}
                 placeholder='Describe your project or inquiry...'
-                className='resize-none rounded-sm border border-border bg-transparent p-4 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-custom/50 focus-visible:ring-0'
+                className='resize-none rounded-sm border border-border bg-transparent p-4 shadow-none text-foreground placeholder:text-muted-foreground/60 font-light focus-visible:border-brand/50 focus-visible:ring-0'
               />
             </div>
 
@@ -214,7 +214,7 @@ export function ContactForm() {
 
             <div className='group'>
               <Button
-                variant='custom'
+                variant='brand'
                 type='submit'
                 disabled={status === 'sending'}
                 className='relative w-full overflow-hidden rounded-sm px-12 py-3.5 text-[11px] font-semibold tracking-[0.15em] uppercase'

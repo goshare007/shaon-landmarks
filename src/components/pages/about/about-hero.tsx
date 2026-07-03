@@ -68,8 +68,8 @@ export function AboutHero() {
         <div className='site-wrapper w-full'>
           <div className='max-w-lg'>
             <div ref={eyebrowRef} className='flex items-center gap-4 mb-6'>
-              <div className='w-10 h-px bg-custom' />
-              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom/80'>
+              <div className='w-10 h-px bg-brand' />
+              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-brand/80'>
                 Since 2008
               </span>
             </div>
@@ -78,12 +78,12 @@ export function AboutHero() {
               ref={headlineRef}
               className='font-serif text-[clamp(2.8rem,5.5vw,4.2rem)] font-light leading-[1.04] text-white'
             >
-              A Legacy of <span className='italic text-custom'>Integrity</span>
+              A Legacy of <span className='italic text-brand'>Integrity</span>
             </h1>
 
             <p
               ref={descriptorRef}
-              className='mt-5 max-w-md text-sm leading-relaxed text-white/55'
+              className='mt-5 max-w-md text-sm leading-relaxed text-black'
             >
               Crafting landmarks that stand as a testament to architectural
               precision and unwavering commitment in the heart of Bangladesh.
@@ -120,7 +120,7 @@ export function AboutHero() {
             willChange: 'transform',
           }}
         >
-          <div className='w-1.5 h-1.5 rounded-full bg-custom animate-pulse' />
+          <div className='w-1.5 h-1.5 rounded-full bg-brand animate-pulse' />
           <span className='text-[10px] tracking-[0.12em] uppercase text-white/55 font-medium'>
             Dhaka, Bangladesh
           </span>

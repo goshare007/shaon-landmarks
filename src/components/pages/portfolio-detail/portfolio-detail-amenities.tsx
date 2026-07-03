@@ -82,17 +82,17 @@ export function PortfolioDetailAmenities({
   return (
     <section
       ref={sectionRef}
-      className='relative bg-surface-brand py-32 overflow-hidden'
+      className='relative dark-section bg-background py-32 overflow-hidden'
     >
       {/* Corner accents */}
-      <div className='absolute top-0 left-0 w-10 h-px bg-custom/30' />
-      <div className='absolute top-0 left-0 w-px h-10 bg-custom/30' />
-      <div className='absolute top-0 right-0 w-10 h-px bg-custom/30' />
-      <div className='absolute top-0 right-0 w-px h-10 bg-custom/30' />
-      <div className='absolute bottom-0 left-0 w-10 h-px bg-custom/30' />
-      <div className='absolute bottom-0 left-0 w-px h-10 bg-custom/30' />
-      <div className='absolute bottom-0 right-0 w-10 h-px bg-custom/30' />
-      <div className='absolute bottom-0 right-0 w-px h-10 bg-custom/30' />
+      <div className='absolute top-0 left-0 w-10 h-px bg-brand/30' />
+      <div className='absolute top-0 left-0 w-px h-10 bg-brand/30' />
+      <div className='absolute top-0 right-0 w-10 h-px bg-brand/30' />
+      <div className='absolute top-0 right-0 w-px h-10 bg-brand/30' />
+      <div className='absolute bottom-0 left-0 w-10 h-px bg-brand/30' />
+      <div className='absolute bottom-0 left-0 w-px h-10 bg-brand/30' />
+      <div className='absolute bottom-0 right-0 w-10 h-px bg-brand/30' />
+      <div className='absolute bottom-0 right-0 w-px h-10 bg-brand/30' />
 
       <div className='site-wrapper'>
         <div
@@ -120,7 +120,7 @@ export function PortfolioDetailAmenities({
                 key={a.title}
                 className='detail-amenities__card border-l border-white/6 py-4 pl-8'
               >
-                <Icon size={36} stroke={1.5} className='mb-6 text-custom' />
+                <Icon size={36} stroke={1.5} className='mb-6 text-brand' />
                 <h3 className='mb-4 font-serif text-xl text-white md:text-2xl'>
                   {a.title}
                 </h3>

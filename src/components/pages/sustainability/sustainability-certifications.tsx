@@ -86,7 +86,7 @@ export function SustainabilityCertifications() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-overlay py-20 md:py-28 border-t border-white/6'
+      className='bg-background dark-section py-20 md:py-28 border-t border-white/6'
     >
       <div className='site-wrapper'>
         <SectionHeading
@@ -121,7 +121,7 @@ export function SustainabilityCertifications() {
                 }}
               >
                 <div className='flex items-center justify-center w-10 h-10 rounded-sm border border-white/10 bg-white/5 shrink-0'>
-                  <Icon size={18} className='text-custom' aria-hidden='true' />
+                  <Icon size={18} className='text-brand' aria-hidden='true' />
                 </div>
                 <div>
                   <h3 className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/80'>

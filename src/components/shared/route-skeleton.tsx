@@ -3,14 +3,14 @@ const SKELETON_IDS = ['sk-0', 'sk-1', 'sk-2', 'sk-3'];
 export function RouteSkeleton() {
   return (
     <main>
-      <section className='bg-surface-brand py-24 md:py-32'>
+      <section className='dark-section bg-background py-24 md:py-32'>
         <div className='site-wrapper'>
           <div className='mb-6 h-6 w-48 animate-pulse rounded bg-muted' />
           <div className='h-12 w-3/4 animate-pulse rounded bg-muted md:h-16' />
           <div className='mt-4 h-4 w-1/2 animate-pulse rounded bg-muted' />
         </div>
       </section>
-      <section className='bg-surface-raised py-20'>
+      <section className='bg-surface-container py-20'>
         <div className='site-wrapper'>
           <div className='grid gap-6 md:grid-cols-2'>
             {SKELETON_IDS.map((id) => (

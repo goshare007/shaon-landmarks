@@ -51,7 +51,7 @@ export function ServicesCta() {
   return (
     <section
       ref={sectionRef}
-      className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'
+      className='relative overflow-hidden dark-section bg-background py-20 md:py-28 border-t border-white/6'
     >
       {/* Concentric rings */}
       <div ref={ringsRef}>
@@ -66,12 +66,12 @@ export function ServicesCta() {
       {/* Corner accents */}
       <div ref={cornersRef}>
         <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
-          <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-          <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
+          <div className='absolute top-0 left-0 w-full h-px bg-brand/30' />
+          <div className='absolute top-0 left-0 h-full w-px bg-brand/30' />
         </div>
         <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
-          <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-          <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
+          <div className='absolute bottom-0 right-0 w-full h-px bg-brand/30' />
+          <div className='absolute bottom-0 right-0 h-full w-px bg-brand/30' />
         </div>
       </div>
 
@@ -93,7 +93,7 @@ export function ServicesCta() {
           <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
             <Link
               to='/contact'
-              className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
+              className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-brand px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-black uppercase transition-colors duration-200 hover:bg-brand/90'
             >
               <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
               <span className='relative z-10 inline-flex items-center gap-3'>
@@ -103,7 +103,7 @@ export function ServicesCta() {
             </Link>
             <Link
               to='/contact'
-              className='group inline-flex items-center gap-3 rounded-sm border border-custom/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-custom hover:text-custom'
+              className='group inline-flex items-center gap-3 rounded-sm border border-brand/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-brand hover:text-brand'
             >
               Consult our Experts
               <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />

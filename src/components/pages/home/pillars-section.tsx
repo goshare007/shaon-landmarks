@@ -72,10 +72,10 @@ export function PillarsSection() {
               className='group relative overflow-hidden rounded-sm border-border bg-card shadow-none transition-shadow duration-300 hover:shadow-md'
             >
               {/* Top accent line — draws in on hover */}
-              <div className='absolute top-0 left-0 right-0 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
+              <div className='absolute top-0 left-0 right-0 h-0.5 bg-brand origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
               <CardContent className='flex flex-col gap-5 p-8 md:p-10'>
                 {/* Icon container */}
-                <div className='flex items-center justify-center w-11 h-11 rounded-md border border-border bg-background text-custom transition-all duration-300 group-hover:border-custom/30 group-hover:shadow-sm'>
+                <div className='flex items-center justify-center w-11 h-11 rounded-md border border-border bg-background text-brand transition-all duration-300 group-hover:border-brand/30 group-hover:shadow-sm'>
                   {ICONS[pillar.icon]}
                 </div>
                 {/* Title + rule + description */}
@@ -83,7 +83,7 @@ export function PillarsSection() {
                   <h3 className='font-serif text-xl font-light text-foreground tracking-wide'>
                     {pillar.title}
                   </h3>
-                  <div className='w-8 h-px bg-custom/40 transition-all duration-300 group-hover:w-14 group-hover:bg-custom' />
+                  <div className='w-8 h-px bg-brand/40 transition-all duration-300 group-hover:w-14 group-hover:bg-brand' />
                   <p className='text-sm leading-relaxed text-muted-foreground mt-1'>
                     {pillar.description}
                   </p>

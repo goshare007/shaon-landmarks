@@ -48,7 +48,7 @@ export default function Header() {
     <header
       ref={headerRef}
       className={cn(
-        'sticky top-0 z-50 bg-background transition-transform duration-300 border-b border-custom/10',
+        'sticky top-0 z-50 bg-background transition-transform duration-300 border-b border-brand/10',
         isHidden ? '-translate-y-full' : 'translate-y-0',
       )}
     >
@@ -68,7 +68,7 @@ export default function Header() {
           <Link
             to='/contact'
             className={cn(
-              buttonVariants({ size: 'lg', variant: 'custom' }),
+              buttonVariants({ size: 'lg', variant: 'brand' }),
               'hidden md:flex px-5',
             )}
           >

@@ -40,12 +40,12 @@ function CornerAccents() {
   return (
     <>
       <div className='absolute top-0 left-0 w-6 h-6' aria-hidden='true'>
-        <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-        <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
+        <div className='absolute top-0 left-0 w-full h-px bg-brand/30' />
+        <div className='absolute top-0 left-0 h-full w-px bg-brand/30' />
       </div>
       <div className='absolute bottom-0 right-0 w-6 h-6' aria-hidden='true'>
-        <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-        <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
+        <div className='absolute bottom-0 right-0 w-full h-px bg-brand/30' />
+        <div className='absolute bottom-0 right-0 h-full w-px bg-brand/30' />
       </div>
     </>
   );
@@ -53,12 +53,12 @@ function CornerAccents() {
 
 function MilestoneCard({ m }: { m: (typeof MILESTONES)[number] }) {
   return (
-    <div className='group relative border border-border/50 bg-background rounded-sm p-6 md:p-8 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-custom/20'>
+    <div className='group relative border border-border/50 bg-background rounded-sm p-6 md:p-8 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-brand/20'>
       <CornerAccents />
       <h3 className='font-serif text-xl font-light text-foreground'>
         {m.title}
       </h3>
-      <div className='w-8 h-px bg-custom/40 mt-3 mb-4 transition-all duration-300 group-hover:w-14 group-hover:bg-custom' />
+      <div className='w-8 h-px bg-brand/40 mt-3 mb-4 transition-all duration-300 group-hover:w-14 group-hover:bg-brand' />
       <p className='text-sm leading-relaxed text-muted-foreground'>
         {m.description}
       </p>
@@ -68,7 +68,7 @@ function MilestoneCard({ m }: { m: (typeof MILESTONES)[number] }) {
 
 function DesktopYear({ year }: { year: string }) {
   return (
-    <span className='block font-serif text-[clamp(2.5rem,4vw,3.5rem)] font-light text-custom leading-none mt-2'>
+    <span className='block font-serif text-[clamp(2.5rem,4vw,3.5rem)] font-light text-brand leading-none mt-2'>
       {year}
     </span>
   );
@@ -140,7 +140,7 @@ export function AboutStory() {
         <div className='relative max-w-4xl mx-auto'>
           <div
             ref={lineRef}
-            className='absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-custom/40 to-transparent md:-translate-x-px'
+            className='absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-brand/40 to-transparent md:-translate-x-px'
           />
 
           <div ref={milestonesRef} className='space-y-16 md:space-y-20'>
@@ -152,11 +152,11 @@ export function AboutStory() {
                   className='relative grid md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-10 items-start'
                 >
                   <div className='absolute left-6 md:relative md:flex md:justify-center z-10 md:order-2'>
-                    <div className='w-4 h-4 rounded-full bg-custom ring-[3px] ring-white shadow-sm mt-2' />
+                    <div className='w-4 h-4 rounded-full bg-brand ring-[3px] ring-white shadow-sm mt-2' />
                   </div>
 
                   <div className='md:hidden pl-14'>
-                    <span className='inline-block px-2.5 py-0.5 text-[10px] font-medium tracking-[0.18em] uppercase text-custom border border-custom/30 rounded-sm mb-3'>
+                    <span className='inline-block px-2.5 py-0.5 text-[10px] font-medium tracking-[0.18em] uppercase text-brand border border-brand/30 rounded-sm mb-3'>
                       {m.year}
                     </span>
                     <MilestoneCard m={m} />

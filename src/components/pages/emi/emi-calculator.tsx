@@ -44,7 +44,7 @@ function SliderControl({
         <span className='text-[9px] font-medium tracking-[0.2em] text-foreground uppercase'>
           {label}
         </span>
-        <span className='font-serif text-lg font-light text-custom'>
+        <span className='font-serif text-lg font-light text-brand'>
           {displayValue}
         </span>
       </div>
@@ -58,7 +58,7 @@ function SliderControl({
         max={max}
         step={step}
         aria-label={label}
-        className='**:data-[slot=slider-track]:bg-border **:data-[slot=slider-range]:bg-custom **:data-[slot=slider-thumb]:border-custom **:data-[slot=slider-thumb]:focus-visible:ring-custom/40'
+        className='**:data-[slot=slider-track]:bg-border **:data-[slot=slider-range]:bg-brand **:data-[slot=slider-thumb]:border-brand **:data-[slot=slider-thumb]:focus-visible:ring-brand/40'
       />
       <div className='flex justify-between text-[9px] tracking-widest text-muted-foreground'>
         <span>{min.toLocaleString()}</span>
@@ -147,27 +147,27 @@ export function EmiCalculator() {
   return (
     <main ref={section1Ref}>
       {/* ── Section 1: Dark intro ─────────────────────────────────────────── */}
-      <section className='relative bg-surface-brand py-16 md:py-20 border-t border-white/6 overflow-hidden'>
+      <section className='relative bg-background dark-section py-16 md:py-20 border-t border-white/6 overflow-hidden'>
         <div ref={introRef}>
           {/* Corner accents */}
           <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
-            <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-            <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
+            <div className='absolute top-0 left-0 w-full h-px bg-brand/30' />
+            <div className='absolute top-0 left-0 h-full w-px bg-brand/30' />
           </div>
           <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
-            <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-            <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
+            <div className='absolute bottom-0 right-0 w-full h-px bg-brand/30' />
+            <div className='absolute bottom-0 right-0 h-full w-px bg-brand/30' />
           </div>
 
           <div className='site-wrapper'>
             <div className='flex items-center gap-4 mb-6'>
-              <div className='w-8 h-px bg-custom' />
-              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom/80'>
+              <div className='w-8 h-px bg-brand' />
+              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-brand/80'>
                 Financial Planning
               </span>
             </div>
             <h1 className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-[1.05] tracking-[-0.01em] text-white mb-5'>
-              EMI <span className='italic text-custom'>Calculator</span>
+              EMI <span className='italic text-brand'>Calculator</span>
             </h1>
             <p className='max-w-xl text-sm leading-relaxed text-white/55'>
               Plan your investment with confidence. Adjust the loan parameters
@@ -180,7 +180,7 @@ export function EmiCalculator() {
       {/* ── Section 2: Calculator ──────────────────────────────────────────── */}
       <section
         ref={section2Ref}
-        className='bg-surface-raised py-20 md:py-28 border-t border-border'
+        className='bg-surface-container py-20 md:py-28 border-t border-border'
       >
         <div className='site-wrapper'>
           <div className='grid gap-12 lg:grid-cols-2 lg:gap-20'>
@@ -218,21 +218,21 @@ export function EmiCalculator() {
               <div className='space-y-3 pt-2'>
                 <div className='flex overflow-hidden rounded-sm h-1.5'>
                   <div
-                    className='h-full bg-custom transition-all duration-300'
+                    className='h-full bg-brand transition-all duration-300'
                     style={{ width: `${principalPct}%` }}
                   />
                   <div
-                    className='h-full bg-custom/25 transition-all duration-300'
+                    className='h-full bg-brand/25 transition-all duration-300'
                     style={{ width: `${interestPct}%` }}
                   />
                 </div>
                 <div className='flex items-center justify-between text-[9px] tracking-[0.12em] text-muted-foreground uppercase'>
                   <span className='flex items-center gap-2'>
-                    <span className='inline-block h-1.5 w-1.5 rounded-full bg-custom' />
+                    <span className='inline-block h-1.5 w-1.5 rounded-full bg-brand' />
                     Principal {principalPct}%
                   </span>
                   <span className='flex items-center gap-2'>
-                    <span className='inline-block h-1.5 w-1.5 rounded-full bg-custom/25' />
+                    <span className='inline-block h-1.5 w-1.5 rounded-full bg-brand/25' />
                     Interest {interestPct}%
                   </span>
                 </div>
@@ -246,10 +246,10 @@ export function EmiCalculator() {
             >
               {/* EMI card */}
               <div className='relative border border-border bg-white p-8 text-center'>
-                <div className='absolute top-0 left-0 w-8 h-px bg-custom/40' />
-                <div className='absolute top-0 left-0 w-px h-8 bg-custom/40' />
-                <div className='absolute bottom-0 right-0 w-8 h-px bg-custom/40' />
-                <div className='absolute bottom-0 right-0 w-px h-8 bg-custom/40' />
+                <div className='absolute top-0 left-0 w-8 h-px bg-brand/40' />
+                <div className='absolute top-0 left-0 w-px h-8 bg-brand/40' />
+                <div className='absolute bottom-0 right-0 w-8 h-px bg-brand/40' />
+                <div className='absolute bottom-0 right-0 w-px h-8 bg-brand/40' />
 
                 <span className='text-[9px] font-medium tracking-[0.2em] uppercase text-muted-foreground block mb-3'>
                   Monthly EMI
@@ -265,9 +265,9 @@ export function EmiCalculator() {
               {/* Stat pair */}
               <div className='grid grid-cols-2 gap-4'>
                 <div className='group relative border border-border bg-white p-6 text-center'>
-                  <div className='absolute top-0 left-0 right-0 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
-                  <div className='absolute top-0 left-0 w-5 h-px bg-custom/30' />
-                  <div className='absolute top-0 left-0 w-px h-5 bg-custom/30' />
+                  <div className='absolute top-0 left-0 right-0 h-0.5 bg-brand origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
+                  <div className='absolute top-0 left-0 w-5 h-px bg-brand/30' />
+                  <div className='absolute top-0 left-0 w-px h-5 bg-brand/30' />
                   <span className='text-[9px] font-medium tracking-[0.2em] uppercase text-muted-foreground block mb-2'>
                     Total Interest
                   </span>
@@ -276,9 +276,9 @@ export function EmiCalculator() {
                   </p>
                 </div>
                 <div className='group relative border border-border bg-white p-6 text-center'>
-                  <div className='absolute top-0 left-0 right-0 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
-                  <div className='absolute bottom-0 right-0 w-5 h-px bg-custom/30' />
-                  <div className='absolute bottom-0 right-0 w-px h-5 bg-custom/30' />
+                  <div className='absolute top-0 left-0 right-0 h-0.5 bg-brand origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
+                  <div className='absolute bottom-0 right-0 w-5 h-px bg-brand/30' />
+                  <div className='absolute bottom-0 right-0 w-px h-5 bg-brand/30' />
                   <span className='text-[9px] font-medium tracking-[0.2em] uppercase text-muted-foreground block mb-2'>
                     Total Payment
                   </span>
@@ -300,23 +300,23 @@ export function EmiCalculator() {
       {/* ── Section 3: CTA ──────────────────────────────────────────────────── */}
       <section
         ref={section3Ref}
-        className='relative bg-surface-brand py-20 md:py-28 border-t border-white/6 overflow-hidden'
+        className='relative bg-background dark-section py-20 md:py-28 border-t border-white/6 overflow-hidden'
       >
         {/* Corner accents */}
         <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
-          <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-          <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
+          <div className='absolute top-0 left-0 w-full h-px bg-brand/30' />
+          <div className='absolute top-0 left-0 h-full w-px bg-brand/30' />
         </div>
         <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
-          <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-          <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
+          <div className='absolute bottom-0 right-0 w-full h-px bg-brand/30' />
+          <div className='absolute bottom-0 right-0 h-full w-px bg-brand/30' />
         </div>
 
         <div className='site-wrapper flex flex-col items-center text-center'>
           <div ref={ctaContentRef}>
             <h2 className='font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] font-light leading-tight text-white mb-5'>
               Ready to build your{' '}
-              <span className='italic text-custom'>Landmark ?</span>
+              <span className='italic text-brand'>Landmark ?</span>
             </h2>
             <p className='max-w-lg text-sm leading-relaxed text-white/55 mb-10'>
               Speak with our financing experts to turn your numbers into a
@@ -324,7 +324,7 @@ export function EmiCalculator() {
             </p>
             <Link
               to='/contact'
-              className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
+              className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-brand px-10 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-black uppercase transition-colors duration-200 hover:bg-brand/90'
             >
               <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
               <span className='relative z-10 inline-flex items-center gap-3'>

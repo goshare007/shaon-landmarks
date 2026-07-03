@@ -62,7 +62,7 @@ export function BlogGrid() {
   }, []);
 
   return (
-    <section ref={sectionRef} className='bg-surface-raised py-16 md:py-24'>
+    <section ref={sectionRef} className='bg-surface-container py-16 md:py-24'>
       <div className='site-wrapper'>
         <div ref={headingRef} className='mb-10 md:mb-12'>
           <SectionHeading
@@ -71,7 +71,7 @@ export function BlogGrid() {
             highlight='Insights'
           />
           <div className='mt-5 flex items-center gap-3'>
-            <div className='h-px w-6 bg-custom/40' />
+            <div className='h-px w-6 bg-brand/40' />
             <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-muted-foreground'>
               {blogArticles.length} Articles
             </span>

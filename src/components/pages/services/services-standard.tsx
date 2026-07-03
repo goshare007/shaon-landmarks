@@ -64,18 +64,18 @@ export function ServicesStandard() {
   return (
     <section
       ref={sectionRef}
-      className='relative bg-surface-brand py-20 md:py-28 border-t border-white/6 overflow-hidden'
+      className='relative dark-section bg-background py-20 md:py-28 border-t border-white/6 overflow-hidden'
     >
       {/* Corner accents */}
       <div ref={cornersRef}>
-        <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+        <div className='absolute top-0 left-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute top-0 left-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute top-0 right-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute top-0 right-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-brand/30' />
       </div>
 
       <div className='site-wrapper'>
@@ -103,12 +103,12 @@ export function ServicesStandard() {
           {steps.map((s) => (
             <div
               key={s.step}
-              className='group relative bg-surface-brand p-8 md:p-10 transition-colors duration-300'
+              className='group relative dark-section bg-background p-8 md:p-10 transition-colors duration-300'
             >
-              <span className='mb-6 block font-serif text-[clamp(2rem,4vw,3rem)] font-light text-white/20 transition-colors duration-300 group-hover:text-custom/60'>
+              <span className='mb-6 block font-serif text-[clamp(2rem,4vw,3rem)] font-light text-white/20 transition-colors duration-300 group-hover:text-brand/60'>
                 {s.step}
               </span>
-              <div className='mb-5 w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+              <div className='mb-5 w-6 h-px bg-brand/40 transition-all duration-300 group-hover:w-10 group-hover:bg-brand' />
               <h4 className='mb-4 font-serif text-base font-light text-white'>
                 {s.title}
               </h4>

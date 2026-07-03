@@ -40,13 +40,13 @@ export const Route = createFileRoute('/portfolio/$slug')({
   pendingMs: 100,
   pendingComponent: () => (
     <main>
-      <section className='relative h-230.25 overflow-hidden bg-surface-brand'>
+      <section className='relative h-230.25 overflow-hidden dark-section bg-background'>
         <div className='site-wrapper flex h-full flex-col justify-end pb-24'>
           <div className='mb-6 h-6 w-64 animate-pulse rounded bg-white/10' />
           <div className='h-20 w-3/4 animate-pulse rounded bg-white/10 md:h-28' />
         </div>
       </section>
-      <section className='bg-surface-raised py-20'>
+      <section className='bg-surface-container py-20'>
         <div className='site-wrapper'>
           <div className='grid grid-cols-4 gap-12'>
             {[...Array(4)].map((_, i) => (
@@ -67,7 +67,7 @@ export const Route = createFileRoute('/portfolio/$slug')({
     </main>
   ),
   errorComponent: ({ error }) => (
-    <main className='flex min-h-[60vh] items-center justify-center bg-surface-raised'>
+    <main className='flex min-h-[60vh] items-center justify-center bg-surface-container'>
       <div className='text-center'>
         <h1 className='text-4xl font-serif text-foreground'>Project Error</h1>
         <p className='mt-4 text-muted-foreground'>
@@ -77,7 +77,7 @@ export const Route = createFileRoute('/portfolio/$slug')({
         </p>
         <Link
           to='/portfolio'
-          className='mt-8 inline-block rounded-sm border border-border px-6 py-3 text-[10px] font-medium tracking-widest text-foreground uppercase transition-colors hover:border-custom hover:text-custom'
+          className='mt-8 inline-block rounded-sm border border-border px-6 py-3 text-[10px] font-medium tracking-widest text-foreground uppercase transition-colors hover:border-brand hover:text-brand'
         >
           Back to Portfolio
         </Link>
@@ -156,13 +156,13 @@ export const Route = createFileRoute('/portfolio/$slug')({
 
 function ProjectNotFound() {
   return (
-    <main className='flex min-h-[60vh] items-center justify-center bg-surface-raised'>
+    <main className='flex min-h-[60vh] items-center justify-center bg-surface-container'>
       <div className='text-center'>
         <h1 className='text-6xl font-serif text-foreground'>404</h1>
         <p className='mt-4 text-muted-foreground'>Project not found</p>
         <Link
           to='/portfolio'
-          className='mt-8 inline-block rounded-sm border border-border px-6 py-3 text-[10px] font-medium tracking-widest text-foreground uppercase transition-colors hover:border-custom hover:text-custom'
+          className='mt-8 inline-block rounded-sm border border-border px-6 py-3 text-[10px] font-medium tracking-widest text-foreground uppercase transition-colors hover:border-brand hover:text-brand'
         >
           Back to Portfolio
         </Link>

@@ -8,20 +8,20 @@ Source: `src/styles.css` + component analysis. Values are canonical.
 
 ### Font Stack
 
-| Token | Font | Usage |
-|---|---|---|
-| `--font-sans` | `"Inter Variable", sans-serif` | Body, UI labels, microcopy |
-| `--font-serif` | `"Cormorant Garamond", serif` | All headings, display, quote text |
-| `--font-heading` | `var(--font-serif)` | Card titles, sheet titles |
+| Token            | Font                           | Usage                             |
+| ---------------- | ------------------------------ | --------------------------------- |
+| `--font-sans`    | `"Inter Variable", sans-serif` | Body, UI labels, microcopy        |
+| `--font-serif`   | `"Cormorant Garamond", serif`  | All headings, display, quote text |
+| `--font-heading` | `var(--font-serif)`            | Card titles, sheet titles         |
 
 ### Weights
 
-| Class | Weight | Where |
-|---|---|---|
-| `font-light` | 300 | ALL headings (hero, section, card titles), stat numbers, quote, sustainability descriptions |
-| `font-medium` | 500 | Eyebrow labels, stat labels, buttons, nav items, badges, footer headings, author names |
-| `font-semibold` | 600 | CTA buttons |
-| `font-extrabold` | 800 | Logo text only |
+| Class            | Weight | Where                                                                                       |
+| ---------------- | ------ | ------------------------------------------------------------------------------------------- |
+| `font-light`     | 300    | ALL headings (hero, section, card titles), stat numbers, quote, sustainability descriptions |
+| `font-medium`    | 500    | Eyebrow labels, stat labels, buttons, nav items, badges, footer headings, author names      |
+| `font-semibold`  | 600    | CTA buttons                                                                                 |
+| `font-extrabold` | 800    | Logo text only                                                                              |
 
 ### Type Scale
 
@@ -73,34 +73,34 @@ All in OKLCH format. Config in `@theme inline` or raw `:root`.
 
 #### Surface & Text
 
-| Token | OKLCH | Hex approx | Usage |
-|---|---|---|---|
-| `--background` | `oklch(1 0 0)` | #fff | Page bg |
-| `--foreground` | `oklch(0.145 0 0)` | #252525 | Primary text |
-| `--card` | `oklch(1 0 0)` | #fff | Card bg |
-| `--card-foreground` | `oklch(0.145 0 0)` | #252525 | Card text |
-| `--muted` | `oklch(0.97 0 0)` | #f7f7f7 | Muted bg |
-| `--muted-foreground` | `oklch(0.556 0 0)` | #8e8e8e | Secondary text, descriptions |
-| `--border` | `oklch(0.922 0 0)` | #ebebeb | Borders, dividers |
-| `--input` | `oklch(0.922 0 0)` | #ebebeb | Form borders |
-| `--ring` | `oklch(0.708 0 0)` | #b4b4b4 | Focus rings |
+| Token                | OKLCH              | Hex approx | Usage                        |
+| -------------------- | ------------------ | ---------- | ---------------------------- |
+| `--background`       | `oklch(1 0 0)`     | #fff       | Page bg                      |
+| `--foreground`       | `oklch(0.145 0 0)` | #252525    | Primary text                 |
+| `--card`             | `oklch(1 0 0)`     | #fff       | Card bg                      |
+| `--card-foreground`  | `oklch(0.145 0 0)` | #252525    | Card text                    |
+| `--muted`            | `oklch(0.97 0 0)`  | #f7f7f7    | Muted bg                     |
+| `--muted-foreground` | `oklch(0.556 0 0)` | #8e8e8e    | Secondary text, descriptions |
+| `--border`           | `oklch(0.922 0 0)` | #ebebeb    | Borders, dividers            |
+| `--input`            | `oklch(0.922 0 0)` | #ebebeb    | Form borders                 |
+| `--ring`             | `oklch(0.708 0 0)` | #b4b4b4    | Focus rings                  |
 
 #### Brand — "custom" (gold/bronze)
 
-| Token | OKLCH | Hex approx |
-|---|---|---|
-| `--color-custom` | `oklch(0.58 0.09 65)` | #a67c52 |
+| Token            | OKLCH                 | Hex approx |
+| ---------------- | --------------------- | ---------- |
+| `--color-custom` | `oklch(0.58 0.09 65)` | #a67c52    |
 
 Usage: **EVERYWHERE** — dividers, borders, text highlights, active nav, icons, buttons, hover states, eyebrow text, focus rings, accent lines.
 
 #### Surfaces (brand-specific)
 
-| Token | OKLCH | Usage |
-|---|---|---|
-| `--color-surface-brand` | `oklch(0.04 0 0)` | Hero left panel, CTA section, `<select>` options (near-black) |
-| `--color-surface-overlay` | `oklch(0.06 0 0)` | Footer, testimonials |
-| `--color-surface-raised` | `oklch(0.97 0 0)` | Sustainability section, hovered trust-stats |
-| `--color-surface-elevated` | `oklch(0.11 0 0)` | Footer badge, newsletter input, back-to-top |
+| Token                      | OKLCH             | Usage                                                         |
+| -------------------------- | ----------------- | ------------------------------------------------------------- |
+| `--color-surface-brand`    | `oklch(0.04 0 0)` | Hero left panel, CTA section, `<select>` options (near-black) |
+| `--color-surface-overlay`  | `oklch(0.06 0 0)` | Footer, testimonials                                          |
+| `--color-surface-raised`   | `oklch(0.97 0 0)` | Sustainability section, hovered trust-stats                   |
+| `--color-surface-elevated` | `oklch(0.11 0 0)` | Footer badge, newsletter input, back-to-top                   |
 
 #### Opacity Usage on White Text (dark backgrounds)
 
@@ -123,11 +123,11 @@ white/80  — eyebrow text on dark
 
 ### Status Colors (badges, hardcoded)
 
-| Status | Dot | Text | Border |
-|---|---|---|---|
+| Status    | Dot              | Text               | Border                  |
+| --------- | ---------------- | ------------------ | ----------------------- |
 | Completed | `bg-emerald-400` | `text-emerald-100` | `border-emerald-700/60` |
-| Ongoing | `bg-amber-400` | `text-amber-100` | `border-amber-700/60` |
-| Upcoming | `bg-sky-400` | `text-sky-100` | `border-sky-700/60` |
+| Ongoing   | `bg-amber-400`   | `text-amber-100`   | `border-amber-700/60`   |
+| Upcoming  | `bg-sky-400`     | `text-sky-100`     | `border-sky-700/60`     |
 
 Form feedback: `text-emerald-400` (success), `text-red-400` (error).
 
@@ -154,14 +154,14 @@ Hero panel: `px-6 py-10 md:px-14 md:py-12`
 
 ### Grid Patterns
 
-| Grid | Context |
-|---|---|
-| `grid-cols-1 md:grid-cols-2` | Hero (split panel) |
-| `md:grid-cols-3` | Pillars, sustainability |
-| `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4` | Featured projects grid |
-| `grid-cols-2 md:grid-cols-4` | Trust stats |
-| `lg:grid-cols-[2fr_1fr_1fr_1fr]` | Footer main |
-| `grid-cols-2 gap-8 lg:contents` | Footer columns |
+| Grid                                        | Context                 |
+| ------------------------------------------- | ----------------------- |
+| `grid-cols-1 md:grid-cols-2`                | Hero (split panel)      |
+| `md:grid-cols-3`                            | Pillars, sustainability |
+| `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4` | Featured projects grid  |
+| `grid-cols-2 md:grid-cols-4`                | Trust stats             |
+| `lg:grid-cols-[2fr_1fr_1fr_1fr]`            | Footer main             |
+| `grid-cols-2 gap-8 lg:contents`             | Footer columns          |
 
 ### Common Gaps
 
@@ -189,21 +189,23 @@ Hero panel: `px-6 py-10 md:px-14 md:py-12`
 Built on `@base-ui/react/button` + `class-variance-authority`.
 
 **Variants:**
+
 - `default` — `bg-primary text-primary-foreground hover:bg-primary/80`
 - `outline` — `border-border bg-background hover:bg-muted`
 - `secondary` — `bg-secondary text-secondary-foreground`
 - `ghost` — transparent, `hover:bg-muted hover:text-foreground`
 - `destructive` — `bg-destructive/10 text-destructive`
 - `link` — `text-primary underline-offset-4 hover:underline`
-- `custom` — **`bg-custom text-white hover:bg-custom/90`** (bronze accent button)
+- `custom` — **`bg-brand text-white hover:bg-brand/90`** (bronze accent button)
 
 **Sizes:** `default` (h-9), `xs` (h-6), `sm` (h-8), `lg` (h-10), `icon` (size-9), `icon-xs`, `icon-sm`, `icon-lg`.
 
 All icons in buttons: `[&_svg]:size-4` (via base styles).
 
 **Shimmer element** (overlay on hero CTA / form submit):
+
 ```tsx
-<div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/15 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
+<div className="absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/15 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500" />
 ```
 
 ### Card (`src/components/ui/card.tsx`)
@@ -221,13 +223,14 @@ interface SectionHeadingProps {
   eyebrow: string;
   heading: string;
   highlight?: string;
-  highlightStyle?: 'muted' | 'stroke';   // default: 'muted'
-  align?: 'left' | 'center';             // default: 'left'
-  as?: 'h1' | 'h2' | 'h3';              // default: 'h2'
+  highlightStyle?: "muted" | "stroke"; // default: 'muted'
+  align?: "left" | "center"; // default: 'left'
+  as?: "h1" | "h2" | "h3"; // default: 'h2'
 }
 ```
 
 Structure:
+
 ```
 [8px custom line]  [10px uppercase eyebrow text]
 [clamp heading]  [italic highlight]
@@ -239,7 +242,7 @@ Heading: `font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] font-light leading-tight`
 
 ```tsx
 interface StatusBadgeProps {
-  status: 'Completed' | 'Ongoing' | 'Upcoming';
+  status: "Completed" | "Ongoing" | "Upcoming";
 }
 ```
 
@@ -247,12 +250,12 @@ Structure: `inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 text-
 
 ### Logo
 
-Structure: `flex items-center gap-2.5` — constrained image (`h-6 w-auto md:h-8`) + `tracking-wide uppercase font-extrabold md:text-xl leading-none` text. Brand name: "Shaon" (default foreground) + bronze "Landmarks" (`text-custom`).
+Structure: `flex items-center gap-2.5` — constrained image (`h-6 w-auto md:h-8`) + `tracking-wide uppercase font-extrabold md:text-xl leading-none` text. Brand name: "Shaon" (default foreground) + bronze "Landmarks" (`text-brand`).
 
 ### Header
 
 ```tsx
-<header className='sticky top-0 z-50 bg-background/80 backdrop-blur-sm transition-transform duration-300 border-b border-custom/10'>
+<header className='sticky top-0 z-50 bg-background/80 backdrop-blur-sm transition-transform duration-300 border-b border-brand/10'>
   <div className='container flex items-center justify-between py-3 md:py-4'>
     <Logo />
     <DesktopNav />
@@ -263,11 +266,11 @@ Structure: `flex items-center gap-2.5` — constrained image (`h-6 w-auto md:h-8
 
 Auto-hides on scroll down via `isHidden` state → `-translate-y-full`.
 
-DesktopNav: `font-medium tracking-[0.12em]`, active = `text-custom` + `w-5 h-[1.5px]` bottom indicator, inactive = `text-muted-foreground hover:text-custom`.
+DesktopNav: `font-medium tracking-[0.12em]`, active = `text-brand` + `w-5 h-[1.5px]` bottom indicator, inactive = `text-muted-foreground hover:text-brand`.
 
 ### Footer
 
-Background: `bg-surface-overlay border-t border-white/6`.
+Background: `bg-surface-elevated border-t border-white/6`.
 Grid: `lg:grid-cols-[2fr_1fr_1fr_1fr]`.
 Section headings: `text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-400`.
 Links: `text-sm text-neutral-400 hover:text-neutral-200`.
@@ -279,21 +282,21 @@ Back-to-top: `fixed bottom-6 right-6 z-50 size-10 rounded-full border border-whi
 
 Library: **Tabler Icons** (`@tabler/icons-react` v3.44.0).
 
-| Icon | Where | Size |
-|---|---|---|
-| `IconShieldCheck` | Integrity pillar | `size={20} stroke={1.5}` |
-| `IconDiamond` | Quality pillar | `size={20} stroke={1.5}` |
-| `IconHourglass` | Legacy pillar | `size={20} stroke={1.5}` |
-| `IconLeaf` | Sustainable Materials | `size={16}` (in button default) |
-| `IconSolarPanel` | Energy Efficiency | `size={16}` |
-| `IconTree` | Green Spaces | `size={16}` |
-| `IconArrowRight` | CTA buttons, links | `size={16}` or `size={14}` |
-| `IconArrowUp` | Back-to-top | `size={16}` |
-| `IconAdjustmentsHorizontal` | Mobile menu trigger | `size={16}` |
-| `IconPhone` / `IconMail` | Footer contact | `size={14}` |
-| `IconLock` | CTA exclusive label | `size={16}` |
-| `IconChevronLeft` / `IconChevronRight` | Carousel | `size={16}` |
-| `IconX` | Sheet close | `size={16}` |
+| Icon                                   | Where                 | Size                            |
+| -------------------------------------- | --------------------- | ------------------------------- |
+| `IconShieldCheck`                      | Integrity pillar      | `size={20} stroke={1.5}`        |
+| `IconDiamond`                          | Quality pillar        | `size={20} stroke={1.5}`        |
+| `IconHourglass`                        | Legacy pillar         | `size={20} stroke={1.5}`        |
+| `IconLeaf`                             | Sustainable Materials | `size={16}` (in button default) |
+| `IconSolarPanel`                       | Energy Efficiency     | `size={16}`                     |
+| `IconTree`                             | Green Spaces          | `size={16}`                     |
+| `IconArrowRight`                       | CTA buttons, links    | `size={16}` or `size={14}`      |
+| `IconArrowUp`                          | Back-to-top           | `size={16}`                     |
+| `IconAdjustmentsHorizontal`            | Mobile menu trigger   | `size={16}`                     |
+| `IconPhone` / `IconMail`               | Footer contact        | `size={14}`                     |
+| `IconLock`                             | CTA exclusive label   | `size={16}`                     |
+| `IconChevronLeft` / `IconChevronRight` | Carousel              | `size={16}`                     |
+| `IconX`                                | Sheet close           | `size={16}`                     |
 
 Standard icon size in buttons: `size={16}` (`[&_svg:not([class*='size-'])]:size-4`).
 
@@ -301,13 +304,13 @@ Standard icon size in buttons: `size={16}` (`[&_svg:not([class*='size-'])]:size-
 
 ## 6. Surfaces & Section Backgrounds
 
-| Section | Class |
-|---|---|
-| Default white | `bg-background` (inherited) |
-| Near-black | `bg-surface-brand` — hero, CTA |
-| Dark overlay | `bg-surface-overlay` — testimonials, footer |
-| Light raised | `bg-surface-raised` — sustainability |
-| Elevated dark | `bg-surface-elevated` — footer accents |
+| Section       | Class                                        |
+| ------------- | -------------------------------------------- |
+| Default white | `bg-background` (inherited)                  |
+| Near-black    | `bg-brand-background` — hero, CTA            |
+| Dark overlay  | `bg-surface-elevated` — testimonials, footer |
+| Light raised  | `bg-surface-container` — sustainability      |
+| Elevated dark | `bg-surface-elevated` — footer accents       |
 
 ### Border Patterns
 
@@ -320,15 +323,15 @@ Standard icon size in buttons: `size={16}` (`[&_svg:not([class*='size-'])]:size-
 
 All use `group` + `group-hover:` pattern.
 
-| Effect | CSS |
-|---|---|
-| Image zoom | `transition-transform duration-[900-1000ms] ease-out group-hover:scale-[1.03-1.04]` |
-| Border accent | `border-white/[0.06] transition-colors duration-500 group-hover:border-custom/25` |
-| Rule expand | `w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom` |
-| CTA slide-in | `opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0` |
-| Top accent draw | `absolute top-0 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100` |
-| Content slide-up | `translate-y-1 transition-transform duration-300 group-hover:translate-y-0` |
-| Description reveal | `max-h-0 opacity-0 overflow-hidden transition-all duration-400 group-hover:max-h-24 group-hover:opacity-100` |
+| Effect             | CSS                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| Image zoom         | `transition-transform duration-[900-1000ms] ease-out group-hover:scale-[1.03-1.04]`                                      |
+| Border accent      | `border-white/[0.06] transition-colors duration-500 group-hover:border-brand/25`                                         |
+| Rule expand        | `w-6 h-px bg-brand/40 transition-all duration-300 group-hover:w-10 group-hover:bg-brand`                                 |
+| CTA slide-in       | `opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0`                 |
+| Top accent draw    | `absolute top-0 h-0.5 bg-brand origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100` |
+| Content slide-up   | `translate-y-1 transition-transform duration-300 group-hover:translate-y-0`                                              |
+| Description reveal | `max-h-0 opacity-0 overflow-hidden transition-all duration-400 group-hover:max-h-24 group-hover:opacity-100`             |
 
 ---
 
@@ -337,7 +340,7 @@ All use `group` + `group-hover:` pattern.
 Config in `src/lib/gsap.ts`:
 
 ```ts
-gsap.defaults({ ease: 'power2.out', duration: 0.6 });
+gsap.defaults({ ease: "power2.out", duration: 0.6 });
 ScrollTrigger.config({ ignoreMobileResize: true });
 ```
 
@@ -350,12 +353,12 @@ useEffect(() => {
   if (!MOTION) return;
   const ctx = gsap.context(() => {
     gsap.from(elementRef.current, {
-      y: 20-40,
+      y: 20 - 40,
       opacity: 0,
-      duration: 0.5-0.85,
+      duration: 0.5 - 0.85,
       scrollTrigger: {
         trigger: elementRef.current,
-        start: 'top 82-90%',
+        start: "top 82-90%",
         once: true,
       },
     });
@@ -368,16 +371,19 @@ useEffect(() => {
 
 ```ts
 gsap.from(Array.from(containerRef.current.children), {
-  y: 20-36, opacity: 0, stagger: 0.08-0.15, ...scrollTrigger
+  y: 20 - 36,
+  opacity: 0,
+  stagger: 0.08 - 0.15,
+  ...scrollTrigger,
 });
 ```
 
 ### Hero Timeline (the only timeline)
 
 ```ts
-const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 tl.from(image, { scale: 1.06, opacity: 0 }, 0)
-  .from(divider, { scaleY: 0, transformOrigin: 'top center' }, 0.2)
+  .from(divider, { scaleY: 0, transformOrigin: "top center" }, 0.2)
   .from(eyebrow, { y: 16, opacity: 0 }, 0.4)
   .from(headline.children, { y: 40, opacity: 0, stagger: 0.12 }, 0.55)
   .from(descriptor, { y: 14, opacity: 0 }, 0.85)
@@ -385,7 +391,11 @@ tl.from(image, { scale: 1.06, opacity: 0 }, 0)
   .from(cta, { y: 10, opacity: 0 }, 1.2)
   .from(scrollIndicator, { opacity: 0 }, 1.4)
   .from(locationBadge + yearTag, { y: 10, opacity: 0, stagger: 0.1 }, 1.1)
-  .from(particles.children, { opacity: 0, scale: 0, stagger: 0.03, ease: 'back.out(2)' }, 1.3);
+  .from(
+    particles.children,
+    { opacity: 0, scale: 0, stagger: 0.03, ease: "back.out(2)" },
+    1.3,
+  );
 ```
 
 ---
@@ -393,9 +403,9 @@ tl.from(image, { scale: 1.06, opacity: 0 }, 0)
 ## 9. How to Build a New Section
 
 ```tsx
-import { useEffect, useRef } from 'react';
-import { SectionHeading } from '@/components/ui/section-heading';
-import { gsap, MOTION } from '@/lib/gsap';
+import { useEffect, useRef } from "react";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { gsap, MOTION } from "@/lib/gsap";
 
 export function NewSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -405,17 +415,40 @@ export function NewSection() {
   useEffect(() => {
     if (!MOTION) return;
     const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, { y: 20, opacity: 0, duration: 0.7, scrollTrigger: { trigger: headingRef.current, start: 'top 85%', once: true } });
-      gsap.from(Array.from(contentRef.current!.children), { y: 24, opacity: 0, stagger: 0.1, scrollTrigger: { trigger: contentRef.current, start: 'top 82%', once: true } });
+      gsap.from(headingRef.current, {
+        y: 20,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: "top 85%",
+          once: true,
+        },
+      });
+      gsap.from(Array.from(contentRef.current!.children), {
+        y: 24,
+        opacity: 0,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: "top 82%",
+          once: true,
+        },
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className='py-20 md:py-28 border-t border-border'>
-      <div className='container'>
-        <SectionHeading ref={headingRef} eyebrow="Label" heading="Title" highlight="accent" />
-        <div ref={contentRef} className='grid md:grid-cols-3 gap-6'>
+    <section ref={sectionRef} className="py-20 md:py-28 border-t border-border">
+      <div className="container">
+        <SectionHeading
+          ref={headingRef}
+          eyebrow="Label"
+          heading="Title"
+          highlight="accent"
+        />
+        <div ref={contentRef} className="grid md:grid-cols-3 gap-6">
           {/* cards */}
         </div>
       </div>
@@ -434,7 +467,7 @@ export function NewSection() {
 - [ ] Cards use `group` + `group-hover:` for coordinated interactions
 - [ ] Image containers use `overflow-hidden rounded-sm` + image inside
 - [ ] Dark sections: `border-white/XX` borders, light: `border-border`
-- [ ] Section headings use `<SectionHeading>`, eyebrow `text-[10px] font-medium tracking-[0.22em] uppercase text-custom`
+- [ ] Section headings use `<SectionHeading>`, eyebrow `text-[10px] font-medium tracking-[0.22em] uppercase text-brand`
 - [ ] All icons from `@tabler/icons-react` (not lucide-react)
 - [ ] `data-slot="component-name"` on all UI primitives
 - [ ] Hover effects: image zoom, border accent, CTA slide-in, rule expand

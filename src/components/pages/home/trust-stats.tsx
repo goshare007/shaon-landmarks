@@ -77,7 +77,7 @@ export function TrustStats() {
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className={`group flex flex-col items-center justify-center gap-2 px-6 py-8 text-center transition-colors duration-300 hover:bg-surface-raised ${
+              className={`group flex flex-col items-center justify-center gap-2 px-6 py-8 text-center transition-colors duration-300 hover:bg-surface-container ${
                 i < stats.length - 1 ? 'border-r border-border' : ''
               }`}
             >
@@ -86,14 +86,14 @@ export function TrustStats() {
                 ref={(el) => {
                   valueRefs.current[i] = el;
                 }}
-                className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-none text-foreground transition-colors duration-300 group-hover:text-custom'
+                className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-none text-foreground transition-colors duration-300 group-hover:text-brand'
               >
                 {MOTION && parseStatValue(stat.value).number !== null
                   ? `0${parseStatValue(stat.value).suffix}`
                   : stat.value}
               </span>
               {/* Expanding rule */}
-              <div className='h-px w-6 bg-custom/30 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+              <div className='h-px w-6 bg-brand/30 transition-all duration-300 group-hover:w-10 group-hover:bg-brand' />
               {/* Label */}
               <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-muted-foreground'>
                 {stat.label}

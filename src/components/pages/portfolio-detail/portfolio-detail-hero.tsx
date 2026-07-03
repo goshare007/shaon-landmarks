@@ -40,9 +40,9 @@ export function PortfolioDetailHero({
   return (
     <section
       ref={sectionRef}
-      className='relative h-170 overflow-hidden bg-surface-brand'
+      className='relative h-170 overflow-hidden dark-section bg-background'
     >
-      <div className='absolute inset-0 z-10 bg-surface-brand/40' />
+      <div className='absolute inset-0 z-10 dark-section bg-background/40' />
       <div ref={imageRef} className='absolute inset-0 overflow-hidden'>
         <Image
           src={detail.heroImage}
@@ -56,23 +56,23 @@ export function PortfolioDetailHero({
 
       {/* Corner accents */}
       <div ref={cornersRef}>
-        <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+        <div className='absolute top-0 left-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute top-0 left-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute top-0 right-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute top-0 right-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-brand/30' />
       </div>
 
       <div className='absolute inset-0 z-20 mx-auto flex site-wrapper flex-col justify-end pb-24'>
         <div ref={contentRef} className='detail-hero__content'>
           <div className='mb-6 flex items-center gap-4'>
-            <span className='bg-custom px-4 py-1 text-[10px] font-medium tracking-[0.2em] text-white uppercase'>
+            <span className='bg-brand px-4 py-1 text-[10px] font-medium tracking-[0.2em] text-white uppercase'>
               {project.status}
             </span>
-            <div className='h-px w-24 bg-custom' />
+            <div className='h-px w-24 bg-brand' />
             <span className='text-[10px] font-medium tracking-[0.2em] text-white/80 uppercase'>
               {project.location}
             </span>

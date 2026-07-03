@@ -47,7 +47,7 @@ export function PortfolioDetailFloorPlans({
   return (
     <section
       ref={sectionRef}
-      className='border-b border-border bg-surface-raised py-24'
+      className='border-b border-border bg-surface-container py-24'
     >
       <div className='site-wrapper'>
         <SectionHeading
@@ -80,7 +80,7 @@ export function PortfolioDetailFloorPlans({
               </div>
               <div className='flex w-full items-center md:w-1/2 md:px-8'>
                 <div>
-                  <div className='w-12 h-px bg-custom mb-6' />
+                  <div className='w-12 h-px bg-brand mb-6' />
                   <h3 className='text-xl font-serif text-foreground md:text-2xl lg:text-3xl'>
                     {plan.title}
                   </h3>

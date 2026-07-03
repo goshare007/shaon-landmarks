@@ -84,7 +84,7 @@ export function SustainabilityPhilosophy() {
                     <div className='font-serif text-[clamp(1.5rem,2.5vw,2rem)] font-light text-foreground'>
                       {s.value}
                     </div>
-                    <div className='mt-2 w-5 h-px bg-custom/40' />
+                    <div className='mt-2 w-5 h-px bg-brand/40' />
                     <div className='mt-2 text-[9px] font-medium tracking-[0.18em] text-muted-foreground uppercase'>
                       {s.label}
                     </div>

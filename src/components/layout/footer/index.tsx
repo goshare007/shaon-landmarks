@@ -239,14 +239,14 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className='border-t border-white/6 bg-surface-overlay'
+      className='border-t border-white/6 bg-background dark-section'
     >
       {/* Main grid */}
       <div className='site-wrapper py-14 md:py-20'>
         <div className='grid gap-10 lg:grid-cols-[2fr_1fr_1fr_1fr] lg:gap-12'>
           {/* Brand column */}
           <div ref={brandColRef}>
-            <p className='mb-5 text-[10px] font-medium uppercase tracking-[0.2em] text-custom'>
+            <p className='mb-5 text-[10px] font-medium uppercase tracking-[0.2em] text-brand'>
               Building Tomorrow, Today
             </p>
 
@@ -254,7 +254,7 @@ export default function Footer() {
               to='/'
               className='mb-6 inline-flex items-center gap-3.5 group'
             >
-              <div className='flex size-11 items-center justify-center rounded-md border border-custom/20 bg-surface-elevated transition-colors duration-300 group-hover:border-custom/40'>
+              <div className='flex size-11 items-center justify-center rounded-md border border-brand/20 bg-background dark-section transition-colors duration-300 group-hover:border-brand/40'>
                 <Image
                   src={logo}
                   height={28}
@@ -269,13 +269,13 @@ export default function Footer() {
                 <p className='font-serif text-lg font-light uppercase leading-none tracking-[0.12em] text-neutral-50'>
                   Shaon
                 </p>
-                <p className='mt-0.5 text-[9px] uppercase tracking-[0.3em] text-custom'>
+                <p className='mt-0.5 text-[9px] uppercase tracking-[0.3em] text-brand'>
                   Landmarks
                 </p>
               </div>
             </Link>
 
-            <p className='mb-6 max-w-xs text-sm leading-relaxed text-neutral-300'>
+            <p className='mb-6 max-w-xs text-sm leading-relaxed text-neutral-400'>
               Redefining the skyline through structural precision and unwavering
               aesthetic integrity since 2008.
             </p>
@@ -284,7 +284,7 @@ export default function Footer() {
             <div className='mb-6 space-y-2 text-sm'>
               <a
                 href={`tel:${CONTACT_PHONE}`}
-                className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-custom'
+                className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-brand'
               >
                 <IconPhone className='size-3.5' aria-hidden='true' />
                 {CONTACT_PHONE}
@@ -292,14 +292,14 @@ export default function Footer() {
 
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-custom'
+                className='flex items-center gap-2 text-neutral-400 transition-colors duration-200 hover:text-brand'
               >
                 <IconMail className='size-3.5' aria-hidden='true' />
                 {CONTACT_EMAIL}
               </a>
             </div>
 
-            <div className='mb-6 h-px w-10 origin-left bg-custom opacity-40' />
+            <div className='mb-6 h-px w-10 origin-left bg-brand opacity-40' />
 
             <div className='mb-8 flex flex-wrap items-center gap-2'>
               {['RAJUK Certified', 'REHAB Member'].map((badge) => (
@@ -321,7 +321,7 @@ export default function Footer() {
                 Stay updated
               </label>
               <form onSubmit={handleNewsletterSubmit}>
-                <div className='flex items-center overflow-hidden rounded-lg border border-white/8 bg-surface-elevated transition-colors duration-200 focus-within:border-custom/30'>
+                <div className='flex items-center overflow-hidden rounded-lg border border-white/8 bg-background dark-section transition-colors duration-200 focus-within:border-brand/30'>
                   <Input
                     id='newsletter-email'
                     name='newsletter-email'
@@ -339,7 +339,7 @@ export default function Footer() {
                     size='icon'
                     disabled={newsletterState.status === 'submitting'}
                     aria-label='Subscribe'
-                    className='h-11 w-11 shrink-0 rounded-none border-l border-white/6 text-neutral-400 hover:bg-transparent hover:text-custom disabled:opacity-40'
+                    className='h-11 w-11 shrink-0 rounded-none border-l border-white/6 text-neutral-400 hover:bg-transparent hover:text-brand disabled:opacity-40'
                   >
                     <IconArrowRight className='size-4' aria-hidden='true' />
                   </Button>
@@ -434,7 +434,7 @@ export default function Footer() {
                   target='_blank'
                   rel='noopener noreferrer'
                   aria-label={social.name}
-                  className='social-icon text-neutral-400 transition-all duration-200 hover:text-custom'
+                  className='social-icon text-neutral-400 transition-all duration-200 hover:text-brand'
                 >
                   {social.icon}
                 </a>
@@ -454,7 +454,7 @@ export default function Footer() {
         aria-label='Back to top'
         aria-hidden={!showBackToTop}
         tabIndex={showBackToTop ? 0 : -1}
-        className='fixed bottom-6 right-6 z-50 size-10 rounded-full border-white/10 bg-surface-elevated text-neutral-300 shadow-lg backdrop-blur-sm hover:border-custom/30 hover:text-custom'
+        className='fixed bottom-6 right-6 z-50 size-10 rounded-full border-white/10 bg-background dark-section text-neutral-300 shadow-lg backdrop-blur-sm hover:border-brand/30 hover:text-brand'
         style={{ opacity: 0, pointerEvents: 'none' }}
       >
         <IconArrowUp className='size-4' aria-hidden='true' />

@@ -34,7 +34,7 @@ function FeaturedCard({ project }: { project: Project }) {
         <div className='absolute inset-0 bg-linear-to-r from-black/30 to-transparent' />
 
         {/* Border overlay */}
-        <div className='absolute inset-0 border border-white/[0.07] transition-colors duration-500 group-hover:border-custom/30 rounded-sm' />
+        <div className='absolute inset-0 border border-white/[0.07] transition-colors duration-500 group-hover:border-brand/30 rounded-sm' />
 
         {/* Content */}
         <div className='absolute bottom-0 left-0 right-0 p-8 md:p-12'>
@@ -45,7 +45,7 @@ function FeaturedCard({ project }: { project: Project }) {
           </h3>
 
           <div className='flex items-center gap-3 mt-2'>
-            <div className='w-4 h-px bg-custom/60' />
+            <div className='w-4 h-px bg-brand/60' />
             <p className='text-[11px] tracking-[0.15em] uppercase text-white/40'>
               {project.location} · {project.date}
             </p>
@@ -56,7 +56,7 @@ function FeaturedCard({ project }: { project: Project }) {
           </p>
 
           {/* CTA — slides in on hover */}
-          <div className='mt-6 inline-flex items-center gap-2 text-[10px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-3 transition-[opacity,transform] duration-300 group-hover:opacity-100 group-hover:translate-x-0'>
+          <div className='mt-6 inline-flex items-center gap-2 text-[10px] font-medium tracking-[0.18em] text-brand uppercase opacity-0 -translate-x-3 transition-[opacity,transform] duration-300 group-hover:opacity-100 group-hover:translate-x-0'>
             View Landmark
             <IconArrowRight className='w-3.5 h-3.5' aria-hidden='true' />
           </div>
@@ -103,7 +103,7 @@ function GridCard({ project }: { project: Project }) {
         <div className='absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent' />
 
         {/* Border overlay */}
-        <div className='absolute inset-0 border border-white/6 transition-colors duration-500 group-hover:border-custom/25 rounded-sm' />
+        <div className='absolute inset-0 border border-white/6 transition-colors duration-500 group-hover:border-brand/25 rounded-sm' />
 
         {/* Status badge */}
         <div className='absolute top-3 right-3'>
@@ -121,7 +121,7 @@ function GridCard({ project }: { project: Project }) {
           <p className='mt-0.5 text-[10px] text-white/30'>{project.date}</p>
 
           {/* CTA */}
-          <div className='mt-3 inline-flex items-center gap-1.5 text-[9px] font-medium tracking-[0.18em] text-custom uppercase opacity-0 -translate-x-2 transition-[opacity,transform] duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
+          <div className='mt-3 inline-flex items-center gap-1.5 text-[9px] font-medium tracking-[0.18em] text-brand uppercase opacity-0 -translate-x-2 transition-[opacity,transform] duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
             View
             <IconArrowRight className='w-3 h-3' aria-hidden='true' />
           </div>
@@ -215,7 +215,7 @@ export function FeaturedProjects() {
             highlight='redefined for modern living.'
             headingClassName='max-w-2xl text-[clamp(1.7rem,3.2vw,2.6rem)]'
           />
-          <div className='mt-6 h-px w-16 bg-custom/40' />
+          <div className='mt-6 h-px w-16 bg-brand/40' />
         </div>
 
         {/* Featured card */}
@@ -235,11 +235,11 @@ export function FeaturedProjects() {
 
         {/* Footer CTA */}
         <div ref={footerCtaRef} className='mt-12 flex items-center gap-6'>
-          <div className='hidden h-px w-16 bg-custom/30 md:block' />
+          <div className='hidden h-px w-16 bg-brand/30 md:block' />
           <Link
             to='/portfolio'
             search={{ status: '', location: '', search: '' }}
-            className='group inline-flex items-center gap-3 rounded-sm border border-border px-6 py-3 text-[11px] font-medium tracking-[0.18em] text-foreground no-underline transition-[border-color,color] duration-200 hover:border-custom hover:text-custom uppercase'
+            className='group inline-flex items-center gap-3 rounded-sm border border-border px-6 py-3 text-[11px] font-medium tracking-[0.18em] text-foreground no-underline transition-[border-color,color] duration-200 hover:border-brand hover:text-brand uppercase'
           >
             View All Projects
             <IconArrowRight

@@ -97,7 +97,7 @@ export function PortfolioGrid() {
                       <p className='mt-0.5 text-label text-white/40'>
                         {project.date}
                       </p>
-                      <div className='mt-3 flex items-center gap-1 text-[10px] font-medium tracking-[0.15em] text-custom uppercase opacity-0 -translate-x-2 transition-[opacity,transform] duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
+                      <div className='mt-3 flex items-center gap-1 text-[10px] font-medium tracking-[0.15em] text-brand uppercase opacity-0 -translate-x-2 transition-[opacity,transform] duration-200 group-hover:opacity-100 group-hover:translate-x-0'>
                         View Landmark
                         <IconArrowRight size={14} aria-hidden='true' />
                       </div>

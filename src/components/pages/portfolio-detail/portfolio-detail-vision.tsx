@@ -52,28 +52,28 @@ export function PortfolioDetailVision({
   return (
     <section
       ref={sectionRef}
-      className='relative bg-surface-brand py-32 overflow-hidden'
+      className='relative bg-background dark-section py-32 overflow-hidden'
     >
       {/* Corner accents */}
       <div ref={cornersRef}>
-        <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
-        <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
-        <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+        <div className='absolute top-0 left-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute top-0 left-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute top-0 right-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute top-0 right-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-brand/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-brand/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-brand/30' />
       </div>
 
       <div className='site-wrapper'>
         <div className='flex flex-col gap-16 lg:flex-row lg:items-center'>
           <div ref={copyRef} className='w-full lg:w-1/2 lg:pr-12'>
-            <div className='w-12 h-px bg-custom mb-8' />
+            <div className='w-12 h-px bg-brand mb-8' />
             <h2 className='mb-10 text-3xl leading-tight font-serif text-white md:text-4xl lg:text-5xl'>
               {vision.title}{' '}
               {vision.italicPart && (
-                <span className='italic text-custom'>{vision.italicPart}</span>
+                <span className='italic text-brand'>{vision.italicPart}</span>
               )}
             </h2>
             <div className='max-w-xl space-y-6 text-base leading-relaxed text-white/55 md:text-lg'>

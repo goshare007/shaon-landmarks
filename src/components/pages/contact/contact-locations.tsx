@@ -100,7 +100,7 @@ export function ContactLocations() {
                   <div className='flex items-start gap-3'>
                     <IconMapPin
                       size={15}
-                      className='text-custom shrink-0 mt-0.5'
+                      className='text-brand shrink-0 mt-0.5'
                     />
                     <p className='text-sm leading-relaxed text-muted-foreground'>
                       {office.address}
@@ -109,19 +109,19 @@ export function ContactLocations() {
                     </p>
                   </div>
                   <div className='flex items-center gap-3'>
-                    <IconPhone size={15} className='text-custom shrink-0' />
+                    <IconPhone size={15} className='text-brand shrink-0' />
                     <a
                       href={`tel:${office.phone.replace(/\s/g, '')}`}
-                      className='text-sm text-muted-foreground hover:text-custom transition-colors'
+                      className='text-sm text-muted-foreground hover:text-brand transition-colors'
                     >
                       {office.phone}
                     </a>
                   </div>
                   <div className='flex items-center gap-3'>
-                    <IconMail size={15} className='text-custom shrink-0' />
+                    <IconMail size={15} className='text-brand shrink-0' />
                     <a
                       href={`mailto:${office.email}`}
-                      className='text-sm text-muted-foreground hover:text-custom transition-colors'
+                      className='text-sm text-muted-foreground hover:text-brand transition-colors'
                     >
                       {office.email}
                     </a>

@@ -114,10 +114,10 @@ export function ServicesCards() {
             return (
               <div
                 key={service.title}
-                className={`group relative overflow-hidden border border-border bg-card transition-colors duration-500 hover:border-custom/25 ${service.colSpan}`}
+                className={`group relative overflow-hidden border border-border bg-card transition-colors duration-500 hover:border-brand/25 ${service.colSpan}`}
               >
                 {/* Top accent draw */}
-                <div className='absolute top-0 left-0 right-0 z-10 h-0.5 bg-custom origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
+                <div className='absolute top-0 left-0 right-0 z-10 h-0.5 bg-brand origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100' />
 
                 {service.layout === 'row' ||
                 service.layout === 'row-reverse' ? (
@@ -134,7 +134,7 @@ export function ServicesCards() {
                         <Icon
                           size={20}
                           stroke={1.5}
-                          className='mb-6 text-custom'
+                          className='mb-6 text-brand'
                           aria-hidden='true'
                         />
                         <h3 className='mb-4 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light text-foreground'>
@@ -147,7 +147,7 @@ export function ServicesCards() {
                       {service.link && (
                         <Link
                           to={service.link.to}
-                          className='group/link inline-flex items-center gap-2 text-[10px] font-medium tracking-[0.18em] text-custom uppercase transition-all duration-200'
+                          className='group/link inline-flex items-center gap-2 text-[10px] font-medium tracking-[0.18em] text-brand uppercase transition-all duration-200'
                         >
                           <span className='opacity-0 -translate-x-2 transition-all duration-200 group-hover/link:opacity-100 group-hover/link:translate-x-0'>
                             <IconArrowRight size={14} aria-hidden='true' />
@@ -193,7 +193,7 @@ export function ServicesCards() {
                       <Icon
                         size={20}
                         stroke={1.5}
-                        className='mb-4 text-custom'
+                        className='mb-4 text-brand'
                         aria-hidden='true'
                       />
                       <h3 className='mb-3 font-serif text-base font-light text-foreground'>

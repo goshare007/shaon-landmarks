@@ -73,7 +73,7 @@ export function SustainabilitySection() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-raised py-20 md:py-28 border-t border-border'
+      className='bg-surface-container py-20 md:py-28 border-t border-border'
     >
       <div className='site-wrapper'>
         {/* Heading */}
@@ -134,7 +134,7 @@ export function SustainabilitySection() {
               <div className='absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 
               {/* Border overlay */}
-              <div className='absolute inset-0 border border-white/[0.07] transition-colors duration-500 group-hover:border-custom/30 rounded-sm' />
+              <div className='absolute inset-0 border border-white/[0.07] transition-colors duration-500 group-hover:border-brand/30 rounded-sm' />
 
               {/* Top-left: index */}
               <div className='absolute top-5 left-5'>
@@ -145,7 +145,7 @@ export function SustainabilitySection() {
 
               {/* Top-right: icon pill */}
               <div
-                className='absolute top-4 right-4 flex items-center justify-center w-9 h-9 rounded-sm border border-white/10 text-white/50 transition-all duration-300 group-hover:border-custom/40 group-hover:text-custom'
+                className='absolute top-4 right-4 flex items-center justify-center w-9 h-9 rounded-sm border border-white/10 text-white/50 transition-all duration-300 group-hover:border-brand/40 group-hover:text-brand'
                 style={{
                   background: 'rgba(0,0,0,0.4)',
                   backdropFilter: 'blur(8px)',
@@ -162,7 +162,7 @@ export function SustainabilitySection() {
                 </h3>
 
                 {/* Gold rule expands on hover */}
-                <div className='w-6 h-px bg-custom/50 mt-3 mb-0 transition-all duration-400 group-hover:w-10 group-hover:bg-custom' />
+                <div className='w-6 h-px bg-brand/50 mt-3 mb-0 transition-all duration-400 group-hover:w-10 group-hover:bg-brand' />
 
                 {/* Description: hidden by default, revealed on hover */}
                 <p className='mt-3 text-sm leading-relaxed text-white/60 max-h-0 overflow-hidden opacity-0 transition-all duration-400 ease-out group-hover:max-h-24 group-hover:opacity-100'>

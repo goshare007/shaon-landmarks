@@ -73,11 +73,11 @@ export function LegalDisclosures() {
             const Icon = section.icon;
             return (
               <div key={section.title} className='flex items-start gap-5 py-10'>
-                <div className='flex w-11 h-11 shrink-0 items-center justify-center rounded-md border border-border bg-background text-custom'>
+                <div className='flex w-11 h-11 shrink-0 items-center justify-center rounded-md border border-border bg-background text-brand'>
                   <Icon size={16} stroke={1.5} />
                 </div>
                 <div className='flex-1 pt-0.5'>
-                  <div className='mb-4 w-6 h-px bg-custom/40' />
+                  <div className='mb-4 w-6 h-px bg-brand/40' />
                   <h2 className='mb-4 font-serif text-[clamp(1.1rem,2vw,1.4rem)] font-light text-foreground'>
                     {section.title}
                   </h2>

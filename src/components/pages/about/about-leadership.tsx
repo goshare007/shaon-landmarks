@@ -136,7 +136,7 @@ export function AboutLeadership() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-raised py-16 md:py-20 border-t border-border'
+      className='bg-surface-container py-16 md:py-20 border-t border-border'
     >
       <div className='site-wrapper'>
         <SectionHeading
@@ -161,7 +161,7 @@ export function AboutLeadership() {
                   key={leader.name}
                   className='md:basis-1/2 lg:basis-1/4 py-4'
                 >
-                  <div className='group border border-border/60 bg-background p-5 rounded-sm hover:border-custom/20 transition-colors duration-500'>
+                  <div className='group border border-border/60 bg-background p-5 rounded-sm hover:border-brand/20 transition-colors duration-500'>
                     <div className='relative mb-4 overflow-hidden rounded-sm'>
                       <div className='aspect-3/4'>
                         <Image
@@ -179,15 +179,15 @@ export function AboutLeadership() {
                         className='absolute top-0 left-0 w-5 h-5'
                         aria-hidden='true'
                       >
-                        <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-                        <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
+                        <div className='absolute top-0 left-0 w-full h-px bg-brand/30' />
+                        <div className='absolute top-0 left-0 h-full w-px bg-brand/30' />
                       </div>
                       <div
                         className='absolute bottom-0 right-0 w-5 h-5'
                         aria-hidden='true'
                       >
-                        <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-                        <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
+                        <div className='absolute bottom-0 right-0 w-full h-px bg-brand/30' />
+                        <div className='absolute bottom-0 right-0 h-full w-px bg-brand/30' />
                       </div>
 
                       <div className='absolute top-2 left-2'>
@@ -206,7 +206,7 @@ export function AboutLeadership() {
                     <h4 className='font-serif text-[15px] font-light text-foreground leading-snug'>
                       {leader.name}
                     </h4>
-                    <div className='mt-3 mb-3 w-6 h-px bg-custom/30' />
+                    <div className='mt-3 mb-3 w-6 h-px bg-brand/30' />
                     <p className='text-xs leading-relaxed text-muted-foreground'>
                       {leader.bio}
                     </p>
@@ -228,7 +228,7 @@ export function AboutLeadership() {
               onClick={() => api?.scrollTo(i)}
               className={`h-px transition-all duration-500 rounded-full ${
                 i === current
-                  ? 'w-10 bg-custom'
+                  ? 'w-10 bg-brand'
                   : 'w-4 bg-border hover:bg-muted-foreground/40'
               }`}
               aria-label={`Go to ${leader.name}`}

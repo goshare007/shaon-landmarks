@@ -40,13 +40,13 @@ export function PortfolioDetailSpecs({
   return (
     <section
       ref={sectionRef}
-      className='border-b border-border bg-surface-raised py-20'
+      className='border-b border-border bg-surface-container py-20'
     >
       <div className='site-wrapper'>
         <div ref={gridRef} className='grid grid-cols-2 gap-12 md:grid-cols-4'>
           {items.map((item) => (
             <div key={item.label} className='detail-specs__item'>
-              <p className='text-[10px] font-medium tracking-[0.15em] text-custom uppercase'>
+              <p className='text-[10px] font-medium tracking-[0.15em] text-brand uppercase'>
                 {item.label}
               </p>
               <p className='mt-2 text-xl font-serif text-foreground md:text-2xl'>

@@ -64,11 +64,11 @@ export function HeroSection() {
       className='relative min-h-screen md:h-screen overflow-hidden grid grid-cols-1 md:grid-cols-2'
     >
       {/* ── LEFT PANEL ─────────────────────────────────────────────────────── */}
-      <div className='relative z-10 bg-surface-brand flex flex-col justify-between px-6 py-10 md:px-14 md:py-12 overflow-hidden order-2 md:order-1'>
+      <div className='relative z-10 bg-background dark-section flex flex-col justify-between px-6 py-10 md:px-14 md:py-12 overflow-hidden order-2 md:order-1'>
         {/* Vertical divider between panels */}
         <div
           ref={dividerRef}
-          className='hidden md:block absolute right-0 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-custom to-transparent opacity-30'
+          className='hidden md:block absolute right-0 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-brand to-transparent opacity-30'
         />
 
         <div className='flex flex-col h-full justify-between gap-12 md:gap-0'>
@@ -79,8 +79,8 @@ export function HeroSection() {
               ref={eyebrowRef}
               className='flex items-center gap-4 mb-6 md:mb-9'
             >
-              <div className='w-10 h-px bg-custom' />
-              <span className='text-xs font-medium  uppercase text-custom/80'>
+              <div className='w-10 h-px bg-brand' />
+              <span className='text-xs font-medium  uppercase text-brand/80'>
                 {HERO_CONTENT.eyebrow}
               </span>
             </div>
@@ -91,7 +91,7 @@ export function HeroSection() {
               className='font-serif text-5xl md:text-7xl   text-white overflow-hidden'
             >
               <span className='block'>{HERO_CONTENT.headline.first}</span>
-              <span className='block italic text-custom font-bold pt-2'>
+              <span className='block italic text-brand font-bold pt-2'>
                 {HERO_CONTENT.headline.second}
               </span>
             </h1>
@@ -101,7 +101,7 @@ export function HeroSection() {
               ref={descriptorRef}
               className='flex items-start gap-5 mt-6 md:mt-9'
             >
-              <div className='w-0.5 min-h-14 bg-custom/40 shrink-0 mt-0.5' />
+              <div className='w-0.5 min-h-14 bg-brand/40 shrink-0 mt-0.5' />
               <p className='text-sm md:text-sm leading-relaxed text-white/70 max-w-xs font-light'>
                 {HERO_CONTENT.descriptor}
               </p>
@@ -137,7 +137,7 @@ export function HeroSection() {
               <Link
                 to='/portfolio'
                 search={{ status: '', location: '', search: '' }}
-                className='relative overflow-hidden group inline-flex items-center gap-4 bg-custom text-white px-6 py-3 md:px-7 md:py-3.5 text-[11px] font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-custom/90 transition-colors duration-200'
+                className='relative overflow-hidden group inline-flex items-center gap-4 bg-brand text-black px-6 py-3 md:px-7 md:py-3.5 text-[11px] font-semibold tracking-[0.15em] uppercase no-underline rounded-sm w-fit hover:bg-brand/90 transition-colors duration-200'
               >
                 {/* Shimmer on hover */}
                 <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/15 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
@@ -147,20 +147,6 @@ export function HeroSection() {
                   aria-hidden='true'
                 />
               </Link>
-            </div>
-
-            {/* Scroll indicator */}
-            <div
-              ref={scrollIndicatorRef}
-              className='hidden md:flex flex-col items-center gap-2'
-            >
-              <span
-                className='text-[10px] tracking-[0.2em] uppercase text-white/45'
-                style={{ writingMode: 'vertical-rl' }}
-              >
-                Scroll
-              </span>
-              <div className='w-px h-10 bg-linear-to-b from-white/20 to-transparent animate-pulse' />
             </div>
           </div>
         </div>
@@ -190,14 +176,14 @@ export function HeroSection() {
           className='absolute bottom-6 left-6 md:bottom-12 md:left-9 z-10'
         >
           <div
-            className='flex items-center gap-3 px-4 py-3 rounded-sm border border-custom/30'
+            className='flex items-center gap-3 px-4 py-3 rounded-sm border border-brand/30'
             style={{
               background: 'rgba(0,0,0,0.55)',
               backdropFilter: 'blur(12px)',
               willChange: 'transform',
             }}
           >
-            <div className='w-1.5 h-1.5 rounded-full bg-custom shrink-0 animate-pulse' />
+            <div className='w-1.5 h-1.5 rounded-full bg-brand shrink-0 animate-pulse' />
             <span className='text-[10px] tracking-[0.12em] uppercase text-white/65 font-medium'>
               {HERO_CONTENT.location}
             </span>
@@ -215,7 +201,7 @@ export function HeroSection() {
           >
             {new Date().getFullYear()}
           </span>
-          <div className='w-px h-12 bg-linear-to-b from-custom/60 to-transparent' />
+          <div className='w-px h-12 bg-linear-to-b from-brand/60 to-transparent' />
         </div>
       </div>
     </section>

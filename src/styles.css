@@ -47,11 +47,10 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-  --color-surface-brand: oklch(0.04 0 0);
-  --color-surface-overlay: oklch(0.06 0 0);
-  --color-surface-raised: oklch(0.97 0 0);
-  --color-surface-elevated: oklch(0.11 0 0);
-  --color-custom: oklch(0.58 0.09 65);
+  --color-brand: var(--brand);
+  --color-brand-background: var(--brand-bg);
+  --color-surface-container: var(--surface-container);
+  --color-surface-overlay: var(--surface-overlay);
 }
 
 :root {
@@ -87,6 +86,50 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* =========================================================================
+     GLOBAL DEFAULT VALUES (For Light Mode Layouts)
+     ========================================================================= */
+  --brand: oklch(
+    0.45 0.09 65
+  ); /* Warm copper shade optimized for dark text readability on white bg */
+  --brand-bg: oklch(
+    0.98 0 0
+  ); /* Very bright gray/tint background wrapper for layout accent zones */
+  --surface-container: oklch(
+    0.97 0 0
+  ); /* Standard crisp light surface value used for structural UI cards */
+  --surface-overlay: oklch(
+    0.06 0 0
+  ); /* Deep dark background intended specifically for system modals or dropdowns */
+}
+
+/* ===========================================================================
+   SCOPED CONTEXT CONTAINER UTILITY
+   Apply this class to any element wrapper that requires a deep dark landscape.
+   It automatically recalibrates local variables for contrast conformance.
+   =========================================================================== */
+.dark-section {
+  --background: oklch(
+    0.04 0 0
+  ); /* Overrides local body/section to deep dark background */
+  --foreground: oklch(
+    0.985 0 0
+  ); /* Flips standard global text to crisp near-white text */
+
+  /* Variable Shifting Logic for Dark Scenarios */
+  --brand: oklch(
+    0.78 0.09 65
+  ); /* Lightens your copper accent so it glows clearly against dark layers */
+  --brand-bg: oklch(
+    0.04 0 0
+  ); /* Aligns structural layout accent wrapper matching deep background */
+  --surface-container: oklch(
+    0.11 0 0
+  ); /* Dark card container overlay color replacing structural gray */
+  --surface-overlay: oklch(
+    0.15 0 0
+  ); /* Slightly more elevated dark card style or dropdown layer */
 }
 
 @layer base {

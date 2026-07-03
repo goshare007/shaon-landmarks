@@ -15,7 +15,7 @@ export default function Logo() {
           className='h-6 w-auto md:h-8 mb-2 md:mb-3'
         />
         <span className=' tracking-wide uppercase font-extrabold md:text-xl leading-none'>
-          Shaon <span className='text-custom'>Landmarks</span>
+          Shaon <span className='text-brand'>Landmarks</span>
         </span>
       </div>
     </Link>

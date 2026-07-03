@@ -32,7 +32,7 @@ function renderInline(text: string): ReactNode {
         <a
           key={n}
           href={linkMatch[2]}
-          className='text-custom underline underline-offset-2 transition-colors hover:opacity-80'
+          className='text-brand underline underline-offset-2 transition-colors hover:opacity-80'
         >
           {renderInline(linkMatch[1])}
         </a>,
@@ -131,7 +131,7 @@ export function renderMarkdown(content: string): ReactNode[] {
         nodes.push(
           <blockquote
             key={`bq-${startIdx}`}
-            className='my-8 border-l-2 border-custom/30 pl-6 italic leading-relaxed text-muted-foreground'
+            className='my-8 border-l-2 border-brand/30 pl-6 italic leading-relaxed text-muted-foreground'
           >
             {quoteLines[0]}
           </blockquote>,
@@ -140,7 +140,7 @@ export function renderMarkdown(content: string): ReactNode[] {
         nodes.push(
           <blockquote
             key={`bq-${startIdx}`}
-            className='my-8 space-y-2 border-l-2 border-custom/30 pl-6 italic leading-relaxed text-muted-foreground'
+            className='my-8 space-y-2 border-l-2 border-brand/30 pl-6 italic leading-relaxed text-muted-foreground'
           >
             {quoteLines.map((q, j) => (
               <p
@@ -166,7 +166,7 @@ export function renderMarkdown(content: string): ReactNode[] {
         items.push(
           <li
             key={n}
-            className='relative pl-6 before:absolute before:left-0 before:top-[0.6em] before:h-1.5 before:w-1.5 before:rounded-full             before:bg-custom'
+            className='relative pl-6 before:absolute before:left-0 before:top-[0.6em] before:h-1.5 before:w-1.5 before:rounded-full             before:bg-brand'
           >
             {renderInline(lines[i].replace(/^[-*]\s/, ''))}
           </li>,
@@ -188,7 +188,7 @@ export function renderMarkdown(content: string): ReactNode[] {
       while (i < lines.length && lines[i].match(/^\d+\.\s/)) {
         const n = i;
         items.push(
-          <li key={n} className='pl-2 marker:text-custom'>
+          <li key={n} className='pl-2 marker:text-brand'>
             {renderInline(lines[i].replace(/^\d+\.\s/, ''))}
           </li>,
         );

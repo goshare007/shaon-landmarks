@@ -49,8 +49,8 @@ export default function MobileMenu() {
                       className={cn(
                         'border-l-2 px-4 py-3 font-medium tracking-[0.12em] transition-colors duration-200',
                         isActive
-                          ? 'border-custom text-custom'
-                          : 'border-transparent text-on-surface-variant hover:border-custom/50 hover:text-custom',
+                          ? 'border-brand text-brand'
+                          : 'border-transparent text-on-surface-variant hover:border-brand/50 hover:text-brand',
                       )}
                     >
                       {item.label}
@@ -67,7 +67,7 @@ export default function MobileMenu() {
                 <Link
                   to='/contact'
                   className={cn(
-                    buttonVariants({ variant: 'custom', className: 'w-full' }),
+                    buttonVariants({ variant: 'brand', className: 'w-full' }),
                   )}
                 >
                   Let's Talk

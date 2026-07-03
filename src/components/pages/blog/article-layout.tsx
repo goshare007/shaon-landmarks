@@ -169,7 +169,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
         <article className='site-wrapper pb-24'>
           <div className='mx-auto max-w-3xl'>
             <div ref={headerRef} className='article-layout__header'>
-              <span className='inline-block rounded-sm border border-custom/30 px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] uppercase text-custom'>
+              <span className='inline-block rounded-sm border border-brand/30 px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] uppercase text-brand'>
                 {article.category.name}
               </span>
 
@@ -226,7 +226,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                       title={article.title}
                       aria-label={`Share on ${label}`}
                     >
-                      <div className='rounded-full border p-3 bg-custom/5 pointer-events-none'>
+                      <div className='rounded-full border p-3 bg-brand/5 pointer-events-none'>
                         <Icon size={20} color='black' />
                       </div>
                     </Component>
@@ -240,8 +240,8 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                       setCopied(true);
                     }}
                     className={cn(
-                      'rounded-full transition-colors bg-custom/5 p-3 border',
-                      copied && 'border-custom/40 bg-custom/5 text-custom',
+                      'rounded-full transition-colors bg-brand/5 p-3 border',
+                      copied && 'border-brand/40 bg-brand/5 text-brand',
                     )}
                   >
                     {copied ? <IconCheck size={20} /> : <IconLink size={20} />}
@@ -267,8 +267,8 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
             {/* Author Bio */}
             <div ref={authorRef} className='mx-auto mt-8 max-w-3xl'>
               <div className='flex items-center gap-4 rounded-sm border border-border bg-muted p-6'>
-                <div className='flex size-12 shrink-0 items-center justify-center rounded-full bg-custom/10'>
-                  <span className='text-sm font-medium text-custom'>
+                <div className='flex size-12 shrink-0 items-center justify-center rounded-full bg-brand/10'>
+                  <span className='text-sm font-medium text-brand'>
                     {article.author
                       .split(' ')
                       .map((w) => w[0])
@@ -295,7 +295,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
       {recent.length > 0 && (
         <section
           ref={recentSectionRef}
-          className='border-t border-border bg-surface-raised py-20'
+          className='border-t border-border bg-surface-container py-20'
         >
           <div className='site-wrapper'>
             <SectionHeading
@@ -306,15 +306,15 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
               highlightStyle='muted'
               className='mb-10'
             />
-            <div ref={recentGridRef} className='grid gap-6 md:grid-cols-3'>
+            <div className='grid gap-6 md:grid-cols-3'>
               {recent.map((r) => (
                 <Link
                   key={r.slug}
                   to='/blog/$slug'
                   params={{ slug: r.slug }}
-                  className='group relative flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-all duration-500 hover:ring-custom/25'
+                  className='group relative flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-all duration-500 hover:ring-brand/25'
                 >
-                  <div className='absolute top-0 left-0 right-0 z-10 h-0.5 origin-left scale-x-0 bg-custom transition-transform duration-500 ease-out group-hover:scale-x-100' />
+                  <div className='absolute top-0 left-0 right-0 z-10 h-0.5 origin-left scale-x-0 bg-brand transition-transform duration-500 ease-out group-hover:scale-x-100' />
 
                   <div className='relative aspect-video overflow-hidden bg-linear-to-br from-surface-brand to-surface-raised'>
                     <Image
@@ -336,10 +336,10 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                     <p className='text-[10px] text-muted-foreground'>
                       {r.readingTime} min read
                     </p>
-                    <h3 className='mt-2 text-base font-serif leading-snug text-foreground transition-colors group-hover:text-custom'>
+                    <h3 className='mt-2 text-base font-serif leading-snug text-foreground transition-colors group-hover:text-brand'>
                       {r.title}
                     </h3>
-                    <div className='my-2 h-px w-6 bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+                    <div className='my-2 h-px w-6 bg-brand/40 transition-all duration-300 group-hover:w-10 group-hover:bg-brand' />
                   </div>
                 </Link>
               ))}
@@ -349,7 +349,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
       )}
 
       {/* CTA */}
-      <section className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'>
+      <section className='relative overflow-hidden bg-background dark-section py-20 md:py-28 border-t border-white/6'>
         <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
           <div className='h-125 w-125 rounded-full border border-white/6' />
         </div>
@@ -358,12 +358,12 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
         </div>
 
         <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
-          <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
-          <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
+          <div className='absolute top-0 left-0 w-full h-px bg-brand/30' />
+          <div className='absolute top-0 left-0 h-full w-px bg-brand/30' />
         </div>
         <div className='absolute bottom-0 right-0 w-8 h-8' aria-hidden='true'>
-          <div className='absolute bottom-0 right-0 w-full h-px bg-custom/30' />
-          <div className='absolute bottom-0 right-0 h-full w-px bg-custom/30' />
+          <div className='absolute bottom-0 right-0 w-full h-px bg-brand/30' />
+          <div className='absolute bottom-0 right-0 h-full w-px bg-brand/30' />
         </div>
 
         <div className='relative z-10 site-wrapper'>
@@ -382,12 +382,12 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                 <Link
                   to='/contact'
                   className={buttonVariants({
-                    variant: 'custom',
+                    variant: 'brand',
                     size: 'lg',
-                    className: 'px-10 py-5',
+                    className: 'px-10 py-5 ',
                   })}
                 >
-                  <span className='relative z-10 inline-flex items-center gap-3'>
+                  <span className='relative z-10 inline-flex items-center gap-3 text-black'>
                     Contact Us
                     <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
                   </span>
@@ -395,7 +395,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
               </div>
               <Link
                 to='/contact'
-                className='group inline-flex items-center gap-3 rounded-sm border border-custom/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-custom hover:text-custom'
+                className='group inline-flex items-center gap-3 rounded-sm border border-brand/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-brand hover:text-brand'
               >
                 View Properties
                 <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />

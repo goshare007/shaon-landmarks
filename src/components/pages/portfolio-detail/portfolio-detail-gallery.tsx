@@ -71,7 +71,7 @@ export function PortfolioDetailGallery({
           <h2 className='text-2xl font-serif text-foreground md:text-3xl'>
             Immersive Spaces
           </h2>
-          <p className='border-b border-custom pb-1 text-[10px] font-medium tracking-[0.15em] text-custom uppercase'>
+          <p className='border-b border-brand pb-1 text-[10px] font-medium tracking-[0.15em] text-brand uppercase'>
             View Full Gallery
           </p>
         </div>

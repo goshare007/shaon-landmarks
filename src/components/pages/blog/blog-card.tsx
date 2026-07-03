@@ -16,7 +16,7 @@ export function BlogCard({ article, featured }: BlogCardProps) {
   );
 
   const baseClasses =
-    'group relative flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-all duration-500 hover:ring-custom/25';
+    'group relative flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground shadow-xs ring-1 ring-foreground/10 transition-all duration-500 hover:ring-brand/25';
 
   const badgeClasses =
     'rounded-sm border border-white/30 bg-black/45 px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] text-white/80 uppercase backdrop-blur-sm';
@@ -43,7 +43,7 @@ export function BlogCard({ article, featured }: BlogCardProps) {
             <span
               className={`absolute top-3 left-3 inline-flex items-center gap-1.5 ${badgeClasses}`}
             >
-              <span className='size-1.5 rounded-full bg-custom' />
+              <span className='size-1.5 rounded-full bg-brand' />
               Featured
             </span>
             <span className={`absolute top-3 right-3 ${badgeClasses}`}>
@@ -55,10 +55,10 @@ export function BlogCard({ article, featured }: BlogCardProps) {
             <p className='text-[10px] text-muted-foreground'>
               {formattedDate} · {article.readingTime} min read
             </p>
-            <h3 className='mt-2 text-2xl font-serif leading-snug text-foreground transition-colors group-hover:text-custom md:text-3xl'>
+            <h3 className='mt-2 text-2xl font-serif leading-snug text-foreground transition-colors group-hover:text-brand md:text-3xl'>
               {article.title}
             </h3>
-            <div className='my-3 h-px w-6 bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+            <div className='my-3 h-px w-6 bg-brand/40 transition-all duration-300 group-hover:w-10 group-hover:bg-brand' />
             <p className='line-clamp-3 text-sm leading-relaxed text-muted-foreground'>
               {article.excerpt}
             </p>
@@ -95,10 +95,10 @@ export function BlogCard({ article, featured }: BlogCardProps) {
           <p className='text-[10px] text-muted-foreground'>
             {formattedDate} · {article.readingTime} min read
           </p>
-          <h3 className='mt-2 text-lg font-serif leading-snug text-foreground transition-colors group-hover:text-custom'>
+          <h3 className='mt-2 text-lg font-serif leading-snug text-foreground transition-colors group-hover:text-brand'>
             {article.title}
           </h3>
-          <div className='my-2 h-px w-6 bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+          <div className='my-2 h-px w-6 bg-brand/40 transition-all duration-300 group-hover:w-10 group-hover:bg-brand' />
         </div>
       </Link>
     </div>

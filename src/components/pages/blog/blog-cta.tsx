@@ -44,7 +44,7 @@ export function BlogCta() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-brand py-16 md:py-20 border-t border-white/6'
+      className='dark-section bg-background py-16 md:py-20 border-t border-white/6'
     >
       <div className='site-wrapper'>
         <SectionHeading
@@ -67,9 +67,9 @@ export function BlogCta() {
             <div className='group'>
               <Link
                 to='/contact'
-                className={`${buttonVariants({ variant: 'custom' })} py-6 px-10 uppercase text-[11px] font-medium tracking-[0.15em]`}
+                className={`${buttonVariants({ variant: 'brand' })} py-6 px-10 uppercase text-[11px] font-medium tracking-[0.15em]`}
               >
-                <span className='relative z-10 inline-flex items-center gap-3'>
+                <span className='relative z-10 inline-flex items-center gap-3 text-black'>
                   Subscribe Now
                   <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
                 </span>
@@ -77,7 +77,7 @@ export function BlogCta() {
             </div>
             <Link
               to='/contact'
-              className='group inline-flex items-center gap-3 rounded-sm border border-custom/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-custom hover:text-custom'
+              className='group inline-flex items-center gap-3 rounded-sm border border-brand/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-brand hover:text-brand'
             >
               Contact Our Team
               <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />

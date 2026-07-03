@@ -80,7 +80,7 @@ function BlogArticle() {
       <div className='site-wrapper pt-6'>
         <Link
           to='/blog'
-          className='mb-6 inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground transition-colors hover:text-custom'
+          className='mb-6 inline-flex items-center gap-2 text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground transition-colors hover:text-brand'
         >
           <IconArrowLeft size={14} aria-hidden='true' />
           Back to Blog
@@ -93,9 +93,9 @@ function BlogArticle() {
 
 function ArticleNotFound() {
   return (
-    <main className='flex min-h-dvh items-center justify-center bg-surface-raised px-4'>
+    <main className='flex min-h-dvh items-center justify-center bg-surface-container px-4'>
       <div className='mx-auto max-w-2xl py-20 text-center'>
-        <h1 className='text-8xl font-serif text-custom'>404</h1>
+        <h1 className='text-8xl font-serif text-brand'>404</h1>
         <p className='mt-4 text-xl font-serif text-foreground'>
           Article Not Found
         </p>
@@ -105,7 +105,7 @@ function ArticleNotFound() {
         <div className='mt-10'>
           <Link
             to='/blog'
-            className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-custom px-8 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-custom/90'
+            className='group relative inline-flex items-center gap-3 overflow-hidden rounded-sm bg-brand px-8 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white uppercase transition-colors duration-200 hover:bg-brand/90'
           >
             <div className='absolute inset-0 -skew-x-12 bg-linear-to-r from-transparent via-white/10 to-transparent translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-500' />
             <span className='relative z-10'>Back to Blog</span>

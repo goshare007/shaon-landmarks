@@ -69,7 +69,7 @@ export function SustainabilityPillars() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-raised py-20 md:py-28 border-t border-border'
+      className='bg-surface-container py-20 md:py-28 border-t border-border'
     >
       <div className='site-wrapper'>
         <SectionHeading
@@ -85,7 +85,7 @@ export function SustainabilityPillars() {
           {pillars.map((p) => (
             <div
               key={p.title}
-              className='group border border-border bg-card overflow-hidden rounded-sm transition-colors duration-500 hover:border-custom/25'
+              className='group border border-border bg-card overflow-hidden rounded-sm transition-colors duration-500 hover:border-brand/25'
             >
               <div className='aspect-[16/9] overflow-hidden'>
                 <Image
@@ -103,7 +103,7 @@ export function SustainabilityPillars() {
                 <h3 className='font-serif text-base font-light text-foreground'>
                   {p.title}
                 </h3>
-                <div className='my-3 w-6 h-px bg-custom/40 transition-all duration-300 group-hover:w-10 group-hover:bg-custom' />
+                <div className='my-3 w-6 h-px bg-brand/40 transition-all duration-300 group-hover:w-10 group-hover:bg-brand' />
                 <p className='text-sm leading-relaxed text-muted-foreground'>
                   {p.description}
                 </p>

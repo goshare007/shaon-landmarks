@@ -82,7 +82,7 @@ export function CtaSection() {
   return (
     <section
       ref={sectionRef}
-      className='bg-surface-brand py-20 md:py-28 overflow-x-hidden border-t border-white/6'
+      className='bg-background dark-section py-20 md:py-28 overflow-x-hidden border-t border-white/6'
     >
       <div className='site-wrapper'>
         <div className='grid items-center gap-12 md:grid-cols-2'>
@@ -90,14 +90,14 @@ export function CtaSection() {
           <div ref={leftRef} className='flex flex-col'>
             {/* Eyebrow */}
             <div className='flex items-center gap-4 mb-7'>
-              <div className='w-8 h-px bg-custom' />
-              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom/80'>
+              <div className='w-8 h-px bg-brand' />
+              <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-brand/80'>
                 Private Consultation
               </span>
             </div>
 
             <h2 className='font-serif text-[clamp(2rem,4vw,3rem)] font-light leading-[1.05] tracking-[-0.01em] text-white'>
-              Begin Your <span className='italic text-custom'>Legacy</span>
+              Begin Your <span className='italic text-brand'>Legacy</span>
             </h2>
 
             <p className='mt-5 max-w-sm text-sm leading-relaxed text-white/45 font-light'>
@@ -105,12 +105,12 @@ export function CtaSection() {
               discuss your future investment in timeless landmarks.
             </p>
 
-            <div ref={dividerRef} className='mt-8 h-px w-14 bg-custom/50' />
+            <div ref={dividerRef} className='mt-8 h-px w-14 bg-brand/50' />
 
             <div className='mt-6 flex items-center gap-3'>
               <IconLock
                 size={14}
-                className='text-custom/70'
+                className='text-brand/70'
                 aria-hidden='true'
               />
               <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-white/55'>
@@ -126,8 +126,8 @@ export function CtaSection() {
             style={{ background: 'rgba(255,255,255,0.03)' }}
           >
             {/* Subtle corner accent */}
-            <div className='absolute top-0 left-0 w-10 h-px bg-custom/60' />
-            <div className='absolute top-0 left-0 w-px h-10 bg-custom/60' />
+            <div className='absolute top-0 left-0 w-10 h-px bg-brand/60' />
+            <div className='absolute top-0 left-0 w-px h-10 bg-brand/60' />
 
             <h3 className='mb-8 text-[10px] font-medium tracking-[0.22em] uppercase text-white/55'>
               Request Access
@@ -138,7 +138,7 @@ export function CtaSection() {
               <div className='form-field group'>
                 <label
                   htmlFor='cta-name'
-                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-brand/70'
                 >
                   Full Name *
                 </label>
@@ -150,7 +150,7 @@ export function CtaSection() {
                   placeholder='Your full name'
                   className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
                              text-sm text-white placeholder:text-white/40 font-light
-                             outline-none transition-colors focus:border-custom/50'
+                             outline-none transition-colors focus:border-brand/50'
                 />
               </div>
 
@@ -158,7 +158,7 @@ export function CtaSection() {
               <div className='form-field group'>
                 <label
                   htmlFor='cta-email'
-                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-brand/70'
                 >
                   Email Address *
                 </label>
@@ -170,7 +170,7 @@ export function CtaSection() {
                   placeholder='your@email.com'
                   className='w-full bg-transparent border-0 border-b border-white/10 pb-2 pt-1
                              text-sm text-white placeholder:text-white/40 font-light
-                             outline-none transition-colors focus:border-custom/50'
+                             outline-none transition-colors focus:border-brand/50'
                 />
               </div>
 
@@ -178,7 +178,7 @@ export function CtaSection() {
               <div className='form-field group'>
                 <label
                   htmlFor='cta-interest'
-                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-custom/70'
+                  className='block text-[9px] font-medium tracking-[0.2em] uppercase text-white/55 mb-2 transition-colors group-focus-within:text-brand/70'
                 >
                   Interest Area
                 </label>
@@ -188,12 +188,12 @@ export function CtaSection() {
                 >
                   <SelectTrigger
                     id='cta-interest'
-                    className='w-full rounded-none border-0 border-b border-white/10 bg-transparent px-0 pb-2 pt-1 shadow-none text-sm text-white/60 font-light focus:ring-0 focus:border-custom/50 [&>svg]:text-white/40'
+                    className='w-full rounded-none border-0 border-b border-white/10 bg-transparent px-0 pb-2 pt-1 shadow-none text-sm text-white/60 font-light focus:ring-0 focus:border-brand/50 [&>svg]:text-white/40'
                   >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent
-                    className='rounded-sm border border-white/10 bg-surface-brand text-white shadow-lg'
+                    className='rounded-sm border border-white/10 bg-[#080808] dark-section text-white shadow-lg'
                     sideOffset={4}
                   >
                     <SelectItem value='residential'>
@@ -213,9 +213,9 @@ export function CtaSection() {
               <button
                 type='submit'
                 disabled={status === 'sending'}
-                className='form-field group relative w-full overflow-hidden rounded-sm bg-custom
-                           px-6 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-white
-                           uppercase transition-colors duration-200 hover:bg-custom/90
+                className='form-field group relative w-full overflow-hidden rounded-sm bg-brand
+                           px-6 py-3.5 text-[11px] font-semibold tracking-[0.15em] text-black
+                           uppercase transition-colors duration-200 hover:bg-brand/90
                            disabled:opacity-60 disabled:cursor-not-allowed'
               >
                 {/* Shimmer */}
