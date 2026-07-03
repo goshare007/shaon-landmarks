@@ -1,7 +1,9 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { useEffect, useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import type { ProjectDetail } from '@/content/projects';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const markerIcon = L.divIcon({
   className: '',
@@ -16,11 +18,46 @@ export function PortfolioDetailLocation({
 }: {
   location: ProjectDetail['location'];
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(textRef.current?.children ?? []), {
+        y: 28,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(mapRef.current, {
+        y: 36,
+        opacity: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: mapRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='bg-white py-32'>
+    <section ref={sectionRef} className='bg-white py-32'>
       <div className='site-wrapper'>
         <div className='grid items-center gap-16 lg:grid-cols-12'>
-          <div className='detail-location__text lg:col-span-5'>
+          <div ref={textRef} className='detail-location__text lg:col-span-5'>
             <h2 className='mb-8 text-3xl leading-tight font-serif text-foreground md:text-4xl lg:text-5xl'>
               The Heart of <br />
               Modern Prestige
@@ -46,7 +83,10 @@ export function PortfolioDetailLocation({
               ))}
             </div>
           </div>
-          <div className='detail-location__map relative z-0 h-150 overflow-hidden lg:col-span-7'>
+          <div
+            ref={mapRef}
+            className='detail-location__map relative z-0 h-150 overflow-hidden lg:col-span-7'
+          >
             <MapContainer
               center={[location.lat, location.lng]}
               zoom={15}

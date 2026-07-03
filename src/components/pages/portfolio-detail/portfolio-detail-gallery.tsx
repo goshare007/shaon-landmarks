@@ -1,7 +1,8 @@
 import { Image } from '@unpic/react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function PortfolioDetailGallery({
   images,
@@ -10,6 +11,42 @@ export function PortfolioDetailGallery({
   images: string[];
   projectTitle: string;
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION || !images?.length) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(headingRef.current?.children ?? []), {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(gridRef.current?.children ?? []), {
+        y: 36,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [images]);
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -25,9 +62,12 @@ export function PortfolioDetailGallery({
   if (!images?.length) return null;
 
   return (
-    <section className='bg-white py-24'>
+    <section ref={sectionRef} className='bg-white py-24'>
       <div className='site-wrapper'>
-        <div className='detail-gallery__heading mb-16 flex items-end justify-between'>
+        <div
+          ref={headingRef}
+          className='detail-gallery__heading mb-16 flex items-end justify-between'
+        >
           <h2 className='text-2xl font-serif text-foreground md:text-3xl'>
             Immersive Spaces
           </h2>
@@ -35,7 +75,10 @@ export function PortfolioDetailGallery({
             View Full Gallery
           </p>
         </div>
-        <div className='detail-gallery__image grid h-200 grid-cols-12 grid-rows-2 gap-6'>
+        <div
+          ref={gridRef}
+          className='detail-gallery__image grid h-200 grid-cols-12 grid-rows-2 gap-6'
+        >
           <button
             type='button'
             className='group col-span-12 w-full cursor-crosshair overflow-hidden text-left md:col-span-8 md:row-span-2'

@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react';
+import { gsap, MOTION } from '@/lib/gsap';
+
 const policySections = [
   {
     title: 'Information We Collect',
@@ -32,10 +35,33 @@ const policySections = [
 ];
 
 export function PrivacyPolicy() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(listRef.current?.children ?? []), {
+        y: 28,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: listRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='py-20 md:py-28 bg-white'>
+    <section ref={sectionRef} className='py-20 md:py-28 bg-white'>
       <div className='site-wrapper'>
-        <div className='divide-y divide-border'>
+        <div ref={listRef} className='divide-y divide-border'>
           {policySections.map((section, i) => (
             <div key={section.title} className='flex items-start gap-8 py-10'>
               <span className='shrink-0 font-serif text-[clamp(1.8rem,3vw,2.4rem)] font-light leading-none text-custom/20'>

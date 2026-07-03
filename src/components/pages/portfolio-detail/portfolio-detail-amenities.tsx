@@ -16,7 +16,9 @@ import {
   IconTree,
   IconWifi,
 } from '@tabler/icons-react';
+import { useEffect, useRef } from 'react';
 import type { ProjectDetail } from '@/content/projects';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const iconMap: Record<string, typeof IconLeaf> = {
   dark_mode: IconMoonStars,
@@ -41,8 +43,47 @@ export function PortfolioDetailAmenities({
 }: {
   amenities: ProjectDetail['amenities'];
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(headingRef.current?.children ?? []), {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(gridRef.current?.children ?? []), {
+        y: 36,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='relative bg-surface-brand py-32 overflow-hidden'>
+    <section
+      ref={sectionRef}
+      className='relative bg-surface-brand py-32 overflow-hidden'
+    >
       {/* Corner accents */}
       <div className='absolute top-0 left-0 w-10 h-px bg-custom/30' />
       <div className='absolute top-0 left-0 w-px h-10 bg-custom/30' />
@@ -54,7 +95,10 @@ export function PortfolioDetailAmenities({
       <div className='absolute bottom-0 right-0 w-px h-10 bg-custom/30' />
 
       <div className='site-wrapper'>
-        <div className='detail-amenities__heading mb-24 max-w-2xl'>
+        <div
+          ref={headingRef}
+          className='detail-amenities__heading mb-24 max-w-2xl'
+        >
           <h2 className='mb-6 text-3xl font-serif text-white md:text-4xl lg:text-5xl'>
             Elevating the <br />
             Daily Experience
@@ -65,7 +109,10 @@ export function PortfolioDetailAmenities({
             service.
           </p>
         </div>
-        <div className='grid gap-12 md:grid-cols-2 lg:grid-cols-4'>
+        <div
+          ref={gridRef}
+          className='grid gap-12 md:grid-cols-2 lg:grid-cols-4'
+        >
           {amenities.map((a) => {
             const Icon = iconMap[a.icon] ?? IconSeedling;
             return (

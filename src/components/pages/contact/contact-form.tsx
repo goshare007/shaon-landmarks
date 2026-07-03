@@ -3,7 +3,7 @@ import {
   IconArrowRight,
   IconCheck,
 } from '@tabler/icons-react';
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,8 +17,32 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { submitContact } from '@/lib/contact';
 import { CONTACT_PHONE } from '@/lib/env';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function ContactForm() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(cardRef.current ? Array.from(cardRef.current.children) : [], {
+        y: 28,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: cardRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
     'idle',
   );
@@ -46,9 +70,15 @@ export function ContactForm() {
     }
   }
   return (
-    <section className='bg-surface-raised py-20 md:py-24 border-t border-border'>
+    <section
+      ref={sectionRef}
+      className='bg-surface-raised py-20 md:py-24 border-t border-border'
+    >
       <div className='site-wrapper max-w-3xl'>
-        <div className='relative border border-border bg-background p-8 md:p-12 rounded-sm'>
+        <div
+          ref={cardRef}
+          className='relative border border-border bg-background p-8 md:p-12 rounded-sm'
+        >
           <div className='absolute top-0 left-0 w-10 h-px bg-custom/40' />
           <div className='absolute top-0 left-0 w-px h-10 bg-custom/40' />
 

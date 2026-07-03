@@ -1,4 +1,6 @@
+import { useEffect, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 
 const MILESTONES = [
@@ -73,10 +75,61 @@ function DesktopYear({ year }: { year: string }) {
 }
 
 export function AboutStory() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const milestonesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(lineRef.current, {
+        scaleY: 0,
+        transformOrigin: 'top center',
+        duration: 1.2,
+        scrollTrigger: {
+          trigger: milestonesRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+
+      gsap.from(
+        milestonesRef.current ? Array.from(milestonesRef.current.children) : [],
+        {
+          y: 36,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: milestonesRef.current,
+            start: 'top 80%',
+            once: true,
+          },
+        },
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='bg-white py-24 border-t border-border'>
+    <section ref={sectionRef} className='bg-white py-24 border-t border-border'>
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='Our Journey'
           heading='Built on'
           highlight='Experience'
@@ -85,9 +138,12 @@ export function AboutStory() {
         />
 
         <div className='relative max-w-4xl mx-auto'>
-          <div className='absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-custom/40 to-transparent md:-translate-x-px' />
+          <div
+            ref={lineRef}
+            className='absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-custom/40 to-transparent md:-translate-x-px'
+          />
 
-          <div className='space-y-16 md:space-y-20'>
+          <div ref={milestonesRef} className='space-y-16 md:space-y-20'>
             {MILESTONES.map((m, i) => {
               const isEven = i % 2 === 0;
               return (

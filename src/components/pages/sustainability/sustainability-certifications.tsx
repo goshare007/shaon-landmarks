@@ -4,7 +4,9 @@ import {
   IconCircleCheck,
   IconUsersGroup,
 } from '@tabler/icons-react';
+import { useEffect, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const certifications = [
   {
@@ -34,10 +36,61 @@ const certifications = [
 ];
 
 export function SustainabilityCertifications() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const paraRef = useRef<HTMLParagraphElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(paraRef.current, {
+        y: 14,
+        opacity: 0,
+        duration: 0.6,
+        scrollTrigger: {
+          trigger: paraRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(gridRef.current?.children ?? []), {
+        y: 36,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='bg-surface-overlay py-20 md:py-28 border-t border-white/6'>
+    <section
+      ref={sectionRef}
+      className='bg-surface-overlay py-20 md:py-28 border-t border-white/6'
+    >
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='Recognition'
           heading='Certifications &'
           highlight='Recognition'
@@ -46,12 +99,15 @@ export function SustainabilityCertifications() {
           headingClassName='text-white'
         />
 
-        <p className='mx-auto mb-12 max-w-2xl text-center text-sm leading-relaxed text-white/55'>
+        <p
+          ref={paraRef}
+          className='mx-auto mb-12 max-w-2xl text-center text-sm leading-relaxed text-white/55'
+        >
           Our sustainable practices are recognized by leading industry bodies
           and regulatory authorities.
         </p>
 
-        <div className='grid gap-5 sm:grid-cols-2'>
+        <div ref={gridRef} className='grid gap-5 sm:grid-cols-2'>
           {certifications.map((c) => {
             const Icon = c.icon;
             return (

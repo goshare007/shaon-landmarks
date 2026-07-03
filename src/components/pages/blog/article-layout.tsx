@@ -10,7 +10,7 @@ import {
 } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FacebookShareButton,
   LinkedinShareButton,
@@ -22,6 +22,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { SectionHeading } from '@/components/ui/section-heading';
 import type { BlogArticle } from '@/content/blog';
 import { getRecentArticles } from '@/content/blog';
+import { gsap, MOTION } from '@/lib/gsap';
 import { renderMarkdown } from '@/lib/markdown';
 import { cn } from '@/lib/utils';
 
@@ -50,6 +51,105 @@ const SHARE_PLATFORMS = [
 ] as const;
 
 export function ArticleLayout({ article }: { article: BlogArticle }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const shareRef = useRef<HTMLDivElement>(null);
+  const authorRef = useRef<HTMLDivElement>(null);
+  const recentSectionRef = useRef<HTMLElement>(null);
+  const recentHeadingRef = useRef<HTMLDivElement>(null);
+  const recentGridRef = useRef<HTMLDivElement>(null);
+  const ctaSectionRef = useRef<HTMLElement>(null);
+  const ctaContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      if (headerRef.current) {
+        gsap.from(Array.from(headerRef.current.children), {
+          y: 24,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.1,
+        });
+      }
+
+      if (imageRef.current) {
+        gsap.from(imageRef.current, { y: 30, opacity: 0, duration: 0.8 });
+      }
+
+      if (shareRef.current) {
+        gsap.from(shareRef.current, {
+          y: 20,
+          opacity: 0,
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: shareRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      }
+
+      if (authorRef.current) {
+        gsap.from(authorRef.current, {
+          y: 20,
+          opacity: 0,
+          duration: 0.6,
+          scrollTrigger: {
+            trigger: authorRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      }
+
+      if (recentHeadingRef.current) {
+        gsap.from(recentHeadingRef.current, {
+          y: 24,
+          opacity: 0,
+          duration: 0.7,
+          scrollTrigger: {
+            trigger: recentHeadingRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      }
+
+      if (recentGridRef.current) {
+        gsap.from(Array.from(recentGridRef.current.children), {
+          y: 30,
+          opacity: 0,
+          duration: 0.65,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: recentGridRef.current,
+            start: 'top 82%',
+            once: true,
+          },
+        });
+      }
+
+      if (ctaContentRef.current) {
+        gsap.from(Array.from(ctaContentRef.current.children), {
+          y: 24,
+          opacity: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: ctaContentRef.current,
+            start: 'top 85%',
+            once: true,
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const recent = getRecentArticles(article.slug, 3);
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
@@ -66,10 +166,10 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
 
   return (
     <>
-      <section>
+      <section ref={sectionRef}>
         <article className='site-wrapper pb-24'>
           <div className='mx-auto max-w-3xl'>
-            <div className='article-layout__header'>
+            <div ref={headerRef} className='article-layout__header'>
               <span className='inline-block rounded-sm border border-custom/30 px-2.5 py-1 text-[9px] font-medium tracking-[0.18em] uppercase text-custom'>
                 {article.category.name}
               </span>
@@ -93,7 +193,10 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
               </div>
             </div>
 
-            <div className='article-layout__image relative mx-auto mt-8 overflow-hidden rounded-sm bg-linear-to-br from-surface-brand to-surface-raised'>
+            <div
+              ref={imageRef}
+              className='article-layout__image relative mx-auto mt-8 overflow-hidden rounded-sm bg-linear-to-br from-surface-brand to-surface-raised'
+            >
               <Image
                 src={article.image}
                 alt={article.title}
@@ -111,7 +214,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
 
             {/* Social Share */}
 
-            <div className='mx-auto mt-12 max-w-3xl'>
+            <div ref={shareRef} className='mx-auto mt-12 max-w-3xl'>
               <div className='border-t border-border pt-6'>
                 <span className='text-[10px] font-medium tracking-[0.2em] uppercase text-muted-foreground'>
                   Share this article
@@ -163,7 +266,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
             )}
 
             {/* Author Bio */}
-            <div className='mx-auto mt-8 max-w-3xl'>
+            <div ref={authorRef} className='mx-auto mt-8 max-w-3xl'>
               <div className='flex items-center gap-4 rounded-sm border border-border bg-muted p-6'>
                 <div className='flex size-12 shrink-0 items-center justify-center rounded-full bg-custom/10'>
                   <span className='text-sm font-medium text-custom'>
@@ -191,16 +294,20 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
 
       {/* Recent Articles */}
       {recent.length > 0 && (
-        <section className='border-t border-border bg-surface-raised py-20'>
+        <section
+          ref={recentSectionRef}
+          className='border-t border-border bg-surface-raised py-20'
+        >
           <div className='site-wrapper'>
             <SectionHeading
+              ref={recentHeadingRef}
               eyebrow='Read More'
               heading='Recent'
               highlight='Articles'
               highlightStyle='muted'
               className='mb-10'
             />
-            <div className='grid gap-6 md:grid-cols-3'>
+            <div ref={recentGridRef} className='grid gap-6 md:grid-cols-3'>
               {recent.map((r) => (
                 <Link
                   key={r.slug}
@@ -243,7 +350,10 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
       )}
 
       {/* CTA */}
-      <section className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'>
+      <section
+        ref={ctaSectionRef}
+        className='relative overflow-hidden bg-surface-brand py-20 md:py-28 border-t border-white/6'
+      >
         <div className='pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
           <div className='h-125 w-125 rounded-full border border-white/6' />
         </div>
@@ -261,38 +371,40 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
         </div>
 
         <div className='relative z-10 site-wrapper'>
-          <SectionHeading
-            eyebrow='Get Started'
-            heading='Ready to Find Your'
-            highlight='Dream Property?'
-            align='center'
-            className='mb-6'
-            headingClassName='text-white'
-          />
+          <div ref={ctaContentRef}>
+            <SectionHeading
+              eyebrow='Get Started'
+              heading='Ready to Find Your'
+              highlight='Dream Property?'
+              align='center'
+              className='mb-6'
+              headingClassName='text-white'
+            />
 
-          <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
-            <div className='group'>
+            <div className='flex flex-col items-center justify-center gap-4 md:flex-row'>
+              <div className='group'>
+                <Link
+                  to='/contact'
+                  className={buttonVariants({
+                    variant: 'custom',
+                    size: 'lg',
+                    className: 'px-10 py-5',
+                  })}
+                >
+                  <span className='relative z-10 inline-flex items-center gap-3'>
+                    Contact Us
+                    <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
+                  </span>
+                </Link>
+              </div>
               <Link
                 to='/contact'
-                className={buttonVariants({
-                  variant: 'custom',
-                  size: 'lg',
-                  className: 'px-10 py-5',
-                })}
+                className='group inline-flex items-center gap-3 rounded-sm border border-custom/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-custom hover:text-custom'
               >
-                <span className='relative z-10 inline-flex items-center gap-3'>
-                  Contact Us
-                  <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
-                </span>
+                View Properties
+                <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
               </Link>
             </div>
-            <Link
-              to='/contact'
-              className='group inline-flex items-center gap-3 rounded-sm border border-custom/40 px-10 py-3.5 text-[11px] font-medium tracking-[0.15em] text-white/70 uppercase transition-colors duration-200 hover:border-custom hover:text-custom'
-            >
-              View Properties
-              <IconArrowRight className='w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5' />
-            </Link>
           </div>
         </div>
       </section>

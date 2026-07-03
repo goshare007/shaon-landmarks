@@ -3,6 +3,8 @@ import {
   IconHeartHandshake,
   IconRosette,
 } from '@tabler/icons-react';
+import { useEffect, useRef } from 'react';
+import { gsap, MOTION } from '@/lib/gsap';
 
 // ─────────────────────────────────────────────────────────────────────────────
 const CERTIFICATIONS = [
@@ -15,8 +17,47 @@ const CERTIFICATIONS = [
 ];
 
 export function AboutCertifications() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
+  const badgesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(copyRef.current?.children ?? []), {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: copyRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(badgesRef.current?.children ?? []), {
+        y: 36,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: badgesRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='bg-surface-overlay py-20 border-t border-white/6'>
+    <section
+      ref={sectionRef}
+      className='bg-surface-overlay py-20 border-t border-white/6'
+    >
       <div className='site-wrapper'>
         <div className='relative flex flex-col md:flex-row items-center justify-between gap-12 border-y border-white/6 py-14'>
           {/* Corner accents */}
@@ -30,7 +71,7 @@ export function AboutCertifications() {
           </div>
 
           {/* Left copy */}
-          <div className='max-w-sm text-center md:text-left'>
+          <div ref={copyRef} className='max-w-sm text-center md:text-left'>
             <div className='flex items-center gap-4 mb-5 justify-center md:justify-start'>
               <div className='w-8 h-px bg-custom' />
               <span className='text-[10px] font-medium tracking-[0.22em] uppercase text-custom'>
@@ -56,7 +97,10 @@ export function AboutCertifications() {
           </div>
 
           {/* Right badges */}
-          <div className='flex flex-wrap justify-center gap-8 md:gap-12'>
+          <div
+            ref={badgesRef}
+            className='flex flex-wrap justify-center gap-8 md:gap-12'
+          >
             {CERTIFICATIONS.map((cert) => (
               <div
                 key={cert.label}

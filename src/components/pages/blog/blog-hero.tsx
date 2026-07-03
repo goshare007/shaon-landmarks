@@ -1,8 +1,33 @@
+import { useEffect, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function BlogHero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const paraRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.from(headingRef.current, { y: 24, opacity: 0, duration: 0.7 }, 0).from(
+        paraRef.current,
+        { y: 14, opacity: 0, duration: 0.6 },
+        0.3,
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='relative bg-surface-brand pb-16 pt-24 md:pb-20 md:pt-32 border-b border-white/6 overflow-hidden'>
+    <section
+      ref={sectionRef}
+      className='relative bg-surface-brand pb-16 pt-24 md:pb-20 md:pt-32 border-b border-white/6 overflow-hidden'
+    >
       {/* Decorative circle */}
       <div className='pointer-events-none absolute -top-40 -right-40 h-125 w-125 rounded-full border border-white/6' />
 
@@ -18,13 +43,17 @@ export function BlogHero() {
 
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='Insights & Guides'
           heading='Blog'
           as='h1'
           headingClassName='text-white text-[clamp(2.5rem,5vw,4rem)] tracking-[-0.01em]'
           className='mb-5'
         />
-        <p className='mt-5 max-w-2xl text-sm leading-relaxed text-white/55'>
+        <p
+          ref={paraRef}
+          className='mt-5 max-w-2xl text-sm leading-relaxed text-white/55'
+        >
           Market trends, buying guides, architecture insights, and tips for
           making informed real estate decisions in Bangladesh.
         </p>

@@ -1,5 +1,7 @@
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import type { Project, ProjectDetail } from '@/content/projects';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function PortfolioDetailHero({
   project,
@@ -8,10 +10,40 @@ export function PortfolioDetailHero({
   project: Project;
   detail: ProjectDetail;
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const cornersRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.from(imageRef.current, { scale: 1.06, opacity: 0, duration: 1.1 }, 0)
+        .from(
+          cornersRef.current ? Array.from(cornersRef.current.children) : [],
+          { opacity: 0, scale: 0.6, duration: 0.5, stagger: 0.04 },
+          0.2,
+        )
+        .from(
+          contentRef.current ? Array.from(contentRef.current.children) : [],
+          { y: 30, opacity: 0, stagger: 0.15, duration: 0.7 },
+          0.5,
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='relative h-170 overflow-hidden bg-surface-brand'>
+    <section
+      ref={sectionRef}
+      className='relative h-170 overflow-hidden bg-surface-brand'
+    >
       <div className='absolute inset-0 z-10 bg-surface-brand/40' />
-      <div className='absolute inset-0 overflow-hidden'>
+      <div ref={imageRef} className='absolute inset-0 overflow-hidden'>
         <Image
           src={detail.heroImage}
           alt={`${project.title} — exterior view`}
@@ -23,17 +55,19 @@ export function PortfolioDetailHero({
       </div>
 
       {/* Corner accents */}
-      <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
-      <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
-      <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
-      <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
-      <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
-      <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
-      <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
-      <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+      <div ref={cornersRef}>
+        <div className='absolute top-0 left-0 z-20 w-10 h-px bg-custom/30' />
+        <div className='absolute top-0 left-0 z-20 w-px h-10 bg-custom/30' />
+        <div className='absolute top-0 right-0 z-20 w-10 h-px bg-custom/30' />
+        <div className='absolute top-0 right-0 z-20 w-px h-10 bg-custom/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-10 h-px bg-custom/30' />
+        <div className='absolute bottom-0 left-0 z-20 w-px h-10 bg-custom/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-10 h-px bg-custom/30' />
+        <div className='absolute bottom-0 right-0 z-20 w-px h-10 bg-custom/30' />
+      </div>
 
       <div className='absolute inset-0 z-20 mx-auto flex site-wrapper flex-col justify-end pb-24'>
-        <div className='detail-hero__content'>
+        <div ref={contentRef} className='detail-hero__content'>
           <div className='mb-6 flex items-center gap-4'>
             <span className='bg-custom px-4 py-1 text-[10px] font-medium tracking-[0.2em] text-white uppercase'>
               {project.status}

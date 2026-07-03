@@ -1,8 +1,10 @@
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import ENERGY_EFFICIENCY from '@/assets/images/sustainability/energy-efficiency.webp';
 import GREEN_SPACES from '@/assets/images/sustainability/green-spaces.webp';
 import SUSTAINABLE_MATERIALS from '@/assets/images/sustainability/sustainable-materials.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const pillars = [
   {
@@ -29,10 +31,49 @@ const pillars = [
 ];
 
 export function SustainabilityPillars() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(gridRef.current?.children ?? []), {
+        y: 36,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='bg-surface-raised py-20 md:py-28 border-t border-border'>
+    <section
+      ref={sectionRef}
+      className='bg-surface-raised py-20 md:py-28 border-t border-border'
+    >
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='Our Initiatives'
           heading='Three Pillars of'
           highlight='Sustainability'
@@ -40,7 +81,7 @@ export function SustainabilityPillars() {
           className='mb-12'
         />
 
-        <div className='grid gap-6 md:grid-cols-3'>
+        <div ref={gridRef} className='grid gap-6 md:grid-cols-3'>
           {pillars.map((p) => (
             <div
               key={p.title}

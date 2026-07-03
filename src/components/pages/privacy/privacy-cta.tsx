@@ -1,11 +1,42 @@
 import { IconArrowRight, IconShieldCheck } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
+import { useEffect, useRef } from 'react';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function PrivacyCta() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(contentRef.current?.children ?? []), {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: contentRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='bg-surface-raised py-16 md:py-20 border-t border-border'>
+    <section
+      ref={sectionRef}
+      className='bg-surface-raised py-16 md:py-20 border-t border-border'
+    >
       <div className='site-wrapper'>
-        <div className='flex flex-col items-center text-center'>
+        <div
+          ref={contentRef}
+          className='flex flex-col items-center text-center'
+        >
           <IconShieldCheck
             size={24}
             stroke={1.5}

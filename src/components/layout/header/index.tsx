@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { useEffect, useRef, useState } from 'react';
 import { buttonVariants } from '@/components/ui/button';
+import { gsap, MOTION } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 import DesktopNav from './desktop-nav';
 import Logo from './logo';
@@ -10,6 +11,7 @@ export default function Header() {
   const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,8 +45,26 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headerRef.current, {
+        yPercent: -100,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 0.2,
+        clearProps: 'transform',
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <header
+      ref={headerRef}
       className={cn(
         'sticky top-0 z-50 bg-background transition-transform duration-300 border-b border-custom/10',
         isHidden ? '-translate-y-full' : 'translate-y-0',

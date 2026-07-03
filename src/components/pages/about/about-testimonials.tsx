@@ -8,9 +8,13 @@ import {
 } from '@/components/ui/carousel';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { testimonials } from '@/content/testimonials';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function AboutTestimonials() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
+  const dotsRef = useRef<HTMLDivElement>(null);
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -50,10 +54,42 @@ export function AboutTestimonials() {
     };
   }, [api]);
 
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      });
+
+      tl.from(headingRef.current, { y: 22, opacity: 0, duration: 0.6 }, 0)
+        .from(
+          carouselWrapperRef.current,
+          { y: 30, opacity: 0, duration: 0.7 },
+          0.15,
+        )
+        .from(
+          dotsRef.current ? Array.from(dotsRef.current.children) : [],
+          { opacity: 0, stagger: 0.04, duration: 0.3 },
+          0.4,
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='bg-white py-20 md:py-24 border-t border-border'>
+    <section
+      ref={sectionRef}
+      className='bg-white py-20 md:py-24 border-t border-border'
+    >
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='What People Say'
           heading='Trusted by'
           highlight='Hundreds'
@@ -111,7 +147,10 @@ export function AboutTestimonials() {
           </Carousel>
         </div>
 
-        <div className='mt-8 flex items-center justify-center gap-2.5'>
+        <div
+          ref={dotsRef}
+          className='mt-8 flex items-center justify-center gap-2.5'
+        >
           {testimonials.map((t, i) => (
             <button
               key={t.id}

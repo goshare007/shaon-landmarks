@@ -5,6 +5,8 @@ import {
   IconShieldCheck,
   IconUsersGroup,
 } from '@tabler/icons-react';
+import { useEffect, useRef } from 'react';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const disclosureSections = [
   {
@@ -40,10 +42,33 @@ const disclosureSections = [
 ];
 
 export function LegalDisclosures() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(Array.from(listRef.current?.children ?? []), {
+        y: 28,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: listRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='py-20 md:py-28 bg-white'>
+    <section ref={sectionRef} className='py-20 md:py-28 bg-white'>
       <div className='site-wrapper'>
-        <div className='divide-y divide-border'>
+        <div ref={listRef} className='divide-y divide-border'>
           {disclosureSections.map((section) => {
             const Icon = section.icon;
             return (

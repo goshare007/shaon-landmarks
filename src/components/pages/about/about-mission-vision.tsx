@@ -3,8 +3,10 @@ import {
   IconHourglass,
   IconShieldCheck,
 } from '@tabler/icons-react';
+import { useEffect, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { pillars } from '@/content/pillars';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const ICONS: Record<string, React.ReactNode> = {
   shield: <IconShieldCheck size={24} stroke={1.5} />,
@@ -13,8 +15,46 @@ const ICONS: Record<string, React.ReactNode> = {
 };
 
 export function AboutMissionVision() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(cardsRef.current?.children ?? []), {
+        y: 32,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.12,
+        scrollTrigger: {
+          trigger: cardsRef.current,
+          start: 'top 82%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='relative overflow-hidden bg-surface-brand py-24 border-t border-white/6'>
+    <section
+      ref={sectionRef}
+      className='relative overflow-hidden bg-surface-brand py-24 border-t border-white/6'
+    >
       <div className='absolute top-0 left-0 w-8 h-8' aria-hidden='true'>
         <div className='absolute top-0 left-0 w-full h-px bg-custom/30' />
         <div className='absolute top-0 left-0 h-full w-px bg-custom/30' />
@@ -34,6 +74,7 @@ export function AboutMissionVision() {
 
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='What We Stand For'
           heading='Three'
           highlight='Pillars'
@@ -41,7 +82,7 @@ export function AboutMissionVision() {
           className='mb-14'
         />
 
-        <div className='grid md:grid-cols-3 gap-px bg-white/10'>
+        <div ref={cardsRef} className='grid md:grid-cols-3 gap-px bg-white/10'>
           {pillars.map((p) => (
             <div
               key={p.id}

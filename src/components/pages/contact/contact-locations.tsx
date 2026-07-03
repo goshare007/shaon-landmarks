@@ -1,8 +1,10 @@
 import { IconMail, IconMapPin, IconPhone } from '@tabler/icons-react';
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import CTG_IMG from '@/assets/images/contact/ctg-office.webp';
 import DHAKA_IMG from '@/assets/images/contact/dhaka-office.webp';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { gsap, MOTION } from '@/lib/gsap';
 
 const OFFICES = [
   {
@@ -24,10 +26,46 @@ const OFFICES = [
 ];
 
 export function ContactLocations() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(gridRef.current?.children ?? []), {
+        y: 32,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: gridRef.current,
+          start: 'top 82%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='py-20 md:py-24 border-t border-border'>
+    <section ref={sectionRef} className='py-20 md:py-24 border-t border-border'>
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='Our Offices'
           heading='Visit or'
           highlight='Reach Out'
@@ -35,7 +73,7 @@ export function ContactLocations() {
           className='mb-12'
         />
 
-        <div className='grid gap-8 md:grid-cols-2'>
+        <div ref={gridRef} className='grid gap-8 md:grid-cols-2'>
           {OFFICES.map((office) => (
             <div
               key={office.title}

@@ -1,22 +1,63 @@
 import { Image } from '@unpic/react';
+import { useEffect, useRef } from 'react';
 import { SectionHeading } from '@/components/ui/section-heading';
 import type { ProjectDetail } from '@/content/projects';
+import { gsap, MOTION } from '@/lib/gsap';
 
 export function PortfolioDetailFloorPlans({
   floorPlans,
 }: {
   floorPlans: ProjectDetail['floorPlans'];
 }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const plansRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!MOTION) return;
+
+    const ctx = gsap.context(() => {
+      gsap.from(headingRef.current, {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 85%',
+          once: true,
+        },
+      });
+
+      gsap.from(Array.from(plansRef.current?.children ?? []), {
+        y: 36,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: plansRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className='border-b border-border bg-surface-raised py-24'>
+    <section
+      ref={sectionRef}
+      className='border-b border-border bg-surface-raised py-24'
+    >
       <div className='site-wrapper'>
         <SectionHeading
+          ref={headingRef}
           eyebrow='Layouts'
           heading='Floor Plans'
           className='mb-16'
         />
 
-        <div className='space-y-24'>
+        <div ref={plansRef} className='space-y-24'>
           {floorPlans.map((plan, i) => (
             <div
               key={plan.title}
