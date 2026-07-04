@@ -1,53 +1,50 @@
 /** biome-ignore-all lint/suspicious/noConsole: this is fine */
-import { readdir, stat, writeFile } from 'node:fs/promises';
-import { join, relative, resolve } from 'node:path';
+import { mkdir, readdir, stat, writeFile } from 'node:fs/promises';
+import { dirname, join, relative, resolve } from 'node:path';
 import sharp from 'sharp';
 
 interface ImageConfig {
   quality: number;
-  /** Resize to fit within this width, preserving aspect ratio */
   maxWidth?: number;
-  /** Exact target dimensions — will crop to fill if aspect ratio differs */
   targetWidth?: number;
   targetHeight?: number;
 }
 
-const HERO: ImageConfig = { maxWidth: 1200, quality: 80 };
-const GALLERY: ImageConfig = { maxWidth: 1000, quality: 75 };
-const OTHER: ImageConfig = { maxWidth: 1000, quality: 75 };
-const SMALL: ImageConfig = { maxWidth: 512, quality: 75 };
+const HERO: ImageConfig = { maxWidth: 1200, quality: 75 };
+const GALLERY: ImageConfig = { maxWidth: 1000, quality: 65 };
+const OTHER: ImageConfig = { maxWidth: 1000, quality: 65 };
+const SMALL: ImageConfig = { maxWidth: 512, quality: 65 };
+const CARD: ImageConfig = { maxWidth: 600, quality: 65 };
 
 const ROOTS = [resolve('src/assets/images'), resolve('public/images/blog')];
 
 const OVERRIDES: Record<string, ImageConfig> = {
-  // Home hero — keep large but compress
+  // Hero images — keep large, moderate compression
   'the-obsidian.webp': HERO,
-  // Featured project cards (displayed ~432x288 in grid, ~full-width hero card)
   'bronze-heights.webp': HERO,
   'azure-waterfront.webp': HERO,
   'the-marble-collection.webp': HERO,
   'the-skyline-plaza.webp': HERO,
+  // Card variants (generated alongside hero images)
+  'the-obsidian-card.webp': CARD,
+  'bronze-heights-card.webp': CARD,
+  'azure-waterfront-card.webp': CARD,
+  'the-marble-collection-card.webp': CARD,
+  'the-skyline-plaza-card.webp': CARD,
   // Gallery images
   'gallery-1.webp': GALLERY,
   'gallery-2.webp': GALLERY,
   'gallery-3.webp': GALLERY,
   'gallery-4.webp': GALLERY,
-  // Logo — displayed at ~28x32, resize to 2x for retina
+  // Logo
   'logo.webp': { targetWidth: 56, targetHeight: 64, quality: 80 },
   // SEO
   'default-og.webp': { maxWidth: 1200, quality: 80 },
-  // Sustainability cards — displayed in 3-col grid, crop to landscape 3:2
-  'green-spaces.webp': { targetWidth: 900, targetHeight: 600, quality: 75 },
-  'energy-efficiency.webp': {
-    targetWidth: 900,
-    targetHeight: 600,
-    quality: 75,
-  },
-  'sustainable-materials.webp': {
-    targetWidth: 600,
-    targetHeight: 750,
-    quality: 75,
-  },
+  // Sustainability cards — keep moderate size, let object-fit crop
+  'green-spaces.webp': { maxWidth: 700, quality: 65 },
+  'energy-efficiency.webp': { maxWidth: 700, quality: 65 },
+  'sustainable-materials.webp': { maxWidth: 600, quality: 65 },
+  'sustainability.webp': { maxWidth: 700, quality: 65 },
   // Blog images
   'market-2026.webp': GALLERY,
   'location-matters.webp': GALLERY,
@@ -88,7 +85,6 @@ async function processFile(
   const currentWidth = metadata.width ?? 0;
   const currentHeight = metadata.height ?? 0;
 
-  // Skip if image has exact target dimensions and is already small enough
   if (config.targetWidth && config.targetHeight) {
     if (
       currentWidth === config.targetWidth &&
@@ -158,6 +154,49 @@ async function processFile(
   });
 }
 
+/** Generate a card-sized variant from a hero-size image */
+async function generateCardVariant(
+  sourcePath: string,
+  cardPath: string,
+  results: Result[],
+  totals: { before: number; after: number },
+) {
+  try {
+    // Card variant already exists — process it like any other file
+    await processFile(cardPath, CARD, results, totals);
+  } catch {
+    // Card variant doesn't exist yet — generate from source
+    const { size: srcSize } = await stat(sourcePath);
+    const img = sharp(sourcePath);
+    const metadata = await img.metadata();
+    const currentWidth = metadata.width ?? 0;
+
+    // biome-ignore lint/style/noNonNullAssertion: this is fine
+    if (currentWidth <= CARD.maxWidth!) {
+      // Source is already small enough — just copy it
+      return;
+    }
+
+    const buffer = await img
+      .resize({ width: CARD.maxWidth, withoutEnlargement: true })
+      .webp({ quality: CARD.quality, effort: 6 })
+      .toBuffer();
+
+    await mkdir(dirname(cardPath), { recursive: true });
+    await writeFile(cardPath, buffer);
+    const after = buffer.length;
+
+    totals.before += srcSize;
+    totals.after += after;
+    results.push({
+      file: relative(resolve(), cardPath),
+      before: srcSize,
+      after,
+      skipped: false,
+    });
+  }
+}
+
 async function main() {
   const results: Result[] = [];
   const totals = { before: 0, after: 0 };
@@ -167,10 +206,25 @@ async function main() {
       const basename = filePath.split('/').pop() ?? '';
       const config = OVERRIDES[basename] ?? OTHER;
       await processFile(filePath, config, results, totals);
+
+      // Generate card variant for project hero images
+      if (
+        basename.endsWith('.webp') &&
+        !basename.includes('-card') &&
+        !basename.includes('-gallery') &&
+        !basename.includes('-vision') &&
+        !basename.includes('-map') &&
+        !basename.includes('landmark-') &&
+        OVERRIDES[basename] === HERO
+      ) {
+        const cardName = basename.replace('.webp', '-card.webp');
+        const cardPath = join(dirname(filePath), cardName);
+        await generateCardVariant(filePath, cardPath, results, totals);
+      }
     }
   }
 
-  // Process logo.webp (not under images/ subdirectory)
+  // Process logo.webp
   const logoPath = resolve('src/assets/logo.webp');
   try {
     await stat(logoPath);

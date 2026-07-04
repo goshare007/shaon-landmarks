@@ -1,5 +1,7 @@
 import azureWaterfront from '@/assets/images/projects/azure-waterfront.webp';
+import azureWaterfrontCard from '@/assets/images/projects/azure-waterfront-card.webp';
 import bronzeHeights from '@/assets/images/projects/bronze-heights.webp';
+import bronzeHeightsCard from '@/assets/images/projects/bronze-heights-card.webp';
 import galleryImg1 from '@/assets/images/projects/gallery-1.webp';
 import galleryImg2 from '@/assets/images/projects/gallery-2.webp';
 import galleryImg3 from '@/assets/images/projects/gallery-3.webp';
@@ -10,9 +12,10 @@ import landmarkGallery3 from '@/assets/images/projects/landmark-gallery-3.webp';
 import landmarkHero from '@/assets/images/projects/landmark-hero.webp';
 import landmarkMap from '@/assets/images/projects/landmark-map.webp';
 import landmarkVision from '@/assets/images/projects/landmark-vision.webp';
-import theMarbleCollection from '@/assets/images/projects/the-marble-collection.webp';
+import theMarbleCollectionCard from '@/assets/images/projects/the-marble-collection-card.webp';
 import theObsidian from '@/assets/images/projects/the-obsidian.webp';
-import theSkylinePlaza from '@/assets/images/projects/the-skyline-plaza.webp';
+import theObsidianCard from '@/assets/images/projects/the-obsidian-card.webp';
+import theSkylinePlazaCard from '@/assets/images/projects/the-skyline-plaza-card.webp';
 
 interface ProjectSpecs {
   totalArea: string;
@@ -105,7 +108,7 @@ export const allProjects: Project[] = [
           'The Obsidian represents a bold departure from conventional residential design. Every surface, texture, and shadow has been meticulously considered to create an environment that is both dramatic and serene.',
           'The interplay of dark stone finishes with strategic natural light sources creates a living experience that evolves throughout the day — a true sanctuary in the heart of Gulshan.',
         ],
-        image: theObsidian,
+        image: theObsidianCard,
       },
       gallery: [theObsidian, galleryImg1, galleryImg2],
       amenities: [
@@ -187,7 +190,7 @@ export const allProjects: Project[] = [
     status: 'Ongoing',
     location: 'Nasirabad, Chattogram',
     date: 'Est: Dec 2025',
-    image: bronzeHeights,
+    image: bronzeHeightsCard,
     detail: {
       specs: {
         totalArea: '0.5 Acres',
@@ -285,7 +288,7 @@ export const allProjects: Project[] = [
     status: 'Upcoming',
     location: 'Purbachal, Dhaka',
     date: 'Launch: Q2 2024',
-    image: theMarbleCollection,
+    image: theMarbleCollectionCard,
   },
   {
     id: '4',
@@ -297,7 +300,7 @@ export const allProjects: Project[] = [
     status: 'Ongoing',
     location: 'Gulshan, Dhaka',
     date: 'Est: Dec 2025',
-    image: azureWaterfront,
+    image: azureWaterfrontCard,
     detail: {
       specs: {
         totalArea: '1.5 Acres',
@@ -395,7 +398,7 @@ export const allProjects: Project[] = [
     status: 'Upcoming',
     location: 'Banani, Dhaka',
     date: 'Launch: Q3 2024',
-    image: theSkylinePlaza,
+    image: theSkylinePlazaCard,
   },
   {
     id: '6',

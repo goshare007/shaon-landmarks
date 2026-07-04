@@ -257,10 +257,10 @@ export default function Footer() {
               <div className='flex size-11 items-center justify-center rounded-md border border-brand/20 bg-background dark-section transition-colors duration-300 group-hover:border-brand/40'>
                 <Image
                   src={logo}
+                  width={24}
                   height={28}
-                  width={18}
                   alt='Shaon Landmarks'
-                  className='size-7'
+                  className='h-7 w-auto'
                   loading='lazy'
                 />
               </div>
