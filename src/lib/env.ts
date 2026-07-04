@@ -1,8 +1,7 @@
 export const BRAND_NAME = 'Shaon Landmarks & Housing';
 
 export const SITE_URL =
-  (typeof process !== 'undefined' ? process.env.SITE_URL : null) ??
-  'https://shaonlandmarks.vercel.app';
+  import.meta.env.VITE_SITE_URL ?? 'https://shaon-landmarks.pages.dev';
 export const WHATSAPP_NUMBER =
   import.meta.env.VITE_WHATSAPP_NUMBER ?? '+8801712345678';
 export const WHATSAPP_MSG = encodeURIComponent(
