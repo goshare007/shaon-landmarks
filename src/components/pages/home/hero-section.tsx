@@ -1,7 +1,7 @@
 import { IconArrowRight } from '@tabler/icons-react';
 import { Link } from '@tanstack/react-router';
 import { Image } from '@unpic/react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HERO_CONTENT } from '@/content/home';
 import { gsap, MOTION } from '@/lib/gsap';
 
@@ -17,6 +17,11 @@ export function HeroSection() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const locationBadgeRef = useRef<HTMLDivElement>(null);
   const yearTagRef = useRef<HTMLDivElement>(null);
+  const [year, setYear] = useState(2026);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   useEffect(() => {
     if (!MOTION) return;
@@ -24,32 +29,50 @@ export function HeroSection() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
+      const safe = (ref: HTMLElement | null) => (ref ? [ref] : []);
+
       tl.from(
-        imageWrapRef.current,
+        safe(imageWrapRef.current),
         { scale: 1.06, opacity: 0, duration: 1.1 },
         0,
       )
         .from(
-          dividerRef.current,
+          safe(dividerRef.current),
           { scaleY: 0, transformOrigin: 'top center', duration: 0.8 },
           0.2,
         )
-        .from(eyebrowRef.current, { y: 16, opacity: 0, duration: 0.6 }, 0.4)
+        .from(
+          safe(eyebrowRef.current),
+          { y: 16, opacity: 0, duration: 0.6 },
+          0.4,
+        )
         .from(
           headlineRef.current ? Array.from(headlineRef.current.children) : [],
           { y: 40, opacity: 0, stagger: 0.12, duration: 0.7 },
           0.55,
         )
-        .from(descriptorRef.current, { y: 14, opacity: 0, duration: 0.6 }, 0.85)
+        .from(
+          safe(descriptorRef.current),
+          { y: 14, opacity: 0, duration: 0.6 },
+          0.85,
+        )
         .from(
           statsRef.current ? Array.from(statsRef.current.children) : [],
           { y: 12, opacity: 0, stagger: 0.1, duration: 0.5 },
           1.0,
         )
-        .from(ctaRowRef.current, { y: 10, opacity: 0, duration: 0.5 }, 1.2)
-        .from(scrollIndicatorRef.current, { opacity: 0, duration: 0.5 }, 1.4)
         .from(
-          [locationBadgeRef.current, yearTagRef.current],
+          safe(ctaRowRef.current),
+          { y: 10, opacity: 0, duration: 0.5 },
+          1.2,
+        )
+        .from(
+          safe(scrollIndicatorRef.current),
+          { opacity: 0, duration: 0.5 },
+          1.4,
+        )
+        .from(
+          [locationBadgeRef.current, yearTagRef.current].filter(Boolean),
           { y: 10, opacity: 0, stagger: 0.1, duration: 0.5 },
           1.1,
         );
@@ -201,7 +224,7 @@ export function HeroSection() {
             className='text-[10px] font-medium tracking-[0.2em] text-white/55 uppercase'
             style={{ writingMode: 'vertical-rl' }}
           >
-            {new Date().getFullYear()}
+            {year}
           </span>
           <div className='w-px h-12 bg-linear-to-b from-brand/60 to-transparent' />
         </div>

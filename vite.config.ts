@@ -33,6 +33,7 @@ function tablerIconsTransform(): Plugin {
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  build: { sourcemap: 'hidden' },
   plugins: [
     devtools(),
     nitro({

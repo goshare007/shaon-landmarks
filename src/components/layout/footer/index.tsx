@@ -15,8 +15,6 @@ import { gsap, MOTION } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 import { submitNewsletterSignup } from './newslatter';
 
-const year = new Date().getFullYear();
-
 interface FooterLink {
   label: string;
   href: string;
@@ -141,6 +139,7 @@ export default function Footer() {
     status: 'idle' | 'submitting' | 'success' | 'error';
     message: string;
   }>({ status: 'idle', message: '' });
+  const [year, setYear] = useState(2026);
 
   const footerRef = useRef<HTMLElement>(null);
   const brandColRef = useRef<HTMLDivElement>(null);
@@ -148,6 +147,10 @@ export default function Footer() {
   const bottomBarRef = useRef<HTMLDivElement>(null);
   const backToTopRef = useRef<HTMLButtonElement>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   // Scroll-triggered footer reveal
   useEffect(() => {
