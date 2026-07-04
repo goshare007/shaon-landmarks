@@ -10,7 +10,7 @@ interface ImageConfig {
   targetHeight?: number;
 }
 
-const HERO: ImageConfig = { maxWidth: 1200, quality: 75 };
+const HERO: ImageConfig = { maxWidth: 1200, quality: 50 };
 const GALLERY: ImageConfig = { maxWidth: 1000, quality: 65 };
 const OTHER: ImageConfig = { maxWidth: 1000, quality: 65 };
 const SMALL: ImageConfig = { maxWidth: 512, quality: 65 };
@@ -41,10 +41,18 @@ const OVERRIDES: Record<string, ImageConfig> = {
   // SEO
   'default-og.webp': { maxWidth: 1200, quality: 80 },
   // Sustainability cards — keep moderate size, let object-fit crop
-  'green-spaces.webp': { maxWidth: 700, quality: 65 },
-  'energy-efficiency.webp': { maxWidth: 700, quality: 65 },
-  'sustainable-materials.webp': { maxWidth: 600, quality: 65 },
-  'sustainability.webp': { maxWidth: 700, quality: 65 },
+  'green-spaces.webp': { targetWidth: 700, targetHeight: 500, quality: 55 },
+  'energy-efficiency.webp': {
+    targetWidth: 700,
+    targetHeight: 500,
+    quality: 55,
+  },
+  'sustainable-materials.webp': {
+    targetWidth: 600,
+    targetHeight: 500,
+    quality: 55,
+  },
+  'sustainability.webp': { targetWidth: 700, targetHeight: 500, quality: 55 },
   // Blog images
   'market-2026.webp': GALLERY,
   'location-matters.webp': GALLERY,
@@ -100,7 +108,7 @@ async function processFile(
       return;
     }
   } else if (config.maxWidth) {
-    if (currentWidth <= config.maxWidth && before < 100_000) {
+    if (currentWidth < config.maxWidth && before < 100_000) {
       results.push({
         file: relative(resolve(), filePath),
         before,
