@@ -72,6 +72,7 @@ export function PortfolioDetailFloorPlans({
                     alt={`${plan.title} floor plan`}
                     layout='fullWidth'
                     decoding='async'
+                    width={900}
                     height={600}
                     loading='lazy'
                     className='h-auto w-full object-cover'

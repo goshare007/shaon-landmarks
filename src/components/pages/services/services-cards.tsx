@@ -168,6 +168,7 @@ export function ServicesCards() {
                         alt={`${service.title} project overview`}
                         layout='fullWidth'
                         decoding='async'
+                        width={800}
                         height={600}
                         loading='lazy'
                         className='h-full w-full object-cover grayscale transition-all duration-900 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]'
@@ -183,6 +184,7 @@ export function ServicesCards() {
                         alt={`${service.title} rendering`}
                         layout='fullWidth'
                         decoding='async'
+                        width={600}
                         height={338}
                         loading='lazy'
                         className='h-full w-full object-cover grayscale transition-all duration-900 ease-out group-hover:grayscale-0 group-hover:scale-[1.03]'

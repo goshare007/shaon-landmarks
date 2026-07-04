@@ -93,6 +93,7 @@ export function SustainabilityPillars() {
                   alt={p.alt}
                   layout='fullWidth'
                   decoding='async'
+                  width={800}
                   height={400}
                   loading='lazy'
                   className='h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.03]'

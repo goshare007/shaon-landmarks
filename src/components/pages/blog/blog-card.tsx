@@ -35,6 +35,7 @@ export function BlogCard({ article, featured }: BlogCardProps) {
               alt={article.title}
               layout='fullWidth'
               decoding='async'
+              width={800}
               height={450}
               loading='lazy'
               className='h-full w-full object-cover transition-all duration-900 ease-out group-hover:scale-[1.04]'
@@ -81,6 +82,7 @@ export function BlogCard({ article, featured }: BlogCardProps) {
             alt={article.title}
             layout='fullWidth'
             decoding='async'
+            width={600}
             height={375}
             loading='lazy'
             className='h-full w-full object-cover transition-all duration-900 ease-out group-hover:scale-[1.04]'

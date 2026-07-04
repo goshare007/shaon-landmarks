@@ -161,7 +161,9 @@ export function HeroSection() {
             alt='Architectural landmark'
             layout='fullWidth'
             decoding='async'
+            width={1200}
             height={800}
+            fetchpriority='high'
             className='h-full w-full object-cover object-center'
           />
         </div>

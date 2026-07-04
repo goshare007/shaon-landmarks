@@ -201,6 +201,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                 alt={article.title}
                 layout='fullWidth'
                 decoding='async'
+                width={1200}
                 height={675}
                 loading='lazy'
                 className='w-full object-cover'
@@ -322,6 +323,7 @@ export function ArticleLayout({ article }: { article: BlogArticle }) {
                       alt={r.title}
                       layout='fullWidth'
                       decoding='async'
+                      width={400}
                       height={225}
                       loading='lazy'
                       className='h-full w-full object-cover transition-all duration-900 ease-out group-hover:scale-[1.04]'

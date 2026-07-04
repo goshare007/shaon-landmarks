@@ -78,6 +78,7 @@ export function PortfolioGrid() {
                         alt={project.title}
                         layout='fullWidth'
                         decoding='async'
+                        width={600}
                         height={400}
                         loading='lazy'
                         className='h-full w-full object-cover will-change-transform'

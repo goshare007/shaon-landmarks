@@ -4,40 +4,57 @@ import { join, relative, resolve } from 'node:path';
 import sharp from 'sharp';
 
 interface ImageConfig {
-  maxWidth: number;
   quality: number;
+  /** Resize to fit within this width, preserving aspect ratio */
+  maxWidth?: number;
+  /** Exact target dimensions — will crop to fill if aspect ratio differs */
+  targetWidth?: number;
+  targetHeight?: number;
 }
 
-const PROJECTS_HERO: ImageConfig = { maxWidth: 1200, quality: 80 };
-const PROJECTS_GALLERY: ImageConfig = { maxWidth: 1000, quality: 80 };
-const OTHER: ImageConfig = { maxWidth: 1000, quality: 80 };
-const SMALL: ImageConfig = { maxWidth: 512, quality: 80 };
+const HERO: ImageConfig = { maxWidth: 1200, quality: 80 };
+const GALLERY: ImageConfig = { maxWidth: 1000, quality: 75 };
+const OTHER: ImageConfig = { maxWidth: 1000, quality: 75 };
+const SMALL: ImageConfig = { maxWidth: 512, quality: 75 };
 
 const ROOTS = [resolve('src/assets/images'), resolve('public/images/blog')];
 
 const OVERRIDES: Record<string, ImageConfig> = {
-  // Hero-scale project images: cap at 1600px
-  'the-obsidian.webp': PROJECTS_HERO,
-  'bronze-heights.webp': PROJECTS_HERO,
-  'azure-waterfront.webp': PROJECTS_HERO,
-  'the-marble-collection.webp': PROJECTS_HERO,
-  'the-skyline-plaza.webp': PROJECTS_HERO,
-  // Gallery images: keep at 1200px
-  'gallery-1.webp': PROJECTS_GALLERY,
-  'gallery-2.webp': PROJECTS_GALLERY,
-  'gallery-3.webp': PROJECTS_GALLERY,
-  'gallery-4.webp': PROJECTS_GALLERY,
-  // Logo
-  'logo.webp': SMALL,
+  // Home hero — keep large but compress
+  'the-obsidian.webp': HERO,
+  // Featured project cards (displayed ~432x288 in grid, ~full-width hero card)
+  'bronze-heights.webp': HERO,
+  'azure-waterfront.webp': HERO,
+  'the-marble-collection.webp': HERO,
+  'the-skyline-plaza.webp': HERO,
+  // Gallery images
+  'gallery-1.webp': GALLERY,
+  'gallery-2.webp': GALLERY,
+  'gallery-3.webp': GALLERY,
+  'gallery-4.webp': GALLERY,
+  // Logo — displayed at ~28x32, resize to 2x for retina
+  'logo.webp': { targetWidth: 56, targetHeight: 64, quality: 80 },
   // SEO
   'default-og.webp': { maxWidth: 1200, quality: 80 },
+  // Sustainability cards — displayed in 3-col grid, crop to landscape 3:2
+  'green-spaces.webp': { targetWidth: 900, targetHeight: 600, quality: 75 },
+  'energy-efficiency.webp': {
+    targetWidth: 900,
+    targetHeight: 600,
+    quality: 75,
+  },
+  'sustainable-materials.webp': {
+    targetWidth: 600,
+    targetHeight: 750,
+    quality: 75,
+  },
   // Blog images
-  'market-2026.webp': { maxWidth: 1000, quality: 80 },
-  'location-matters.webp': { maxWidth: 1000, quality: 80 },
-  'sustainable-architecture.webp': { maxWidth: 1000, quality: 80 },
-  'smart-home.webp': { maxWidth: 1000, quality: 80 },
-  'rajuk-approval.webp': { maxWidth: 1000, quality: 80 },
-  'home-buying-guide.webp': { maxWidth: 1000, quality: 80 },
+  'market-2026.webp': GALLERY,
+  'location-matters.webp': GALLERY,
+  'sustainable-architecture.webp': GALLERY,
+  'smart-home.webp': GALLERY,
+  'rajuk-approval.webp': GALLERY,
+  'home-buying-guide.webp': GALLERY,
 };
 
 interface Result {
@@ -59,66 +76,112 @@ async function* walk(dir: string): AsyncGenerator<string> {
   }
 }
 
-async function main() {
-  const results: Result[] = [];
-  let totalBefore = 0;
-  let totalAfter = 0;
+async function processFile(
+  filePath: string,
+  config: ImageConfig,
+  results: Result[],
+  totals: { before: number; after: number },
+) {
+  const { size: before } = await stat(filePath);
+  const img = sharp(filePath);
+  const metadata = await img.metadata();
+  const currentWidth = metadata.width ?? 0;
+  const currentHeight = metadata.height ?? 0;
 
-  for (const root of ROOTS) {
-    for await (const filePath of walk(root)) {
-      const { size: before } = await stat(filePath);
-      const basename = filePath.split('/').pop() ?? '';
-      const config = OVERRIDES[basename] ?? OTHER;
-
-      const img = sharp(filePath);
-      const metadata = await img.metadata();
-      const currentWidth = metadata.width ?? 0;
-
-      if (currentWidth <= config.maxWidth && before < 100_000) {
-        results.push({
-          file: relative(resolve(), filePath),
-          before,
-          after: before,
-          skipped: true,
-        });
-        continue;
-      }
-
-      let pipeline = img;
-      if (currentWidth > config.maxWidth) {
-        pipeline = pipeline.resize({
-          width: config.maxWidth,
-          withoutEnlargement: true,
-        });
-      }
-
-      const buffer = await pipeline
-        .webp({ quality: config.quality, effort: 6 })
-        .toBuffer();
-
-      // Only write if output is actually smaller
-      if (buffer.length >= before) {
-        results.push({
-          file: relative(resolve(), filePath),
-          before,
-          after: before,
-          skipped: true,
-        });
-        continue;
-      }
-
-      await writeFile(filePath, buffer);
-      const after = buffer.length;
-
-      totalBefore += before;
-      totalAfter += after;
+  // Skip if image has exact target dimensions and is already small enough
+  if (config.targetWidth && config.targetHeight) {
+    if (
+      currentWidth === config.targetWidth &&
+      currentHeight === config.targetHeight &&
+      before < 100_000
+    ) {
       results.push({
         file: relative(resolve(), filePath),
         before,
-        after,
-        skipped: false,
+        after: before,
+        skipped: true,
       });
+      return;
     }
+  } else if (config.maxWidth) {
+    if (currentWidth <= config.maxWidth && before < 100_000) {
+      results.push({
+        file: relative(resolve(), filePath),
+        before,
+        after: before,
+        skipped: true,
+      });
+      return;
+    }
+  }
+
+  let pipeline = img;
+
+  if (config.targetWidth && config.targetHeight) {
+    pipeline = pipeline.resize({
+      width: config.targetWidth,
+      height: config.targetHeight,
+      fit: 'cover',
+      position: 'center',
+    });
+  } else if (config.maxWidth && currentWidth > config.maxWidth) {
+    pipeline = pipeline.resize({
+      width: config.maxWidth,
+      withoutEnlargement: true,
+    });
+  }
+
+  const buffer = await pipeline
+    .webp({ quality: config.quality, effort: 6 })
+    .toBuffer();
+
+  if (buffer.length >= before) {
+    results.push({
+      file: relative(resolve(), filePath),
+      before,
+      after: before,
+      skipped: true,
+    });
+    return;
+  }
+
+  await writeFile(filePath, buffer);
+  const after = buffer.length;
+
+  totals.before += before;
+  totals.after += after;
+  results.push({
+    file: relative(resolve(), filePath),
+    before,
+    after,
+    skipped: false,
+  });
+}
+
+async function main() {
+  const results: Result[] = [];
+  const totals = { before: 0, after: 0 };
+
+  for (const root of ROOTS) {
+    for await (const filePath of walk(root)) {
+      const basename = filePath.split('/').pop() ?? '';
+      const config = OVERRIDES[basename] ?? OTHER;
+      await processFile(filePath, config, results, totals);
+    }
+  }
+
+  // Process logo.webp (not under images/ subdirectory)
+  const logoPath = resolve('src/assets/logo.webp');
+  try {
+    await stat(logoPath);
+    await processFile(
+      logoPath,
+      OVERRIDES['logo.webp'] ?? SMALL,
+      results,
+      totals,
+    );
+  } catch {
+    // logo not found
   }
 
   console.log('\nImage optimization results:\n');
@@ -135,10 +198,10 @@ async function main() {
     }
   }
 
-  if (totalBefore > 0) {
-    const pct = ((1 - totalAfter / totalBefore) * 100).toFixed(0);
+  if (totals.before > 0) {
+    const pct = ((1 - totals.after / totals.before) * 100).toFixed(0);
     console.log(
-      `\n  Total: ${(totalBefore / 1024).toFixed(0)}K → ${(totalAfter / 1024).toFixed(0)}K  (-${pct}%)\n`,
+      `\n  Total: ${(totals.before / 1024).toFixed(0)}K → ${(totals.after / 1024).toFixed(0)}K  (-${pct}%)\n`,
     );
   }
 }

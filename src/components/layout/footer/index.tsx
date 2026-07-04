@@ -261,8 +261,7 @@ export default function Footer() {
                   width={18}
                   alt='Shaon Landmarks'
                   className='size-7'
-                  loading='eager'
-                  fetchPriority='high'
+                  loading='lazy'
                 />
               </div>
               <div>

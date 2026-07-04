@@ -123,6 +123,7 @@ export function SustainabilitySection() {
                   alt={item.title}
                   layout='fullWidth'
                   decoding='async'
+                  width={900}
                   height={500}
                   loading='lazy'
                   className='h-full w-full object-cover transition-transform duration-900 ease-out group-hover:scale-[1.04]'

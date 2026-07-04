@@ -96,6 +96,7 @@ export function PortfolioDetailVision({
                 alt={`${vision.title} — vision illustration`}
                 layout='fullWidth'
                 decoding='async'
+                width={600}
                 height={750}
                 loading='lazy'
                 className='aspect-4/5 h-full w-full object-cover'

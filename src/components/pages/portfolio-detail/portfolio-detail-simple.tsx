@@ -52,6 +52,7 @@ export function PortfolioDetailSimple({ project }: { project: Project }) {
             src={project.image}
             alt={project.title}
             layout='fullWidth'
+            width={1600}
             height={600}
             className='h-full w-full object-cover'
           />

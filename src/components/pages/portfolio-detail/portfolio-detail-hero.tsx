@@ -49,7 +49,9 @@ export function PortfolioDetailHero({
           alt={`${project.title} — exterior view`}
           layout='fullWidth'
           decoding='async'
+          width={1600}
           height={600}
+          fetchpriority='high'
           className='h-full w-full object-cover'
         />
       </div>

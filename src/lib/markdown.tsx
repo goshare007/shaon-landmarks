@@ -16,6 +16,7 @@ function renderInline(text: string): ReactNode {
           src={imgMatch[2]}
           alt={imgMatch[1]}
           layout='fullWidth'
+          width={800}
           height={450}
           loading='lazy'
           className='my-6 w-full rounded-sm object-cover'

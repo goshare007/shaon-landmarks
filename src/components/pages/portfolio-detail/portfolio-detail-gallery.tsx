@@ -90,6 +90,7 @@ export function PortfolioDetailGallery({
               alt={`${projectTitle} gallery — main view`}
               layout='fullWidth'
               decoding='async'
+              width={1200}
               height={800}
               loading='lazy'
               className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
@@ -107,6 +108,7 @@ export function PortfolioDetailGallery({
                 alt={`${projectTitle} gallery — view 2`}
                 layout='fullWidth'
                 decoding='async'
+                width={600}
                 height={400}
                 loading='lazy'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
@@ -125,6 +127,7 @@ export function PortfolioDetailGallery({
                 alt={`${projectTitle} gallery — view 3`}
                 layout='fullWidth'
                 decoding='async'
+                width={600}
                 height={400}
                 loading='lazy'
                 className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'

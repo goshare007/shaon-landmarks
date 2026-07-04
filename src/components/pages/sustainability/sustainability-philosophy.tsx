@@ -99,6 +99,7 @@ export function SustainabilityPhilosophy() {
                 alt='Sustainable architecture design'
                 layout='fullWidth'
                 decoding='async'
+                width={1200}
                 height={600}
                 loading='lazy'
                 className='h-full w-full object-cover'

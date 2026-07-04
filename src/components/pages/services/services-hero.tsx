@@ -139,7 +139,9 @@ export function ServicesHero() {
               alt='Shaon Landmark services overview'
               layout='fullWidth'
               decoding='async'
+              width={1600}
               height={900}
+              fetchpriority='high'
               className='h-full w-full object-cover'
             />
           </div>

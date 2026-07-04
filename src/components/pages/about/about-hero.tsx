@@ -56,7 +56,9 @@ export function AboutHero() {
           alt='Shaon Landmarks — architectural excellence since 2008'
           layout='fullWidth'
           decoding='async'
+          width={1600}
           height={1000}
+          fetchpriority='high'
           className='h-full w-full object-cover'
         />
       </div>

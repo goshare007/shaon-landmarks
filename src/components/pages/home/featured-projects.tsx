@@ -24,7 +24,9 @@ function FeaturedCard({ project }: { project: Project }) {
             alt={project.title}
             layout='fullWidth'
             decoding='async'
+            width={1200}
             height={800}
+            loading='lazy'
             className='h-full! w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] will-change-transform'
           />
         </div>
@@ -93,6 +95,7 @@ function GridCard({ project }: { project: Project }) {
             alt={project.title}
             layout='fullWidth'
             decoding='async'
+            width={600}
             height={500}
             loading='lazy'
             className='h-full! w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] will-change-transform'

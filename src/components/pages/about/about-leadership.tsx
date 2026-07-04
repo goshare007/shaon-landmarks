@@ -169,6 +169,7 @@ export function AboutLeadership() {
                           alt={leader.alt}
                           layout='fullWidth'
                           decoding='async'
+                          width={300}
                           height={400}
                           loading='lazy'
                           className='h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.03]'

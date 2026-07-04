@@ -85,6 +85,7 @@ export function ContactLocations() {
                   alt={office.title}
                   layout='fullWidth'
                   decoding='async'
+                  width={800}
                   height={400}
                   loading='lazy'
                   className='h-full w-full object-cover'
