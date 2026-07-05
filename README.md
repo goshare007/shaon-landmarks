@@ -1,218 +1,181 @@
-Welcome to your new TanStack Start app! 
+# Shaon Landmarks & Housing — Architectural Integrity
 
-# Getting Started
+[![Stack: TanStack Start](https://img.shields.io/badge/TanStack-Start-ef4444?logo=react)](https://tanstack.com/start)
+[![React](https://img.shields.io/badge/React-19-58c4dc?logo=react)](https://react.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwindcss)](https://tailwindcss.com)
+[![Bun](https://img.shields.io/badge/Bun-1.x-f9f9f9?logo=bun)](https://bun.sh)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript)](https://www.typescriptlang.org)
+[![Biome](https://img.shields.io/badge/Biome-2.4-60a5fa?logo=biome)](https://biomejs.dev)
+[![GSAP](https://img.shields.io/badge/GSAP-3-88ce02)](https://gsap.com)
 
-To run this application:
+Premium real estate showcase for **Shaon Landmarks & Housing**, a Dhaka-based developer known for architectural integrity, timely handover, and sophisticated design.
+
+The site is a **server-rendered React SPA** — a portfolio, lead-generation tool, and brand presence rolled into one.
+
+---
+
+## Key Features
+
+- **Portfolio** — project listing with detail pages for each landmark: hero imagery, vision/mission, floor plans, amenities, specifications, location on Leaflet map, and full-screen lightbox galleries
+- **Blog** — markdown-backed articles with full layout, hero banners, CTA, and social sharing
+- **Services** — architecture, construction, interior design, land development
+- **About** — company story, mission/vision, leadership team, certifications, testimonials
+- **Contact** — EmailJS-powered form, Leaflet office locations map, WhatsApp integration
+- **EMI Calculator** — interactive loan/EMI calculator for prospective buyers
+- **Sustainability** — dedicated page with philosophy, pillars, and certifications
+- **Smooth scroll** — powered by Lenis with custom easing
+- **Scroll animations** — GSAP + ScrollTrigger throughout every section
+- **SEO** — JSON-LD structured data (WebPage, BreadcrumbList, Organization), canonical URLs, sitemap
+- **Performance** — WebP images, optimized via Sharp, lazy loading, skeleton/error route states
+
+---
+
+## Tech Stack
+
+| Layer | Choice |
+|---|---|
+| **Framework** | [TanStack Start](https://tanstack.com/start) (React 19 SSR) |
+| **Routing** | [TanStack Router](https://tanstack.com/router) — file-based |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com) |
+| **UI Primitives** | [Base UI React](https://base-ui.com) + hand-built shadcn-style components |
+| **Icons** | [Tabler Icons](https://tabler.io/icons) |
+| **Animation** | [GSAP](https://gsap.com) with ScrollTrigger |
+| **Smooth Scroll** | [Lenis](https://lenis.darkroom.engineering) |
+| **Carousel** | [Embla](https://www.embla-carousel.com) |
+| **Maps** | [React Leaflet](https://react-leaflet.js.org) |
+| **Contact** | [EmailJS](https://www.emailjs.com) |
+| **Image Optimization** | [Sharp](https://sharp.pixelplumbing.com) |
+| **Build / Dev** | [Vite](https://vitejs.dev) + [Bun](https://bun.sh) |
+| **Linting** | [Biome](https://biomejs.dev) |
+| **Testing** | [Vitest](https://vitest.dev) + [Testing Library](https://testing-library.com) |
+| **Server** | [Nitro](https://nitro.build) (deploy anywhere) |
+
+---
+
+## Getting Started
+
+**Prerequisites:** [Bun](https://bun.sh) ≥ 1.3
 
 ```bash
+# 1. Clone the repo
+git clone <repo-url>
+cd shaon-landmarks
+
+# 2. Set up environment variables
+cp .env.example .env
+# Then edit .env with your EmailJS credentials (see below)
+
+# 3. Install dependencies
 bun install
+
+# 4. Start dev server
 bun --bun run dev
 ```
 
-# Building For Production
+The app opens at `http://localhost:3000`.
 
-To build this application for production:
+---
+
+## Environment Variables
+
+| Variable | Required | Default | Description |
+|---|---|---|---|
+| `VITE_SITE_URL` | Yes | `https://shaon-landmarks.pages.dev` | Canonical site URL |
+| `VITE_EMAILJS_PUBLIC_KEY` | Yes | — | EmailJS public API key |
+| `VITE_EMAILJS_SERVICE_ID` | Yes | — | EmailJS service ID |
+| `VITE_EMAILJS_TEMPLATE_ID` | Yes | — | Contact form template ID |
+| `VITE_EMAILJS_NEWSLETTER_TEMPLATE_ID` | Yes | — | Newsletter signup template ID |
+| `VITE_WHATSAPP_NUMBER` | No | `+8801712345678` | WhatsApp business number |
+| `VITE_CONTACT_PHONE` | No | `+8801712345678` | Display phone number |
+| `VITE_CONTACT_EMAIL` | No | `info@shaonlandmarks.com` | Display email address |
+
+EmailJS vars are required for the contact and newsletter forms. Get them at [emailjs.com](https://www.emailjs.com).
+
+---
+
+## Available Scripts
+
+| Script | Command | Purpose |
+|---|---|---|
+| `dev` | `vite dev --port 3000` | Start development server |
+| `build` | `vite build` | Build for production |
+| `preview` | `vite preview` | Preview production build |
+| `test` | `bun test` | Run tests (Vitest) |
+| `lint` | `biome lint` | Lint source files |
+| `format` | `biome format` | Format source files |
+| `check` | `biome check . --write` | Lint + format + apply fixes |
+| `typecheck` | `tsc --noEmit` | TypeScript type checking |
+| `gen-sitemap` | `bun run scripts/generate-sitemap.ts` | Generate `public/sitemap.xml` |
+| `gen-images` | `bun run scripts/optimize-images.ts` | Optimize images with Sharp |
+| `analyze:bundle` | `ANALYZE=true vite build` | Bundle analysis |
+| `knip` | `knip` | Dead file/export detection |
+
+---
+
+## Project Structure
+
+```
+shaon-landmarks/
+├── src/
+│   ├── routes/          # File-based routes (TanStack Router)
+│   │   ├── __root.tsx   # Layout shell (header, footer, Lenis)
+│   │   ├── index.tsx    # Home page
+│   │   ├── about.tsx
+│   │   ├── services.tsx
+│   │   ├── contact.tsx
+│   │   ├── portfolio.tsx / portfolio.$slug.tsx
+│   │   ├── blog.tsx / blog.$slug.tsx
+│   │   ├── sustainability.tsx
+│   │   ├── emi-calculator.tsx
+│   │   ├── privacy.tsx
+│   │   └── legal.tsx
+│   ├── components/
+│   │   ├── layout/      # Header, Footer, Newsletter
+│   │   ├── ui/          # Button, Card, Badge, Carousel, Sheet, etc.
+│   │   ├── shared/      # RouteError, RouteSkeleton
+│   │   └── pages/       # Section components per page
+│   ├── content/         # Data files (projects, blog, navigation, etc.)
+│   │   └── blog/        # Markdown blog articles
+│   ├── lib/             # Utilities (env, seo, email, gsap, lenis, markdown)
+│   └── assets/          # WebP images (projects, about, contact, etc.)
+├── scripts/             # Build-time scripts (sitemap, image optimization)
+├── doc/                 # Documentation
+│   └── design-system.md # Full design token reference
+├── public/              # Static assets (favicon, manifest, sitemap)
+└── .env.example         # Environment variable template
+```
+
+---
+
+## Design System
+
+Canonical tokens (typography, colors, spacing, icons, animations) are documented in [`doc/design-system.md`](doc/design-system.md). It covers:
+
+- Font stack (Inter Variable + Cormorant Garamond)
+- Color palette (OKLCH values, bronze/gold brand)
+- Type scale and letter-spacing
+- Spacing and grid patterns
+- All component variants
+- GSAP animation patterns
+- Hover effect patterns
+
+---
+
+## Deployment
+
+The project uses **Nitro** as the server adapter. Build produces a self-contained Node server:
 
 ```bash
 bun --bun run build
+node .output/server/index.mjs
 ```
 
-## Testing
+Push the `.output/` directory to any Node-compatible host (Render, Fly.io, VPS, etc.).
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+For platform-specific presets (Vercel, Netlify, Cloudflare, AWS Lambda), see [Nitro deployment docs](https://v3.nitro.build/deploy).
 
-```bash
-bun --bun run test
-```
+---
 
-## Styling
+## License
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
-
-### Removing Tailwind CSS
-
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `bun install @tailwindcss/vite tailwindcss -D`
-
-## Linting & Formatting
-
-This project uses [Biome](https://biomejs.dev/) for linting and formatting. The following scripts are available:
-
-
-```bash
-bun --bun run lint
-bun --bun run format
-bun --bun run check
-```
-
-
-## Deploy with Nitro
-
-This project uses Nitro as a generic server adapter, so it can run on any Node-compatible host.
-
-```bash
-npm run build
-node dist/server/index.mjs
-```
-
-The build output is a self-contained Node server. To deploy, push the `dist/` directory to your host (Render, Fly.io, your own VPS, etc.) and run the server command above.
-
-For host-specific presets (Vercel, Netlify, Cloudflare, AWS Lambda, etc.) and tuning, see https://v3.nitro.build/deploy.
-
-
-
-## Routing
-
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+Private — all rights reserved. Shaon Landmarks & Housing.
